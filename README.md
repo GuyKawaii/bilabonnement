@@ -1,3 +1,3 @@
 # bilabonnement
 
-Examn project for 2. semester
+Exam project for 2. semester
