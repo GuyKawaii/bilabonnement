@@ -1,4 +1,4 @@
 package com.example.bilabonnement.repository;
 
-public class Customer {
+public class CustomerRepository {
 }

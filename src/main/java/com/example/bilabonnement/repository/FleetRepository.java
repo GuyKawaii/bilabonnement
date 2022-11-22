@@ -1,4 +1,6 @@
 package com.example.bilabonnement.repository;
 
-public class DamageEntry {
+public class FleetRepository {
+
+
 }
