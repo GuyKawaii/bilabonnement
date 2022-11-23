@@ -1,6 +1,32 @@
 package com.example.bilabonnement.repository;
 
-public class FleetRepository {
+import java.util.List;
+
+public class FleetRepository implements IGenericRepository{
 
 
+  @Override
+  public void create(Object p) {
+
+  }
+
+  @Override
+  public List readAll() {
+    return null;
+  }
+
+  @Override
+  public Object read() {
+    return null;
+  }
+
+  @Override
+  public void update(Object p) {
+
+  }
+
+  @Override
+  public void delete(int id) {
+
+  }
 }

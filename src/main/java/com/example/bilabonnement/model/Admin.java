@@ -2,18 +2,19 @@ package com.example.bilabonnement.model;
 
 
 
-public class Employee {
-    private String email;
-    private String name;
-    private int id;
-    private String password;
+// TEST CLASS THAT IS THE ALL SEEING EYE
+public class Admin {
+  private String email;
+  private String name;
+  private int id;
+  private String password;
 
 
-    public Employee(String email, String name) {
+    public Admin(String email, String name) {
       this.name = name;
       this.email = email;
     }
-    public Employee(String email, String password, String name) {
+    public Admin(String email, String password, String name) {
       this.name = name;
       this.email = email;
       this.password = password;

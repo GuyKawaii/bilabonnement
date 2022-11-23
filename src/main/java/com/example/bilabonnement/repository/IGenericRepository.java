@@ -2,18 +2,18 @@ package com.example.bilabonnement.repository;
 
 import java.util.List;
 
-public interface IGenericRepository<E> { //HUSK GENERISK DATATYPE <E>
+public interface IGenericRepository<T> { //HUSK GENERISK DATATYPE <E>
   //gøres så det er dynamisk, alle datatyper kan indsættes
   //Claus bruger <E> fordi det gøres i Lister men han ville normalt bruge <T>
   //Kan bruge alle bogstaver, også V, men E er standard
 
-  void create(E p);
+  void create(T p);
 
-  List<E> readAll();
+  List<T> readAll();
 
-  E read(); //dynamisk returtype
+  T read(); //dynamisk returtype
 
-  void update(E p);
+  void update(T p);
 
   void delete(int id);
 

@@ -1,0 +1,96 @@
+*, html {
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+/* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
+}
+
+body {
+    margin: 0px;
+}ul {
+     list-style-type: none;
+     margin: 0 5% 0 5%;
+     padding: 0;
+     overflow: hidden;
+     background-size: cover;
+ }
+li {float:left;
+}
+li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 18px;
+    text-decoration: none;
+    background-size: cover;
+}
+
+li a:hover {
+    background-color: rgb(56, 173, 152);
+}
+
+h1 {
+    text-align: center;
+}
+.midter-div {
+    margin: 0 5% 0 5%;
+}
+#smal-midterdiv {
+    margin: 0 20% 0 20%;
+    padding: 4%;
+}
+
+#login-div {
+    text-align: center;
+    border: 1px solid black;
+}
+
+input {
+    border-radius: 15px;
+    background-color: white;
+    padding: 1%;
+    border: 2px solid antiquewhite;
+
+}
+button {
+    border-radius: 9px;
+    font-weight: bold;
+    border: 2px solid antiquewhite;
+    color: #806f00;
+}
+
+.pink {
+    background: rgba(32, 199, 28, 0.2);;
+}
+.morepink {
+    background: rgba(26, 10, 255, 0.7);;
+}
+
+footer{
+    bottom: 0;
+    background-color: rgba(255,2555,255,0.3);
+    left: 0;
+    height: 100px;
+    overflow: auto;
+    margin: 0 5% 0 5%;
+}
+
+.footer-text{
+    text-align: center;
+    height: auto;
+    padding: 10px;
+    margin: 2px;
+}
+.tdsize {
+    padding: 4px;
+}
+.deletesize {
+    padding: 3px;
+
+
+}

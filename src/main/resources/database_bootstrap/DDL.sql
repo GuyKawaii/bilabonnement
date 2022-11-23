@@ -7,9 +7,11 @@ USE bilabonnement;
 
 #  create tables
 CREATE TABLE employee (
-    username varchar(80),
-    email varchar(80),
-    password varchar(80),
+                          user_id int auto_increment,
+                          email varchar(255) unique not null,
+                          password varchar(255) not null,
+                          primary key (user_id)
+
 
     # constraints
 );
