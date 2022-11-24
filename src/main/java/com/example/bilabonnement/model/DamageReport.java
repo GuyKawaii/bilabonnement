@@ -12,7 +12,7 @@ public class DamageReport {
         this.id = id;
         this.datetime = datetime;
         this.leaseID = leaseID;
-        this.vehicleNumber = vehicleNumber;
+        this.vehicleID = vehicleNumber;
     }
 
     public int id() {
