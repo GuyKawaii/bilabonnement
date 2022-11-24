@@ -4,8 +4,8 @@ import com.example.bilabonnement.model.enums.FuelType;
 import com.example.bilabonnement.model.enums.State;
 
 public class Car {
-    private int vehicleNumber;
-    private String steelNumber;
+    private int vehicleID;
+    private String chassisNumber;
     private String color;
     private String brand;
     private String model;
@@ -16,9 +16,9 @@ public class Car {
     private int kmDriven;
     private State state;
 
-    public Car(int vehicleNumber, String steelNumber, String color, String brand, String model, int co2emission, String geartype, int kmPerLiter, FuelType fuelType, int kmDriven, State state) {
-        this.vehicleNumber = vehicleNumber;
-        this.steelNumber = steelNumber;
+    public Car(int vehicleID, String chassisNumber, String color, String brand, String model, int co2emission, String geartype, int kmPerLiter, FuelType fuelType, int kmDriven, State state) {
+        this.vehicleID = vehicleID;
+        this.chassisNumber = chassisNumber;
         this.color = color;
         this.brand = brand;
         this.model = model;
@@ -30,23 +30,23 @@ public class Car {
         this.state = state;
     }
 
-    public int vehicleNumber() {
-        return vehicleNumber;
+    public int getVehicleID() {
+        return vehicleID;
     }
 
-    public void setVehicleNumber(int vehicleNumber) {
-        this.vehicleNumber = vehicleNumber;
+    public void setVehicleID(int vehicleID) {
+        this.vehicleID = vehicleID;
     }
 
-    public String steelNumber() {
-        return steelNumber;
+    public String getChassisNumber() {
+        return chassisNumber;
     }
 
-    public void setSteelNumber(String steelNumber) {
-        this.steelNumber = steelNumber;
+    public void setChassisNumber(String chassisNumber) {
+        this.chassisNumber = chassisNumber;
     }
 
-    public String color() {
+    public String getColor() {
         return color;
     }
 
@@ -54,7 +54,7 @@ public class Car {
         this.color = color;
     }
 
-    public String brand() {
+    public String getBrand() {
         return brand;
     }
 
@@ -62,7 +62,7 @@ public class Car {
         this.brand = brand;
     }
 
-    public String model() {
+    public String getModel() {
         return model;
     }
 
@@ -70,7 +70,7 @@ public class Car {
         this.model = model;
     }
 
-    public int co2emission() {
+    public int getCo2emission() {
         return co2emission;
     }
 
@@ -78,7 +78,7 @@ public class Car {
         this.co2emission = co2emission;
     }
 
-    public String geartype() {
+    public String getGeartype() {
         return geartype;
     }
 
@@ -86,7 +86,7 @@ public class Car {
         this.geartype = geartype;
     }
 
-    public int kmPerLiter() {
+    public int getKmPerLiter() {
         return kmPerLiter;
     }
 
@@ -94,7 +94,7 @@ public class Car {
         this.kmPerLiter = kmPerLiter;
     }
 
-    public FuelType fuelType() {
+    public FuelType getFuelType() {
         return fuelType;
     }
 
@@ -102,7 +102,7 @@ public class Car {
         this.fuelType = fuelType;
     }
 
-    public int kmDriven() {
+    public int getKmDriven() {
         return kmDriven;
     }
 
@@ -110,7 +110,7 @@ public class Car {
         this.kmDriven = kmDriven;
     }
 
-    public State state() {
+    public State getState() {
         return state;
     }
 

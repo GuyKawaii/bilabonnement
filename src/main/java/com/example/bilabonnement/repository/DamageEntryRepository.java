@@ -100,7 +100,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
             throw new RuntimeException(e);
         }
 
-  }
+    }
 
     @Override
     public void delete(int id) {
@@ -115,5 +115,5 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
             throw new RuntimeException(e);
         }
 
-  }
+    }
 }

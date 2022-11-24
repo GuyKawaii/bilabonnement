@@ -79,15 +79,18 @@ public class CustomerRepository implements IGenericRepository<Customer> {
         return customerList;
     }
 
-  @Override
-  public Object read(int id) {
-    return null;
-  }
 
-  @Override
-  public void update(Object p) {
+    @Override
+    public void update(Customer customer) {
+        try {
+            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.customer SET firstName = ?, lastName = ?, email = ? WHERE customerID = ?");
+            psts.setInt(1, customer.getId());
+            psts.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-  }
+    }
 
     @Override
     public void delete(int customerID) {
@@ -102,5 +105,5 @@ public class CustomerRepository implements IGenericRepository<Customer> {
             throw new RuntimeException(e);
         }
 
-  }
+    }
 }

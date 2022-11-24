@@ -24,7 +24,8 @@ public class DamageEntry {
     }
 
 
-    public int id() {
+
+    public int getId() {
         return id;
     }
 
@@ -32,7 +33,7 @@ public class DamageEntry {
         this.id = id;
     }
 
-    public String damageTitle() {
+    public String getDamageTitle() {
         return damageTitle;
     }
 
@@ -40,7 +41,7 @@ public class DamageEntry {
         this.damageTitle = damageTitle;
     }
 
-    public String damageDescription() {
+    public String getDamageDescription() {
         return damageDescription;
     }
 
@@ -48,7 +49,7 @@ public class DamageEntry {
         this.damageDescription = damageDescription;
     }
 
-    public int damagePrice() {
+    public int getDamagePrice() {
         return damagePrice;
     }
 
@@ -56,7 +57,7 @@ public class DamageEntry {
         this.damagePrice = damagePrice;
     }
 
-    public int damageReportID() {
+    public int getDamageReportID() {
         return damageReportID;
     }
 

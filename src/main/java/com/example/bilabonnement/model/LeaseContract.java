@@ -1,8 +1,8 @@
 package com.example.bilabonnement.model;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class leaseContract {
+public class LeaseContract {
     private int leaseID;
     private Date startDate;
     private Date endDate;
