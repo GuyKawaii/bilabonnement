@@ -9,6 +9,12 @@ public class DamageEntry {
 
     private int damageReportID;
 
+    public DamageEntry(String damageTitle, String damageDescription, int damagePrice) {
+        this.damageTitle = damageTitle;
+        this.damageDescription = damageDescription;
+        this.damagePrice = damagePrice;
+    }
+
     public DamageEntry(int id, String damageTitle, String damageDescription, int damagePrice, int damageReportID) {
         this.id = id;
         this.damageTitle = damageTitle;
@@ -16,6 +22,7 @@ public class DamageEntry {
         this.damagePrice = damagePrice;
         this.damageReportID = damageReportID;
     }
+
 
     public int id() {
         return id;

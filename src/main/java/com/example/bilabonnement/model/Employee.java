@@ -10,7 +10,13 @@ public class Employee {
     private String password;
     private Role role;
 
-    public Employee(String email, String name, int id, String password, Role role) {
+    public Employee(int id, String email, String name,  Role role) {
+        this.email = email;
+        this.name = name;
+        this.id = id;
+        this.role = role;
+    }
+    public Employee(int id, String email, String name, Role role, String password) {
         this.email = email;
         this.name = name;
         this.id = id;

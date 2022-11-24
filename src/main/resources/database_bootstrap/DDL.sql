@@ -25,8 +25,8 @@ create table IF NOT EXISTS customer
 
 CREATE TABLE IF NOT EXISTS fleet
 (
-    vehicleNumber int AUTO_INCREMENT,
-    steelNumber   varchar(17),
+    vehicleID     int AUTO_INCREMENT,
+    chassisNumber varchar(17),
     color         varchar(30),
     brand         varchar(30),
     model         varchar(30),
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS fleet
     state         ENUM ('READY', 'IS_LEASED', 'UNDER_REPAIR', 'DAMAGED'),
 
     # constraints
-    PRIMARY KEY (vehicleNumber)
+    PRIMARY KEY (vehicleID)
 );
 
 CREATE TABLE IF NOT EXISTS damageEntry
