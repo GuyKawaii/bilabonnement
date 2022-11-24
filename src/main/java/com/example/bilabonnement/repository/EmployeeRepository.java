@@ -14,7 +14,7 @@ public class EmployeeRepository implements IGenericRepository{
   }
 
   @Override
-  public Object read() {
+  public Object read(int id) {
     return null;
   }
 

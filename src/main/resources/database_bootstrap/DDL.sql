@@ -14,6 +14,15 @@ CREATE TABLE IF NOT EXISTS employee
     primary key (employeeID)
 );
 
+create table IF NOT EXISTS customer
+(
+    customerID int auto_increment,
+    firstName  varchar(255)        null,
+    lastName   varchar(255)        null,
+    email      varchar(255) unique not null,
+    primary key (customerID)
+);
+
 CREATE TABLE IF NOT EXISTS fleet
 (
     vehicleNumber int AUTO_INCREMENT,

@@ -16,7 +16,7 @@ public class FleetRepository implements IGenericRepository{
   }
 
   @Override
-  public Object read() {
+  public Object read(int id) {
     return null;
   }
 
