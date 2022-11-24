@@ -62,7 +62,7 @@ public class FleetRepository implements IGenericRepository<Car> {
             PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.fleet");
             ResultSet resultSet = pst.executeQuery();
 
-            // read list of entities
+            // list of entities
             while (resultSet.next()) {
                 carList.add(new Car(
                         resultSet.getInt("vehicleID"),
@@ -95,7 +95,7 @@ public class FleetRepository implements IGenericRepository<Car> {
             ResultSet resultSet = psts.executeQuery();
 
 
-            // read entity parameters
+            // entity parameters
             while (resultSet.next()) {
                 car = new Car(
                         resultSet.getInt("vehicleID"),

@@ -42,7 +42,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.leasecontract");
             ResultSet resultSet = pst.executeQuery();
 
-            // read list of entities
+            // list of entities
             while (resultSet.next()) {
                 contractList.add(new LeaseContract(
                         resultSet.getInt("leaseID"),
@@ -69,7 +69,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
-            // read entity parameters
+            // entity parameters
             while (resultSet.next()) {
                 leaseContract = new LeaseContract(
                         resultSet.getInt("leaseID"),

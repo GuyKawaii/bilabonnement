@@ -48,7 +48,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
             PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.employee");
             ResultSet resultSet = pst.executeQuery();
 
-            // read list of entities
+            // list of entities
             while (resultSet.next()) {
                 employeeList.add(new Employee(
                         resultSet.getInt("employeeID"),
@@ -73,7 +73,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
-            // read entity parameters
+            // entity parameters
             while (resultSet.next()) {
                 employee = new Employee(
                         resultSet.getInt("employeeID"),

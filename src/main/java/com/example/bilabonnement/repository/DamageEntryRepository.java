@@ -50,7 +50,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
             PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.damageentry");
             ResultSet resultSet = pst.executeQuery();
 
-            // read list of entities
+            // list of entities
             while (resultSet.next()) {
                 damageList.add(new DamageEntry(
                         resultSet.getInt("damageEntryID"),
@@ -76,7 +76,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
-            // read entity parameters
+            // entity parameters
             while (resultSet.next()) {
                 damageEntry = new DamageEntry(
                         resultSet.getInt("damageEntryID"),
