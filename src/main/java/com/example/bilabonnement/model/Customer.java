@@ -1,7 +1,7 @@
 package com.example.bilabonnement.model;
 
 public class Customer {
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
@@ -18,7 +18,7 @@ public class Customer {
         this.email = email;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Controller
@@ -23,7 +25,7 @@ public class DamageReporterController {
     @PostMapping("/create-damage-report")
     public String createDamageReport(HttpSession session, WebRequest req, Model model){
         DamageReport damageReport = new DamageReport(
-                LocalDateTime.now(),
+                Timestamp.from(Instant.now()),
                 Integer.parseInt(req.getParameter("leaseID")),
                 Integer.parseInt(req.getParameter("vehicleID"))
         );

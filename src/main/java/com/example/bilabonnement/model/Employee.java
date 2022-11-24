@@ -4,9 +4,9 @@ package com.example.bilabonnement.model;
 import com.example.bilabonnement.model.enums.Role;
 
 public class Employee {
+    private Integer id;
     private String email;
     private String name;
-    private int id;
     private String password;
     private Role role;
 
@@ -48,7 +48,7 @@ public class Employee {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

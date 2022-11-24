@@ -2,7 +2,7 @@ package com.example.bilabonnement.model;
 
 // One entry of a damage report
 public class DamageEntry {
-    private int id;
+    private Integer id;
     private String damageTitle;
     private String damageDescription;
     private int damagePrice;
@@ -25,7 +25,7 @@ public class DamageEntry {
 
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -17,13 +17,25 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
 
     @Override
     public void create(DamageEntry damageEntry) {
-
         try {
-            PreparedStatement psts = conn.prepareStatement("INSERT INTO bilabonnement.damageentry (damageTitle, damageDescription, damagePrice) VALUES (?,?,?)");
-            psts.setString(1, damageEntry.getDamageTitle());
-            psts.setString(2, damageEntry.getDamageDescription());
-            psts.setInt(3, damageEntry.getDamagePrice());
+            // with or without predefined ID;
+            PreparedStatement psts;
+            if (damageEntry.getId() == null) {
+                psts = conn.prepareStatement("INSERT INTO bilabonnement.damageentry (damageTitle, damageDescription, damagePrice, damageReportID) VALUES (?,?,?,?)");
+                psts.setString(1, damageEntry.getDamageTitle());
+                psts.setString(2, damageEntry.getDamageDescription());
+                psts.setInt(3, damageEntry.getDamagePrice());
+                psts.setInt(4, damageEntry.getDamageReportID());
+            } else {
+                psts = conn.prepareStatement("INSERT INTO bilabonnement.damageentry (damageEntryID, damageTitle, damageDescription, damagePrice, damageReportID) VALUES (?,?,?,?,?)");
+                psts.setInt(1, damageEntry.getId());
+                psts.setString(2, damageEntry.getDamageTitle());
+                psts.setString(3, damageEntry.getDamageDescription());
+                psts.setInt(4, damageEntry.getDamagePrice());
+                psts.setInt(5, damageEntry.getDamageReportID());
+            }
             psts.executeUpdate();
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -36,16 +48,16 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
 
         try {
             PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.damageentry");
-            {
-                ResultSet resultSet = pst.executeQuery();
-                while (resultSet.next()) {
-                    damageList.add(new DamageEntry(
-                            resultSet.getInt("damageEntryID"),
-                            resultSet.getString("damageTitle"),
-                            resultSet.getString("damageDescription"),
-                            resultSet.getInt("damagePrice"),
-                            resultSet.getInt("damageReportID")));
-                }
+            ResultSet resultSet = pst.executeQuery();
+
+            // read list of entities
+            while (resultSet.next()) {
+                damageList.add(new DamageEntry(
+                        resultSet.getInt("damageEntryID"),
+                        resultSet.getString("damageTitle"),
+                        resultSet.getString("damageDescription"),
+                        resultSet.getInt("damagePrice"),
+                        resultSet.getInt("damageReportID")));
             }
 
         } catch (SQLException e) {
@@ -64,7 +76,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
-            // add parameters
+            // read entity parameters
             while (resultSet.next()) {
                 damageEntry = new DamageEntry(
                         resultSet.getInt("damageEntryID"),
@@ -85,10 +97,13 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
     public void update(DamageEntry damageEntry) {
         try {
             PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.damageentry SET damageTitle = ?, damageDescription = ?, damagePrice = ? WHERE damageEntryID = ?");
-            psts.setInt(1, damageEntry.getId());
+            psts.setString(1, damageEntry.getDamageTitle());
+            psts.setString(2, damageEntry.getDamageDescription());
+            psts.setInt(3, damageEntry.getDamagePrice());
+            psts.setInt(4, damageEntry.getId());
             ResultSet resultSet = psts.executeQuery();
 
-            // add parameters
+            // specify parameters
             while (resultSet.next()) {
                 damageEntry = new DamageEntry(
                         resultSet.getString("damageTitle"),
@@ -99,21 +114,17 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
     public void delete(int id) {
-        Employee employee = null;
-        employeeID = employee.getId();
         try {
-            PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.employee WHERE employeeID=?");
-            psts.setInt(1, employeeID);
+            PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.damageentry WHERE damageEntryID=?");
+            psts.setInt(1, id);
             psts.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 }

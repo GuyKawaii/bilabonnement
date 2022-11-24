@@ -1,7 +1,10 @@
 package com.example.bilabonnement.repository;
 
+import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Employee;
+import com.example.bilabonnement.model.enums.FuelType;
 import com.example.bilabonnement.model.enums.Role;
+import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
 import java.sql.Connection;
@@ -11,109 +14,141 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FleetRepository implements IGenericRepository{
-  Connection conn = DatabaseConnectionManager.getConnection();
+public class FleetRepository implements IGenericRepository<Car> {
+    Connection conn = DatabaseConnectionManager.getConnection();
 
+    @Override
+    public void create(Car car) {
+        try {
+            PreparedStatement psts;
+            if (car.getVehicleID() == null) {
+                psts = conn.prepareStatement("INSERT INTO bilabonnement.fleet (chassisNumber, color, brand, model, co2emission, geartype, kmPerLiter, fuelType, kmDriven, state) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                psts.setString(1, car.getChassisNumber());
+                psts.setString(2, car.getColor());
+                psts.setString(3, car.getBrand());
+                psts.setString(4, car.getModel());
+                psts.setInt(5, car.getCo2emission());
+                psts.setString(6, car.getGeartype());
+                psts.setInt(7, car.getKmPerLiter());
+                psts.setString(8, car.getFuelType().toString());
+                psts.setInt(9, car.getKmDriven());
+                psts.setString(10, car.getState().toString());
+            } else {
+                psts = conn.prepareStatement("INSERT INTO bilabonnement.fleet (vehicleID, chassisNumber, color, brand, model, co2emission, geartype, kmPerLiter, fuelType, kmDriven, state) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                psts.setInt(1, car.getVehicleID());
+                psts.setString(2, car.getChassisNumber());
+                psts.setString(3, car.getColor());
+                psts.setString(4, car.getBrand());
+                psts.setString(5, car.getModel());
+                psts.setInt(6, car.getCo2emission());
+                psts.setString(7, car.getGeartype());
+                psts.setInt(8, car.getKmPerLiter());
+                psts.setString(9, car.getFuelType().toString());
+                psts.setInt(10, car.getKmDriven());
+                psts.setString(11, car.getState().toString());
+            }
+            psts.executeUpdate();
 
-
-  @Override
-  public void create(Object p) {
-    try {
-      PreparedStatement psts = conn.prepareStatement("INSERT INTO bilabonnement.employee (email, name, password, role) VALUES (?,?,?,?)");
-      psts.setString(1, employee.getEmail());
-      psts.setString(2, employee.getName());
-      psts.setString(3, employee.getPassword());
-      psts.setString(4, employee.getRole().name());
-      psts.executeUpdate();
-
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  @Override
-  public List readAll() {List<Employee> employeeList = new ArrayList<>();
-
-    try {
-      PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.employee");
-      {
-        ResultSet resultSet = pst.executeQuery();
-        while (resultSet.next()) {
-          employeeList.add(new Employee(
-                  resultSet.getInt("employeeID"),
-                  resultSet.getString("email"),
-                  resultSet.getString("name"),
-                  Role.valueOf(resultSet.getString("role"))));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
     }
 
-    return employeeList;
-  }
+    @Override
+    public List<Car> readAll() {
+        List<Car> carList = new ArrayList<>();
 
-  @Override
-  public Object read(int id) {
-    Employee employee = null;
+        try {
+            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.fleet");
+            ResultSet resultSet = pst.executeQuery();
 
-    try {
-      PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.employee WHERE employeeID = ?");
-      psts.setInt(1, id);
-      ResultSet resultSet = psts.executeQuery();
+            // read list of entities
+            while (resultSet.next()) {
+                carList.add(new Car(
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getString("chassisNumber"),
+                        resultSet.getString("color"),
+                        resultSet.getString("brand"),
+                        resultSet.getString("model"),
+                        resultSet.getInt("co2emission"),
+                        resultSet.getString("geartype"),
+                        resultSet.getInt("kmPerLiter"),
+                        FuelType.valueOf(resultSet.getString("fuelType")),
+                        resultSet.getInt("kmDriven"),
+                        State.valueOf(resultSet.getString("state"))));
+            }
 
-      // add parameters
-      while (resultSet.next()) {
-        employee = new Employee(
-                resultSet.getInt("employeeID"),
-                resultSet.getString("email"),
-                resultSet.getString("name"),
-                Role.valueOf(resultSet.getString("role")),
-                resultSet.getString("password"));
-      }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
+        return carList;
     }
 
-    return employee;
-  }
+    @Override
+    public Car read(int id) {
+        Car car = null;
 
-  @Override
-  public void update(Object p) {
-    try {
-      PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.employee SET email = ?, name = ?, role = ?, password = ? WHERE employeeID = ?");
-      psts.setInt(1, employee.getId());
-      ResultSet resultSet = psts.executeQuery();
+        try {
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.fleet WHERE vehicleID = ?");
+            psts.setInt(1, id);
+            ResultSet resultSet = psts.executeQuery();
 
-      // add parameters
-      while (resultSet.next()) {
-        employee = new Employee(
-                resultSet.getInt("employeeID"),
-                resultSet.getString("email"),
-                resultSet.getString("name"),
-                Role.valueOf(resultSet.getString("role")),
-                resultSet.getString("password"));
-      }
 
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
+            // read entity parameters
+            while (resultSet.next()) {
+                car = new Car(
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getString("chassisNumber"),
+                        resultSet.getString("color"),
+                        resultSet.getString("brand"),
+                        resultSet.getString("model"),
+                        resultSet.getInt("co2emission"),
+                        resultSet.getString("geartype"),
+                        resultSet.getInt("kmPerLiter"),
+                        FuelType.valueOf(resultSet.getString("fuelType")),
+                        resultSet.getInt("kmDriven"),
+                        State.valueOf(resultSet.getString("state")));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return car;
     }
 
-  }
+    @Override
+    public void update(Car car) {
+        try {
+            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.fleet SET chassisNumber = ?, color = ?, brand = ?, model = ?, co2emission = ?, geartype = ?, kmPerLiter = ?, fuelType = ?, kmDriven = ?, state = ? WHERE vehicleID = ?");
+            psts.setString(1, car.getChassisNumber());
+            psts.setString(2, car.getColor());
+            psts.setString(3, car.getBrand());
+            psts.setString(4, car.getModel());
+            psts.setInt(5, car.getCo2emission());
+            psts.setString(6, car.getGeartype());
+            psts.setInt(7, car.getKmPerLiter());
+            psts.setString(8, car.getFuelType().toString());
+            psts.setInt(9, car.getKmDriven());
+            psts.setString(10, car.getState().toString());
+            psts.setInt(11, car.getVehicleID());
+            ResultSet resultSet = psts.executeQuery();
 
-  @Override
-  public void delete(int id) {
-    Employee employee = null;
-    employeeID = employee.getId();
-    try {
-      PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.employee WHERE employeeID=?");
-      psts.setInt(1, employeeID);
-      psts.executeUpdate();
-
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-  }
+    @Override
+    public void delete(int id) {
+        try {
+            PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.fleet WHERE vehicleID = ?");
+            psts.setInt(1, id);
+            psts.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

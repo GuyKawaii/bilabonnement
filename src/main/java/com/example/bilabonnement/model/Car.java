@@ -4,7 +4,7 @@ import com.example.bilabonnement.model.enums.FuelType;
 import com.example.bilabonnement.model.enums.State;
 
 public class Car {
-    private int vehicleID;
+    private Integer vehicleID;
     private String chassisNumber;
     private String color;
     private String brand;
@@ -30,7 +30,7 @@ public class Car {
         this.state = state;
     }
 
-    public int getVehicleID() {
+    public Integer getVehicleID() {
         return vehicleID;
     }
 

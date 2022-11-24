@@ -1,24 +1,25 @@
 package com.example.bilabonnement.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class DamageReport {
     private Integer id;
-    private LocalDateTime datetime;
+    private Timestamp timestamp;
     private int leaseID;
     private int vehicleID;
 
     // create with ID
-    public DamageReport(Integer id, LocalDateTime datetime, int leaseID, int vehicleNumber) {
+    public DamageReport(Integer id, Timestamp timestamp, int leaseID, int vehicleNumber) {
         this.id = id;
-        this.datetime = datetime;
+        this.timestamp = timestamp;
         this.leaseID = leaseID;
         this.vehicleID = vehicleNumber;
     }
 
     // create without ID
-    public DamageReport(LocalDateTime datetime, int leaseID, int vehicleNumber) {
-        this.datetime = datetime;
+    public DamageReport(Timestamp timestamp, int leaseID, int vehicleNumber) {
+        this.timestamp = timestamp;
         this.leaseID = leaseID;
         this.vehicleID = vehicleNumber;
     }
@@ -31,12 +32,12 @@ public class DamageReport {
         this.id = id;
     }
 
-    public LocalDateTime getDatetime() {
-        return datetime;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setDatetime(LocalDateTime datetime) {
-        this.datetime = datetime;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     public int getLeaseID() {
