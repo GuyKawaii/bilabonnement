@@ -14,7 +14,7 @@ public class CustomerRepository implements IGenericRepository {
   }
 
   @Override
-  public Object read() {
+  public Object read(int id) {
     return null;
   }
 

@@ -1,25 +1,27 @@
 package com.example.bilabonnement.repository;
 
+import com.example.bilabonnement.model.DamageEntry;
+
 import java.util.List;
 
-public class DamageEntryRepository implements IGenericRepository{
+public class DamageEntryRepository implements IGenericRepository<DamageEntry>{
   @Override
-  public void create(Object p) {
+  public void create(DamageEntry p) {
 
   }
 
   @Override
-  public List readAll() {
+  public List<DamageEntry> readAll() {
     return null;
   }
 
   @Override
-  public Object read() {
+  public DamageEntry read(int id) {
     return null;
   }
 
   @Override
-  public void update(Object p) {
+  public void update(DamageEntry p) {
 
   }
 

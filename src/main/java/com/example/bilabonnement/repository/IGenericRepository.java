@@ -11,7 +11,7 @@ public interface IGenericRepository<T> { //HUSK GENERISK DATATYPE <E>
 
   List<T> readAll();
 
-  T read(); //dynamisk returtype
+  T read(int id); //dynamisk returtype
 
   void update(T p);
 

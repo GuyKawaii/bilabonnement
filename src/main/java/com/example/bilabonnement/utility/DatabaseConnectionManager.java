@@ -23,6 +23,8 @@ public class DatabaseConnectionManager {
         password = System.getenv("azure_password");
 
         // localhost connect
+
+
         // TBA
 
         try {
