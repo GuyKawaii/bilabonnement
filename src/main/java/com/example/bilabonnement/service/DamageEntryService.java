@@ -1,0 +1,33 @@
+package com.example.bilabonnement.service;
+
+import com.example.bilabonnement.model.DamageEntry;
+import com.example.bilabonnement.repository.DamageEntryRepository;
+
+import java.util.List;
+
+public class DamageEntryService {
+    DamageEntryRepository damageEntryRepo = new DamageEntryRepository();
+
+    public void create(DamageEntry damageEntry) {
+        damageEntryRepo.create(damageEntry);
+    }
+
+    public List<DamageEntry> readAll(){
+    return damageEntryRepo.readAll();
+    }
+
+    public DamageEntry read(int id){
+        return damageEntryRepo.read(id);
+    }
+
+    public void update(DamageEntry damageEntry){
+        damageEntryRepo.update(damageEntry);
+    }
+
+    public void delete(int id){
+        damageEntryRepo.delete(id);
+    }
+
+    // specific for repo
+
+}
