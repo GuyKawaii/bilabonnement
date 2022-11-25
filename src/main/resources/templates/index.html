@@ -22,22 +22,14 @@
         <h1>Intranet Registrering</h1><br>
         <br><h2 style="text-align:center;">Der kan gå op til 24 timer inden Deres registrering er godkendt fra system admin</h2><br>
         <div id="login-div">
-            <br>
-            <h2>Registrering af medarbejder </h2><br>
-            <form action="/mypage" method="post">
-                <label for="email">E-Mail:</label><br>
-                <input type="text" name="email" required maxlength="80" minlength="6" autofocus><br>
-                <label for="password">Password:</label><br>
-                <input type="password" name="password" required maxlength="50" minlength="8"><br>
-                <button type="submit">Submit</button>
-            </form>
             <br><h2> LOGIN </h2>
             <form action="/login" method="post">
                 <label for="email">E-Mail:</label><br>
-                <input type="text" name="email" required maxlength="60"><br>
+                <input type="text" name="email" required><br>
                 <label for="password">Password:</label><br>
-                <input type="password" name="password" minlength="8" required><br><br>
+                <input type="password" name="password" required><br><br>
                 <button type="submit">Submit</button>
+                <div class="error" th:if="${employeeNotFound == true}" role="alert">Wrong email or password</div>
             </form>
             <br><br><br>
         </div>

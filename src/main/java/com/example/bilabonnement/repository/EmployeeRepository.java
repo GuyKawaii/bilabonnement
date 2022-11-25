@@ -117,5 +117,31 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
             throw new RuntimeException(e);
         }
     }
+
+    public Employee readByEmail(String email) {
+        Employee employee = null;
+
+        try {
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM employee WHERE email = ?;");
+            psts.setString(1, email);
+            ResultSet resultSet = psts.executeQuery();
+
+            // entity parameters
+            while (resultSet.next()) {
+                employee = new Employee(
+                        resultSet.getInt("employeeID"),
+                        resultSet.getString("email"),
+                        resultSet.getString("name"),
+                        Role.valueOf(resultSet.getString("role")),
+                        resultSet.getString("password"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return employee;
+    }
+
 }
 

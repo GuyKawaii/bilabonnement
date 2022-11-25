@@ -29,4 +29,6 @@ public class DamageReportService {
         damageRepo.delete(id);
     }
 
+    // specific for repo
+
 }
