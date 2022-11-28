@@ -21,6 +21,11 @@ CREATE TABLE IF NOT EXISTS customer
     firstName  varchar(255)        NULL,
     lastName   varchar(255)        NULL,
     email      varchar(255) UNIQUE NOT NULL,
+    address    varchar(255)        NULL,
+    city       varchar(255)        NULL,
+    postNumber int                 NULL,
+    mobile     varchar(255)        NULL,
+    cprNumber  varchar(255)        NULL,
     primary key (customerID)
 );
 

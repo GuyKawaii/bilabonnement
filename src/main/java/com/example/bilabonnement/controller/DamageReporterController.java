@@ -19,7 +19,10 @@ public class DamageReporterController {
     DamageReportService damageService = new DamageReportService();
 
     @GetMapping("/damage-report")
-    public String damageReport(){ //skal HttpSession være i alle parameterlister?
+    public String damageReport(){
+        //skal HttpSession være i alle parameterlister?
+        /* ^ I de sider hvor user er logget ind ja. User-login er gemt i en cookie
+        som tilgås via session for validering af info. (Ifølge hvad vi gennemgik i klassen?) */
         return "damage-report";
     }
     @PostMapping("/create-damage-report")

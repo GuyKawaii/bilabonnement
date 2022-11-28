@@ -19,16 +19,28 @@ public class CustomerRepository implements IGenericRepository<Customer> {
             // with or without predefined ID;
             PreparedStatement psts;
             if (customer.getId() == null) {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.customer (firstName, lastName, email) VALUES (?,?,?)");
+                psts = conn.prepareStatement(
+                        "INSERT INTO bilabonnement.customer (firstName, lastName, email, address, city, postNumber, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?)");
                 psts.setString(1, customer.getFirstName());
                 psts.setString(2, customer.getLastName());
                 psts.setString(3, customer.getEmail());
+                psts.setString(4, customer.getAddress());
+                psts.setString(5, customer.getCity());
+                psts.setInt(6, customer.getPostNumber());
+                psts.setString(7, customer.getMobile());
+                psts.setString(8,customer.getCprNumber());
             } else {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.customer (customerID, firstName, lastName, email) VALUES (?,?,?,?)");
+                psts = conn.prepareStatement(
+                        "INSERT INTO bilabonnement.customer (customerID, firstName, lastName, email, address, city, postNumber, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?,?)");
                 psts.setInt(1, customer.getId());
                 psts.setString(2, customer.getFirstName());
                 psts.setString(3, customer.getLastName());
                 psts.setString(4, customer.getEmail());
+                psts.setString(5, customer.getAddress());
+                psts.setString(6, customer.getCity());
+                psts.setInt(7, customer.getPostNumber());
+                psts.setString(8, customer.getMobile());
+                psts.setString(9,customer.getCprNumber());
             }
             psts.executeUpdate();
 
@@ -53,7 +65,12 @@ public class CustomerRepository implements IGenericRepository<Customer> {
                         resultSet.getInt("customerID"),
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
-                        resultSet.getString("email")));
+                        resultSet.getString("email"),
+                        resultSet.getString("address"),
+                        resultSet.getString("city"),
+                        resultSet.getInt("postNumber"),
+                        resultSet.getString("mobile"),
+                        resultSet.getString("cprNumber")));
             }
 
         } catch (SQLException e) {
@@ -78,8 +95,12 @@ public class CustomerRepository implements IGenericRepository<Customer> {
                         resultSet.getInt("customerID"),
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
-                        resultSet.getString("email")
-                );
+                        resultSet.getString("email"),
+                        resultSet.getString("address"),
+                        resultSet.getString("city"),
+                        resultSet.getInt("postNumber"),
+                        resultSet.getString("mobile"),
+                        resultSet.getString("cprNumber"));
             }
 
         } catch (SQLException e) {
@@ -92,11 +113,17 @@ public class CustomerRepository implements IGenericRepository<Customer> {
     @Override
     public void update(Customer customer) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.customer SET firstName = ?, lastName = ?, email = ? WHERE customerID = ?");
+            PreparedStatement psts = conn.prepareStatement(
+                    "UPDATE bilabonnement.customer SET firstName = ?, lastName = ?, email = ?, address = ?, city = ?, postNumber = ?, mobile = ?, cprNumber = ?, WHERE customerID = ?");
             psts.setString(1, customer.getFirstName());
             psts.setString(2, customer.getLastName());
             psts.setString(3, customer.getEmail());
-            psts.setInt(4, customer.getId());
+            psts.setString(4, customer.getAddress());
+            psts.setString(5, customer.getCity());
+            psts.setInt(6, customer.getPostNumber());
+            psts.setString(7, customer.getMobile());
+            psts.setString(8,customer.getCprNumber());
+            psts.setInt(9, customer.getId());
             psts.executeUpdate();
 
         } catch (SQLException e) {
@@ -106,6 +133,8 @@ public class CustomerRepository implements IGenericRepository<Customer> {
 
     @Override
     public void delete(int customerID) {
+
+        // TODO is it possible to make a delete on a table-row that has a foreign key?
         try {
             PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.customer WHERE customerID = ?");
             psts.setInt(1, customerID);
