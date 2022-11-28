@@ -1,0 +1,90 @@
+table{
+    margin: auto;
+    border-collapse: collapse;
+    width: 30%;
+}
+
+/*style the table headers -> ID - User Name - Favorite Teacher*/
+th{
+    border: 1px solid whitesmoke;
+    text-align: center;
+    font-family: "Arial Rounded MT Bold";
+    color: aliceblue;
+    background-color: darkblue;
+    padding: 2px;
+}
+
+/*style the data cells of the table*/
+td{
+    border: 1px solid black;
+    text-align: left;
+    padding: 2px;
+}
+
+/*style the table rows -> 1 row white next row lightgrey and so on*/
+tr:nth-child(even){
+    background-color: lightgrey;
+}
+
+/*styles buttons' width*/
+button {
+    width: 50px;
+}
+
+/*styles button column's width*/
+td#btn-column {
+    width: 160px;
+}
+
+/*removes line from link*/
+a {
+    text-decoration: none;
+}
+
+/*removes cursor from link on hover*/
+/*a:hover {
+    cursor: none;
+}*/
+
+/*styles all class="btn*/
+.btn {
+    margin: fill;
+    border: none;
+    color: white;
+    padding: 7px 10px;
+    text-align: center;
+}
+
+/*gives drop shadow and pointer on hover*/
+button:hover {
+    cursor: pointer;
+    box-shadow: 2px 2px 2px darkgrey;
+}
+
+/*styles Add user button*/
+#btn-add {
+    margin-left: 35%;
+    margin-top: 2%;
+    width: auto;
+    font-size: larger;
+    background-color: green;
+    color: aliceblue;
+}
+
+/*styles view user button*/
+#btn-view {
+    background-color: darkorange;
+    color: aliceblue;
+}
+
+/*styles delete user button*/
+#btn-delete {
+    background-color: orangered;
+    color: aliceblue;
+}
+
+/*styles edit user button*/
+#btn-edit {
+    background-color: green;
+    color: aliceblue;
+}

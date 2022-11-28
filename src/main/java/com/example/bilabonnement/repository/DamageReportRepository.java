@@ -74,7 +74,7 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
             // entity parameters
             while (resultSet.next()) {
                 damageReport = new DamageReport(
-                        resultSet.getInt("id"),
+                        resultSet.getInt("damageReportID"),
                         resultSet.getTimestamp("timestamp"),
                         resultSet.getInt("leaseID"),
                         resultSet.getInt("vehicleID"));
