@@ -29,7 +29,7 @@ public class CustomerService {
         customerRepo.delete(id);
     }
 
-    // specific for repo
+    // specific for service
 
 }
 

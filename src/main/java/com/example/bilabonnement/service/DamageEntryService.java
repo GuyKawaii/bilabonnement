@@ -28,6 +28,10 @@ public class DamageEntryService {
         damageEntryRepo.delete(id);
     }
 
-    // specific for repo
+    public List<DamageEntry> entriesByReport(int id) {
+        return damageEntryRepo.entriesByReport(id);
+    }
+
+    // specific for service
 
 }

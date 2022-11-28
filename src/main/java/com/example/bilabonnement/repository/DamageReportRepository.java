@@ -44,7 +44,7 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
         List<DamageReport> damageReports = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.employee");
+            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.damagereport");
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities

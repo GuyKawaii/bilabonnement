@@ -3,20 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>$Title$</title>
+    <link rel="stylesheet" href="dougie.css">
 </head>
 <body>
 
 <h1>Lav lejeaftale</h1>
 
-<form action="/makeContract" method="post">
-  <label for="startDate">Startdato:</label><br>
+<form action="/create_damage_report" method="post">
+    <label for="startDate">Startdato:</label><br>
     <input type="date" name="startDate"><br>
     <label for="endDate">Slutdato:</label><br>
     <input type="date" name="endDate"><br>
-  <label for="monthlyPrice">Monthly price:</label><br>
-  <input type="text" name="monthlyPrice"><br><br>
-  <button type="submit">Indsend</button>
+    <label for="monthlyPrice">Monthly price:</label><br>
+    <input type="text" name="monthlyPrice"><br><br>
+    <button type="submit">Indsend</button>
 </form>
+
+<div id="horizontal_tables">
+<!--    leaseContracts-->
+    <table>
+        <tr>
+            <td>leaseContract</td>
+            <td>Tobias</td>
+            <td>Linus</td>
+        </tr>
+        <tr>
+            <td>leaseContract</td>
+            <td>Tobias</td>
+            <td>Linus</td>
+        </tr>
+        <tr>
+            <td>leaseContract</td>
+            <td>Tobias</td>
+            <td>Linus</td>
+        </tr>
+
+    </table>
+
+<!--    damageReports-->
+    <table>
+        <tr>
+            <td>damageReport</td>
+            <td>Tobias</td>
+            <td>Linus</td>
+        </tr>
+        <tr>
+            <td>leaseContract</td>
+            <td>Tobias</td>
+            <td>Linus</td>
+        </tr>
+        <tr>
+            <td>leaseContract</td>
+            <td>Tobias</td>
+            <td>Linus</td>
+        </tr>
+
+    </table>
+</div>
+
 
 </body>
 </html>

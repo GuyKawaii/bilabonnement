@@ -2,6 +2,7 @@ package com.example.bilabonnement.controller;
 
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.repository.LeaseContractRepository;
+import com.example.bilabonnement.service.DamageReportService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,12 @@ import java.util.Objects;
 public class DataRegistrationController {
 
     LeaseContractRepository leaseContractRepository = new LeaseContractRepository();
+    DamageReportService damageReportService = new DamageReportService();
 
-    @GetMapping("/registration")
-    public String registrationPage(HttpSession session) {
+    @GetMapping("/damageReports")
+    public String registrationPage(HttpSession session, Model model) {
 
-        return "registration";
+        return "damage-report";
     }
 
     @PostMapping("/makeContract")

@@ -1,0 +1,18 @@
+
+#content {
+    margin: 0 auto;
+    width: 80%;
+}
+
+#horizontal_tables {
+    display: flex;
+    justify-content: space-between;
+}
+
+table {
+    border: 1px solid #555;
+}
+
+form {
+    border: 1px solid #555;
+}

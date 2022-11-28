@@ -2,11 +2,14 @@ package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Employee;
+import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.repository.EmployeeRepository;
 import com.example.bilabonnement.repository.FleetRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.bilabonnement.model.enums.State.IS_LEASED;
 
 public class FleetService {
     FleetRepository fleetRepo = new FleetRepository();
@@ -25,7 +28,7 @@ public class FleetService {
 
         for (Car c:fullCarList
              ) {
-            if (c.getState().equals("IS_LEASED")) {
+            if (c.getState().equals(IS_LEASED)) {
                 leasedCarList.add(c);
             }
         }
@@ -37,7 +40,7 @@ public class FleetService {
 
         for (Car c:fullCarList
         ) {
-            if (c.getState().equals("IS_LEASED")) {
+            if (c.getState().equals(IS_LEASED)) {
                 numOfleasedCars++;
             }
         }
@@ -56,6 +59,5 @@ public class FleetService {
         fleetRepo.delete(id);
     }
 
-    // specific for repo
-
+    // specific for service
 }

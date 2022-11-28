@@ -28,7 +28,7 @@ public class EmployeeService {
         employeeRepo.delete(id);
     }
 
-    // specific for repo
+    // specific for service
 
     public Employee getEmployee(String email) {
         return employeeRepo.readByEmail(email);

@@ -1,8 +1,7 @@
 package com.example.bilabonnement.repository;
 
-import com.example.bilabonnement.model.Employee;
 import com.example.bilabonnement.model.LeaseContract;
-import com.example.bilabonnement.model.enums.Role;
+import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class LeaseContractRepository implements IGenericRepository<LeaseContract> {
 
-    private Connection conn;
+    private Connection conn = DatabaseConnectionManager.getConnection();;
 
     @Override
     public void create(LeaseContract leaseContract) {

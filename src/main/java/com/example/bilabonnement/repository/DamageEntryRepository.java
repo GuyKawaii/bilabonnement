@@ -127,4 +127,28 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
             throw new RuntimeException(e);
         }
     }
+
+    public List<DamageEntry> entriesByReport(int ids) {
+        List<DamageEntry> damageList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.damageentry WHERE damageReportID = ?");
+            pst.setInt(1, ids);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                damageList.add(new DamageEntry(
+                        resultSet.getInt("damageEntryID"),
+                        resultSet.getString("damageTitle"),
+                        resultSet.getString("damageDescription"),
+                        resultSet.getInt("damagePrice"),
+                        resultSet.getInt("damageReportID")));
+            }
+
+        } catch (SQLException e) {
+        }
+
+        return damageList;
+    }
 }
