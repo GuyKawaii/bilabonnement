@@ -54,6 +54,9 @@ public class FleetService {
     public void update(Car car){
         fleetRepo.update(car);
     }
+    public void updateState(Car car, int id){
+        fleetRepo.updateState(car, id);
+    }
 
     public void delete(int id){
         fleetRepo.delete(id);

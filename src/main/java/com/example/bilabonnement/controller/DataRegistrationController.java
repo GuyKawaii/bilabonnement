@@ -3,6 +3,7 @@ package com.example.bilabonnement.controller;
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.repository.LeaseContractRepository;
 import com.example.bilabonnement.service.DamageReportService;
+import com.example.bilabonnement.service.FleetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ public class DataRegistrationController {
 
     LeaseContractRepository leaseContractRepository = new LeaseContractRepository();
     DamageReportService damageReportService = new DamageReportService();
+    FleetService fleetService = new FleetService();
 
     @GetMapping("/damageReports")
     public String registrationPage(HttpSession session, Model model) {
@@ -34,11 +36,12 @@ public class DataRegistrationController {
                 Date.valueOf(req.getParameter("endDate")),
                 Double.valueOf(req.getParameter("monthlyPrice")),
                 Integer.valueOf(req.getParameter("customerID")),
-                Integer.valueOf(req.getParameter("vehicleID"))
+                vehicleID
         );
         // Throws it to the repo
         leaseContractRepository.create(ls);
 
+        fleetService.updateState(fleetService.read(vehicleID), vehicleID);
 
         return "registration";
     }
