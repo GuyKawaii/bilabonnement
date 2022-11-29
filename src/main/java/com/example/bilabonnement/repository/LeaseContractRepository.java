@@ -103,7 +103,8 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
     }
 
-    @Override
+
+            @Override
     public void delete(int id) {
         try {
             PreparedStatement pst = conn.prepareStatement("DELETE FROM bilabonnement.leasecontract WHERE leaseID = ? ");

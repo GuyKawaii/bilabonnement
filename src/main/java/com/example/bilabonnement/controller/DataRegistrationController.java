@@ -22,14 +22,15 @@ public class DataRegistrationController {
     DamageReportService damageReportService = new DamageReportService();
     FleetService fleetService = new FleetService();
 
-    @GetMapping("/damageReports")
+    @GetMapping("/data-registration")
     public String registrationPage(HttpSession session, Model model) {
-
-        return "damage-report";
+        return "data-registration";
     }
 
     @PostMapping("/makeContract")
-    public String makeContract(HttpSession session, WebRequest req, Model model) {
+    public String makeContract(HttpSession session, WebRequest req,int id, Model model) {
+
+        Integer vehicleID = Integer.valueOf(req.getParameter("vehicleID"));
 
         LeaseContract ls = new LeaseContract(
                 Date.valueOf(Objects.requireNonNull(req.getParameter("startDate"))),
