@@ -12,7 +12,7 @@ import java.util.List;
 
 public class LeaseContractRepository implements IGenericRepository<LeaseContract> {
 
-    private Connection conn = DatabaseConnectionManager.getConnection();;
+    private Connection conn = DatabaseConnectionManager.getConnection();
 
     @Override
     public void create(LeaseContract leaseContract) {

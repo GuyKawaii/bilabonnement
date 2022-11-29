@@ -1,9 +1,11 @@
 package com.example.bilabonnement.controller;
 
+import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.repository.LeaseContractRepository;
 import com.example.bilabonnement.service.DamageReportService;
 import com.example.bilabonnement.service.FleetService;
+import com.example.bilabonnement.service.LeaseContractService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,19 +20,22 @@ import java.util.Objects;
 @Controller
 public class DataRegistrationController {
 
-    LeaseContractRepository leaseContractRepository = new LeaseContractRepository();
+    LeaseContractService leaseService = new LeaseContractService();
     DamageReportService damageReportService = new DamageReportService();
     FleetService fleetService = new FleetService();
 
     @GetMapping("/data-registration")
     public String registrationPage(HttpSession session, Model model) {
+        model.addAttribute("leaseContracts", leaseService.readAll());
         return "data-registration";
     }
 
     @PostMapping("/makeContract")
-    public String makeContract(HttpSession session, WebRequest req,int id, Model model) {
+    public String makeContract(HttpSession session, WebRequest req, Model model) {
 
-        Integer vehicleID = Integer.valueOf(req.getParameter("vehicleID"));
+        int vehicleID = Integer.valueOf(req.getParameter("vehicleID"));
+
+        int customerID = Integer.valueOf(req.getParameter("customerID"));//midlertidig variabel fordi den skal laves til int, ellers er det Integer?
 
         LeaseContract ls = new LeaseContract(
                 Date.valueOf(Objects.requireNonNull(req.getParameter("startDate"))),
@@ -39,11 +44,13 @@ public class DataRegistrationController {
                 customerID,
                 vehicleID
         );
-        // Throws it to the repo
-        leaseContractRepository.create(ls);
 
-        fleetService.updateState(fleetService.read(vehicleID), vehicleID);
+        leaseService.create(ls);
 
-        return "registration";
+        model.addAttribute("leaseContracts", leaseService.readAll());
+
+        fleetService.updateState(vehicleID);
+
+        return "data-registration";
     }
 }
