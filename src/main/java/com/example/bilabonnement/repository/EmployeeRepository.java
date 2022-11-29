@@ -135,8 +135,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
                         Role.valueOf(resultSet.getString("role")),
                         resultSet.getString("password"));
             }
-
-        } catch (SQLException e) {
+         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 

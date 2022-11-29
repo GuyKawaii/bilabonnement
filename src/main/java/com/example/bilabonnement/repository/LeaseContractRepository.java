@@ -16,6 +16,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
 
     @Override
     public void create(LeaseContract leaseContract) {
+
         try {
             PreparedStatement psts = conn.prepareStatement("INSERT INTO bilabonnement.leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID) VALUES (?,?,?,?,?,?)");
             psts.setInt(1, leaseContract.getLeaseID());
@@ -47,7 +48,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getInt("leaseID"),
                         resultSet.getDate("startDate"),
                         resultSet.getDate("endDate"),
-                        resultSet.getDouble("monthlyPrice"),
+                        resultSet.getInt("monthlyPrice"),
                         resultSet.getInt("customerID"),
                         resultSet.getInt("vehicleID")));
             }
@@ -55,7 +56,6 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return contractList;
     }
 
@@ -74,7 +74,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getInt("leaseID"),
                         resultSet.getDate("startDate"),
                         resultSet.getDate("endDate"),
-                        resultSet.getDouble("monthlyPrice"),
+                        resultSet.getInt("monthlyPrice"),
                         resultSet.getInt("customerID"),
                         resultSet.getInt("vehicleID"));
             }

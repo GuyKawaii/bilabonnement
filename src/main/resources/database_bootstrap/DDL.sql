@@ -47,12 +47,13 @@ CREATE TABLE IF NOT EXISTS fleet
     PRIMARY KEY (vehicleID)
 );
 
+
 CREATE TABLE IF NOT EXISTS leaseContract
 (
     leaseID      int AUTO_INCREMENT,
     startDate    date NOT NULL,
     endDate      date NOT NULL,
-    monthlyPrice int  NOT NULL,
+    monthlyPrice double  NOT NULL,
     customerID   int  NOT NULL,
     vehicleID    int,
 

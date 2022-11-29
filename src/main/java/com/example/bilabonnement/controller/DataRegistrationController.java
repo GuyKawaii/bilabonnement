@@ -36,7 +36,7 @@ public class DataRegistrationController {
                 Date.valueOf(Objects.requireNonNull(req.getParameter("startDate"))),
                 Date.valueOf(req.getParameter("endDate")),
                 Double.valueOf(req.getParameter("monthlyPrice")),
-                Integer.valueOf(req.getParameter("customerID")),
+                customerID,
                 vehicleID
         );
         // Throws it to the repo

@@ -73,5 +73,18 @@ public class LeaseContract {
 
     public void setVehicleID(int vehicleID) {
         this.vehicleID = vehicleID;
+
+    }
+
+    @Override
+    public String toString() {
+        return "LeaseContract{" +
+            "leaseID=" + leaseID +
+            ", startDate=" + startDate +
+            ", endDate=" + endDate +
+            ", monthlyPrice=" + monthlyPrice +
+            ", customerID=" + customerID +
+            ", vehicleID=" + vehicleID +
+            "}\n";
     }
 }

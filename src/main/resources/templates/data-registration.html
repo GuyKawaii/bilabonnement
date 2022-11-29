@@ -20,28 +20,33 @@
 </form>
 
 <div id="horizontal_tables">
-<!--    leaseContracts-->
-    <table>
-        <tr>
-            <td>leaseContract</td>
-            <td>Tobias</td>
-            <td>Linus</td>
-        </tr>
-        <tr>
-            <td>leaseContract</td>
-            <td>Tobias</td>
-            <td>Linus</td>
-        </tr>
-        <tr>
-            <td>leaseContract</td>
-            <td>Tobias</td>
-            <td>Linus</td>
-        </tr>
-
-    </table>
-
+    <!--    leaseContracts-->
+    <div>
+        <h3>lease contracts</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>start date</th>
+                <th>end date</th>
+                <th>customer ID</th>
+                <th>vehicle ID</th>
+                <th>price</th>
+            </tr>
+            <tr th:each="contract : ${leaseContracts}">
+                <td th:text="${contract.leaseID}"></td>
+                <td th:text="${contract.startDate}"></td>
+                <td th:text="${contract.endDate}"></td>
+                <td th:text="${contract.vehicleID}"></td>
+                <td th:text="${contract.customerID}"></td>
+                <td th:text="${contract.monthlyPrice}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
 <!--    damageReports-->
-    <table>
+
+ <!--  <div>
+       <table>
         <tr>
             <td>damageReport</td>
             <td>Tobias</td>
@@ -60,7 +65,7 @@
 
     </table>
 </div>
-
+-->
 
 </body>
 </html>

@@ -1,9 +1,6 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.model.Employee;
-import com.example.bilabonnement.model.enums.State;
-import com.example.bilabonnement.repository.EmployeeRepository;
 import com.example.bilabonnement.repository.FleetRepository;
 
 import java.util.ArrayList;
@@ -54,8 +51,8 @@ public class FleetService {
     public void update(Car car){
         fleetRepo.update(car);
     }
-    public void updateState(Car car, int id){
-        fleetRepo.updateState(car, id);
+    public void updateState(int id){
+        fleetRepo.updateState(id);
     }
 
     public void delete(int id){

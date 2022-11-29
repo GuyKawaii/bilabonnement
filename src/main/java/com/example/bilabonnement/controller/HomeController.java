@@ -41,7 +41,7 @@ public class HomeController {
 
         // add user to session
         session.setAttribute("employee", employee);
-
+/*
         // role redirect
         switch (employee.getRole()) {
 
@@ -58,7 +58,7 @@ public class HomeController {
                 return "redirect:/";
             }
         }
-
+*/
 
 
         return "redirect:/validUserTmp";

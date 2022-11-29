@@ -139,12 +139,13 @@ public class FleetRepository implements IGenericRepository<Car> {
             throw new RuntimeException(e);
         }
     }
-    public void updateState(Car car, int id){
+    public void updateState(int id){
         try {
             PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.fleet SET state = ? WHERE vehicleID = ?");
-            psts.setString(1, car.getState().toString());
-            psts.setInt(2, car.getVehicleID());
-            ResultSet resultSet = psts.executeQuery();
+            psts.setString(1, State.IS_LEASED.toString());
+            psts.setInt(2, id);
+            //ResultSet resultSet =
+                psts.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
