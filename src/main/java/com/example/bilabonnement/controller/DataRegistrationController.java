@@ -46,10 +46,26 @@ public class DataRegistrationController {
         return "data-registration";
     }
 
+  /*  @GetMapping("/edit-leasecontract")
+    public String updateLeaseContract(WebRequest req) {
+        int leaseID = Integer.parseInt(req.getParameter("leaseID"));
+        leaseService.update(leaseID);
+        return "redirect:/delete-leasecontract";
+    }
+
+    @PostMapping("/edit-leasecontract")
+    public String updateLeaseContract(WebRequest req) {
+        int leaseID = Integer.parseInt(req.getParameter("leaseID"));
+        leaseService.update(leaseID);
+        return "redirect:/delete-leasecontract";
+    }*/
+
     @PostMapping("/delete-leasecontract")
     public String deleteDamageReport(WebRequest req) {
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
         leaseService.delete(leaseID);
         return "redirect:/delete-leasecontract";
     }
+
+
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="content">
+  <!--    create new contract -->
+  <h1> ændre lejeaftale</h1><hr><br>
+  <div id="formdiv">
+    <form action="/edit-lease" method="post">
+      <label for="startDate">ny Startdato:</label><br>
+      <input  type="date" name="startDate" required><br>
+      <label for="endDate">ny Slutdato:</label><br>
+      <input type="date" name="endDate" required><br>
+      <label for="monthlyPrice"> ny pris per måned:</label><br>
+      <input type="text" name="monthlyPrice" required><br>
+      <label for="customerID"> Kunde ID:</label><br>
+      <input type="text" name="customerID" required><br>
+      <label for="vehicleID">Vognnummer:</label><br>
+      <input type="text" name="vehicleID" required><br>
+      <label for="employeeId">Medarbejder ID:</label><br>
+      <input type="text" name="employeeID" required><br><br>
+      <br>
+      <div id="optionaldiv">
+        <table>
+          <tr>
+            <th colspan="4">
+            Ekstra udstyr til bilen </th>
+          </tr>
+          <tr>
+            <th>tilføj udstyr</th>
+            <th>Ekstra udstyr</th>
+            <th>pris per måned</th>
+            <th><input type="checkbox" name="optional all" value="Optional all"><br><br>
+            </th>
+          </tr>
+          <tr>
+          </tr>
+        </table>
+      </div>
+      <button style="float: right" type="submit">send</button>
+      <br>
+    </form>
+
+
+
+</body>
+</html>
