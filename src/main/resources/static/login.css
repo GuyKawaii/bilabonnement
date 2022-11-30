@@ -1,0 +1,126 @@
+*, :after, :before {
+    box-sizing: border-box;
+}/*alt med flexbox gøres til border-box, fjernes det, bliver hele skærmbilledet større end skærmstørrelse -> horizontal scrollbar*/
+body {
+    background-color: #eaf1fe;
+    font-family: Helvetica, sans-serif;
+}
+main {
+    display: flex;
+    justify-content: center;
+    padding: 80px 0;
+}
+.login-box {
+    width: 400px;
+}
+.login-box-flex {
+    font-size: 14px;
+    background-color: #fff;
+    box-shadow: 0 12px 40px rgb(0 0 0 / 12%);
+    border-radius: 5px;
+}
+.oevre-box {
+    padding: 0 40px 0 40px;
+    line-height: 1.5;
+    text-align: center;
+}
+.upper-div {
+    height: 65px;
+}
+.logo {
+    display: block;
+    -o-object-fit: contain;
+    max-height: 52px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+h1 {
+    margin: 0 16;
+    font-weight: 400;
+}
+.div-w-form {
+    padding: 0 40px 40px;
+}
+.form-margin {
+    margin-top: 24px;
+}
+.input-div-margin {
+    margin-bottom: 12px;
+}
+.input:focus {
+    border: 1px solid #007bad;
+}
+.textfelt-class1 {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-radius: 3px;
+    transition: box-shadow .2s ease-in-out,border-color .2s ease-in-out;
+    background-color: #fff;
+}
+.textfelt-class1 .textfelt-class2 {
+    position: absolute;
+    left: 16px;
+    color: #6f7780;
+    background-color: #fff;
+    z-index: 1;
+    padding: 1px 6px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.input {
+    border-style: solid;
+    font-family: inherit;
+    font-size: 16px;
+    height: 52px;
+    line-height: 1.1;
+    outline: none;
+    padding: 0 16px;
+    width: 100%;
+    color: #2d333a;
+    background-color: #fff;
+    transition: box-shadow .2s ease-in-out,border-color .2s ease-in-out;
+    border-radius: 3px;
+    border: 1px solid #c2c8d0;
+}
+.glemt-password {
+    margin-top: 16px;
+}
+.glemt-password-link {
+    border-radius: 3px;
+    padding: 4px;
+    font-weight: 700;
+}
+a {
+    font-size: 14px;
+    color: #007bad;
+    text-decoration: none;
+    line-height: 1.5;
+}
+.button {
+    width: 100%;
+    padding: 4px 16px;
+    min-height: 52px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    cursor: pointer;
+    color: #fff;
+    border: 0;
+    border-radius: 3px;
+    transition: background-color .25s ease-in-out; box-shadow .25s ease-in-out;
+}
+.button:hover {
+    box-shadow: inset 0 0 0 150px rgb(0 0 0 / 10%);
+}
+.button-color {
+    background-color: #1892c3;
+}
+label {
+    margin-bottom: 9px;
+    margin-left: 4px;
+}
