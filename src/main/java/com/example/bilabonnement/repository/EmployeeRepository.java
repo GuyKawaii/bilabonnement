@@ -27,7 +27,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
                 psts.setString(4, employee.getRole().name());
             } else {
                 psts = conn.prepareStatement("INSERT INTO bilabonnement.employee (employeeID, email, name, password, role) VALUES (?,?,?,?,?)");
-                psts.setString(1, employee.getEmail());
+                psts.setInt(1, employee.getEmployeeID());
                 psts.setString(2, employee.getEmail());
                 psts.setString(3, employee.getName());
                 psts.setString(4, employee.getPassword());
@@ -54,6 +54,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
                         resultSet.getInt("employeeID"),
                         resultSet.getString("email"),
                         resultSet.getString("name"),
+                        resultSet.getString("password"),
                         Role.valueOf(resultSet.getString("role"))));
             }
 

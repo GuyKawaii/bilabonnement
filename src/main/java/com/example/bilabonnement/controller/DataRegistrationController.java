@@ -42,7 +42,9 @@ public class DataRegistrationController {
                 Date.valueOf(req.getParameter("endDate")),
                 Double.valueOf(req.getParameter("monthlyPrice")),
                 customerID,
-                vehicleID
+                vehicleID,
+                101
+
         );
 
         leaseService.create(ls);

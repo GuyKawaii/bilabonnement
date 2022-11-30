@@ -18,21 +18,21 @@ public class CustomerRepository implements IGenericRepository<Customer> {
         try {
             // with or without predefined ID;
             PreparedStatement psts;
-            if (customer.getId() == null) {
+            if (customer.getCustomerID() == null) {
                 psts = conn.prepareStatement(
-                        "INSERT INTO bilabonnement.customer (firstName, lastName, email, address, city, postNumber, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?)");
+                        "INSERT INTO bilabonnement.customer (firstName, lastName, email, address, city, zipCode, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?)");
                 psts.setString(1, customer.getFirstName());
                 psts.setString(2, customer.getLastName());
                 psts.setString(3, customer.getEmail());
                 psts.setString(4, customer.getAddress());
                 psts.setString(5, customer.getCity());
-                psts.setInt(6, customer.getPostNumber());
+                psts.setInt(6, customer.getZipCode());
                 psts.setString(7, customer.getMobile());
                 psts.setString(8,customer.getCprNumber());
             } else {
                 psts = conn.prepareStatement(
-                        "INSERT INTO bilabonnement.customer (customerID, firstName, lastName, email, address, city, postNumber, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?,?)");
-                psts.setInt(1, customer.getId());
+                        "INSERT INTO bilabonnement.customer (customerID, firstName, lastName, email, address, city, zipCode, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?,?)");
+                psts.setInt(1, customer.getCustomerID());
                 psts.setString(2, customer.getFirstName());
                 psts.setString(3, customer.getLastName());
                 psts.setString(4, customer.getEmail());
@@ -114,16 +114,16 @@ public class CustomerRepository implements IGenericRepository<Customer> {
     public void update(Customer customer) {
         try {
             PreparedStatement psts = conn.prepareStatement(
-                    "UPDATE bilabonnement.customer SET firstName = ?, lastName = ?, email = ?, address = ?, city = ?, postNumber = ?, mobile = ?, cprNumber = ?, WHERE customerID = ?");
+                    "UPDATE bilabonnement.customer SET firstName = ?, lastName = ?, email = ?, address = ?, city = ?, zipCode = ?, mobile = ?, cprNumber = ?, WHERE customerID = ?");
             psts.setString(1, customer.getFirstName());
             psts.setString(2, customer.getLastName());
             psts.setString(3, customer.getEmail());
             psts.setString(4, customer.getAddress());
             psts.setString(5, customer.getCity());
-            psts.setInt(6, customer.getPostNumber());
+            psts.setInt(6, customer.getZipCode());
             psts.setString(7, customer.getMobile());
             psts.setString(8,customer.getCprNumber());
-            psts.setInt(9, customer.getId());
+            psts.setInt(9, customer.getCustomerID());
             psts.executeUpdate();
 
         } catch (SQLException e) {

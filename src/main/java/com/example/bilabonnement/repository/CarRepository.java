@@ -20,21 +20,9 @@ public class CarRepository implements IGenericRepository<Car> {
         try {
             PreparedStatement psts;
             if (car.getVehicleID() == null) {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.fleet (chassisNumber, color, brand, model, co2emission, geartype, kmPerLiter, fuelType, kmDriven, state) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO bilabonnement.car (chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType, kmDriven, locationID, state) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
                 psts.setString(1, car.getChassisNumber());
-                psts.setString(2, car.getColor());
-                psts.setString(3, car.getBrand());
-                psts.setString(4, car.getModel());
-                psts.setInt(5, car.getCo2emission());
-                psts.setString(6, car.getGeartype());
-                psts.setInt(7, car.getKmPerLiter());
-                psts.setString(8, car.getFuelType().toString());
-                psts.setInt(9, car.getKmDriven());
-                psts.setString(10, car.getState().toString());
-            } else {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.fleet (vehicleID, chassisNumber, color, brand, model, co2emission, geartype, kmPerLiter, fuelType, kmDriven, state) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-                psts.setInt(1, car.getVehicleID());
-                psts.setString(2, car.getChassisNumber());
+                psts.setDouble(2, car.getSteelPrice());
                 psts.setString(3, car.getColor());
                 psts.setString(4, car.getBrand());
                 psts.setString(5, car.getModel());
@@ -43,7 +31,23 @@ public class CarRepository implements IGenericRepository<Car> {
                 psts.setInt(8, car.getKmPerLiter());
                 psts.setString(9, car.getFuelType().toString());
                 psts.setInt(10, car.getKmDriven());
-                psts.setString(11, car.getState().toString());
+                psts.setInt(11, car.getLocationID());
+                psts.setString(12,car.getState().toString());
+            } else {
+                psts = conn.prepareStatement("INSERT INTO bilabonnement.car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType, kmDriven, locationID, state) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                psts.setInt(1, car.getVehicleID());
+                psts.setString(2, car.getChassisNumber());
+                psts.setDouble(3, car.getSteelPrice());
+                psts.setString(4, car.getColor());
+                psts.setString(5, car.getBrand());
+                psts.setString(6, car.getModel());
+                psts.setInt(7, car.getCo2emission());
+                psts.setString(8, car.getGeartype());
+                psts.setInt(9, car.getKmPerLiter());
+                psts.setString(10, car.getFuelType().toString());
+                psts.setInt(11, car.getKmDriven());
+                psts.setInt(12, car.getLocationID());
+                psts.setString(13, car.getState().toString());
             }
             psts.executeUpdate();
 
@@ -57,7 +61,7 @@ public class CarRepository implements IGenericRepository<Car> {
         List<Car> carList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.fleet");
+            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.car");
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities
@@ -65,6 +69,7 @@ public class CarRepository implements IGenericRepository<Car> {
                 carList.add(new Car(
                         resultSet.getInt("vehicleID"),
                         resultSet.getString("chassisNumber"),
+                        resultSet.getDouble("steelPrice"),
                         resultSet.getString("color"),
                         resultSet.getString("brand"),
                         resultSet.getString("model"),
@@ -73,6 +78,7 @@ public class CarRepository implements IGenericRepository<Car> {
                         resultSet.getInt("kmPerLiter"),
                         FuelType.valueOf(resultSet.getString("fuelType")),
                         resultSet.getInt("kmDriven"),
+                        resultSet.getInt("locationID"),
                         State.valueOf(resultSet.getString("state"))));
             }
 
@@ -88,7 +94,7 @@ public class CarRepository implements IGenericRepository<Car> {
         Car car = null;
 
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.fleet WHERE vehicleID = ?");
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.car WHERE vehicleID = ?");
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
@@ -98,6 +104,7 @@ public class CarRepository implements IGenericRepository<Car> {
                 car = new Car(
                         resultSet.getInt("vehicleID"),
                         resultSet.getString("chassisNumber"),
+                        resultSet.getDouble("steelPrice"),
                         resultSet.getString("color"),
                         resultSet.getString("brand"),
                         resultSet.getString("model"),
@@ -120,18 +127,19 @@ public class CarRepository implements IGenericRepository<Car> {
     @Override
     public void update(Car car) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.fleet SET chassisNumber = ?, color = ?, brand = ?, model = ?, co2emission = ?, geartype = ?, kmPerLiter = ?, fuelType = ?, kmDriven = ?, state = ? WHERE vehicleID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET chassisNumber = ?, steelPrice = ?, color = ?, brand = ?, model = ?, co2emission = ?, geartype = ?, kmPerLiter = ?, fuelType = ?, kmDriven = ?, state = ? WHERE vehicleID = ?");
             psts.setString(1, car.getChassisNumber());
-            psts.setString(2, car.getColor());
-            psts.setString(3, car.getBrand());
-            psts.setString(4, car.getModel());
-            psts.setInt(5, car.getCo2emission());
-            psts.setString(6, car.getGeartype());
-            psts.setInt(7, car.getKmPerLiter());
-            psts.setString(8, car.getFuelType().toString());
-            psts.setInt(9, car.getKmDriven());
-            psts.setString(10, car.getState().toString());
-            psts.setInt(11, car.getVehicleID());
+            psts.setDouble(2, car.getSteelPrice());
+            psts.setString(3, car.getColor());
+            psts.setString(4, car.getBrand());
+            psts.setString(5, car.getModel());
+            psts.setInt(6, car.getCo2emission());
+            psts.setString(7, car.getGeartype());
+            psts.setInt(8, car.getKmPerLiter());
+            psts.setString(9, car.getFuelType().toString());
+            psts.setInt(10, car.getKmDriven());
+            psts.setString(11, car.getState().toString());
+            psts.setInt(12, car.getVehicleID());
             ResultSet resultSet = psts.executeQuery();
 
         } catch (SQLException e) {
@@ -140,7 +148,7 @@ public class CarRepository implements IGenericRepository<Car> {
     }
     public void updateState(int id){
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.fleet SET state = ? WHERE vehicleID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET state = ? WHERE vehicleID = ?");
             psts.setString(1, State.IS_LEASED.toString());
             psts.setInt(2, id);
             //ResultSet resultSet =
@@ -154,7 +162,7 @@ public class CarRepository implements IGenericRepository<Car> {
     @Override
     public void delete(int id) {
         try {
-            PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.fleet WHERE vehicleID = ?");
+            PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.car WHERE vehicleID = ?");
             psts.setInt(1, id);
             psts.executeUpdate();
 

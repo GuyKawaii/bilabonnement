@@ -27,20 +27,20 @@ public class Employee {
         this.role = role;
     }
 
+    public Integer getEmployeeID() {
+        return employeeID;
+    }
+
+    public void setEmployeeID(Integer employeeID) {
+        this.employeeID = employeeID;
+    }
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {
@@ -51,17 +51,20 @@ public class Employee {
         this.name = name;
     }
 
-    public Integer getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
     }
-    public Role getRole() {return role;}
 }
 

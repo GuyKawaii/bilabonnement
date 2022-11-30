@@ -24,11 +24,11 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
                 psts.setTimestamp(3, damageReport.getTimestamp());
 
             } else {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.damagereport (damageReportID, timestamp, leaseID, vehicleID) VALUES (?,?,?,?)");
-                psts.setInt(1, damageReport.getId());
-                psts.setTimestamp(2, damageReport.getTimestamp()); // todo some confusion about this and datetime format in sql and java
-                psts.setInt(3, damageReport.getLeaseID());
-                psts.setInt(4, damageReport.getVehicleID());
+                psts = conn.prepareStatement("INSERT INTO bilabonnement.damagereport (damageReportID,vehicleID,employeeID, timestamp) VALUES (?,?,?,?)");
+                psts.setInt(1, damageReport.getDamageReportID());
+                psts.setInt(2, damageReport.getVehicleID());
+                psts.setInt(3, damageReport.getEmployeeID());
+                psts.setTimestamp(4, damageReport.getTimestamp()); // todo some confusion about this and datetime format in sql and java
             }
             psts.executeUpdate();
 
@@ -50,9 +50,9 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
             while (resultSet.next()) {
                 damageReports.add(new DamageReport(
                         resultSet.getInt("damageReportID"),
-                        resultSet.getTimestamp("timestamp"),
-                        resultSet.getInt("leaseID"),
-                        resultSet.getInt("vehicleID")));
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getInt("employeeID"),
+                        resultSet.getTimestamp("timestamp")));
             }
 
         } catch (SQLException e) {
@@ -74,9 +74,9 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
             while (resultSet.next()) {
                 damageReport = new DamageReport(
                         resultSet.getInt("damageReportID"),
-                        resultSet.getTimestamp("timestamp"),
-                        resultSet.getInt("leaseID"),
-                        resultSet.getInt("vehicleID"));
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getInt("employeeID"),
+                        resultSet.getTimestamp("timestamp"));
             }
 
         } catch (SQLException e) {

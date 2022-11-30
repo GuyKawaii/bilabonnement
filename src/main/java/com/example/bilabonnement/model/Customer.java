@@ -18,18 +18,18 @@ public class Customer {
         this.email = email;
         this.address = address;
         this.city = city;
-        this.postNumber = postNumber;
+        this.zipCode = postNumber;
         this.mobile = mobile;
         this.cprNumber = CPRNumber;
     }
 
-    public Customer(String firstName, String lastName, String email, String address, String city, int postNumber, String mobile, String CPRNumber) {
+    public Customer(String firstName, String lastName, String email, String address, String city, int zipCode, String mobile, String CPRNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.city = city;
-        this.postNumber = postNumber;
+        this.zipCode = zipCode;
         this.mobile = mobile;
         this.cprNumber = CPRNumber;
     }
