@@ -42,22 +42,22 @@ public class HomeController {
         // add user to session
         session.setAttribute("employee", employee);
 /*
-        // role redirect
-        switch (employee.getRole()) {
-
-            case DATA_REGISTRATION -> {
-                return "redirect:/";
-            }
-            case DAMAGE_REPORTER -> {
-                return "redirect:/";
-            }
-            case BUSINESS_DEVELOPER -> {
-                return "redirect:/";
-            }
-            case ADMINISTRATION -> {
-                return "redirect:/";
-            }
-        }
+//        // role redirect
+//        switch (employee.getRole()) {
+//
+//            case DATA_REGISTRATION -> {
+//                return "redirect:/";
+//            }
+//            case DAMAGE_REPORTER -> {
+//                return "redirect:/";
+//            }
+//            case BUSINESS_DEVELOPER -> {
+//                return "redirect:/";
+//            }
+//            case ADMINISTRATION -> {
+//                return "redirect:/";
+//            }
+//        }
 */
 
 

@@ -19,7 +19,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
         try {
             // with or without predefined ID;
             PreparedStatement psts;
-            if (employee.getId() == null) {
+            if (employee.getEmployeeID() == null) {
                 psts = conn.prepareStatement("INSERT INTO bilabonnement.employee (email, name, password, role) VALUES (?,?,?,?)");
                 psts.setString(1, employee.getEmail());
                 psts.setString(2, employee.getName());
@@ -27,7 +27,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
                 psts.setString(4, employee.getRole().name());
             } else {
                 psts = conn.prepareStatement("INSERT INTO bilabonnement.employee (employeeID, email, name, password, role) VALUES (?,?,?,?,?)");
-                psts.setString(1, employee.getEmail());
+                psts.setInt(1, employee.getEmployeeID());
                 psts.setString(2, employee.getEmail());
                 psts.setString(3, employee.getName());
                 psts.setString(4, employee.getPassword());
@@ -54,6 +54,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
                         resultSet.getInt("employeeID"),
                         resultSet.getString("email"),
                         resultSet.getString("name"),
+                        resultSet.getString("password"),
                         Role.valueOf(resultSet.getString("role"))));
             }
 
@@ -79,8 +80,8 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
                         resultSet.getInt("employeeID"),
                         resultSet.getString("email"),
                         resultSet.getString("name"),
-                        Role.valueOf(resultSet.getString("role")),
-                        resultSet.getString("password"));
+                        resultSet.getString("password"),
+                        Role.valueOf(resultSet.getString("role")));
             }
 
         } catch (SQLException e) {
@@ -98,7 +99,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
             psts.setString(2, employee.getName());
             psts.setString(3, employee.getPassword());
             psts.setString(4, employee.getRole().toString());
-            psts.setInt(5, employee.getId());
+            psts.setInt(5, employee.getEmployeeID());
             psts.executeUpdate();
 
         } catch (SQLException e) {
@@ -132,10 +133,10 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
                         resultSet.getInt("employeeID"),
                         resultSet.getString("email"),
                         resultSet.getString("name"),
-                        Role.valueOf(resultSet.getString("role")),
-                        resultSet.getString("password"));
+                        resultSet.getString("password"),
+                        Role.valueOf(resultSet.getString("role")));
             }
-         } catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 

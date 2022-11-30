@@ -9,22 +9,25 @@ public class LeaseContract {
     private double monthlyPrice;
     private int customerID;
     private int vehicleID;
+    private int employeeID;
 
-    public LeaseContract(int leaseID, Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID) {
+    public LeaseContract(int leaseID, Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID) {
         this.leaseID = leaseID;
         this.startDate = startDate;
         this.endDate = endDate;
         this.monthlyPrice = monthlyPrice;
         this.customerID = customerID;
         this.vehicleID = vehicleID;
+        this.employeeID = employeeID;
     }
 
-    public LeaseContract(Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID) {
+    public LeaseContract(Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.monthlyPrice = monthlyPrice;
         this.customerID = customerID;
         this.vehicleID = vehicleID;
+        this.employeeID = employeeID;
     }
 
     public int getLeaseID() {
@@ -73,7 +76,14 @@ public class LeaseContract {
 
     public void setVehicleID(int vehicleID) {
         this.vehicleID = vehicleID;
+    }
 
+    public int getEmployeeID() {
+        return employeeID;
+    }
+
+    public void setEmployeeID(int employeeID) {
+        this.employeeID = employeeID;
     }
 
     @Override

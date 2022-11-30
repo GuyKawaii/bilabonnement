@@ -9,7 +9,6 @@ import com.example.bilabonnement.service.LeaseContractService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
@@ -41,7 +40,7 @@ public class DamageReporterController {
     @GetMapping("/damage-report")
     public String damageReport(Model model) {
 
-         //skal HttpSession være i alle parameterlister?
+        //skal HttpSession være i alle parameterlister?
         // visual element for work
         List<LeaseContract> contracts = leaseContractService.readAll();
         List<DamageReport> damageReports = damageReportService.readAll();
@@ -72,11 +71,13 @@ public class DamageReporterController {
     @GetMapping("/damage-entry")
     public String damageEntry(@RequestParam int id, Model model) { //skal HttpSession være i alle parameterlister?
         List<DamageEntry> damageEntries = damageEntryService.entriesByReport(id);
+        DamageReport damageReport = damageReportService.read(id);
 
-//        // add time
-//        model.addAttribute("currentTime", LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-//        model.addAttribute("damageReport", damageReportService.read(id));
-//        model.addAttribute("damageEntries", damageEntries);
+        System.out.println(damageReport + " <------");
+
+        // add damage report
+        model.addAttribute("damageReport", damageReport);
+        model.addAttribute("damageEntries", damageEntries);
 
         return "damage-entry";
     }
@@ -87,6 +88,43 @@ public class DamageReporterController {
         damageReportService.delete(reportID);
 
         return "redirect:/damage-report";
+    }
+
+    @PostMapping("/create-damage-entry")
+    public String createDamageEntry(WebRequest req) {
+
+        // todo add such that it does not work if session is not valid and it cannot find report to add to
+
+        // get parameters
+        String damage = req.getParameter("damage");
+        String description = req.getParameter("description");
+        double price = Double.parseDouble(req.getParameter("price"));
+        int damageReportID = Integer.parseInt(req.getParameter("damage-report-id"));
+
+        System.out.println("TEST VARIABLES");
+        System.out.println(damage);
+        System.out.println(description);
+        System.out.println(price);
+        System.out.println(damageReportID);
+
+        // create entry
+        DamageEntry damageEntry = new DamageEntry(damage, description, price, damageReportID);
+        damageEntryService.create(damageEntry);
+
+        return ("redirect:/damage-entry?id=" + damageReportID);
+    }
+
+    @PostMapping("/delete-entry")
+    public String deleteEntry(WebRequest req) {
+
+        // get parameters
+        int damageReportID = Integer.parseInt(req.getParameter("damage-report-id"));
+        int entryID = Integer.parseInt(req.getParameter("entryID"));
+
+        // update db
+        damageEntryService.delete(entryID);
+
+        return ("redirect:/damage-entry?id=" + damageReportID);
     }
 
 

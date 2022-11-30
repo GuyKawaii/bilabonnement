@@ -20,18 +20,18 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         try {
             // with or without predefined ID;
             PreparedStatement psts;
-            if (damageEntry.getId() == null) {
+            if (damageEntry.getDamageEntryID() == null) {
                 psts = conn.prepareStatement("INSERT INTO bilabonnement.damageentry (damageTitle, damageDescription, damagePrice, damageReportID) VALUES (?,?,?,?)");
                 psts.setString(1, damageEntry.getDamageTitle());
                 psts.setString(2, damageEntry.getDamageDescription());
-                psts.setInt(3, damageEntry.getDamagePrice());
+                psts.setDouble(3, damageEntry.getDamagePrice());
                 psts.setInt(4, damageEntry.getDamageReportID());
             } else {
                 psts = conn.prepareStatement("INSERT INTO bilabonnement.damageentry (damageEntryID, damageTitle, damageDescription, damagePrice, damageReportID) VALUES (?,?,?,?,?)");
-                psts.setInt(1, damageEntry.getId());
+                psts.setInt(1, damageEntry.getDamageEntryID());
                 psts.setString(2, damageEntry.getDamageTitle());
                 psts.setString(3, damageEntry.getDamageDescription());
-                psts.setInt(4, damageEntry.getDamagePrice());
+                psts.setDouble(4, damageEntry.getDamagePrice());
                 psts.setInt(5, damageEntry.getDamageReportID());
             }
             psts.executeUpdate();
@@ -56,7 +56,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
                         resultSet.getInt("damageEntryID"),
                         resultSet.getString("damageTitle"),
                         resultSet.getString("damageDescription"),
-                        resultSet.getInt("damagePrice"),
+                        resultSet.getDouble("damagePrice"),
                         resultSet.getInt("damageReportID")));
             }
 
@@ -82,7 +82,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
                         resultSet.getInt("damageEntryID"),
                         resultSet.getString("damageTitle"),
                         resultSet.getString("damageDescription"),
-                        resultSet.getInt("damagePrice"),
+                        resultSet.getDouble("damagePrice"),
                         resultSet.getInt("damageReportID"));
             }
 
@@ -99,17 +99,9 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
             PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.damageentry SET damageTitle = ?, damageDescription = ?, damagePrice = ? WHERE damageEntryID = ?");
             psts.setString(1, damageEntry.getDamageTitle());
             psts.setString(2, damageEntry.getDamageDescription());
-            psts.setInt(3, damageEntry.getDamagePrice());
-            psts.setInt(4, damageEntry.getId());
-            ResultSet resultSet = psts.executeQuery();
-
-            // specify parameters
-            while (resultSet.next()) {
-                damageEntry = new DamageEntry(
-                        resultSet.getString("damageTitle"),
-                        resultSet.getString("damageDescription"),
-                        resultSet.getInt("damagePrice"));
-            }
+            psts.setDouble(3, damageEntry.getDamagePrice());
+            psts.setInt(4, damageEntry.getDamageEntryID());
+            psts.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -142,7 +134,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
                         resultSet.getInt("damageEntryID"),
                         resultSet.getString("damageTitle"),
                         resultSet.getString("damageDescription"),
-                        resultSet.getInt("damagePrice"),
+                        resultSet.getDouble("damagePrice"),
                         resultSet.getInt("damageReportID")));
             }
 

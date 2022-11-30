@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>damage report</title>
+    <link rel="stylesheet" href="damage.css">
+</head>
+<body>
+
+<div id="content">
+
+
+    <h1>damage contract</h1>
+
+    <form action="/updateContract" method="post">
+        <label for="leaseID">lease ID:</label><br>
+        <input type="number" name="leaseID" required><br>
+        <label for="vehicleID">vogn ID:</label><br>
+        <input type="text" name="vehicleID" required><br>
+        <label for="timestamp">timestamp:</label><br>
+        <input type="datetime-local" name="datetime" th:value="${currentTime}">
+        <button type="update contract">create</button>
+    </form>
+
+
+    <h3>add damage</h3>
+
+    <form action="/create-damage-entry" method="post">
+        <label for="damage">damage:</label><br>
+        <input type="text" name="damage" required><br>
+        <label for="description">description:</label><br>
+        <input type="text" name="description" required><br>
+        <label for="price">description:</label><br>
+        <input type="number" name="price" required><br>
+        <input type="hidden" name="damage-report-id" th:value="${damageReport.id}"><br>
+        <button type="submit">create</button>
+    </form>
+
+
+    <h3>damages</h3>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>timestamp</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+        <tr th:each="entry : ${damageEntries}">
+            <td th:text="${entry.id}"></td>
+            <td th:text="${entry.damageTitle}"></td>
+            <td th:text="${entry.damageDescription}"></td>
+            <td th:text="${entry.damagePrice}"></td>
+            <td>
+                <form action="/delete-entry" method="post" id>
+                    <input type="hidden" name="entryID" th:value="${entry.id}"><br>
+                    <input type="hidden" name="reportID" th:value="${damageReport.id}"><br>
+                    <button type="submit">delete</button>
+                </form>
+            </td>
+
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -2,35 +2,33 @@ package com.example.bilabonnement.model;
 
 // One entry of a damage report
 public class DamageEntry {
-    private Integer id;
+    private Integer damageEntryID;
     private String damageTitle;
     private String damageDescription;
-    private int damagePrice;
-
+    private double damagePrice;
     private int damageReportID;
 
-    public DamageEntry(String damageTitle, String damageDescription, int damagePrice) {
-        this.damageTitle = damageTitle;
-        this.damageDescription = damageDescription;
-        this.damagePrice = damagePrice;
-    }
-
-    public DamageEntry(int id, String damageTitle, String damageDescription, int damagePrice, int damageReportID) {
-        this.id = id;
+    public DamageEntry(String damageTitle, String damageDescription, double damagePrice, int damageReportID) {
         this.damageTitle = damageTitle;
         this.damageDescription = damageDescription;
         this.damagePrice = damagePrice;
         this.damageReportID = damageReportID;
     }
 
-
-
-    public Integer getId() {
-        return id;
+    public DamageEntry(int damageEntryID, String damageTitle, String damageDescription, double damagePrice, int damageReportID) {
+        this.damageEntryID = damageEntryID;
+        this.damageTitle = damageTitle;
+        this.damageDescription = damageDescription;
+        this.damagePrice = damagePrice;
+        this.damageReportID = damageReportID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Integer getDamageEntryID() {
+        return damageEntryID;
+    }
+
+    public void setDamageEntryID(Integer damageEntryID) {
+        this.damageEntryID = damageEntryID;
     }
 
     public String getDamageTitle() {
@@ -49,11 +47,11 @@ public class DamageEntry {
         this.damageDescription = damageDescription;
     }
 
-    public int getDamagePrice() {
+    public double getDamagePrice() {
         return damagePrice;
     }
 
-    public void setDamagePrice(int damagePrice) {
+    public void setDamagePrice(double damagePrice) {
         this.damagePrice = damagePrice;
     }
 

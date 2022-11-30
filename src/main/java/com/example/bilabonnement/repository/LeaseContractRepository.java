@@ -18,13 +18,14 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
     public void create(LeaseContract leaseContract) {
 
         try {
-            PreparedStatement psts = conn.prepareStatement("INSERT INTO bilabonnement.leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID) VALUES (?,?,?,?,?,?)");
+            PreparedStatement psts = conn.prepareStatement("INSERT INTO bilabonnement.leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID) VALUES (?,?,?,?,?,?,?)");
             psts.setInt(1, leaseContract.getLeaseID());
             psts.setDate(2, leaseContract.getStartDate());
             psts.setDate(3, leaseContract.getEndDate());
             psts.setDouble(4, leaseContract.getMonthlyPrice());
             psts.setInt(5, leaseContract.getCustomerID());
             psts.setInt(6, leaseContract.getVehicleID());
+            psts.setInt(7, leaseContract.getEmployeeID());
             psts.executeUpdate();
 
         } catch (SQLException e) {
@@ -48,9 +49,11 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getInt("leaseID"),
                         resultSet.getDate("startDate"),
                         resultSet.getDate("endDate"),
-                        resultSet.getInt("monthlyPrice"),
+                        resultSet.getDouble("monthlyPrice"),
                         resultSet.getInt("customerID"),
-                        resultSet.getInt("vehicleID")));
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getInt("employeeID")
+                ));
             }
 
         } catch (SQLException e) {
@@ -74,9 +77,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getInt("leaseID"),
                         resultSet.getDate("startDate"),
                         resultSet.getDate("endDate"),
-                        resultSet.getInt("monthlyPrice"),
+                        resultSet.getDouble("monthlyPrice"),
                         resultSet.getInt("customerID"),
-                        resultSet.getInt("vehicleID"));
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getInt("employeeID"));
             }
 
         } catch (SQLException e) {
@@ -89,13 +93,14 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
     @Override
     public void update(LeaseContract leaseContract) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.leasecontract SET startDate = ?, endDate = ?, monthlyPrice = ?, customerID = ?, vehicleID = ? WHERE leaseID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.leasecontract SET startDate = ?, endDate = ?, monthlyPrice = ?, customerID = ?, vehicleID = ?, employeeID = ? WHERE leaseID = ?");
             psts.setDate(1, leaseContract.getStartDate());
             psts.setDate(2, leaseContract.getEndDate());
             psts.setDouble(3, leaseContract.getMonthlyPrice());
             psts.setInt(4, leaseContract.getCustomerID());
             psts.setInt(5, leaseContract.getVehicleID());
             psts.setInt(6, leaseContract.getLeaseID());
+            psts.setInt(7, leaseContract.getEmployeeID());
             psts.executeUpdate();
 
         } catch (SQLException e) {
