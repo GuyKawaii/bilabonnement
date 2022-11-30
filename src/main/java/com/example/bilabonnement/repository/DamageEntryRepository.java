@@ -99,17 +99,9 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
             PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.damageentry SET damageTitle = ?, damageDescription = ?, damagePrice = ? WHERE damageEntryID = ?");
             psts.setString(1, damageEntry.getDamageTitle());
             psts.setString(2, damageEntry.getDamageDescription());
-            psts.setInt(3, damageEntry.getDamagePrice());
-            psts.setInt(4, damageEntry.getId());
-            ResultSet resultSet = psts.executeQuery();
-
-            // specify parameters
-            while (resultSet.next()) {
-                damageEntry = new DamageEntry(
-                        resultSet.getString("damageTitle"),
-                        resultSet.getString("damageDescription"),
-                        resultSet.getInt("damagePrice"));
-            }
+            psts.setDouble(3, damageEntry.getDamagePrice());
+            psts.setInt(4, damageEntry.getDamageEntryID());
+            psts.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -6,6 +6,7 @@ import com.example.bilabonnement.model.enums.State;
 public class Car {
     private Integer vehicleID;
     private String chassisNumber;
+    private double steelPrice;
     private String color;
     private String brand;
     private String model;
@@ -14,11 +15,13 @@ public class Car {
     private int kmPerLiter;
     private FuelType fuelType;
     private int kmDriven;
+    private int locationID;
     private State state;
 
-    public Car(int vehicleID, String chassisNumber, String color, String brand, String model, int co2emission, String geartype, int kmPerLiter, FuelType fuelType, int kmDriven, State state) {
+    public Car(Integer vehicleID, String chassisNumber, double steelPrice, String color, String brand, String model, int co2emission, String geartype, int kmPerLiter, FuelType fuelType, int kmDriven, int locationID, State state) {
         this.vehicleID = vehicleID;
         this.chassisNumber = chassisNumber;
+        this.steelPrice = steelPrice;
         this.color = color;
         this.brand = brand;
         this.model = model;
@@ -27,6 +30,7 @@ public class Car {
         this.kmPerLiter = kmPerLiter;
         this.fuelType = fuelType;
         this.kmDriven = kmDriven;
+        this.locationID = locationID;
         this.state = state;
     }
 
@@ -34,7 +38,7 @@ public class Car {
         return vehicleID;
     }
 
-    public void setVehicleID(int vehicleID) {
+    public void setVehicleID(Integer vehicleID) {
         this.vehicleID = vehicleID;
     }
 
@@ -44,6 +48,14 @@ public class Car {
 
     public void setChassisNumber(String chassisNumber) {
         this.chassisNumber = chassisNumber;
+    }
+
+    public double getSteelPrice() {
+        return steelPrice;
+    }
+
+    public void setSteelPrice(double steelPrice) {
+        this.steelPrice = steelPrice;
     }
 
     public String getColor() {
@@ -108,6 +120,14 @@ public class Car {
 
     public void setKmDriven(int kmDriven) {
         this.kmDriven = kmDriven;
+    }
+
+    public int getLocationID() {
+        return locationID;
+    }
+
+    public void setLocationID(int locationID) {
+        this.locationID = locationID;
     }
 
     public State getState() {

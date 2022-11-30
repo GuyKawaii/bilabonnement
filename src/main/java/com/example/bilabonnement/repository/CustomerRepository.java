@@ -38,7 +38,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
                 psts.setString(4, customer.getEmail());
                 psts.setString(5, customer.getAddress());
                 psts.setString(6, customer.getCity());
-                psts.setInt(7, customer.getPostNumber());
+                psts.setInt(7, customer.getZipCode());
                 psts.setString(8, customer.getMobile());
                 psts.setString(9,customer.getCprNumber());
             }
@@ -68,7 +68,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
                         resultSet.getString("email"),
                         resultSet.getString("address"),
                         resultSet.getString("city"),
-                        resultSet.getInt("postNumber"),
+                        resultSet.getInt("zipCode"),
                         resultSet.getString("mobile"),
                         resultSet.getString("cprNumber")));
             }
@@ -98,7 +98,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
                         resultSet.getString("email"),
                         resultSet.getString("address"),
                         resultSet.getString("city"),
-                        resultSet.getInt("postNumber"),
+                        resultSet.getInt("zipCode"),
                         resultSet.getString("mobile"),
                         resultSet.getString("cprNumber"));
             }

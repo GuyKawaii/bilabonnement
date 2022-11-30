@@ -1,7 +1,7 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.repository.FleetRepository;
+import com.example.bilabonnement.repository.CarRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 import static com.example.bilabonnement.model.enums.State.IS_LEASED;
 
 public class FleetService {
-    FleetRepository fleetRepo = new FleetRepository();
+    CarRepository fleetRepo = new CarRepository();
 
     public void create(Car car) {
         fleetRepo.create(car);

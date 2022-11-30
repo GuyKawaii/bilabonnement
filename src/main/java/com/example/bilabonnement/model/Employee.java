@@ -4,22 +4,25 @@ package com.example.bilabonnement.model;
 import com.example.bilabonnement.model.enums.Role;
 
 public class Employee {
-    private Integer id;
+    private Integer employeeID;
     private String email;
     private String name;
     private String password;
     private Role role;
 
-    public Employee(int id, String email, String name,  Role role) {
+    // create with ID
+    public Employee(int employeeID, String email, String name, String password,  Role role) {
+        this.employeeID = employeeID;
         this.email = email;
         this.name = name;
-        this.id = id;
+        this.password = password;
         this.role = role;
     }
-    public Employee(int id, String email, String name, Role role, String password) {
+
+    // create without ID
+    public Employee(String email, String name, Role role, String password) {
         this.email = email;
         this.name = name;
-        this.id = id;
         this.password = password;
         this.role = role;
     }

@@ -1,23 +1,18 @@
 package com.example.bilabonnement.model;
 
 public class Customer {
-    private Integer id;
+    private Integer customerID;
     private String firstName;
     private String lastName;
     private String email;
-
     private String address;
-
     private String city;
-
-    private int postNumber;
-
+    private int zipCode;
     private String mobile;
-
     private String cprNumber;
 
-    public Customer(Integer id, String firstName, String lastName, String email, String address, String city, int postNumber, String mobile, String CPRNumber) {
-        this.id = id;
+    public Customer(Integer customerID, String firstName, String lastName, String email, String address, String city, int postNumber, String mobile, String CPRNumber) {
+        this.customerID = customerID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -39,24 +34,12 @@ public class Customer {
         this.cprNumber = CPRNumber;
     }
 
-    public Customer(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-    public Customer(int id, String firstName, String lastName, String email) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    public Integer getCustomerID() {
+        return customerID;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setCustomerID(Integer customerID) {
+        this.customerID = customerID;
     }
 
     public String getFirstName() {
@@ -99,12 +82,12 @@ public class Customer {
         this.city = city;
     }
 
-    public int getPostNumber() {
-        return postNumber;
+    public int getZipCode() {
+        return zipCode;
     }
 
-    public void setPostNumber(int postNumber) {
-        this.postNumber = postNumber;
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getMobile() {

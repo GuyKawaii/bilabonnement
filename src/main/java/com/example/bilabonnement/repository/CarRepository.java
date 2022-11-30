@@ -1,9 +1,7 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.model.Employee;
 import com.example.bilabonnement.model.enums.FuelType;
-import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
@@ -14,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FleetRepository implements IGenericRepository<Car> {
+public class CarRepository implements IGenericRepository<Car> {
     Connection conn = DatabaseConnectionManager.getConnection();
 
     @Override
@@ -108,6 +106,7 @@ public class FleetRepository implements IGenericRepository<Car> {
                         resultSet.getInt("kmPerLiter"),
                         FuelType.valueOf(resultSet.getString("fuelType")),
                         resultSet.getInt("kmDriven"),
+                        resultSet.getInt("locationID"),
                         State.valueOf(resultSet.getString("state")));
             }
 
