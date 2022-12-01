@@ -65,7 +65,9 @@ public class HomeController {
     }
 
     @GetMapping("/validUserTmp")
-    public String vaidUserTmp() {
+    public String vaidUserTmp(WebRequest req, Model model) {
+        model.addAttribute("email", req);
+
         return "validUserTmp";
     }
 

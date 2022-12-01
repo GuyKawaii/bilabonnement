@@ -12,15 +12,62 @@ html {
 
 body {
     margin: 0px;
-}ul {
+}
+
+#content {
+    margin: 0 auto;
+    width: 80%;
+    flex: auto;
+}
+
+table{
+    margin: auto;
+    border-collapse: collapse;
+    border-spacing: 30px;
+    width: 580px;
+
+}
+
+/*styles for table header (colours picked from their primary website)*/
+th{
+    border: 1px solid black;
+    text-align: center;
+    font-family: "sans-serif Bold";
+    color: #1892c3;
+    background-color: #f2f2f2;
+    padding: 2px;
+}
+
+td{
+    border: 1px solid black;
+    text-align: center;
+    padding: 2px;
+}
+
+.tdsize {
+    padding: 4px;
+}
+
+/*style for table row (with every 2nd being coloured)*/
+tr:nth-child(even){
+    background-color: #cccccc;
+
+}
+
+ul {
      list-style-type: none;
      margin: 0 5% 0 5%;
      padding: 0;
      overflow: hidden;
      background-size: cover;
+     background: #1892c3;
  }
-li {float:left;
+
+li {
+    float:left;
+    background: #1892c3;
 }
+
 li a {
     display: inline-block;
     color: black;
@@ -30,17 +77,47 @@ li a {
     background-size: cover;
 }
 
+/* TODO: MÅSKE FJERNES!!!
+/* styles for list-link HOVER elements*/
 li a:hover {
     background-color: rgb(56, 173, 152);
 }
 
+
 h1 {
     text-align: center;
 }
-.midter-div {
+
+/* TODO: MÅSKE FJERNES!!!-*/
+.big-div {
     margin: 0 5% 0 5%;
 }
-#smal-midterdiv {
+
+#formdiv{
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: baseline;
+}
+
+#tablediv{
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: baseline;
+
+}
+#optionalsdiv{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+/* TODO: MÅSKE FJERNES!!!-*/
+#narrow-div {
     margin: 0 20% 0 20%;
     padding: 4%;
 }
@@ -51,26 +128,27 @@ h1 {
 }
 
 input {
-    border-radius: 15px;
-    background-color: white;
-    padding: 1%;
-    border: 2px solid antiquewhite;
-
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    padding: 4px;
+    border: 4px solid #1892c3;
 }
+
 button {
     border-radius: 9px;
     font-weight: bold;
-    border: 2px solid antiquewhite;
-    color: #806f00;
+    border: 4px solid #1892c3;
+    color: #1892c3;
+    padding: 3px 14px;
 }
 
-.pink {
-    background: rgba(32, 199, 28, 0.2);;
-}
-.morepink {
-    background: rgba(26, 10, 255, 0.7);;
+/* TODO: MÅSKE FJERNES!!!-*/
+.bluebackground {
+    background: rgba(24, 146, 195, 0.3);
 }
 
+
+/* TODO: MÅSKE FJERNES!!!-*/
 footer{
     bottom: 0;
     background-color: rgba(255,2555,255,0.3);
@@ -80,17 +158,14 @@ footer{
     margin: 0 5% 0 5%;
 }
 
+/* TODO: MÅSKE FJERNES!!!-*/
 .footer-text{
     text-align: center;
     height: auto;
     padding: 10px;
     margin: 2px;
 }
-.tdsize {
-    padding: 4px;
-}
+
 .deletesize {
     padding: 3px;
-
-
 }
