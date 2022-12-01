@@ -3,14 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="business-developer.css" href="business-developer.css">
 </head>
 <body>
+    <header class="nav-bar">
+        <p th:text="${nameOfUser}"></p>
+        <img class="logo" src="https://res.cloudinary.com/digital-interdan-bilabonnement/image/upload/v1/Mailing/logo-symbol_2_b9b3ka.png" alt="BilabonnementLogo">
+        <form action="/log-out">
+            <button>Log-Out</button>
+        </form>
+    </header>
+    <div class="main_body">
+        <div class="tab-container">
+            <div id="important-info-containers">
+                <div id="user&other-info">
+                    <h4>User: </h4>
+                    <p th:text="${nameOfUser}"></p>
+                    <br>
+                    <!-- Other info here -->
+                </div>
+                <div id="financial-info">
+                    <h4>Amount of leased cars:</h4>
+                    <p th:text="${numberOfLeasedCars}"></p>
+                    <br>
+                    <p>Income for current month:</p>
+                    <!-- TODO add th:text="${}" to when finance info is gettable from repo -->
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 <h1>Forretningsudviklers side</h1>
 
-<p th:text="${carsRented}"></p>
+<p th:text="${leasedCars}"></p>
 <br>
-<p th:text="${incomeRentedCars}"></p>
+    <table id="car-list">
+        <tr>
+            <th>CarID</th>
+            <th>Model</th>
+            <th>Status</th>
+            <th>Price Class</th>
+        </tr>
+        <tr th:each="car: ${leasedCars}">
+            <td th:text="${car.getVehicleID}"></td>
+            <td th:text="${car.getModel}"></td>
+            <td th:text="${car.getState}"></td>
+            <!-- TODO ADD PRICECLASS HERE -->
+        </tr>
+    </table>
+<p th:text="${numberOfLeasedCars}"></p>
 
 </body>
 </html>
