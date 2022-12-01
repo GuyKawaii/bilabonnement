@@ -22,8 +22,6 @@ class EmployeeRepositoryTest {
         // delete previous
         employeeRepository.delete(employeeID);
 
-
-
         Employee expected = new Employee(employeeID, "email", "name", "password123", ADMINISTRATION);
 
         // # act #
@@ -47,7 +45,6 @@ class EmployeeRepositoryTest {
         // delete previous
         employeeRepository.delete(1);
         employeeRepository.delete(2);
-
 
         List<Employee> expectedList = new ArrayList<>();
         expectedList.add(new Employee(1, "email1", "name1", "password1", DAMAGE_REPORTER));

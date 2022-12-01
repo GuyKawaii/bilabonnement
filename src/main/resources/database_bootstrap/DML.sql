@@ -13,11 +13,11 @@ INSERT INTO employee (employeeID, email, name, password, role)
 VALUES (104, '4', 'ADMINISTRATION user', '123', 'ADMINISTRATION');
 
 # customer #
-INSERT INTO customer (customerID, firstName, lastName, email, address, city, zipCode, mobile, cprNumber)
+INSERT INTO customer (customerID, firstName, lastName, email, address, city, postalCode, mobile, cprNumber)
 VALUES (201, 'firstName', 'lastName', 'email_1', 'address', 'city', 2900, 'mobile', 'cprNumber');
-INSERT INTO customer (customerID, firstName, lastName, email, address, city, zipCode, mobile, cprNumber)
+INSERT INTO customer (customerID, firstName, lastName, email, address, city, postalCode, mobile, cprNumber)
 VALUES (202, 'firstName', 'lastName', 'email_2', 'address', 'city', 2900, 'mobile', 'cprNumber');
-INSERT INTO customer (customerID, firstName, lastName, email, address, city, zipCode, mobile, cprNumber)
+INSERT INTO customer (customerID, firstName, lastName, email, address, city, postalCode, mobile, cprNumber)
 VALUES (203, 'firstName', 'lastName', 'email_3', 'address', 'city', 2900, 'mobile', 'cprNumber');
 
 # location #

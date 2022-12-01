@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS customer
     email      varchar(255) UNIQUE NOT NULL,
     address    varchar(255)        NOT NULL,
     city       varchar(255)        NOT NULL,
-    zipCode    int                 NOT NULL,
+    postalCode int                 NOT NULL,
     mobile     varchar(255)        NOT NULL,
     cprNumber  varchar(255)        NOT NULL,
 
