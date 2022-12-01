@@ -1,10 +1,8 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Employee;
-import com.example.bilabonnement.model.enums.Role;
+import com.example.bilabonnement.model.Optional;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Equality;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,25 +16,23 @@ class EmployeeRepositoryTest {
 
     @Test
     void create() {
-        // arrange
+        // # arrange #
         int employeeID = 1;
-        String email = "email";
-        String name = "name";
-        String password = "password123";
-        Role role = ADMINISTRATION;
 
         // delete previous
         employeeRepository.delete(employeeID);
 
-        Employee expected = new Employee(employeeID, email, name, password, role);
 
-        // act
+
+        Employee expected = new Employee(employeeID, "email", "name", "password123", ADMINISTRATION);
+
+        // # act #
         employeeRepository.create(expected);
 
         // return value
         Employee actual = employeeRepository.read(employeeID);
 
-        // assert (compare actual vs expected)
+        // # assert #
         assertEquals(actual.getEmployeeID(), expected.getEmployeeID());
         assertEquals(actual.getEmail(), expected.getEmail());
         assertEquals(actual.getName(), expected.getName());
@@ -46,7 +42,7 @@ class EmployeeRepositoryTest {
 
     @Test
     void readAll() {
-        // arrange
+        // # arrange #
 
         // delete previous
         employeeRepository.delete(1);
@@ -59,11 +55,11 @@ class EmployeeRepositoryTest {
         employeeRepository.create(expectedList.get(0));
         employeeRepository.create(expectedList.get(1));
 
-        // act
+        // # act #
         List<Employee> actualList = employeeRepository.readAll();
 
 
-        // assert (compare actual vs expected)
+        // # assert # (compare actual vs expected)
         assertEquals(actualList.get(0).getEmployeeID(), expectedList.get(0).getEmployeeID());
         assertEquals(actualList.get(0).getEmail(), expectedList.get(0).getEmail());
         assertEquals(actualList.get(0).getName(), expectedList.get(0).getName());
@@ -79,7 +75,7 @@ class EmployeeRepositoryTest {
 
     @Test
     void read() {
-        // arrange
+        // # arrange #
 
         // delete previous
         employeeRepository.delete(1);
@@ -87,20 +83,23 @@ class EmployeeRepositoryTest {
         Employee expected = new Employee(1, "email1", "name1", "password1", DAMAGE_REPORTER);
         employeeRepository.create(expected);
 
-        // act
+        // # act #
         Employee actual = employeeRepository.read(1);
 
-        // assert
+        // # assert #
         assertEquals(actual.getEmployeeID(), expected.getEmployeeID());
         assertEquals(actual.getEmail(), expected.getEmail());
         assertEquals(actual.getName(), expected.getName());
         assertEquals(actual.getPassword(), expected.getPassword());
         assertEquals(actual.getRole(), expected.getRole());
+
+        // cleanup
+        employeeRepository.delete(1);
     }
 
     @Test
     void update() {
-        // arrange
+        // # arrange #
 
         // delete previous
         employeeRepository.delete(1);
@@ -111,27 +110,47 @@ class EmployeeRepositoryTest {
         // setup before
         employeeRepository.create(before);
 
-        // act
+        // # act #
         employeeRepository.update(expected);
         Employee actual = employeeRepository.read(1);
 
-        // assert
+        // # assert #
         assertEquals(actual.getEmployeeID(), expected.getEmployeeID());
         assertEquals(actual.getEmail(), expected.getEmail());
         assertEquals(actual.getName(), expected.getName());
         assertEquals(actual.getPassword(), expected.getPassword());
         assertEquals(actual.getRole(), expected.getRole());
+
+
     }
 
     @Test
     void delete() {
-        // arrange
+        // # arrange #
+        int optionalID = 1;
 
         // delete previous
+        employeeRepository.delete(optionalID);
 
-        // act
+        Employee expected = new Employee(1, "email1", "name1", "password1", DAMAGE_REPORTER);
 
-        // assert
+        employeeRepository.create(expected);
+
+        // # act #
+        Employee actual = employeeRepository.read(optionalID);
+
+        employeeRepository.delete(optionalID);
+
+        Employee actualNull = employeeRepository.read(optionalID);
+
+        // # assert #
+        assertEquals(actual.getEmployeeID(), expected.getEmployeeID());
+        assertEquals(actual.getEmail(), expected.getEmail());
+        assertEquals(actual.getName(), expected.getName());
+        assertEquals(actual.getPassword(), expected.getPassword());
+        assertEquals(actual.getRole(), expected.getRole());
+
+        assertNull(actualNull);
     }
 
 }

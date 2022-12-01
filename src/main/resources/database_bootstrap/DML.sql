@@ -28,11 +28,11 @@ VALUES (302, 'backup');
 
 # optional #
 INSERT INTO optional (optionalID, name, pricePrMonth)
-VALUES (401, 'optional 1', pricePrMonth);
+VALUES (401, 'optional 1', 10);
 INSERT INTO optional (optionalID, name, pricePrMonth)
-VALUES (402, 'optional 2', pricePrMonth);
+VALUES (402, 'optional 2', 20);
 INSERT INTO optional (optionalID, name, pricePrMonth)
-VALUES (403, 'optional 3', pricePrMonth);
+VALUES (403, 'optional 3', 30);
 
 
 ### tables with foreign key constraints ###
@@ -54,6 +54,14 @@ INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2e
                  kmDriven, locationID, state)
 VALUES (504, '4', 40000, 'color', 'brand', 'model', 996, 'geartype', 20, 'HYDROGEN',
         9001, 302, 'READY');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
+                 kmDriven, locationID, state)
+VALUES (505, '4', 40000, 'color', 'brand', 'model', 996, 'geartype', 20, 'HYDROGEN',
+        9001, 302, 'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
+                 kmDriven, locationID, state)
+VALUES (506, '4', 40000, 'color', 'brand', 'model', 996, 'geartype', 20, 'HYDROGEN',
+        9001, 302, 'IS_LEASED');
 
 # leaseOptional #
 INSERT INTO leaseoptional (optionalID, vehicleID)
@@ -71,9 +79,9 @@ VALUES (602, '2012-02-14', '2012-02-28', 3000, 201, 502, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
 VALUES (603, '2013-03-14', '2013-03-28', 3000, 202, 503, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
-VALUES (604, '2014-04-14', '2014-04-28', 3000, 203, 504, 101);
+VALUES (604, '2014-01-01', '2014-01-31', 3000, 203, 504, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
-VALUES (605, '2014-04-14', '2014-04-28', 3000, 203, 504, 101);
+VALUES (605, '2014-03-01', '2014-05-31', 3000, 203, 504, 101);
 
 # damageReport #
 INSERT INTO damagereport (damageReportID, vehicleID, employeeID, timestamp)

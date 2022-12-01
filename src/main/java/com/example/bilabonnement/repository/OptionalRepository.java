@@ -1,6 +1,5 @@
 package com.example.bilabonnement.repository;
 
-import com.example.bilabonnement.model.DamageEntry;
 import com.example.bilabonnement.model.Optional;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
