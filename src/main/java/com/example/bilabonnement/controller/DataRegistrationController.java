@@ -28,14 +28,11 @@ public class DataRegistrationController {
   @GetMapping("/data-registration")
   public String registrationPage(HttpSession session, Model model) {
     model.addAttribute("leaseContracts", leaseService.readAll());
-
     return "data-registration";
   }
 
   @PostMapping("/makeContract")
   public String makeContract(HttpSession session, WebRequest req, Model model) {
-
-
     double price = Double.valueOf(req.getParameter("monthlyPrice"));
     int customerID = Integer.valueOf(req.getParameter("customerID"));//midlertidig variabel fordi den skal laves til int, ellers er det Integer?
     int vehicleID = Integer.valueOf(req.getParameter("vehicleID"));
@@ -63,13 +60,37 @@ public class DataRegistrationController {
 
   @GetMapping("/edit-leasecontract")
   public String updateLeaseContract(@RequestParam int id, Model model) {
-    LeaseContract ls = leaseService.read(Integer.valueOf(id));
+    LeaseContract ls = leaseService.read(id);
     model.addAttribute("contract", ls);
-    return "/edit-leasecontract";
+    return "edit-leasecontract";
   }
 
-  @PostMapping("/edit-leasecontract")
-  public String updateLeaseContract(@ModelAttribute LeaseContract leaseContract, WebRequest req) {
+  @GetMapping("/edit")
+  public String updateLeaseContract(WebRequest req, Model model) {
+    Date startDate = (Date) model.getAttribute("startDate");
+    Date endDate = (Date) model.getAttribute("endDate");
+
+   /* Date startDate = Date.valueOf(req.getParameter("startDate"));
+    Date endDate = Date.valueOf(req.getParameter("endDate"));
+   */
+    //Double price = model.getAttribute("monthlyPrice");
+    double price = model.;  //(req.getParameter("monthlyPrice"));
+    int customerID = 201; //Integer.parseInt(req.getParameter("customerID"));//midlertidig variabel fordi den skal laves til int, ellers er det Integer?
+    int vehicleID = 501; //Integer.parseInt(req.getParameter("vehicleID"));
+    int employeeID = 101; // Integer.parseInt(req.getParameter("employeeID"));
+
+    if (customerService.read(customerID) == null || fleetService.read(vehicleID) == null || employeeService.read(employeeID) == null) {
+      return "redirect:/data-registration";
+    } else {
+      LeaseContract ls = new LeaseContract(startDate, endDate, price, customerID, vehicleID, employeeID);
+
+      leaseService.update(ls);
+      return "data-registration";
+    }
+  }
+    /*
+
+    ------------USING WEB REQUEST.---------------
     double price = Double.valueOf(req.getParameter("monthlyPrice"));
     int customerID = Integer.valueOf(req.getParameter("customerID"));//midlertidig variabel fordi den skal laves til int, ellers er det Integer?
     int vehicleID = Integer.valueOf(req.getParameter("vehicleID"));
@@ -83,6 +104,11 @@ public class DataRegistrationController {
       return "data-registration";
     }
   }
+
+*/
+
+
+
 
   @PostMapping("/delete-leasecontract")
   public String deleteDamageReport(WebRequest req) {

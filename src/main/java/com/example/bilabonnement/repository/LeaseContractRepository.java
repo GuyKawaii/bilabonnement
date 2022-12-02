@@ -99,8 +99,8 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             psts.setDouble(3, leaseContract.getMonthlyPrice());
             psts.setInt(4, leaseContract.getCustomerID());
             psts.setInt(5, leaseContract.getVehicleID());
-            psts.setInt(6, leaseContract.getLeaseID());
-            psts.setInt(7, leaseContract.getEmployeeID());
+            psts.setInt(6, leaseContract.getEmployeeID());
+            psts.setInt(7, leaseContract.getLeaseID());
             psts.executeUpdate();
 
         } catch (SQLException e) {

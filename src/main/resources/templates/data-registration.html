@@ -106,13 +106,9 @@
             <td th:text="${contract.customerID}"></td>
             <td th:text="${contract.vehicleID}"></td>
             <td th:text="${contract.employeeID}"></td>
-
             <td>
-
-                <a th:href="@{'/edit-leasecontract?id='+${contract.leaseID}}">
-                    <button class="btn-view" id="btn-view">edit contract</button>
-                </a>
-
+                <a th:href="@{/edit(id=${contract.getLeaseID()})}">
+                    <button class="btn-edit" id="btn-edit">Edit user</button></a>
                 <!--  <form method="POST" action="@{'/edit-leasecontract?id='+${contract.leaseID}}">
                       <input type="submit" value="Edit">
                       <input type="hidden" name="leaseID" th:value="${contract.leaseID}">

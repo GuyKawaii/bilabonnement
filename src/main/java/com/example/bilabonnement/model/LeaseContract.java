@@ -3,6 +3,7 @@ package com.example.bilabonnement.model;
 import java.sql.Date;
 import java.time.Period;
 
+
 public class LeaseContract {
     private int leaseID;
     private Date startDate;
@@ -11,6 +12,7 @@ public class LeaseContract {
     private int customerID;
     private int vehicleID;
     private int employeeID;
+
 
     public LeaseContract(int leaseID, Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID) {
         this.leaseID = leaseID;

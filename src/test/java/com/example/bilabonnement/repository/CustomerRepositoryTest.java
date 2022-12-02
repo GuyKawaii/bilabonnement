@@ -1,7 +1,6 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Customer;
-import com.example.bilabonnement.model.Optional;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
