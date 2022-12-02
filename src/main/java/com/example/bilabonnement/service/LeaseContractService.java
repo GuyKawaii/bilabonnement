@@ -10,7 +10,7 @@ public class LeaseContractService {
     LeaseContractRepository leaseContractRepo = new LeaseContractRepository();
 
     public void create(LeaseContract leaseContract) {
-        leaseContractRepo.create(leaseContract);
+            leaseContractRepo.create(leaseContract);
     }
 
     public List<LeaseContract> readAll() {
