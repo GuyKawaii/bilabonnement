@@ -1,6 +1,9 @@
 package com.example.bilabonnement.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.concurrent.TimeUnit;
 
 public class LeaseContract {
     private int leaseID;
