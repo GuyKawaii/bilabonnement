@@ -19,6 +19,8 @@ public class DataRegistrationController {
     LeaseContractService leaseService = new LeaseContractService();
     FleetService fleetService = new FleetService();
 
+
+
     @GetMapping("/data-registration")
     public String registrationPage(HttpSession session, Model model) {
         model.addAttribute("leaseContracts", leaseService.readAll());
@@ -44,6 +46,7 @@ public class DataRegistrationController {
         model.addAttribute("leaseContracts", leaseService.readAll());
         fleetService.updateState(vehicleID);
         return "data-registration";
+
     }
 
   /*  @GetMapping("/edit-leasecontract")

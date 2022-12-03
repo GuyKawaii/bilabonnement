@@ -55,10 +55,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getInt("employeeID")
                 ));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return contractList;
     }
 

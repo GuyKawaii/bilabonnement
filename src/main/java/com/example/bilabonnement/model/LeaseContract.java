@@ -21,6 +21,11 @@ public class LeaseContract {
         this.employeeID = employeeID;
     }
 
+    public int getMonths() {
+        // number months - needs correction of one day as Period.between(startDateInclusive, endDateExclusive)
+        return Period.between(startDate.toLocalDate() , endDate.toLocalDate().plusDays(1)).getMonths();
+    }
+
     public LeaseContract(Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID) {
         this.startDate = startDate;
         this.endDate = endDate;
