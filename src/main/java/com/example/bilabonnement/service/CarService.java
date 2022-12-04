@@ -8,7 +8,7 @@ import java.util.List;
 
 import static com.example.bilabonnement.model.enums.State.IS_LEASED;
 
-public class FleetService {
+public class CarService {
     CarRepository fleetRepo = new CarRepository();
 
     public void create(Car car) {

@@ -81,14 +81,18 @@ VALUES (603, '2013-03-14', '2013-03-28', 3000, 202, 503, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
 VALUES (604, '2014-01-01', '2014-01-31', 3000, 203, 504, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
-VALUES (605, '2014-03-01', '2014-05-31', 3000, 203, 504, 101);
+VALUES (606, '2014-01-01', '2014-01-31', 3000, 203, 505, 101);
+INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
+VALUES (607, '2014-03-01', '2014-05-31', 3000, 203, 506, 101);
+INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
+VALUES (608, '2016-03-01', '2016-05-31', 3000, 203, 506, 101);
 
 # damageReport #
-INSERT INTO damagereport (damageReportID, vehicleID, employeeID, timestamp)
+INSERT INTO damagereport (damagereport.damageReportID, damagereport.vehicleID, damagereport.employeeID, damagereport.timestamp)
 VALUES (701, 501, 101, '1970-01-01 00:00:01');
-INSERT INTO damagereport (damageReportID, vehicleID, employeeID, timestamp)
+INSERT INTO damagereport (damagereport.damageReportID, damagereport.vehicleID, damagereport.employeeID, damagereport.timestamp)
 VALUES (702, 501, 101, '1970-01-01 00:00:01');
-INSERT INTO damagereport (damageReportID, vehicleID, employeeID, timestamp)
+INSERT INTO damagereport (damagereport.damageReportID, damagereport.vehicleID, damagereport.employeeID, damagereport.timestamp)
 VALUES (703, 502, 101, '1970-01-01 00:00:01');
 
 # damageEntry #

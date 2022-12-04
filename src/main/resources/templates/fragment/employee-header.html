@@ -1,0 +1,11 @@
+<head>
+    <link rel="stylesheet" th:href="@{/employee-header.css}">
+</head>
+
+<header class="container" th:fragment="header" th:switch="${Role}">
+    <div class="row">
+        <a th:href="@{/logout}">
+            <button class="btn-logout" >log ud</button>
+        </a>
+    </div>
+</header>

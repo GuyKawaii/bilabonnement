@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>skaderapporter</title>
+</head>
+<body>
+
+<div id="content">
+    <header th:insert="fragment/employee-header.html :: header"> </header>
+
+    <h1>skaderapporter</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>damageReportID</th>
+            <th>vehicleID</th>
+            <th>employeeID</th>
+            <th>tidspunkt</th>
+            <th>tilgå</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(listOfDamageReports)}"> <!-- no items listed -->
+            <td>IGEN SKADERAPPORTER</td>
+        </tr>
+        <tr th:each="damageReport : ${listOfDamageReports}">
+            <td><span th:text="${damageReport.damageReportID}">rapport id</span></td>
+            <td><span th:text="${damageReport.vehicleID}"> bil id</span></td>
+            <td><span th:text="${damageReport.employeeID}">medarbejder id</span></td>
+            <td><span th:text="${damageReport.timestamp}">tidspunkt</span></td>
+            <td>
+                <a th:href="@{'/edit-damage-report?reportID='+${damageReport.damageReportID}}">
+                    <button class="btn-view" id="btn-edit">rediger</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{'/delete-damage-report?reportID='+${damageReport.damageReportID}+'&returnPage=all-damage-reports'}">
+                    <button class="btn-view" id="btn-view">slet</button>
+                </a>
+            </td>
+        </tr>
+
+
+        </tbody>
+
+
+    </table>
+
+
+</div>
+
+
+</body>
+</html>

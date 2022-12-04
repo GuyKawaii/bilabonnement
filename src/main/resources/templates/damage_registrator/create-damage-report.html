@@ -13,8 +13,6 @@
     <h1>Lav skaderapport</h1>
 
     <form action="/create_damage_report" method="post" id>
-        <label for="leaseID">lease ID:</label><br>
-        <input type="number" name="leaseID" required><br>
         <label for="vehicleID">vogn ID:</label><br>
         <input type="text" name="vehicleID" required><br>
         <label for="timestamp">timestamp:</label><br>
@@ -25,7 +23,7 @@
     <div id="horizontal_tables">
         <!--    leaseContracts-->
         <div>
-            <h3>lease contracts</h3>
+            <h3>biler</h3>
             <table>
                 <tr>
                     <th>ID</th>
@@ -45,7 +43,7 @@
 
         <!--    damageReports-->
         <div>
-            <h3>damage reports</h3>
+            <h3>skaderapporter</h3>
             <table>
                 <tr>
                     <th>ID</th>
@@ -54,27 +52,24 @@
                     <th>delete</th>
                 </tr>
                 <tr th:each="report : ${damageReports}">
-                    <td th:text="${report.id}"></td>
+                    <td th:text="${report.damageReportID}"></td>
                     <td th:text="${report.timestamp}"></td>
-                    <td th:text="${report.leaseID}"></td>
                     <td th:text="${report.vehicleID}"></td>
-                    <!--    PathVariables and Autowired til senere brug, hvis nødvendigt form.
-                            <td>
-                                      <a th:href="@{'/viewUser/'+${user.usrID}}">
-                                          <a th:href="@{'/damage-entry/'+${report.id}}">
-                                              <button class="btn-view" id="btn-view">View report</button>
-                                          </a>
-                    </td>-->
+                    <!--   PathVariables and Autowired til senere brug, hvis nødvendigt form.-->
                     <td>
-                        <form method="POST" action="/delete-damage-report">
-                            <input type="submit" value="Delete">
-                            <input type="hidden" name="reportID" th:value="${report.id}">
-                        </form>
+                        <!-- <a th:href="@{'/viewUser/'+${user.usrID}}">-->
+                        <a th:href="@{'/damage-entry?id='+${report.damageReportID}}">
+                            <button class="btn-view" id="btn-view">View report</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/delete-damage-report?reportID='+${report.damageReportID}}">
+                            <button class="btn-view" id="btn-view">View report</button>
+                        </a>
                     </td>
                 </tr>
             </table>
         </div>
-
         </table>
     </div>
 

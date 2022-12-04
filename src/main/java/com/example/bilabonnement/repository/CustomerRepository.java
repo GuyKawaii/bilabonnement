@@ -56,7 +56,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
         List<Customer> customerList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.employee");
+            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.customer");
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities
@@ -114,7 +114,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
     public void update(Customer customer) {
         try {
             PreparedStatement psts = conn.prepareStatement(
-                    "UPDATE bilabonnement.customer SET firstName = ?, lastName = ?, email = ?, address = ?, city = ?, postalCode = ?, mobile = ?, cprNumber = ?, WHERE customerID = ?");
+                    "UPDATE bilabonnement.customer SET firstName = ?, lastName = ?, email = ?, address = ?, city = ?, postalCode = ?, mobile = ?, cprNumber = ? WHERE customerID = ?");
             psts.setString(1, customer.getFirstName());
             psts.setString(2, customer.getLastName());
             psts.setString(3, customer.getEmail());
