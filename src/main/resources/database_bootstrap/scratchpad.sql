@@ -39,3 +39,4 @@ WHERE state = 'IS_LEASED'
 ORDER BY startDate;
 
 # aliasing mellem state IS_LEASED og leaseContract der har en given periode mellem startDate og endDate. tænker man ud fra dem ville kunne deeducerer hvilke der er leased maybe?
+# Alså hive alle kontrakter ud og sorter efter startdato for nuværende måned i service?
