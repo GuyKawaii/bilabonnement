@@ -7,107 +7,124 @@
 </head>
 <body>
 <div id="content">
-<!--    create new contract -->
-<h1>Lav lejeaftale</h1><hr><br>
-<div id="formdiv">
-<form action="/makeContract" method="post">
-    <label for="startDate">Startdato:</label><br>
-    <input  type="date" name="startDate" required><br>
-    <label for="endDate">Slutdato:</label><br>
-    <input type="date" name="endDate" required><br>
-    <label for="monthlyPrice">Monthly price:</label><br>
-    <input type="text" name="monthlyPrice" required><br>
-    <label for="customerID">customer ID:</label><br>
-    <input type="text" name="customerID" required><br>
-    <label for="vehicleID">Vognnummer:</label><br>
-    <input type="text" name="vehicleID" required><br>
-    <label for="employeeId">employee ID:</label><br>
-    <input type="text" name="employeeID" required><br><br>
-   <br>
-    <div id="optionaldiv">
-        <table>
-            <tr><th colspan="4">
-                Ekstra udstyr til bilen </th></tr>
-            <tr>
-                <th>Tryk for at tilføje udstyr</th>
-                <th>Ekstra udstyr</th>
-                <th>pris per måned</th>
-                <th><input type="checkbox" name="optional all" value="Optional all"><br><br>
-                </th>
-            </tr>
-            <tr>
-            </tr>
-        </table>
-    </div>
-    <button style="float: right" type="submit">send</button>
+    <!--    create new contract -->
+    <h1>Opret lejeaftale</h1>
+    <hr>
     <br>
-</form>
+    <div id="formdiv">
+        <form action="/makeContract" method="post">
+            <label for="startDate">Startdato:</label><br>
+            <input type="date" name="startDate" required><br>
+            <label for="endDate">Slutdato:</label><br>
+            <input type="date" name="endDate" required><br>
+            <label for="monthlyPrice">Monthly price:</label><br>
+            <input type="text" name="monthlyPrice" required><br>
+            <label for="customerID">customer ID:</label><br>
+            <input type="text" name="customerID" required><br>
+            <label for="vehicleID">Vognnummer:</label><br>
+            <input type="text" name="vehicleID" required><br>
+            <label for="employeeId">employee ID:</label><br>
+            <input type="text" name="employeeID" required><br><br>
+            <br>
+            <div id="optionaldiv">
+                <table>
+                    <tr>
+                        <th colspan="4">
+                            Ekstra udstyr til bilen
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Tryk for at tilføje udstyr</th>
+                        <th>Ekstra udstyr</th>
+                        <th>pris per måned</th>
+                        <th><input type="checkbox" name="optional all" value="Optional all"><br><br>
+                        </th>
+                    </tr>
+                    <tr>
+                    </tr>
+                </table>
+            </div>
+            <button style="float: right" type="submit">send</button>
+            <br>
+        </form>
 
-</div>
- <!--   <br>
-<div id="optionaldiv">
-    <table>
-        <tr><th colspan="3">
-            Ekstra udstyr til bilen </th></tr>
-        <tr>
-            <th>Tryk for at tilføje udstyr</th>
-            <th>Ekstra udstyr</th>
-            <th>pris per måned</th>
-        </tr>-->
-<!--        <tr th:each="contract : ${leaseContracts}">
-            <td th:text="${contract.leaseID}"></td>
-            <td th:text="${contract.startDate}"></td>
-            <td th:text="${contract.endDate}"></td>
-            <td th:text="${contract.vehicleID}"></td>
-            <td th:text="${contract.customerID}"></td>
-            <td th:text="${contract.monthlyPrice}"></td>
-
-                     <form>
-                     <label for="optional1"> optional1</label>
-                        <input type="checkbox" id="optional1" name="optional1" value="optional1">
-                        <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
-                    </form>
-
-        </tr>-->
-    </table>
-</div>
-   <br><br><br><hr><br><br><br>
-<div id="tablediv">
-    <!--    leaseContracts-->
-        <table>
-            <tr><th colspan="8">
-                Leasingaftaler</th></tr>
-            <tr>
-                <th>ID</th>
-                <th>start date</th>
-                <th>end date</th>
-                <th>customer ID</th>
-                <th>vehicle ID</th>
-                <th>price</th>
-                <th>edit</th>
-                <th>delete</th>
-            </tr>
-            <tr th:each="contract : ${leaseContracts}">
+    </div>
+    <!--   <br>
+   <div id="optionaldiv">
+       <table>
+           <tr><th colspan="3">
+               Ekstra udstyr til bilen </th></tr>
+           <tr>
+               <th>Tryk for at tilføje udstyr</th>
+               <th>Ekstra udstyr</th>
+               <th>pris per måned</th>
+           </tr>-->
+    <!--        <tr th:each="contract : ${leaseContracts}">
                 <td th:text="${contract.leaseID}"></td>
                 <td th:text="${contract.startDate}"></td>
                 <td th:text="${contract.endDate}"></td>
                 <td th:text="${contract.vehicleID}"></td>
                 <td th:text="${contract.customerID}"></td>
                 <td th:text="${contract.monthlyPrice}"></td>
-                <td>
-                    <form method="POST" action="/edit-leasecontract">
-                        <input type="submit" value="Edit">
-                        <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
-                    </form>
-                </td>
-                <td>
-                    <form method="POST" action="/delete-leasecontract">
-                        <input type="submit" value="Delete">
-                        <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
-                    </form>
-                </td>
-            </tr>
-        </table>
+
+                         <form>
+                         <label for="optional1"> optional1</label>
+                            <input type="checkbox" id="optional1" name="optional1" value="optional1">
+                            <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
+                        </form>
+
+            </tr>-->
+    </table>
+</div>
+<br><br><br>
+<hr>
+<br><br><br>
+<div id="tablediv">
+    <!--    leaseContracts-->
+    <table>
+        <tr>
+            <th colspan="9">
+                Leasingaftaler
+            </th>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Monthly price</th>
+            <th>Customer ID</th>
+            <th>Vehicle ID</th>
+            <th>Employee ID</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="contract : ${leaseContracts}">
+            <td th:text="${contract.leaseID}"></td>
+            <td th:text="${contract.startDate}"></td>
+            <td th:text="${contract.endDate}"></td>
+            <td th:text="${contract.monthlyPrice}"></td>
+            <td th:text="${contract.customerID}"></td>
+            <td th:text="${contract.vehicleID}"></td>
+            <td th:text="${contract.employeeID}"></td>
+            <td>
+                <a th:href="@{/edit(id=${contract.getLeaseID()})}">
+                    <button class="btn-edit" id="btn-edit">Edit user</button></a>
+                <!--  <form method="POST" action="@{'/edit-leasecontract?id='+${contract.leaseID}}">
+                      <input type="submit" value="Edit">
+                      <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
+                  </form>-->
+            </td>
+
+
+
+            <td>
+                <form method="POST" action="/delete-leasecontract">
+                    <input type="submit" value="Delete">
+                    <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
+                </form>
+            </td>
+        </tr>
+    </table>
 </div>
 
 </div>

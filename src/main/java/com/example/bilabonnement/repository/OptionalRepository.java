@@ -1,7 +1,6 @@
 package com.example.bilabonnement.repository;
 
-import com.example.bilabonnement.model.DamageEntry;
-import com.example.bilabonnement.model.Optional;
+import com.example.bilabonnement.model.optional;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
 import java.sql.Connection;
@@ -11,11 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OptionalRepository implements IGenericRepository<Optional> {
+public class OptionalRepository implements IGenericRepository<optional> {
     Connection conn = DatabaseConnectionManager.getConnection();
 
     @Override
-    public void create(Optional optional) {
+    public void create(optional optional) {
         try {
             // with or without predefined ID;
             PreparedStatement psts;
@@ -40,8 +39,8 @@ public class OptionalRepository implements IGenericRepository<Optional> {
     }
 
     @Override
-    public List<Optional> readAll() {
-        List<Optional> optionalList = new ArrayList<>();
+    public List<optional> readAll() {
+        List<optional> optionalList = new ArrayList<>();
 
         try {
             PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.optional");
@@ -49,7 +48,7 @@ public class OptionalRepository implements IGenericRepository<Optional> {
 
             // list of entities
             while (resultSet.next()) {
-                optionalList.add(new Optional(
+                optionalList.add(new optional(
                         resultSet.getInt("optionalID"),
                         resultSet.getString("name"),
                         resultSet.getDouble("pricePrMonth")));
@@ -63,8 +62,8 @@ public class OptionalRepository implements IGenericRepository<Optional> {
     }
 
     @Override
-    public Optional read(int id) {
-        Optional optional = null;
+    public optional read(int id) {
+        optional optional = null;
 
         try {
             PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.optional WHERE optionalID = ?");
@@ -73,7 +72,7 @@ public class OptionalRepository implements IGenericRepository<Optional> {
 
             // list of entities
             while (resultSet.next()) {
-                optional = new Optional(
+                optional = new optional(
                         resultSet.getInt("optionalID"),
                         resultSet.getString("name"),
                         resultSet.getDouble("pricePrMonth"));
@@ -87,7 +86,7 @@ public class OptionalRepository implements IGenericRepository<Optional> {
     }
 
     @Override
-    public void update(Optional optional) {
+    public void update(optional optional) {
         try {
             PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.optional SET name = ?, pricePrMonth = ? WHERE optionalID = ?");
             psts.setString(1, optional.getName());

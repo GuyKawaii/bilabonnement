@@ -1,11 +1,11 @@
 package com.example.bilabonnement.model;
 
-public class Optional {
+public class optional {
     private Integer optionalID;
     private String name;
     private double pricePrMonth;
 
-    public Optional(Integer optionalID, String name, double pricePrMonth) {
+    public optional(Integer optionalID, String name, double pricePrMonth) {
         this.optionalID = optionalID;
         this.name = name;
         this.pricePrMonth = pricePrMonth;

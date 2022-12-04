@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
 <div id="content">
+
   <!--    create new contract -->
+
   <h1> ændre lejeaftale</h1><hr><br>
+
   <div id="formdiv">
-    <form action="/edit-lease" method="post">
+      <form action="/edit" method="post">
       <label for="startDate">ny Startdato:</label><br>
-      <input  type="date" name="startDate" required><br>
+      <input  type="date" id="startDate" name="startDate" th:value="${contract.startDate}" ><br>
       <label for="endDate">ny Slutdato:</label><br>
-      <input type="date" name="endDate" required><br>
+      <input type="date" id="endDate" name="endDate" th:value="${contract.endDate}" ><br>
       <label for="monthlyPrice"> ny pris per måned:</label><br>
-      <input type="text" name="monthlyPrice" required><br>
+      <input type="text" id="monthlyPrice" name="monthlyPrice" th:value="${contract.monthlyPrice}" ><br>
       <label for="customerID"> Kunde ID:</label><br>
-      <input type="text" name="customerID" required><br>
+      <input type="text" id="customerID" name="customerID" th:value="${contract.customerID}" ><br>
       <label for="vehicleID">Vognnummer:</label><br>
-      <input type="text" name="vehicleID" required><br>
+      <input type="text" id="vehicleID" name="vehicleID" th:value="${contract.vehicleID}" ><br>
       <label for="employeeId">Medarbejder ID:</label><br>
-      <input type="text" name="employeeID" required><br><br>
+      <input type="text" id="employeeId" name="employeeID" th:value="${contract.employeeID}" ><br><br>
       <br>
       <div id="optionaldiv">
         <table>
@@ -37,14 +41,16 @@
             </th>
           </tr>
           <tr>
+
           </tr>
         </table>
       </div>
-      <button style="float: right" type="submit">send</button>
-      <br>
+          <input type="submit" value="Save changes">
     </form>
 
 
+  </div>
+</div>
 
 </body>
 </html>

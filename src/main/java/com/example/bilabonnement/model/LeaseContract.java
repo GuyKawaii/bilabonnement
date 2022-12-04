@@ -1,6 +1,8 @@
 package com.example.bilabonnement.model;
 
 import java.sql.Date;
+import java.time.Period;
+
 
 public class LeaseContract {
     private int leaseID;
@@ -10,6 +12,7 @@ public class LeaseContract {
     private int customerID;
     private int vehicleID;
     private int employeeID;
+
 
     public LeaseContract(int leaseID, Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID) {
         this.leaseID = leaseID;
@@ -28,6 +31,11 @@ public class LeaseContract {
         this.customerID = customerID;
         this.vehicleID = vehicleID;
         this.employeeID = employeeID;
+    }
+
+    public int getMonths() {
+        // number months - needs correction of one day as Period.between(startDateInclusive, endDateExclusive)
+        return Period.between(startDate.toLocalDate() , endDate.toLocalDate().plusDays(1)).getMonths();
     }
 
     public int getLeaseID() {

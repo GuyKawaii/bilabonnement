@@ -7,29 +7,29 @@ public class Customer {
     private String email;
     private String address;
     private String city;
-    private int zipCode;
+    private int postalCode;
     private String mobile;
     private String cprNumber;
 
-    public Customer(Integer customerID, String firstName, String lastName, String email, String address, String city, int postNumber, String mobile, String CPRNumber) {
+    public Customer(Integer customerID, String firstName, String lastName, String email, String address, String city, int postalCode, String mobile, String CPRNumber) {
         this.customerID = customerID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.city = city;
-        this.zipCode = postNumber;
+        this.postalCode = postalCode;
         this.mobile = mobile;
         this.cprNumber = CPRNumber;
     }
 
-    public Customer(String firstName, String lastName, String email, String address, String city, int zipCode, String mobile, String CPRNumber) {
+    public Customer(String firstName, String lastName, String email, String address, String city, int postalCode, String mobile, String CPRNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.city = city;
-        this.zipCode = zipCode;
+        this.postalCode = postalCode;
         this.mobile = mobile;
         this.cprNumber = CPRNumber;
     }
@@ -82,12 +82,12 @@ public class Customer {
         this.city = city;
     }
 
-    public int getZipCode() {
-        return zipCode;
+    public int getPostalCode() {
+        return postalCode;
     }
 
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
+    public void setPostalCode(int postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getMobile() {
