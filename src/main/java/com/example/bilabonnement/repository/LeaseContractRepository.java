@@ -120,4 +120,6 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
     }
 
+
+
 }

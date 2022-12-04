@@ -45,6 +45,7 @@ public class HomeController {
             session.setAttribute("employeeName", employee.getName());
             session.setAttribute("employeeID", employee.getEmployeeID());
             session.setAttribute("employeeRole", employee.getRole());
+            session.setAttribute("employeeEmail", employee.getEmail());
 
             return "redirect:/";
         }
@@ -69,7 +70,7 @@ public class HomeController {
                 return "redirect:/damage-report";
             }
             case BUSINESS_DEVELOPER -> {
-                return "redirect:/validUserTmp"; // todo add page
+                return "redirect:/finance"; // todo add page
             }
             case ADMINISTRATION -> {
                 return "redirect:/admin";

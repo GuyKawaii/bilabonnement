@@ -16,18 +16,15 @@ import java.util.List;
 @Controller
 public class BusinessDeveloperController {
     CarService carService = new CarService();
-    @GetMapping("carsLeased")
     LeaseContractService leaseContractService = new LeaseContractService();
+
     @GetMapping("finance")
     public String getCarsLeased(HttpSession session, Model model) {
-        Employee employee = (Employee) session.getAttribute("employee");
 
-       List<Car> leasedCars = carService.getLeasedCarsList();
-       int numOfLeasedCars = carService.getLeasedCarsAmount();
        List<LeaseContract> leaseContracts = leaseContractService.readAll();
-       String name = employee.getName();
-       int id = employee.getEmployeeID();
-       String email = employee.getEmail();
+       String name = (String) session.getAttribute("employeeName");
+        int id = (int) session.getAttribute("employeeID");
+        String email = (String) session.getAttribute("employeeEmail");
        List<Car> leasedCars = carService.getLeasedCarsList();
        int numOfLeasedCars = carService.getLeasedCarsAmount();
 
