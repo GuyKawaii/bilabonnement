@@ -3,24 +3,25 @@ package com.example.bilabonnement.service;
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.repository.CarRepository;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.bilabonnement.model.enums.State.IS_LEASED;
 
 public class CarService {
-    CarRepository fleetRepo = new CarRepository();
+    CarRepository carRepository = new CarRepository();
 
     public void create(Car car) {
-        fleetRepo.create(car);
+        carRepository.create(car);
     }
 
     public List<Car> readAll(){
-        return fleetRepo.readAll();
+        return carRepository.readAll();
     }
 
     public List<Car>  getLeasedCarsList(){
-        List<Car> fullCarList = fleetRepo.readAll();
+        List<Car> fullCarList = carRepository.readAll();
         List<Car> leasedCarList = new ArrayList<>();
 
         for (Car c:fullCarList
@@ -32,7 +33,7 @@ public class CarService {
         return leasedCarList;
     }
     public int getLeasedCarsAmount() {
-        List<Car> fullCarList = fleetRepo.readAll();
+        List<Car> fullCarList = carRepository.readAll();
         int numOfleasedCars = 0;
 
         for (Car c:fullCarList
@@ -45,19 +46,27 @@ public class CarService {
     }
 
     public Car read(int id){
-        return fleetRepo.read(id);
+        return carRepository.read(id);
     }
 
     public void update(Car car){
-        fleetRepo.update(car);
+        carRepository.update(car);
     }
     public void updateState(int id){
-        fleetRepo.updateState(id);
+        carRepository.updateState(id);
     }
 
     public void delete(int id){
-        fleetRepo.delete(id);
+        carRepository.delete(id);
     }
 
     // specific for service
+
+    public List<Car> readAllLeasedOnDate(Date date) {
+        return carRepository.readAllLeasedOnDate(date);
+    }
+
+    public List<Car> readAllUnleasedOnDate(Date date) {
+        return carRepository.readAllUnleasedOnDate(date);
+    }
 }

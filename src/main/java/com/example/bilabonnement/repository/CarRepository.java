@@ -5,10 +5,7 @@ import com.example.bilabonnement.model.enums.FuelType;
 import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +29,7 @@ public class CarRepository implements IGenericRepository<Car> {
                 psts.setString(9, car.getFuelType().toString());
                 psts.setInt(10, car.getKmDriven());
                 psts.setInt(11, car.getLocationID());
-                psts.setString(12,car.getState().toString());
+                psts.setString(12, car.getState().toString());
             } else {
                 psts = conn.prepareStatement("INSERT INTO bilabonnement.car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType, kmDriven, locationID, state) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 psts.setInt(1, car.getVehicleID());
@@ -146,13 +143,14 @@ public class CarRepository implements IGenericRepository<Car> {
             throw new RuntimeException(e);
         }
     }
-    public void updateState(int id){
+
+    public void updateState(int id) {
         try {
             PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET state = ? WHERE vehicleID = ?");
             psts.setString(1, State.IS_LEASED.toString());
             psts.setInt(2, id);
             //ResultSet resultSet =
-                psts.executeUpdate();
+            psts.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -169,5 +167,87 @@ public class CarRepository implements IGenericRepository<Car> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // extra for this repository
+
+    public List<Car> readAllLeasedOnDate(Date date) {
+        List<Car> carList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement(
+                    "SELECT car.*\n" +
+                            "FROM car\n" +
+                            "         JOIN leasecontract l on car.vehicleID = l.vehicleID\n" +
+                            "WHERE startDate <= ?\n" +
+                            "  AND ? <= endDate");
+            pst.setDate(1, date);
+            pst.setDate(2, date);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                carList.add(new Car(
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getString("chassisNumber"),
+                        resultSet.getDouble("steelPrice"),
+                        resultSet.getString("color"),
+                        resultSet.getString("brand"),
+                        resultSet.getString("model"),
+                        resultSet.getInt("co2emission"),
+                        resultSet.getString("geartype"),
+                        resultSet.getInt("kmPerLiter"),
+                        FuelType.valueOf(resultSet.getString("fuelType")),
+                        resultSet.getInt("kmDriven"),
+                        resultSet.getInt("locationID"),
+                        State.valueOf(resultSet.getString("state"))));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return carList;
+    }
+
+    public List<Car> readAllUnleasedOnDate(Date date) {
+        List<Car> carList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement(
+                    "SELECT unleased.*\n" +
+                            "FROM car unleased\n" +
+                            "WHERE unleased.vehicleID NOT IN (SELECT leased.vehicleID\n" +
+                            "                                 FROM car leased\n" +
+                            "                                          join leasecontract l on leased.vehicleID = l.vehicleID\n" +
+                            "                                 WHERE startDate <= ?\n" +
+                            "                                   AND ? <= endDate)");
+            pst.setDate(1, date);
+            pst.setDate(2, date);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                carList.add(new Car(
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getString("chassisNumber"),
+                        resultSet.getDouble("steelPrice"),
+                        resultSet.getString("color"),
+                        resultSet.getString("brand"),
+                        resultSet.getString("model"),
+                        resultSet.getInt("co2emission"),
+                        resultSet.getString("geartype"),
+                        resultSet.getInt("kmPerLiter"),
+                        FuelType.valueOf(resultSet.getString("fuelType")),
+                        resultSet.getInt("kmDriven"),
+                        resultSet.getInt("locationID"),
+                        State.valueOf(resultSet.getString("state"))));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return carList;
     }
 }
