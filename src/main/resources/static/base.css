@@ -127,7 +127,7 @@ h1 {
     border: 1px solid black;
 }
 
-input {
+input, select {
     border-radius: 10px;
     background-color: #f2f2f2;
     padding: 4px;
