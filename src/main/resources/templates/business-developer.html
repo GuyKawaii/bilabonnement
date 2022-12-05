@@ -3,14 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="business-developer.css" href="business-developer.css">
 </head>
 <body>
+    <header class="nav-bar">
+        <h1>Finansudvikling</h1>
+        <img class="logo" src="https://res.cloudinary.com/digital-interdan-bilabonnement/image/upload/v1/Mailing/logo-symbol_2_b9b3ka.png" alt="BilabonnementLogo">
+        <form action="/logout">
+            <button>Log-Out</button>
+        </form>
+    </header>
+    <div class="main_body">
+        <div class="tab-container">
+            <section>
+                <h3>User info</h3>
+                <div class="mini-padding">
+                    <h4>User: </h4>
+                    <p th:text="${nameOfUser}"></p>
+                </div>
+                <div class="mini-padding">
+                    <h4>ID: </h4>
+                    <p th:text="${idOfUser}"></p>
+                </div>
+                <div class="mini-padding">
+                    <h4>User: </h4>
+                    <p th:text="${emailOfUser}"></p>
+                </div>
+            </section>
+            <section>
+                <h3>Finance info</h3>
+                <div class="mini-padding">
+                    <h4>Amount of leased cars:</h4>
+                    <p th:text="${numberOfLeasedCars}"></p>
+                </div>
+                <div class="mini-padding">
+                    <h4>Income for current month:</h4>
+                    <!-- TODO add th:text="${}" to when finance info is gettable from repo -->
+                    <p></p>
+                </div>
+            </section>
+    </div>
+
+
 
 <h1>Forretningsudviklers side</h1>
 
-<p th:text="${carsRented}"></p>
-<br>
-<p th:text="${incomeRentedCars}"></p>
 
+<br>
+    <table id="car-list">
+        <tr>
+            <th>CarID</th>
+            <th>Model</th>
+            <th>Status</th>
+            <th>RentPeriod</th>
+            <th>Price</th>
+        </tr>
+        <tr th:each="car: ${leasedCars}">
+            <td th:text="${car.getVehicleID}"></td>
+            <td th:text="${car.getModel}"></td>
+            <td th:text="${car.getState}"></td>
+        </tr>
+
+    </table>
+    <table id="lease-info">
+        <tr>
+            <th>RentPeriod</th>
+            <th>Price</th>
+        </tr>
+        <tr th:each="leaseContract: ${leaseContracts}">
+            <td th:text="${leaseContract.getMonths}"></td>
+            <td th:text="${leaseContract.getMonthlyPrice}"></td>
+        </tr>
+    </table>
+
+    <div class="infoTable">
+        <div class="tableRow" >
+            <div class="tableCell" th:each="car: ${leasedCars}" >
+                <p th:text="${car.getVehicleID}"></p>
+                <p th:text="${car.getModel}"></p>
+                <p th:text="${car.getState}"></p>
+            </div>
+            <!---
+            <div class="tableCell" th:each="leaseContracts">
+
+            </div>
+            --->
+        </div>
+    </div>
+<p th:text="${numberOfLeasedCars}"></p>
+-->
 </body>
 </html>

@@ -83,12 +83,10 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
                         resultSet.getString("password"),
                         Role.valueOf(resultSet.getString("role")));
             }
-
+            return employee;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return null;
         }
-
-        return employee;
     }
 
     @Override
