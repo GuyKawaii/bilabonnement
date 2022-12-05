@@ -81,9 +81,9 @@ VALUES (603, '2013-03-14', '2013-03-28', 3000, 202, 503, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
 VALUES (604, '2014-01-01', '2014-01-31', 3000, 203, 504, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
-VALUES (606, '2014-01-01', '2014-01-31', 3000, 203, 505, 101);
+VALUES (606, '2022-06-21', '2023-02-21', 3000, 203, 505, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
-VALUES (607, '2014-03-01', '2014-05-31', 3000, 203, 506, 101);
+VALUES (607, '2022-09-01', '2023-05-01', 3000, 203, 506, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
 VALUES (608, '2016-03-01', '2016-05-31', 3000, 203, 506, 101);
 

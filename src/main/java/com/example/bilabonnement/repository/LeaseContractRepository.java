@@ -3,10 +3,8 @@ package com.example.bilabonnement.repository;
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,6 +117,28 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             throw new RuntimeException(e);
         }
     }
+
+    public double getCurrentIncome(Date date) {
+        double income = 0;
+        try {
+            PreparedStatement pst = conn.prepareStatement("SELECT leasecontract.monthlyPrice\n" +
+                    "FROM leaseContract\n" +
+                    "WHERE startDate < ? AND endDate > ?;");
+
+            pst.setDate(1,date);
+            pst.setDate(2,date);
+            ResultSet resultSet = pst.executeQuery();
+
+            while (resultSet.next()) {
+                income += resultSet.getDouble("monthlyPrice");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return income;
+    }
+
+
 
 
 
