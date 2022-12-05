@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -35,8 +37,13 @@ public class DamageReporterController {
     //model.addAttribute("damage-report", damageReportService.read(id));
 
     @GetMapping("/damage-reports")
-    public String damageReports(Model model) {
-        model.addAttribute("Role", DATA_REGISTRATION);
+    public String damageReports(Model model, HttpSession session) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
+            return "redirect:/logout";
+        // session navbar
+        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
 
         List<DamageReport> damageReports = damageReportService.readAll();
 
@@ -47,13 +54,17 @@ public class DamageReporterController {
 
     @GetMapping("/create-damage-report")
     public String createDamageReport(Model model, HttpSession session) {
-        // validate employee access // todo add this to all get mappings to verify who can access it
+        // validate employee access
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
             return "redirect:/logout";
+        // session navbar
+        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
 
         // visual element for work
-        List<Car> cars = carService.readAll();
+        List<Car> cars = carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now()));
         List<DamageReport> damageReports = damageReportService.readAll();
+
 
         // add time
         model.addAttribute("currentTime", LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
@@ -63,35 +74,30 @@ public class DamageReporterController {
         return "damage_registrator/create-damage-report";
     }
 
-    @PostMapping("/make_damage_report")
+    @PostMapping("/create-new-damage-report")
     public String createDamageReport(HttpSession session, WebRequest req, Model model) {
-
-        // todo remove tmp add session user
-        session.setAttribute("employee", new Employee(102, "2", "DAMAGE_REPORTER user", "123", DAMAGE_REPORTER));
-
-        // session
-        Employee employee = (Employee) session.getAttribute("employee");
-
-        System.out.println(req.getParameter("datetime"));
-
-
-        DamageReport damageReport = new DamageReport(
+        // damage report to create
+        damageReportService.create(new DamageReport(
                 // session parameter
-                employee.getEmployeeID(),
-
+                (int) session.getAttribute("employeeID"),
                 // form parameters
                 Integer.parseInt(req.getParameter("vehicleID")),
                 // todo change to localDate later
-                Timestamp.valueOf(LocalDateTime.parse(req.getParameter("datetime")))
-        );
+                Timestamp.valueOf(LocalDateTime.parse(req.getParameter("datetime")))));
 
-        damageReportService.create(damageReport);
-
-        return "redirect:/damage-report";
+        return "redirect:/create-damage-report";
     }
 
     @GetMapping("/edit-damage-report")
-    public String damageEntry(@RequestParam int reportID, Model model) { //skal HttpSession være i alle parameterlister?
+    public String damageEntry(@RequestParam int reportID, Model model, HttpSession session) { //skal HttpSession være i alle parameterlister?
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
+            return "redirect:/logout";
+        // session navbar
+        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+
+
         // add reference lists
         model.addAttribute("damageReport", damageReportService.read(reportID));
         model.addAttribute("damageEntries", damageEntryService.entriesByReport(reportID));
@@ -113,11 +119,7 @@ public class DamageReporterController {
 
 
         // create entry
-        damageEntryService.create(new DamageEntry(
-                req.getParameter("skade"),
-                req.getParameter("beskrivelse"),
-                Double.parseDouble(req.getParameter("pris")),
-                Integer.parseInt(req.getParameter("damage-report-id"))));
+        damageEntryService.create(new DamageEntry(req.getParameter("skade"), req.getParameter("beskrivelse"), Double.parseDouble(req.getParameter("pris")), Integer.parseInt(req.getParameter("damage-report-id"))));
 
         return ("redirect:/damage-entry?id=" + req.getParameter("damage-report-id"));
     }

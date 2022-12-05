@@ -61,3 +61,14 @@ ORDER BY startDate;
 
 # aliasing mellem state IS_LEASED og leaseContract der har en given periode mellem startDate og endDate. tænker man ud fra dem ville kunne deeducerer hvilke der er leased maybe?
 # Alså hive alle kontrakter ud og sorter efter startdato for nuværende måned i service?
+
+TRUNCATE leasecontract;
+
+INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
+VALUES (601, '2011-01-14', '2011-01-28', 3000, 201, 501, 101);
+INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
+VALUES (602, '2012-02-14', '2012-02-28', 3000, 201, 502, 101);
+INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
+VALUES (603, '2013-03-14', '2013-03-28', 3000, 202, 503, 101);
+INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
+VALUES (604, '2014-01-01', '2014-01-31', 3000, 203, 504, 101);

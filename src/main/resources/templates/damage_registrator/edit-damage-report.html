@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>damage report</title>
-    <link rel="stylesheet" href="damage.css">
+    <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
+    <link rel="stylesheet" th:href="@{/base.css}">
 </head>
 <body>
 
+<header th:replace="fragment/nav-menu.html :: header"></header>
+
 <div id="content">
-
-
     <h1>skaderapport</h1>
 
     <form action="/updateContract" method="post">

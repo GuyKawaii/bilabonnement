@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>damage report</title>
-    <link rel="stylesheet" href="damage.css">
+    <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
+    <link rel="stylesheet" th:href="@{/base.css}">
 </head>
 <body>
 
-<div id="content">
+<header th:replace="fragment/nav-menu.html :: header"></header>
 
+<div id="content">
 
     <h1>Lav skaderapport</h1>
 
-    <form action="/create_damage_report" method="post" id>
-        <label for="vehicleID">vogn ID:</label><br>
-        <input type="text" name="vehicleID" required><br>
+    <form action="/create-new-damage-report" method="post" id>
+        <label for="vehicleID">vogn id:</label><br>
+        <select name="vehicleID">
+            <option th:each="car: ${cars}" th:value="${car.vehicleID}" th:text="|id: ${car.vehicleID}, ${car.brand}, ${car.model}|"></option>
+        </select><br>
         <label for="timestamp">timestamp:</label><br>
         <input type="datetime-local" name="datetime" th:value="${currentTime}">
         <button type="submit">create</button>
@@ -22,23 +26,23 @@
 
     <div id="horizontal_tables">
         <!--    leaseContracts-->
-        <div>
-            <h3>biler</h3>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>start date</th>
-                    <th>end date</th>
-                    <th>vehicleID</th>
-                </tr>
-                <tr th:each="contract : ${leaseContracts}">
-                    <td th:text="${contract.leaseID}"></td>
-                    <td th:text="${contract.startDate}"></td>
-                    <td th:text="${contract.endDate}"></td>
-                    <td th:text="${contract.vehicleID}"></td>
-                </tr>
-            </table>
-        </div>
+<!--        <div>-->
+<!--            <h3>biler</h3>-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <th>ID</th>-->
+<!--                    <th>start date</th>-->
+<!--                    <th>end date</th>-->
+<!--                    <th>vehicleID</th>-->
+<!--                </tr>-->
+<!--                <tr th:each="contract : ${leaseContracts}">-->
+<!--                    <td th:text="${contract.leaseID}"></td>-->
+<!--                    <td th:text="${contract.startDate}"></td>-->
+<!--                    <td th:text="${contract.endDate}"></td>-->
+<!--                    <td th:text="${contract.vehicleID}"></td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </div>-->
 
 
         <!--    damageReports-->
@@ -48,8 +52,9 @@
                 <tr>
                     <th>ID</th>
                     <th>timestamp</th>
-                    <th>edit</th>
-                    <th>delete</th>
+                    <th>vogn id</th>
+                    <th>tilgå</th>
+                    <th>fjern</th>
                 </tr>
                 <tr th:each="report : ${damageReports}">
                     <td th:text="${report.damageReportID}"></td>

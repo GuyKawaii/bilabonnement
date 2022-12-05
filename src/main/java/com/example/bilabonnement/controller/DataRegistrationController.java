@@ -31,6 +31,9 @@ public class DataRegistrationController {
 
   @PostMapping("/makeContract")
   public String makeContract(HttpSession session, WebRequest req, Model model) {
+    // todo add validation for startdate and endDate
+    // todo IMP!!! dont create if period overlap
+
     double price = Double.valueOf(req.getParameter("monthlyPrice"));
     int customerID = Integer.valueOf(req.getParameter("customerID"));//midlertidig variabel fordi den skal laves til int, ellers er det Integer?
     int vehicleID = Integer.valueOf(req.getParameter("vehicleID"));

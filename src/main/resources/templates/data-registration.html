@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>$Title$</title>
-    <link rel="stylesheet" href="mystyle.css">
+    <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
+    <link rel="stylesheet" th:href="@{/base.css}">
 </head>
 <body>
+
+<header th:replace="fragment/nav-menu.html :: header"></header>
+
 <div id="content">
     <!--    create new contract -->
     <h1>Opret lejeaftale</h1>

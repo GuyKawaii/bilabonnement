@@ -64,13 +64,13 @@ public class HomeController {
         // role redirect
         switch (role) {
             case DATA_REGISTRATION -> {
-                return "redirect:/validUserTmp"; // todo add page
+                return "redirect:/data-registration";
             }
             case DAMAGE_REPORTER -> {
-                return "redirect:/damage-report";
+                return "redirect:/create-damage-report";
             }
             case BUSINESS_DEVELOPER -> {
-                return "redirect:/finance"; // todo add page
+                return "redirect:/finance";
             }
             case ADMINISTRATION -> {
                 return "redirect:/admin";
