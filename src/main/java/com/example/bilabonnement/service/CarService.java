@@ -59,4 +59,8 @@ public class CarService {
     public List<Car> readAllUnleasedOnDate(Date date) {
         return carRepository.readAllUnleasedOnDate(date);
     }
+
+    public int getLeasedCarsAmountOnDate(Date date) {
+        return carRepository.readAllUnleasedOnDate(date).size();
+    }
 }
