@@ -35,8 +35,12 @@ SELECT * FROM bilabonnement.car;
 SELECT car.vehicleID,car.state, leasecontract.monthlyPrice , leasecontract.startdate
 FROM leaseContract
 JOIN car ON leasecontract.vehicleID = car.vehicleID
-WHERE state = 'IS_LEASED'
+WHERE state = 'IS_LEASED' AND endDate < ?
 ORDER BY startDate;
+
+SELECT leasecontract.monthlyPrice
+FROM leaseContract
+WHERE startDate < '2012-02-16' AND endDate > '2012-02-16';
 
 # aliasing mellem state IS_LEASED og leaseContract der har en given periode mellem startDate og endDate. tænker man ud fra dem ville kunne deeducerer hvilke der er leased maybe?
 # Alså hive alle kontrakter ud og sorter efter startdato for nuværende måned i service?

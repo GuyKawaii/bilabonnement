@@ -3,10 +3,7 @@ package com.example.bilabonnement.repository;
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,6 +116,18 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             throw new RuntimeException(e);
         }
     }
+
+    public int currentIncomeFromContracts() {
+        List<Integer> activeContracts = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
 
 
