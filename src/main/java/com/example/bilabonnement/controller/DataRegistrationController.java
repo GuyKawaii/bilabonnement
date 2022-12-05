@@ -1,10 +1,9 @@
 package com.example.bilabonnement.controller;
 
-import com.example.bilabonnement.model.Customer;
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.service.CustomerService;
 import com.example.bilabonnement.service.EmployeeService;
-import com.example.bilabonnement.service.FleetService;
+import com.example.bilabonnement.service.CarService;
 import com.example.bilabonnement.service.LeaseContractService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
-import java.rmi.dgc.Lease;
 import java.sql.Date;
 
 import java.util.Objects;
@@ -20,7 +18,7 @@ import java.util.Objects;
 @Controller
 public class DataRegistrationController {
   LeaseContractService leaseService = new LeaseContractService();
-  FleetService fleetService = new FleetService();
+  CarService carService = new CarService();
   CustomerService customerService = new CustomerService();
   EmployeeService employeeService = new EmployeeService();
 
@@ -39,7 +37,7 @@ public class DataRegistrationController {
     int employeeID = Integer.valueOf(req.getParameter("employeeID"));
 
 
-    if (customerService.read(customerID) == null || fleetService.read(vehicleID) == null || employeeService.read(employeeID) == null) {
+    if (customerService.read(customerID) == null || carService.read(vehicleID) == null || employeeService.read(employeeID) == null) {
       return "redirect:/data-registration";
     } else {
 
@@ -53,7 +51,7 @@ public class DataRegistrationController {
       );
       leaseService.create(ls);
       model.addAttribute("leaseContracts", leaseService.readAll());
-      fleetService.updateState(vehicleID);
+      carService.updateState(vehicleID);
       return "data-registration";
     }
   }
@@ -74,17 +72,17 @@ public class DataRegistrationController {
     Date endDate = Date.valueOf(req.getParameter("endDate"));
    */
     //Double price = model.getAttribute("monthlyPrice");
-    double price = model.;  //(req.getParameter("monthlyPrice"));
+//    double price = model.;  //(req.getParameter("monthlyPrice")); todo changed to comment to edit file
     int customerID = 201; //Integer.parseInt(req.getParameter("customerID"));//midlertidig variabel fordi den skal laves til int, ellers er det Integer?
     int vehicleID = 501; //Integer.parseInt(req.getParameter("vehicleID"));
     int employeeID = 101; // Integer.parseInt(req.getParameter("employeeID"));
 
-    if (customerService.read(customerID) == null || fleetService.read(vehicleID) == null || employeeService.read(employeeID) == null) {
+    if (customerService.read(customerID) == null || carService.read(vehicleID) == null || employeeService.read(employeeID) == null) {
       return "redirect:/data-registration";
     } else {
-      LeaseContract ls = new LeaseContract(startDate, endDate, price, customerID, vehicleID, employeeID);
+//      LeaseContract ls = new LeaseContract(startDate, endDate, price, customerID, vehicleID, employeeID); todo changed to comment to edit file
 
-      leaseService.update(ls);
+//      leaseService.update(ls); todo changed to comment to edit file
       return "data-registration";
     }
   }

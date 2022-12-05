@@ -34,3 +34,26 @@ p {
 .logo {
     height: 75%;
 }
+header h1 {
+    font-family: monospace;
+}
+
+.mini-padding {
+    padding: 5px;
+}
+
+h3 {
+    font-family: Ebrima;
+}
+
+section {
+    border: 2px dotted #77afef;
+    display: flex;
+    padding: 10px;
+    flex: 1;
+    flex-direction: column;
+}
+
+section h3 {
+    text-align: center;
+}

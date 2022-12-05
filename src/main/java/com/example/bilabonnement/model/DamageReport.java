@@ -18,9 +18,10 @@ public class DamageReport {
     }
 
     // create without ID
-    public DamageReport(Timestamp timestamp, int leaseID, int vehicleNumber) {
+    public DamageReport(int employeeID , int vehicleID, Timestamp timestamp) {
+        this.employeeID = employeeID;
+        this.vehicleID = vehicleID;
         this.timestamp = timestamp;
-        this.vehicleID = vehicleNumber;
     }
 
     public Integer getDamageReportID() {

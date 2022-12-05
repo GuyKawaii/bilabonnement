@@ -1,7 +1,10 @@
 package com.example.bilabonnement.controller;
 
 import com.example.bilabonnement.model.Employee;
+import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.service.EmployeeService;
+import org.springframework.boot.web.servlet.server.Session;
+import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,57 +20,69 @@ public class HomeController {
 
     // login page
     @GetMapping("/")
-    public String index() {
-        return "index";
+    public String index(HttpSession session) {
+
+        // fresh session
+        if (session.getAttribute("employeeID") == null) return "index";
+
+        // ongoing session
+        return "redirect:/role-redirect";
     }
 
     @PostMapping("/login")
     public String login(WebRequest request, HttpSession session, Model model) {
 
-        // get values
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        // check login credentials
+        Employee employee = employeeService.login(request.getParameter("username"), request.getParameter("password"));
 
-        // check employee
-        Employee employee = employeeService.getEmployee(email);
-
-        System.out.println(employee);
-
-        // invalid password or user
-        if (employee == null || !password.equals(employee.getPassword())) {
+        // invalid password or employee
+        if (employee == null) {
             model.addAttribute("invalidCredentials", true);
-            return "index";
+            return "redirect:/";
+
+        } else {
+            // add session keys
+            session.setAttribute("employeeName", employee.getName());
+            session.setAttribute("employeeID", employee.getEmployeeID());
+            session.setAttribute("employeeRole", employee.getRole());
+            session.setAttribute("employeeEmail", employee.getEmail());
+
+            return "redirect:/";
         }
-
-        // add user to session
-        session.setAttribute("employee", employee);
-/*
-//        // role redirect
-//        switch (employee.getRole()) {
-//
-//            case DATA_REGISTRATION -> {
-//                return "redirect:/";
-//            }
-//            case DAMAGE_REPORTER -> {
-//                return "redirect:/";
-//            }
-//            case BUSINESS_DEVELOPER -> {
-//                return "redirect:/";
-//            }
-//            case ADMINISTRATION -> {
-//                return "redirect:/";
-//            }
-//        }
-*/
-
-
-        return "redirect:/validUserTmp";
     }
 
-    @GetMapping("/validUserTmp")
-    public String vaidUserTmp(WebRequest req, Model model) {
-        model.addAttribute("email", req);
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 
+    @GetMapping("/role-redirect")
+    public String roleRedirect(HttpSession session) {
+        Role role = (Role) session.getAttribute("employeeRole");
+
+        // role redirect
+        switch (role) {
+            case DATA_REGISTRATION -> {
+                return "redirect:/validUserTmp"; // todo add page
+            }
+            case DAMAGE_REPORTER -> {
+                return "redirect:/damage-report";
+            }
+            case BUSINESS_DEVELOPER -> {
+                return "redirect:/finance"; // todo add page
+            }
+            case ADMINISTRATION -> {
+                return "redirect:/admin";
+            }
+            default -> { // null
+                return "redirect:/";
+            }
+        }
+    }
+
+    @GetMapping("/validUserTmp") // todo remove when other pages are added
+    public String validUserTmp() {
         return "validUserTmp";
     }
 

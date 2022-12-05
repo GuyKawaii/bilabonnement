@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>damage report</title>
+    <link rel="stylesheet" href="damage.css">
+</head>
+<body>
+
+<div id="content">
+
+
+    <h1>skaderapport</h1>
+
+    <form action="/updateContract" method="post">
+        <label for="vehicleID">vogn ID:</label><br>
+        <input type="text" name="vehicleID" required><br>
+        <label for="timestamp">timestamp:</label><br>
+        <input type="datetime-local" name="datetime" th:value="${currentTime}">
+        <button type="update contract">opdater</button>
+    </form>
+
+
+    <h3>tilføj skade</h3>
+
+    <form action="/create-damage-entry" method="post">
+        <label for="skade">skade</label><br>
+        <input type="text" name="skade" required><br>
+
+        <label for="beskrivelse">beskrivelse</label><br>
+        <input type="text" name="beskrivelse" required><br>
+
+        <label for="pris">pris</label><br>
+        <input type="number" name="pris" required><br>
+
+        <input type="hidden" name="damage-report-id" th:value="${damageReport.damageReportID}"><br>
+        <button type="submit">create</button>
+    </form>
+
+
+    <h3>damages</h3>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>skade</th>
+            <th>beskrivelse</th>
+            <th>pris</th>
+            <th>slet</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${damageEntries}">
+            <td th:text="${entry.damageEntryID}"></td>
+            <td th:text="${entry.damageTitle}"></td>
+            <td th:text="${entry.damageDescription}"></td>
+            <td th:text="${entry.damagePrice}"></td>
+            <td>
+                <form action="/delete-entry" method="post" id>
+                    <button type="submit">delete</button>
+                    <input type="hidden" name="reportID" th:value="${damageReport.damageReportID}"><br>
+                    <input type="hidden" name="entryID" th:value="${entry.damageEntryID}"><br>
+                </form>
+            </td>
+            <td>
+                <form action="/delete-entry" method="post" id>
+                    <button type="submit">delete</button>
+                    <input type="hidden" name="reportID" th:value="${damageReport.damageReportID}"><br>
+                    <input type="hidden" name="entryID" th:value="${entry.damageEntryID}"><br>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

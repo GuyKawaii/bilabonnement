@@ -1,6 +1,7 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Employee;
+import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.repository.EmployeeRepository;
 
 import java.util.List;
@@ -30,8 +31,28 @@ public class EmployeeService {
 
     // specific for service
 
-    public Employee getEmployee(String email) {
+    public Employee getEmployeeByEmail(String email) {
         return employeeRepo.readByEmail(email);
+    }
+
+    public Employee login(String email, String password) {
+
+        // read from DB
+        Employee employee = getEmployeeByEmail(email);
+
+        // check presence and password
+        if (employee != null && password.equals(employee.getPassword()))
+            return employee;
+        else
+            return null;
+    }
+
+
+    public static boolean validEmployeeRole(Role role, Role[] roles) {
+        for (Role r : roles)
+            if (r == role) return true;
+
+        return false;
     }
 
 }
