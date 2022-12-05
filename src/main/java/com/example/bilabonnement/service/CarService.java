@@ -4,6 +4,7 @@ import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.repository.CarRepository;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,18 +21,7 @@ public class CarService {
         return carRepository.readAll();
     }
 
-    public List<Car>  getLeasedCarsList(){
-        List<Car> fullCarList = carRepository.readAll();
-        List<Car> leasedCarList = new ArrayList<>();
 
-        for (Car c:fullCarList
-             ) {
-            if (c.getState().equals(IS_LEASED)) {
-                leasedCarList.add(c);
-            }
-        }
-        return leasedCarList;
-    }
     public int getLeasedCarsAmount() {
         List<Car> fullCarList = carRepository.readAll();
         int numOfleasedCars = 0;

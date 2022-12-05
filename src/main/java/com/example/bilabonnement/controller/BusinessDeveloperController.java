@@ -25,8 +25,11 @@ public class BusinessDeveloperController {
        String name = (String) session.getAttribute("employeeName");
         int id = (int) session.getAttribute("employeeID");
         String email = (String) session.getAttribute("employeeEmail");
-       List<Car> leasedCars = carService.getLeasedCarsList();
-       int numOfLeasedCars = carService.getLeasedCarsAmount();
+        double currentIncome = leaseContractService.getCurrentIncome();
+
+        List<Car> leasedCars = carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now()));
+        System.out.println(Date.valueOf(LocalDate.now()));
+        int numOfLeasedCars = carService.getLeasedCarsAmountOnDate(Date.valueOf(LocalDate.now()));
 
        // TODO Fix this after asking for definitive session/cookie usage help
         // Blocked 'cause of the undefined
@@ -38,12 +41,6 @@ public class BusinessDeveloperController {
        model.addAttribute("numberOfLeasedCars",numOfLeasedCars);
 
        return "business-developer";
-    }
-
-    @GetMapping("income")
-    public String showIncome() {
-
-        return "incomeData";
     }
 
 }

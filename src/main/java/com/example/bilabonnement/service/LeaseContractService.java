@@ -3,6 +3,8 @@ package com.example.bilabonnement.service;
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.repository.LeaseContractRepository;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class LeaseContractService {
@@ -27,6 +29,14 @@ public class LeaseContractService {
 
     public void delete(int id) {
         leaseContractRepo.delete(id);
+    }
+
+    public  double getCurrentIncome() {
+        return leaseContractRepo.getCurrentIncome(Date.valueOf(LocalDate.now()));
+    }
+
+    public  double getCurrentIncomeByDate(Date date) {
+        return leaseContractRepo.getCurrentIncome(date);
     }
 
     // specific for service
