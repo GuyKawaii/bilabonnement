@@ -19,8 +19,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Objects;
 
-import static com.example.bilabonnement.model.enums.Role.ADMINISTRATION;
-import static com.example.bilabonnement.model.enums.Role.DAMAGE_REPORTER;
+import static com.example.bilabonnement.model.enums.Role.*;
 
 @Controller
 public class DataRegistrationController {
@@ -34,7 +33,7 @@ public class DataRegistrationController {
     @GetMapping("/data-registration")
     public String registrationPage(HttpSession session, Model model) {
         // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DATA_REGISTRATION, ADMINISTRATION}))
             return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
@@ -126,25 +125,6 @@ public class DataRegistrationController {
     }
 
 
-
-    /*
-
-    ------------USING WEB REQUEST.---------------
-    double price = Double.valueOf(req.getParameter("monthlyPrice"));
-    int customerID = Integer.valueOf(req.getParameter("customerID"));//midlertidig variabel fordi den skal laves til int, ellers er det Integer?
-    int vehicleID = Integer.valueOf(req.getParameter("vehicleID"));
-    int employeeID = Integer.valueOf(req.getParameter("employeeID"));
-
-
-    if (customerService.read(customerID) == null || fleetService.read(vehicleID) == null || employeeService.read(employeeID) == null) {
-      return "redirect:/data-registration";
-    } else {
-      leaseService.update(leaseContract);
-      return "data-registration";
-    }
-  }
-
-*/
 
 
     @PostMapping("/delete-leasecontract")
