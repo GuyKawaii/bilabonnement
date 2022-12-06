@@ -39,5 +39,4 @@ public class LeaseContractService {
         return leaseContractRepo.getCurrentIncome(date);
     }
 
-    // specific for service
 }
