@@ -1,6 +1,7 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Customer;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerRepositoryTest {
 
-    CustomerRepository customerRepository = new CustomerRepository();
+    CustomerRepository customerRepository = new CustomerRepository(DB_CONNECTION.TEST_DB);
 
     @Test
     void create() {

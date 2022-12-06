@@ -15,7 +15,6 @@ class LeaseContractTest {
         LeaseContract dayAbove = new LeaseContract(1, Date.valueOf("2020-01-1"), Date.valueOf("2020-04-01"), 1, 1, 1, 1);
         LeaseContract threeMonths = new LeaseContract(1, Date.valueOf("2020-01-1"), Date.valueOf("2020-03-31"), 1, 1, 1, 1);
         LeaseContract dayBelow = new LeaseContract(1, Date.valueOf("2020-01-1"), Date.valueOf("2020-03-30"), 1, 1, 1, 1);
-
         int expected = 3;
 
         // act
@@ -27,5 +26,6 @@ class LeaseContractTest {
         assertEquals(expected, actualWithDayAbove);
         assertEquals(expected, actual);
         assertEquals(expected - 1, actualWithDayBelow);
+
     }
 }

@@ -2,12 +2,13 @@ package com.example.bilabonnement.service;
 
 
 import com.example.bilabonnement.model.Customer;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.repository.*;
 
 import java.util.List;
 
 public class CustomerService {
-    CustomerRepository customerRepo = new CustomerRepository();
+    CustomerRepository customerRepo = new CustomerRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(Customer customer) {
         customerRepo.create(customer);

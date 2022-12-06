@@ -1,6 +1,7 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Employee;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
@@ -12,21 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeRepository implements IGenericRepository<Employee> {
-    Connection conn = DatabaseConnectionManager.getConnection();
+    Connection conn;
 
+    public EmployeeRepository(DB_CONNECTION db_connection) {
+        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+    }
     @Override
     public void create(Employee employee) {
         try {
             // with or without predefined ID;
             PreparedStatement psts;
             if (employee.getEmployeeID() == null) {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.employee (email, name, password, role) VALUES (?,?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO employee (email, name, password, role) VALUES (?,?,?,?)");
                 psts.setString(1, employee.getEmail());
                 psts.setString(2, employee.getName());
                 psts.setString(3, employee.getPassword());
                 psts.setString(4, employee.getRole().name());
             } else {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.employee (employeeID, email, name, password, role) VALUES (?,?,?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO employee (employeeID, email, name, password, role) VALUES (?,?,?,?,?)");
                 psts.setInt(1, employee.getEmployeeID());
                 psts.setString(2, employee.getEmail());
                 psts.setString(3, employee.getName());
@@ -45,7 +49,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
         List<Employee> employeeList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.employee");
+            PreparedStatement pst = conn.prepareStatement("select * from employee");
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities
@@ -70,7 +74,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
         Employee employee = null;
 
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.employee WHERE employeeID = ?");
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM employee WHERE employeeID = ?");
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
@@ -92,7 +96,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
     @Override
     public void update(Employee employee) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.employee SET email = ?, name = ?, password = ?, role = ? WHERE employeeID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE employee SET email = ?, name = ?, password = ?, role = ? WHERE employeeID = ?");
             psts.setString(1, employee.getEmail());
             psts.setString(2, employee.getName());
             psts.setString(3, employee.getPassword());
@@ -108,7 +112,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
     @Override
     public void delete(int employeeID) {
         try {
-            PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.employee WHERE employeeID=?");
+            PreparedStatement psts = conn.prepareStatement("DELETE FROM employee WHERE employeeID=?");
             psts.setInt(1, employeeID);
             psts.executeUpdate();
 

@@ -1,6 +1,7 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Customer;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
 import java.sql.Connection;
@@ -11,7 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRepository implements IGenericRepository<Customer> {
-    Connection conn = DatabaseConnectionManager.getConnection();
+    Connection conn;
+
+    public CustomerRepository(DB_CONNECTION db_connection) {
+        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+    }
 
     @Override
     public void create(Customer customer) {
@@ -20,7 +25,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
             PreparedStatement psts;
             if (customer.getCustomerID() == null) {
                 psts = conn.prepareStatement(
-                        "INSERT INTO bilabonnement.customer (firstName, lastName, email, address, city, zipCode, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?)");
+                        "INSERT INTO bilabonnement.customer (firstName, lastName, email, address, city, postalCode, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?)");
                 psts.setString(1, customer.getFirstName());
                 psts.setString(2, customer.getLastName());
                 psts.setString(3, customer.getEmail());
@@ -28,10 +33,10 @@ public class CustomerRepository implements IGenericRepository<Customer> {
                 psts.setString(5, customer.getCity());
                 psts.setInt(6, customer.getPostalCode());
                 psts.setString(7, customer.getMobile());
-                psts.setString(8,customer.getCprNumber());
+                psts.setString(8, customer.getCprNumber());
             } else {
                 psts = conn.prepareStatement(
-                        "INSERT INTO bilabonnement.customer (customerID, firstName, lastName, email, address, city, zipCode, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?,?)");
+                        "INSERT INTO bilabonnement.customer (customerID, firstName, lastName, email, address, city, postalCode, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?,?)");
                 psts.setInt(1, customer.getCustomerID());
                 psts.setString(2, customer.getFirstName());
                 psts.setString(3, customer.getLastName());
@@ -40,7 +45,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
                 psts.setString(6, customer.getCity());
                 psts.setInt(7, customer.getPostalCode());
                 psts.setString(8, customer.getMobile());
-                psts.setString(9,customer.getCprNumber());
+                psts.setString(9, customer.getCprNumber());
             }
             psts.executeUpdate();
 
@@ -114,7 +119,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
     public void update(Customer customer) {
         try {
             PreparedStatement psts = conn.prepareStatement(
-                    "UPDATE bilabonnement.customer SET firstName = ?, lastName = ?, email = ?, address = ?, city = ?, zipCode = ?, mobile = ?, cprNumber = ? WHERE customerID = ?");
+                    "UPDATE bilabonnement.customer SET firstName = ?, lastName = ?, email = ?, address = ?, city = ?, postalCode = ?, mobile = ?, cprNumber = ? WHERE customerID = ?");
             psts.setString(1, customer.getFirstName());
             psts.setString(2, customer.getLastName());
             psts.setString(3, customer.getEmail());
@@ -122,7 +127,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
             psts.setString(5, customer.getCity());
             psts.setInt(6, customer.getPostalCode());
             psts.setString(7, customer.getMobile());
-            psts.setString(8,customer.getCprNumber());
+            psts.setString(8, customer.getCprNumber());
             psts.setInt(9, customer.getCustomerID());
             psts.executeUpdate();
 

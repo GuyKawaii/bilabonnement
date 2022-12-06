@@ -1,6 +1,7 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.DamageReport;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
 import java.sql.Connection;
@@ -11,7 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DamageReportRepository implements IGenericRepository<DamageReport> {
-    Connection conn = DatabaseConnectionManager.getConnection();
+    Connection conn;
+
+    public DamageReportRepository(DB_CONNECTION db_connection) {
+        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+    }
 
     @Override
     public void create(DamageReport damageReport) {
@@ -19,13 +24,13 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
             // with or without predefined ID;
             PreparedStatement psts;
             if (damageReport.getDamageReportID() == null) {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.damagereport (vehicleID,employeeID, timestamp) VALUES (?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO damagereport (vehicleID,employeeID, timestamp) VALUES (?,?,?)");
                 psts.setInt(1, damageReport.getVehicleID());
                 psts.setInt(2, damageReport.getEmployeeID());
                 psts.setTimestamp(3, damageReport.getTimestamp());
 
             } else {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.damagereport (damageReportID,vehicleID,employeeID, timestamp) VALUES (?,?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO damagereport (damageReportID,vehicleID,employeeID, timestamp) VALUES (?,?,?,?)");
                 psts.setInt(1, damageReport.getDamageReportID());
                 psts.setInt(2, damageReport.getVehicleID());
                 psts.setInt(3, damageReport.getEmployeeID());
@@ -44,7 +49,7 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
         List<DamageReport> damageReports = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.damagereport");
+            PreparedStatement pst = conn.prepareStatement("select * from damagereport");
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities
@@ -67,7 +72,7 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
         DamageReport damageReport = null;
 
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.damagereport WHERE damageReportID = ?");
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM damagereport WHERE damageReportID = ?");
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
@@ -89,7 +94,7 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
     @Override
     public void update(DamageReport damageReport) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.damagereport SET vehicleID = ?, employeeID = ?, timestamp = ? WHERE damageReportID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE damagereport SET vehicleID = ?, employeeID = ?, timestamp = ? WHERE damageReportID = ?");
             psts.setInt(1, damageReport.getVehicleID());
             psts.setInt(2, damageReport.getEmployeeID());
             psts.setTimestamp(3, damageReport.getTimestamp());
@@ -105,7 +110,7 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
     @Override
     public void delete(int id) {
         try {
-            PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.damagereport WHERE damageReportID = ?");
+            PreparedStatement psts = conn.prepareStatement("DELETE FROM damagereport WHERE damageReportID = ?");
             psts.setInt(1, id);
             psts.executeUpdate();
 
@@ -118,7 +123,7 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
         List<DamageReport> damageReports = new ArrayList<>();
 
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.damagereport WHERE employeeID = ?");
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM damagereport WHERE employeeID = ?");
             psts.setInt(1, employeeID);
             ResultSet resultSet = psts.executeQuery();
 

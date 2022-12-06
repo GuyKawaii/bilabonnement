@@ -2,6 +2,7 @@ package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.enums.EquipmentLevel;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.model.enums.FuelType;
 import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
@@ -11,7 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarRepository implements IGenericRepository<Car> {
-    Connection conn = DatabaseConnectionManager.getConnection();
+    Connection conn;
+
+    public CarRepository(DB_CONNECTION db_connection){
+        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+    }
 
     @Override
     public void create(Car car) {
@@ -53,7 +58,7 @@ public class CarRepository implements IGenericRepository<Car> {
         List<Car> carList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.car");
+            PreparedStatement pst = conn.prepareStatement("select * from car");
             ResultSet resultSet = pst.executeQuery();
 
             carList.add(new Car(
@@ -83,7 +88,7 @@ public class CarRepository implements IGenericRepository<Car> {
         Car car = null;
 
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.car WHERE vehicleID = ?");
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM car WHERE vehicleID = ?");
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
@@ -134,7 +139,7 @@ public class CarRepository implements IGenericRepository<Car> {
     @Override
     public void delete(int id) {
         try {
-            PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.car WHERE vehicleID = ?");
+            PreparedStatement psts = conn.prepareStatement("DELETE FROM car WHERE vehicleID = ?");
             psts.setInt(1, id);
             psts.executeUpdate();
 

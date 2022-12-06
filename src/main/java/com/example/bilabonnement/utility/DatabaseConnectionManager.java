@@ -1,8 +1,12 @@
 package com.example.bilabonnement.utility;
 
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import static com.example.bilabonnement.model.enums.DB_CONNECTION.*;
 
 public class DatabaseConnectionManager {
     private static String url;
@@ -13,15 +17,22 @@ public class DatabaseConnectionManager {
     private DatabaseConnectionManager() {
     }
 
-    public static Connection getConnection(){
-        if(conn != null){
+    public static Connection getConnection(DB_CONNECTION db_connection) {
+        if (conn != null) {
             return conn;
         }
         // azure connect [Default]
-        url = System.getenv("azure_url");
-        username = System.getenv("azure_username");
-        password = System.getenv("azure_password");
 
+        // select release or test db
+        if (db_connection == RELEASE_DB) {
+            url = System.getenv("azure_url");
+            username = System.getenv("azure_username");
+            password = System.getenv("azure_password");
+        } else {
+            url = System.getenv("azure_testurl");
+            username = System.getenv("azure_username");
+            password = System.getenv("azure_password");
+        }
         // localhost connect
 
 
@@ -34,5 +45,4 @@ public class DatabaseConnectionManager {
         }
         return conn;
     }
-
 }
