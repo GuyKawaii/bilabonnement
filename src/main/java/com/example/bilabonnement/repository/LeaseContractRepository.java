@@ -15,7 +15,6 @@ import java.util.List;
 public class LeaseContractRepository implements IGenericRepository<LeaseContract> {
 
     private Connection conn = DatabaseConnectionManager.getConnection();
-    private Connection testConn = DatabaseConnectionManager.getConnection();
 
     @Override
     public void create(LeaseContract leaseContract) {
@@ -99,6 +98,8 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         java.sql.Date date=new java.sql.Date(millis);
         java.sql.Date date2 = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
+
+
         try {
             PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.leasecontract SET startDate = ?, endDate = ?, monthlyPrice = ?, customerID = ?, vehicleID = ?, employeeID = ? WHERE leaseID = ?");
             psts.setDate(1, leaseContract.getStartDate());
@@ -107,6 +108,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             psts.setInt(4, leaseContract.getCustomerID());
             psts.setInt(5, leaseContract.getVehicleID());
             psts.setInt(6, leaseContract.getEmployeeID());
+            System.out.println(leaseContract.getLeaseID());
             psts.setInt(7, leaseContract.getLeaseID());
             psts.executeUpdate();
 

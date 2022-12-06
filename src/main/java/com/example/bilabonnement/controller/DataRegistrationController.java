@@ -13,7 +13,6 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 
-import java.util.Calendar;
 import java.util.Objects;
 
 @Controller
@@ -43,7 +42,7 @@ public class DataRegistrationController {
         } else {
 
             LeaseContract ls = new LeaseContract(
-                Date.valueOf(Objects.requireNonNull(req.getParameter("startDate"))),
+                Date.valueOf(req.getParameter("startDate")),
                 Date.valueOf(req.getParameter("endDate")),
                 price,
                 customerID,
@@ -51,7 +50,6 @@ public class DataRegistrationController {
                 employeeID
             );
             leaseService.create(ls);
-            //model.addAttribute("leaseContracts", leaseService.readAll());
             carService.updateState(vehicleID);
             return "redirect:/data-registration";
         }
