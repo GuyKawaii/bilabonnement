@@ -6,7 +6,7 @@ import java.time.Period;
 import java.util.concurrent.TimeUnit;
 
 public class LeaseContract {
-    private int leaseID;
+    private Integer leaseID;
     private Date startDate;
     private Date endDate;
     private double monthlyPrice;
@@ -15,7 +15,7 @@ public class LeaseContract {
     private int employeeID;
 
 
-    public LeaseContract(int leaseID, Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID) {
+    public LeaseContract(Integer leaseID, Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID) {
         this.leaseID = leaseID;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -39,7 +39,7 @@ public class LeaseContract {
         return Period.between(startDate.toLocalDate() , endDate.toLocalDate().plusDays(1)).getMonths();
     }
 
-    public int getLeaseID() {
+    public Integer getLeaseID() {
         return leaseID;
     }
 
@@ -71,7 +71,7 @@ public class LeaseContract {
         this.monthlyPrice = monthlyPrice;
     }
 
-    public int getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
 

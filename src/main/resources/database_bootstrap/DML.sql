@@ -38,30 +38,19 @@ VALUES (403, 'optional 3', 30);
 ### tables with foreign key constraints ###
 
 # car #
-INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                 kmDriven, locationID, state)
-VALUES (501, '1', 10000, 'color', 'brand', 'model', 996, 'geartype', 20, 'ELECTRIC',
-        9001, 301, 'DAMAGED');
-INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                 kmDriven, locationID, state)
-VALUES (502, '2', 20000, 'color', 'brand', 'model', 996, 'geartype', 20, 'DIESEL',
-        9001, 301, 'UNDER_REPAIR');
-INSERT INTO car(vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                kmDriven, locationID, state)
-VALUES (503, '3', 30000, 'color', 'brand', 'model', 996, 'geartype', 20, 'GASOLINE',
-        9001, 302, 'IS_LEASED');
-INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                 kmDriven, locationID, state)
-VALUES (504, '4', 40000, 'color', 'brand', 'model', 996, 'geartype', 20, 'HYDROGEN',
-        9001, 302, 'READY');
-INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                 kmDriven, locationID, state)
-VALUES (505, '4', 40000, 'color', 'brand', 'model', 996, 'geartype', 20, 'HYDROGEN',
-        9001, 302, 'IS_LEASED');
-INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                 kmDriven, locationID, state)
-VALUES (506, '4', 40000, 'color', 'brand', 'model', 996, 'geartype', 20, 'HYDROGEN',
-        9001, 302, 'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, co2emission, locationID, state)
+VALUES (501, '1', 10000, 'brand', 'model', 'BASE', 996, 301, 'DAMAGED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, co2emission, locationID, state)
+VALUES (502, '2', 20000, 'brand', 'model', 'MEDIUM', 996, 301,'UNDER_REPAIR');
+INSERT INTO car(vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, co2emission, locationID, state)
+VALUES (503, '3', 30000, 'brand', 'model', 'LARGE', 996, 301, 'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, co2emission, locationID, state)
+VALUES (504, '4', 40000, 'brand', 'model', 'BASE', 996, 301, 'READY');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, co2emission, locationID, state)
+VALUES (505, '4', 40000, 'brand', 'model', 'MEDIUM', 996, 301,  'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, co2emission, locationID, state)
+VALUES (506, '4', 40000, 'brand', 'model', 'LARGE', 996, 301, 'IS_LEASED');
+
 
 # leaseOptional #
 INSERT INTO leaseoptional (optionalID, vehicleID)

@@ -1,6 +1,7 @@
 
 package com.example.bilabonnement.repository;
 
+import com.example.bilabonnement.model.Customer;
 import com.example.bilabonnement.model.Employee;
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.model.enums.DB_CONNECTION;
@@ -19,7 +20,7 @@ public class LeaseContractRepositoryTest {
 
   LeaseContractRepository leaseRepo = new LeaseContractRepository(DB_CONNECTION.TEST_DB);
   java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-
+    Customer testCustomer = new Customer("Test", "TEST", "test@mail.com", "testaddress", "testcity", 2500, "2234","2234");
   @Test
   void create(){
     // arrange
@@ -68,11 +69,10 @@ public class LeaseContractRepositoryTest {
   @Test
   void delete(){
     int leaseID = 1;
-
     // delete previous
     leaseRepo.delete(leaseID);
 
-    LeaseContract expected = new LeaseContract(leaseID, Date.valueOf("2019-01-1"), Date.valueOf("2020-04-01"), 666, 201, 501, 101);
+    LeaseContract expected = new LeaseContract(leaseID, Date.valueOf("2019-01-1"), Date.valueOf("2020-04-01"), 666, 1, 1, 1);
 
     leaseRepo.create(expected);
 
