@@ -16,6 +16,9 @@
 
   <div id="formdiv">
       <form action="/edit" method="post">
+
+          <input type="hidden" id="leaseId" name="leaseID" th:value="${contract.leaseID}" ><br><br>
+          <br>
       <label for="startDate">ny Startdato:</label><br>
       <input  type="date" id="startDate" name="startDate" th:value="${contract.startDate}" ><br>
       <label for="endDate">ny Slutdato:</label><br>
