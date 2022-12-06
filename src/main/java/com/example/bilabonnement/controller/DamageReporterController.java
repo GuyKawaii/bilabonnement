@@ -21,11 +21,13 @@ import static com.example.bilabonnement.model.enums.Role.*;
 
 @Controller
 public class DamageReporterController {
-
     DamageReportService damageReportService = new DamageReportService();
     DamageEntryService damageEntryService = new DamageEntryService();
     LeaseContractService leaseContractService = new LeaseContractService();
     CarService carService = new CarService();
+
+    // people with access to this website
+    Role[] employeeAccess = new Role[]{DAMAGE_REPORTER, ADMINISTRATION};
 
 
     //skal HttpSession være i alle parameterlister?
@@ -40,7 +42,7 @@ public class DamageReporterController {
     @GetMapping("/damage-reports")
     public String damageReports(Model model, HttpSession session) {
         // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
@@ -56,7 +58,7 @@ public class DamageReporterController {
     @GetMapping("/create-damage-report")
     public String createDamageReport(Model model, HttpSession session) {
         // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
@@ -89,7 +91,7 @@ public class DamageReporterController {
     @GetMapping("/edit-damage-report")
     public String damageEntry(@RequestParam int reportID, Model model, HttpSession session) { //skal HttpSession være i alle parameterlister?
         // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
@@ -128,7 +130,11 @@ public class DamageReporterController {
     @PostMapping("/create-damage-entry")
     public String createDamageEntry(WebRequest req, HttpSession session, Model model) {
         // create entry
-        damageEntryService.create(new DamageEntry(req.getParameter("skade"), req.getParameter("beskrivelse"), Double.parseDouble(req.getParameter("pris")), Integer.parseInt(req.getParameter("damage-report-id"))));
+        damageEntryService.create(new DamageEntry(
+                req.getParameter("skade"),
+                req.getParameter("beskrivelse"),
+                Double.parseDouble(req.getParameter("pris")),
+                Integer.parseInt(req.getParameter("damage-report-id"))));
 
         return ("redirect:/edit-damage-report?reportID=" + req.getParameter("damage-report-id"));
     }
@@ -136,7 +142,7 @@ public class DamageReporterController {
     @GetMapping("/delete-entry")
     public String deleteEntry(WebRequest req, HttpSession session) {
         // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
 
         // update db

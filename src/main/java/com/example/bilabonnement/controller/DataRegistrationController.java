@@ -32,11 +32,14 @@ public class DataRegistrationController {
     CustomerService customerService = new CustomerService();
     EmployeeService employeeService = new EmployeeService();
 
+    // people with access to this website
+    Role[] employeeAccess = new Role[]{DATA_REGISTRATION, ADMINISTRATION};
+
 
     @GetMapping("/data-registration")
     public String registrationPage(HttpSession session, Model model) {
         // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DATA_REGISTRATION, ADMINISTRATION}))
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
@@ -110,7 +113,7 @@ public class DataRegistrationController {
     @GetMapping("/view-cars")
     public String viewCars(Model model, HttpSession session) {
         // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DATA_REGISTRATION, ADMINISTRATION}))
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());

@@ -81,14 +81,52 @@
                 <thead>
                 <tr>
                     <th>vogn ID</th>
+                    <th>stelnummer</th>
+                    <th>stålpris</th>
+                    <th>mærke</th>
+                    <th>model</th>
+                    <th>udstyrsniveau</th>
+                    <th>reg. Afgift</th>
+                    <th>CO2-udledning</th>
+                    <th>lokation</th>
+                    <th>status</th>
+                    <th>tilgå</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:if="${#lists.isEmpty(leasedCars)}"> <!-- no items listed -->
+                <tr th:if="${#lists.isEmpty(unleasedCars)}"> <!-- no items listed -->
                     <td>IGEN BILER</td>
                 </tr>
                 <tr th:each="leasedCar : ${leasedCars}">
                     <td><span th:text="${leasedCar.vehicleID}">vogn ID</span></td>
+                    <td><span th:text="${leasedCar.chassisNumber}">stelnummer</span></td>
+                    <td><span th:text="${leasedCar.steelPrice}">stålpris</span></td>
+                    <td><span th:text="${leasedCar.brand}">mærke</span></td>
+                    <td><span th:text="${leasedCar.model}">model</span></td>
+                    <td><span th:text="${leasedCar.equipmentLevel}">udstyrsniveau</span></td>
+                    <td><span th:text="${leasedCar.registrationFee}">reg. Afgift</span></td>
+                    <td><span th:text="${leasedCar.co2emission}">CO2-udledning</span></td>
+                    <td><span th:text="${leasedCar.locationID}">lokation</span></td>
+                    <td>
+                        <form action="#" th:action="@{/update-car-state}" method="post">
+                            <select name="state" onchange="this.form.submit()"><br>
+                                <option th:value="${leasedCar.state}"
+                                        th:text="|${leasedCar.state.danish} - nuværende|"
+                                        selected="selected">
+                                </option>
+                                <option th:each="state: ${states}"
+                                        th:value="${state}"
+                                        th:text="|${state.danish}|">
+                                </option>
+                            </select>
+                            <input type="hidden" th:value="${leasedCar.vehicleID}" name="vehicleID">
+                        </form>
+                    </td>
+                    <td>
+                        <a th:href="@{'/edit-car?vehicleID='+${leasedCar.vehicleID}}">
+                            <button class="btn-view" id="btn-view">rediger</button>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
