@@ -17,15 +17,37 @@
     
     <form action="/update-car" method="post">
         <label for="vehicleID">vogn ID:</label><br>
-        <input type="text" name="vehicleID" th:value="${car.vehicleID}" readonly><br>
+        <input type="number" name="vehicleID" th:value="${car.vehicleID}" readonly><br>
+        <label for="chassisNumber">stelnummer:</label><br>
+        <input type="text" name="chassisNumber" th:value="${car.chassisNumber}"><br>
         <label for="steelPrice">stålpris:</label><br>
         <input type="price" name="steelPrice" th:value="${car.steelPrice}"><br>
         <label for="brand">mærke:</label><br>
         <input type="text" name="brand" th:value="${car.brand}"><br>
         <label for="model">model:</label><br>
         <input type="text" name="model" th:value="${car.model}"><br>
+        <label for="equipmentLevel">udstyrsniveau:</label><br>
+        <select name="equipmentLevel"><br>
+            <option th:value="${car.equipmentLevel}"
+                    th:text="|${car.equipmentLevel.danish} - nuværende|"
+                    selected="selected">
+            </option>
+            <option th:each="equipmentLevel: ${equipmentLevels}"
+                    th:value="${equipmentLevel}"
+                    th:text="|${equipmentLevel.danish}|">
+            </option>
+        </select><br>
+        <label for="registrationFee">reg. Afgift:</label><br>
+        <input type="number" name="registrationFee" th:value="${car.registrationFee}"><br>
         <label for="co2emission">CO2-udledning:</label><br>
-        <input type="number" name="model" th:value="${car.co2emission}"><br>
+        <input type="number" name="co2emission" th:value="${car.co2emission}"><br>
+        <label for="locationID">lokation:</label><br>
+        <select name="locationID"><br>
+            <option th:value="${car.locationID}"
+                    th:text="|${car.locationID} - nuværende|"
+                    selected="selected">
+            </option>
+        </select><br>
         <label for="state">status:</label><br>
         <select name="state"><br>
             <option th:value="${car.state}"

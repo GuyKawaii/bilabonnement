@@ -113,7 +113,7 @@ public class CarRepository implements IGenericRepository<Car> {
     @Override
     public void update(Car car) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET chassisNumber = ? , steelPrice = ? , brand = ? , model = ? , equipmentLevel = ? , registrationFee = ? , co2emission = ? , locationID = ? , state = ?WHERE vehicleID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET chassisNumber = ? , steelPrice = ? , brand = ? , model = ? , equipmentLevel = ? , registrationFee = ? , co2emission = ? , locationID = ? , state = ? WHERE vehicleID = ?");
             psts.setString(1, car.getChassisNumber());
             psts.setDouble(2, car.getSteelPrice());
             psts.setString(3, car.getBrand());
@@ -124,7 +124,7 @@ public class CarRepository implements IGenericRepository<Car> {
             psts.setInt(8, car.getLocationID());
             psts.setString(9, car.getState().toString());
             psts.setInt(10, car.getVehicleID());
-            ResultSet resultSet = psts.executeQuery();
+            psts.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

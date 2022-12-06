@@ -1,6 +1,7 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.enums.EquipmentLevel;
 import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.repository.CarRepository;
 
@@ -73,5 +74,9 @@ public class CarService {
 
     public void updateState(int vehicleID, State state) {
         carRepository.updateState(vehicleID, state);
+    }
+
+    public List<EquipmentLevel> getEquipmentLevels() {
+        return new ArrayList<>(EnumSet.allOf(EquipmentLevel.class));
     }
 }

@@ -1,7 +1,9 @@
 package com.example.bilabonnement.controller;
 
+import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Customer;
 import com.example.bilabonnement.model.LeaseContract;
+import com.example.bilabonnement.model.enums.EquipmentLevel;
 import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.service.CustomerService;
@@ -59,12 +61,12 @@ public class DataRegistrationController {
         } else {
 
             LeaseContract ls = new LeaseContract(
-                Date.valueOf(req.getParameter("startDate")),
-                Date.valueOf(req.getParameter("endDate")),
-                price,
-                customerID,
-                vehicleID,
-                employeeID
+                    Date.valueOf(req.getParameter("startDate")),
+                    Date.valueOf(req.getParameter("endDate")),
+                    price,
+                    customerID,
+                    vehicleID,
+                    employeeID
             );
             leaseService.create(ls);
             carService.updateState(vehicleID);
@@ -127,6 +129,8 @@ public class DataRegistrationController {
 
         model.addAttribute("car", carService.read(vehicleID));
         model.addAttribute("states", carService.getCarStates());
+        model.addAttribute("equipmentLevels", carService.getEquipmentLevels());
+        model.addAttribute("locations", carService.getEquipmentLevels());
 
         return "data-registrator/edit-car";
     }
@@ -137,6 +141,28 @@ public class DataRegistrationController {
         carService.updateState(
                 Integer.parseInt(req.getParameter("vehicleID")),
                 State.valueOf(req.getParameter("state")));
+
+        return "redirect:/view-cars";
+    }
+
+    @PostMapping("update-car")
+    public String updateCar(WebRequest req) {
+
+        System.out.println(req.getParameter("equipmentLevel"));
+
+
+        carService.update(new Car(
+                Integer.parseInt(req.getParameter("vehicleID")),
+                req.getParameter("chassisNumber"),
+                Double.parseDouble(req.getParameter("steelPrice")),
+                req.getParameter("brand"),
+                req.getParameter("model"),
+                EquipmentLevel.valueOf(req.getParameter("equipmentLevel")),
+                Double.parseDouble(req.getParameter("registrationFee")),
+                Double.parseDouble(req.getParameter("co2emission")),
+                Integer.parseInt(req.getParameter("locationID")),
+                State.valueOf(req.getParameter("state"))
+        ));
 
         return "redirect:/view-cars";
     }
