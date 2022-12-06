@@ -27,5 +27,6 @@ class LeaseContractTest {
         assertEquals(expected, actualWithDayAbove);
         assertEquals(expected, actual);
         assertEquals(expected - 1, actualWithDayBelow);
+
     }
 }
