@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rediger bil</title>
+
+    <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
+    <link rel="stylesheet" th:href="@{/base.css}">
+</head>
+<body>
+
+<header th:replace="fragment/nav-menu.html :: header"></header>
+
+<div class="content">
+
+    <h1>rediger bil </h1>
+    
+    <form action="/update-car" method="post">
+        <label for="vehicleID">vogn ID:</label><br>
+        <input type="text" name="vehicleID" th:value="${car.vehicleID}" readonly><br>
+        <label for="steelPrice">stålpris:</label><br>
+        <input type="price" name="steelPrice" th:value="${car.steelPrice}"><br>
+        <label for="brand">mærke:</label><br>
+        <input type="text" name="brand" th:value="${car.brand}"><br>
+        <label for="model">model:</label><br>
+        <input type="text" name="model" th:value="${car.model}"><br>
+        <label for="co2emission">CO2-udledning:</label><br>
+        <input type="number" name="model" th:value="${car.co2emission}"><br>
+        <label for="state">status:</label><br>
+        <select name="state"><br>
+            <option th:value="${car.state}"
+                    th:text="|${car.state.danish} - nuværende|"
+                    selected="selected">
+            </option>
+            <option th:each="state: ${states}"
+                    th:value="${state}"
+                    th:text="|${state.danish}|">
+            </option>
+        </select><br><br>
+        <button type="update">opdater</button>
+        </form>
+
+
+</div>
+
+</body>
+</html>

@@ -1,35 +1,43 @@
 package com.example.bilabonnement.model;
 
-import com.example.bilabonnement.model.enums.FuelType;
+import com.example.bilabonnement.model.enums.EquipmentLevel;
 import com.example.bilabonnement.model.enums.State;
 
 public class Car {
-    private Integer vehicleID;
     private String chassisNumber;
-    private double steelPrice;
-    private String color;
     private String brand;
     private String model;
-    private int co2emission;
-    private String geartype;
-    private int kmPerLiter;
-    private FuelType fuelType;
-    private int kmDriven;
+    private EquipmentLevel equipmentLevel;
+    private double steelPrice;
+    private double registrationFee;
+    private double co2emission;
     private int locationID;
     private State state;
 
-    public Car(Integer vehicleID, String chassisNumber, double steelPrice, String color, String brand, String model, int co2emission, String geartype, int kmPerLiter, FuelType fuelType, int kmDriven, int locationID, State state) {
+    // with vehicleID
+    public Car(Integer vehicleID, String chassisNumber, double steelPrice, String brand, String model, EquipmentLevel equipmentLevel, double registrationFee, double co2emission, int locationID, State state) {
         this.vehicleID = vehicleID;
         this.chassisNumber = chassisNumber;
-        this.steelPrice = steelPrice;
-        this.color = color;
         this.brand = brand;
         this.model = model;
+        this.equipmentLevel = equipmentLevel;
+        this.steelPrice = steelPrice;
+        this.registrationFee = registrationFee;
         this.co2emission = co2emission;
-        this.geartype = geartype;
-        this.kmPerLiter = kmPerLiter;
-        this.fuelType = fuelType;
-        this.kmDriven = kmDriven;
+        this.locationID = locationID;
+        this.state = state;
+    }
+
+    // without vehicleID
+    public Car(String chassisNumber, double steelPrice,String brand, String model, EquipmentLevel equipmentLevel,  double registrationFee, double co2emission, int locationID, State state) {
+        this.vehicleID = null;
+        this.chassisNumber = chassisNumber;
+        this.brand = brand;
+        this.model = model;
+        this.equipmentLevel = equipmentLevel;
+        this.steelPrice = steelPrice;
+        this.registrationFee = registrationFee;
+        this.co2emission = co2emission;
         this.locationID = locationID;
         this.state = state;
     }
@@ -50,22 +58,6 @@ public class Car {
         this.chassisNumber = chassisNumber;
     }
 
-    public double getSteelPrice() {
-        return steelPrice;
-    }
-
-    public void setSteelPrice(double steelPrice) {
-        this.steelPrice = steelPrice;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public String getBrand() {
         return brand;
     }
@@ -82,44 +74,36 @@ public class Car {
         this.model = model;
     }
 
-    public int getCo2emission() {
+    public EquipmentLevel getEquipmentLevel() {
+        return equipmentLevel;
+    }
+
+    public void setEquipmentLevel(EquipmentLevel equipmentLevel) {
+        this.equipmentLevel = equipmentLevel;
+    }
+
+    public double getSteelPrice() {
+        return steelPrice;
+    }
+
+    public void setSteelPrice(double steelPrice) {
+        this.steelPrice = steelPrice;
+    }
+
+    public double getRegistrationFee() {
+        return registrationFee;
+    }
+
+    public void setRegistrationFee(double registrationFee) {
+        this.registrationFee = registrationFee;
+    }
+
+    public double getCo2emission() {
         return co2emission;
     }
 
-    public void setCo2emission(int co2emission) {
+    public void setCo2emission(double co2emission) {
         this.co2emission = co2emission;
-    }
-
-    public String getGeartype() {
-        return geartype;
-    }
-
-    public void setGeartype(String geartype) {
-        this.geartype = geartype;
-    }
-
-    public int getKmPerLiter() {
-        return kmPerLiter;
-    }
-
-    public void setKmPerLiter(int kmPerLiter) {
-        this.kmPerLiter = kmPerLiter;
-    }
-
-    public FuelType getFuelType() {
-        return fuelType;
-    }
-
-    public void setFuelType(FuelType fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public int getKmDriven() {
-        return kmDriven;
-    }
-
-    public void setKmDriven(int kmDriven) {
-        this.kmDriven = kmDriven;
     }
 
     public int getLocationID() {
@@ -137,4 +121,6 @@ public class Car {
     public void setState(State state) {
         this.state = state;
     }
+
+    private Integer vehicleID;
 }

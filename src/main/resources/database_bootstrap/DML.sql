@@ -38,30 +38,14 @@ VALUES (403, 'optional 3', 30);
 ### tables with foreign key constraints ###
 
 # car #
-INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                 kmDriven, locationID, state)
-VALUES (501, '1', 10000, 'color', 'brand', 'model', 996, 'geartype', 20, 'ELECTRIC',
-        9001, 301, 'DAMAGED');
-INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                 kmDriven, locationID, state)
-VALUES (502, '2', 20000, 'color', 'brand', 'model', 996, 'geartype', 20, 'DIESEL',
-        9001, 301, 'UNDER_REPAIR');
-INSERT INTO car(vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                kmDriven, locationID, state)
-VALUES (503, '3', 30000, 'color', 'brand', 'model', 996, 'geartype', 20, 'GASOLINE',
-        9001, 302, 'IS_LEASED');
-INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                 kmDriven, locationID, state)
-VALUES (504, '4', 40000, 'color', 'brand', 'model', 996, 'geartype', 20, 'HYDROGEN',
-        9001, 302, 'READY');
-INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                 kmDriven, locationID, state)
-VALUES (505, '4', 40000, 'color', 'brand', 'model', 996, 'geartype', 20, 'HYDROGEN',
-        9001, 302, 'IS_LEASED');
-INSERT INTO car (vehicleID, chassisNumber, steelPrice, color, brand, model, co2emission, geartype, kmPerLiter, fuelType,
-                 kmDriven, locationID, state)
-VALUES (506, '4', 40000, 'color', 'brand', 'model', 996, 'geartype', 20, 'HYDROGEN',
-        9001, 302, 'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
+                 locationID, state)
+VALUES (501, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
+        'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
+                 locationID, state)
+VALUES (502, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
+        'IS_LEASED');
 
 # leaseOptional #
 INSERT INTO leaseoptional (optionalID, vehicleID)
@@ -88,11 +72,14 @@ INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID
 VALUES (608, '2016-03-01', '2016-05-31', 3000, 203, 506, 101);
 
 # damageReport #
-INSERT INTO damagereport (damagereport.damageReportID, damagereport.vehicleID, damagereport.employeeID, damagereport.timestamp)
+INSERT INTO damagereport (damagereport.damageReportID, damagereport.vehicleID, damagereport.employeeID,
+                          damagereport.timestamp)
 VALUES (701, 501, 101, '1970-01-01 00:00:01');
-INSERT INTO damagereport (damagereport.damageReportID, damagereport.vehicleID, damagereport.employeeID, damagereport.timestamp)
+INSERT INTO damagereport (damagereport.damageReportID, damagereport.vehicleID, damagereport.employeeID,
+                          damagereport.timestamp)
 VALUES (702, 501, 101, '1970-01-01 00:00:01');
-INSERT INTO damagereport (damagereport.damageReportID, damagereport.vehicleID, damagereport.employeeID, damagereport.timestamp)
+INSERT INTO damagereport (damagereport.damageReportID, damagereport.vehicleID, damagereport.employeeID,
+                          damagereport.timestamp)
 VALUES (703, 502, 101, '1970-01-01 00:00:01');
 
 # damageEntry #

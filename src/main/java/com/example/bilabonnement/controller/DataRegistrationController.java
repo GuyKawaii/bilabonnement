@@ -1,6 +1,9 @@
 package com.example.bilabonnement.controller;
 
+import com.example.bilabonnement.model.Customer;
 import com.example.bilabonnement.model.LeaseContract;
+import com.example.bilabonnement.model.enums.Role;
+import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.service.CustomerService;
 import com.example.bilabonnement.service.EmployeeService;
 import com.example.bilabonnement.service.CarService;
@@ -11,9 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
+import java.net.http.HttpRequest;
 import java.sql.Date;
 
+import java.time.LocalDate;
 import java.util.Objects;
+
+import static com.example.bilabonnement.model.enums.Role.ADMINISTRATION;
+import static com.example.bilabonnement.model.enums.Role.DATA_REGISTRATION;
 
 @Controller
 public class DataRegistrationController {
@@ -25,6 +33,15 @@ public class DataRegistrationController {
 
     @GetMapping("/data-registration")
     public String registrationPage(HttpSession session, Model model) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DATA_REGISTRATION, ADMINISTRATION}))
+            return "redirect:/role-redirect";
+        // session navbar
+        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
+
+
         model.addAttribute("leaseContracts", leaseService.readAll());
         return "data-registration";
     }
@@ -86,6 +103,42 @@ public class DataRegistrationController {
             leaseService.update(ls);
             return "redirect:/data-registration";
         }
+    }
+
+    @GetMapping("/view-cars")
+    public String viewCars(Model model, HttpSession session) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DATA_REGISTRATION, ADMINISTRATION}))
+            return "redirect:/role-redirect";
+        // session navbar
+        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+
+        model.addAttribute("unleasedCars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
+        model.addAttribute("leasedCars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
+        model.addAttribute("states", carService.getCarStates());
+
+
+        return "data-registrator/view-cars";
+    }
+
+    @GetMapping("/edit-car")
+    public String editCar(@RequestParam int vehicleID, Model model) {
+
+        model.addAttribute("car", carService.read(vehicleID));
+        model.addAttribute("states", carService.getCarStates());
+
+        return "data-registrator/edit-car";
+    }
+
+    @PostMapping("/update-car-state")
+    public String updateCarState(WebRequest req) {
+
+        carService.updateState(
+                Integer.parseInt(req.getParameter("vehicleID")),
+                State.valueOf(req.getParameter("state")));
+
+        return "redirect:/view-cars";
     }
 
 

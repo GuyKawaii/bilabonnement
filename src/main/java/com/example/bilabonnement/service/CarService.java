@@ -1,11 +1,13 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.repository.CarRepository;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 import static com.example.bilabonnement.model.enums.State.IS_LEASED;
@@ -42,6 +44,7 @@ public class CarService {
     public void update(Car car){
         carRepository.update(car);
     }
+
     public void updateState(int id){
         carRepository.updateState(id);
     }
@@ -62,5 +65,13 @@ public class CarService {
 
     public int getLeasedCarsAmountOnDate(Date date) {
         return carRepository.readAllUnleasedOnDate(date).size();
+    }
+
+    public List<State> getCarStates() {
+        return new ArrayList<>(EnumSet.allOf(State.class));
+    }
+
+    public void updateState(int vehicleID, State state) {
+        carRepository.updateState(vehicleID, state);
     }
 }

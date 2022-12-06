@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>biler</title>
+
+    <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
+    <link rel="stylesheet" th:href="@{/base.css}">
+</head>
+<body>
+
+<header th:replace="fragment/nav-menu.html :: header"></header>
+
+<div class="content">
+
+    <h1>alle biler</h1>
+
+    <div class="column-div">
+        <div>
+            <h2>uden aktiv leasing</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>vogn ID</th>
+                    <th>stelnummer</th>
+                    <th>mærke</th>
+                    <th>model</th>
+                    <th>stålpris</th>
+                    <th>reg. Afgift</th>
+                    <th>CO2-udledning</th>
+                    <th>status</th>
+                    <th>tilgå</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(unleasedCars)}"> <!-- no items listed -->
+                    <td>IGEN BILER</td>
+                </tr>
+                <tr th:each="unleasedCar : ${unleasedCars}">
+                    <td><span th:text="${unleasedCar.vehicleID}">vogn ID</span></td>
+                    <td><span th:text="${unleasedCar.chassisNumber}">stelnummer</span></td>
+                    <td><span th:text="${unleasedCar.steelPrice}">stålpris</span></td>
+                    <td><span th:text="${unleasedCar.brand}">mærke</span></td>
+                    <td><span th:text="${unleasedCar.model}">model</span></td>
+                    <td><span th:text="${unleasedCar.brand}">reg. Afgift MISSING</span></td>
+                    <td><span th:text="${unleasedCar.co2emission}">vogn ID</span></td>
+                    <td>
+                        <form action="#" th:action="@{/update-car-state}" method="post">
+                            <select name="state" onchange="this.form.submit()"><br>
+                                <option th:value="${unleasedCar.state}"
+                                        th:text="|${unleasedCar.state.danish} - nuværende|"
+                                        selected="selected">
+                                </option>
+                                <option th:each="state: ${states}"
+                                        th:value="${state}"
+                                        th:text="|${state.danish}|">
+                                </option>
+                            </select>
+                            <input type="hidden" th:value="${unleasedCar.vehicleID}" name="vehicleID">
+                        </form>
+                    </td>
+                    <td>
+                        <a th:href="@{'/edit-car?vehicleID='+${unleasedCar.vehicleID}}">
+                            <button class="btn-view" id="btn-view">rediger</button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h2>aktiv leasing</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>vogn ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(leasedCars)}"> <!-- no items listed -->
+                    <td>IGEN BILER</td>
+                </tr>
+                <tr th:each="leasedCar : ${leasedCars}">
+                    <td><span th:text="${leasedCar.vehicleID}">vogn ID</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

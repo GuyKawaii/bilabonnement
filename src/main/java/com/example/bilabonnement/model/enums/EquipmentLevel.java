@@ -1,17 +1,16 @@
 package com.example.bilabonnement.model.enums;
 
-public enum State {
+public enum EquipmentLevel {
     // actual enums
-    READY("klar"),
-    IS_LEASED("leased"),
-    UNDER_REPAIR("reperation"),
-    DAMAGED("skadet");
+    BASE("basis"),
+    MEDIUM("medium"),
+    LARGE("stor");
 
     // Storing name
     private String string;
 
     // constructor to set the string
-    State(String name) {
+    EquipmentLevel(String name) {
         string = name;
     }
 

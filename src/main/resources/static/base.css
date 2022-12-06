@@ -169,3 +169,10 @@ footer{
 .deletesize {
     padding: 3px;
 }
+
+.column-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: baseline;
+}
