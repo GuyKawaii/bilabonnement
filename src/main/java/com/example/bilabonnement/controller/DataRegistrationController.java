@@ -1,6 +1,7 @@
 package com.example.bilabonnement.controller;
 
 import com.example.bilabonnement.model.LeaseContract;
+import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.service.CustomerService;
 import com.example.bilabonnement.service.EmployeeService;
 import com.example.bilabonnement.service.CarService;
@@ -13,7 +14,11 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 
+import java.time.LocalDate;
 import java.util.Objects;
+
+import static com.example.bilabonnement.model.enums.Role.ADMINISTRATION;
+import static com.example.bilabonnement.model.enums.Role.DAMAGE_REPORTER;
 
 @Controller
 public class DataRegistrationController {
@@ -26,6 +31,16 @@ public class DataRegistrationController {
 
     @GetMapping("/data-registration")
     public String registrationPage(HttpSession session, Model model) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
+            return "redirect:/role-redirect";
+        // session navbar
+        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
+
+
+
         model.addAttribute("leaseContracts", leaseService.readAll());
         return "data-registration";
     }
@@ -90,6 +105,25 @@ public class DataRegistrationController {
             return "data-registration";
         }
     }
+
+    @GetMapping("/view-car")
+    public String viewCars(Model model, HttpSession session) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
+            return "redirect:/role-redirect";
+        // session navbar
+        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+
+        model.addAttribute("unleasedCars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
+        model.addAttribute("leasedCars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
+
+
+
+        return "data-registrator/view-cars";
+    }
+
+
 
     /*
 
