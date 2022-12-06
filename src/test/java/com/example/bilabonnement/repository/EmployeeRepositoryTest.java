@@ -1,6 +1,7 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Employee;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeRepositoryTest {
 
-    EmployeeRepository employeeRepository = new EmployeeRepository();
+    EmployeeRepository employeeRepository = new EmployeeRepository(DB_CONNECTION.TEST_DB);
 
     @Test
     void create() {
@@ -116,28 +117,26 @@ class EmployeeRepositoryTest {
         assertEquals(actual.getName(), expected.getName());
         assertEquals(actual.getPassword(), expected.getPassword());
         assertEquals(actual.getRole(), expected.getRole());
-
-
     }
 
     @Test
     void delete() {
         // # arrange #
-        int optionalID = 1;
+        int employeeID = 1;
 
         // delete previous
-        employeeRepository.delete(optionalID);
+        employeeRepository.delete(employeeID);
 
         Employee expected = new Employee(1, "email1", "name1", "password1", DAMAGE_REPORTER);
 
         employeeRepository.create(expected);
 
         // # act #
-        Employee actual = employeeRepository.read(optionalID);
+        Employee actual = employeeRepository.read(employeeID);
 
-        employeeRepository.delete(optionalID);
+        employeeRepository.delete(employeeID);
 
-        Employee actualNull = employeeRepository.read(optionalID);
+        Employee actualNull = employeeRepository.read(employeeID);
 
         // # assert #
         assertEquals(actual.getEmployeeID(), expected.getEmployeeID());
@@ -145,7 +144,6 @@ class EmployeeRepositoryTest {
         assertEquals(actual.getName(), expected.getName());
         assertEquals(actual.getPassword(), expected.getPassword());
         assertEquals(actual.getRole(), expected.getRole());
-
         assertNull(actualNull);
     }
 

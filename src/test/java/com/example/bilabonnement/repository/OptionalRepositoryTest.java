@@ -1,6 +1,7 @@
 package com.example.bilabonnement.repository;
 
-import com.example.bilabonnement.model.optional;
+import com.example.bilabonnement.model.Optional;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ class OptionalRepositoryTest {
     @Test
     void create() {
         // # arrange #
-        optional expected = new optional(1, "name", 10);
+        Optional expected = new Optional(1, "name", 10);
 
         // delete previous
         optionalRepository.delete(1);
@@ -23,7 +24,7 @@ class OptionalRepositoryTest {
         // # act #
         optionalRepository.create(expected);
 
-        optional actual = optionalRepository.read(1);
+        Optional actual = optionalRepository.read(1);
 
 
         // # assert #
@@ -35,19 +36,19 @@ class OptionalRepositoryTest {
     @Test
     void readAll() {
         // # arrange # 
-        List<optional> expected = new ArrayList<>();
-        expected.add(new optional(1, "name 1", 10));
-        expected.add(new optional(2, "name 2", 20));
+        List<Optional> expected = new ArrayList<>();
+        expected.add(new Optional(1, "name 1", 10));
+        expected.add(new Optional(2, "name 2", 20));
 
         // delete previous
-        for (com.example.bilabonnement.model.optional optional : expected)
+        for (Optional optional : expected)
             optionalRepository.delete(optional.getOptionalID());
         // create new
-        for (com.example.bilabonnement.model.optional optional : expected)
+        for (Optional optional : expected)
             optionalRepository.create(optional);
 
         // # act #
-        List<optional> actual = optionalRepository.readAll();
+        List<Optional> actual = optionalRepository.readAll();
 
         // # assert #
         for (int i = 0; i < expected.size(); i++) {
@@ -60,7 +61,7 @@ class OptionalRepositoryTest {
     @Test
     void read() {
         // # arrange #
-        optional expected = new optional(1, "name", 10);
+        Optional expected = new Optional(1, "name", 10);
 
         // delete previous
         optionalRepository.delete(1);
@@ -68,7 +69,7 @@ class OptionalRepositoryTest {
         optionalRepository.create(expected);
 
         // # act #
-        optional actual = optionalRepository.read(1);
+        Optional actual = optionalRepository.read(1);
 
         // # assert #
         assertEquals(actual.getOptionalID(), expected.getOptionalID());
@@ -84,15 +85,15 @@ class OptionalRepositoryTest {
         // delete previous
         optionalRepository.delete(optionalID);
 
-        optional expected = new optional(optionalID, "name", 10);
-        optional before = new optional(optionalID, "oldName", 100);
+        Optional expected = new Optional(optionalID, "name", 10);
+        Optional before = new Optional(optionalID, "oldName", 100);
 
         optionalRepository.create(before);
 
         // # act #
         optionalRepository.update(expected);
 
-        optional actual = optionalRepository.read(optionalID);
+        Optional actual = optionalRepository.read(optionalID);
 
         // # assert #
         assertEquals(actual.getOptionalID(), expected.getOptionalID());
@@ -108,16 +109,16 @@ class OptionalRepositoryTest {
         // delete previous
         optionalRepository.delete(optionalID);
 
-        optional expected = new optional(optionalID, "name", 10);
+        Optional expected = new Optional(optionalID, "name", 10);
 
         optionalRepository.create(expected);
 
         // # act #
-        optional actual = optionalRepository.read(optionalID);
+        Optional actual = optionalRepository.read(optionalID);
 
         optionalRepository.delete(optionalID);
 
-        optional actualNull = optionalRepository.read(optionalID);
+        Optional actualNull = optionalRepository.read(optionalID);
 
         // # assert #
         assertEquals(actual.getOptionalID(), expected.getOptionalID());
