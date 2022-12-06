@@ -1,5 +1,6 @@
 package com.example.bilabonnement.controller;
 
+import com.example.bilabonnement.model.Customer;
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.service.CustomerService;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Date;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Objects;
 
 import static com.example.bilabonnement.model.enums.Role.ADMINISTRATION;

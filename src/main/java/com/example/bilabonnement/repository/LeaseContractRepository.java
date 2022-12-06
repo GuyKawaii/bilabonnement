@@ -2,10 +2,14 @@ package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
-
-import java.sql.*;
-import java.time.LocalDate;
+import com.example.bilabonnement.repository.IGenericRepository;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class LeaseContractRepository implements IGenericRepository<LeaseContract> {
@@ -53,10 +57,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getInt("employeeID")
                 ));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return contractList;
     }
 
@@ -90,15 +94,21 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
 
     @Override
     public void update(LeaseContract leaseContract) {
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+        java.sql.Date date2 = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+
+
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.leasecontract SET startDate = ?, endDate = ?, monthlyPrice = ?, customerID = ?, vehicleID = ?, employeeID = ? WHERE leaseID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.leasecontract SET startDate = ?, endDate = ?, monthlyPrice = ?, customerID = ?, vehicleID = ?, employeeID = ? WHERE leaseID = 601");
             psts.setDate(1, leaseContract.getStartDate());
             psts.setDate(2, leaseContract.getEndDate());
             psts.setDouble(3, leaseContract.getMonthlyPrice());
             psts.setInt(4, leaseContract.getCustomerID());
             psts.setInt(5, leaseContract.getVehicleID());
             psts.setInt(6, leaseContract.getEmployeeID());
-            psts.setInt(7, leaseContract.getLeaseID());
+            //psts.setInt(7, 601);
             psts.executeUpdate();
 
         } catch (SQLException e) {
@@ -117,13 +127,12 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             throw new RuntimeException(e);
         }
     }
-
     public double getCurrentIncome(Date date) {
         double income = 0;
         try {
             PreparedStatement pst = conn.prepareStatement("SELECT leasecontract.monthlyPrice\n" +
-                    "FROM leaseContract\n" +
-                    "WHERE startDate < ? AND endDate > ?;");
+                "FROM leaseContract\n" +
+                "WHERE startDate < ? AND endDate > ?;");
 
             pst.setDate(1,date);
             pst.setDate(2,date);
@@ -137,9 +146,4 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
         return income;
     }
-
-
-
-
-
 }
