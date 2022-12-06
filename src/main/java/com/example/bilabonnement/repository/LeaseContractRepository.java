@@ -1,8 +1,9 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.LeaseContract;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
-import com.example.bilabonnement.repository.IGenericRepository;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,9 +24,8 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
 
     @Override
     public void create(LeaseContract leaseContract) {
-
         try {
-            PreparedStatement psts = conn.prepareStatement("INSERT INTO bilabonnement.leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID) VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement psts = conn.prepareStatement("INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID) VALUES (?,?,?,?,?,?,?)");
             psts.setInt(1, leaseContract.getLeaseID());
             psts.setDate(2, leaseContract.getStartDate());
             psts.setDate(3, leaseContract.getEndDate());
@@ -38,7 +38,6 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     // TODO
@@ -47,7 +46,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         List<LeaseContract> contractList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.leasecontract");
+            PreparedStatement pst = conn.prepareStatement("select * from leasecontract");
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities
@@ -74,7 +73,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         LeaseContract leaseContract = null;
 
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.leasecontract WHERE leaseID = ?");
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM leasecontract WHERE leaseID = ?");
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
@@ -103,10 +102,8 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         java.sql.Date date=new java.sql.Date(millis);
         java.sql.Date date2 = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
-
-
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.leasecontract SET startDate = ?, endDate = ?, monthlyPrice = ?, customerID = ?, vehicleID = ?, employeeID = ? WHERE leaseID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE leasecontract SET startDate = ?, endDate = ?, monthlyPrice = ?, customerID = ?, vehicleID = ?, employeeID = ? WHERE leaseID = ?");
             psts.setDate(1, leaseContract.getStartDate());
             psts.setDate(2, leaseContract.getEndDate());
             psts.setDouble(3, leaseContract.getMonthlyPrice());
@@ -126,7 +123,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             @Override
     public void delete(int id) {
         try {
-            PreparedStatement pst = conn.prepareStatement("DELETE FROM bilabonnement.leasecontract WHERE leaseID = ? ");
+            PreparedStatement pst = conn.prepareStatement("DELETE FROM leasecontract WHERE leaseID = ? ");
             pst.setInt(1, id);
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -136,7 +133,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
     public double getCurrentIncome(Date date) {
         double income = 0;
         try {
-            PreparedStatement pst = conn.prepareStatement("SELECT leasecontract.monthlyPrice\n" +
+            PreparedStatement pst = conn.prepareStatement("SELECT monthlyPrice\n" +
                 "FROM leaseContract\n" +
                 "WHERE startDate < ? AND endDate > ?;");
 

@@ -1,13 +1,14 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Employee;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.repository.EmployeeRepository;
 
 import java.util.List;
 
 public class EmployeeService {
-    EmployeeRepository employeeRepo = new EmployeeRepository();
+    EmployeeRepository employeeRepo = new EmployeeRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(Employee employee) {
         employeeRepo.create(employee);

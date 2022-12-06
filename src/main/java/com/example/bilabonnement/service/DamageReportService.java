@@ -1,13 +1,14 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.DamageReport;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.repository.DamageReportRepository;
 
 import java.util.List;
 
 public class DamageReportService {
 
-    DamageReportRepository damageRepo = new DamageReportRepository();
+    DamageReportRepository damageRepo = new DamageReportRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(DamageReport damageReport){
         damageRepo.create(damageReport);

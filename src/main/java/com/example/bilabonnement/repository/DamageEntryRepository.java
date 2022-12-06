@@ -2,6 +2,7 @@ package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.DamageEntry;
 import com.example.bilabonnement.model.Employee;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
@@ -13,7 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
-    Connection conn = DatabaseConnectionManager.getConnection();
+    Connection conn;
+
+    public DamageEntryRepository(DB_CONNECTION db_connection) {
+        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+    }
 
     @Override
     public void create(DamageEntry damageEntry) {

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OptionalRepositoryTest {
 
-    OptionalRepository optionalRepository = new OptionalRepository();
+    OptionalRepository optionalRepository = new OptionalRepository(DB_CONNECTION.TEST_DB);
 
     @Test
     void create() {

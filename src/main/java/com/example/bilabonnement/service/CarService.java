@@ -1,6 +1,7 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.repository.CarRepository;
 
 import java.sql.Date;
@@ -11,7 +12,7 @@ import java.util.List;
 import static com.example.bilabonnement.model.enums.State.IS_LEASED;
 
 public class CarService {
-    CarRepository carRepository = new CarRepository();
+    CarRepository carRepository = new CarRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(Car car) {
         carRepository.create(car);

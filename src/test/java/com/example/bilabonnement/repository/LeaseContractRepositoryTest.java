@@ -1,4 +1,4 @@
-/*
+
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Employee;
@@ -7,7 +7,13 @@ import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.model.Optional;
 import org.junit.jupiter.api.Test;
 
+import java.rmi.dgc.Lease;
+import java.sql.Date;
+import java.util.Calendar;
+
+import static com.example.bilabonnement.model.enums.Role.DAMAGE_REPORTER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class LeaseContractRepositoryTest {
 
@@ -42,7 +48,7 @@ public class LeaseContractRepositoryTest {
   void update() {
     // # arrange #
     int leaseID = 1;
-
+    leaseRepo.delete(leaseID);
     // delete previous
     LeaseContract expected = new LeaseContract(Date.valueOf("2020-01-1"), Date.valueOf("2020-04-01"), 666, 201, 501, 101);
 
@@ -54,9 +60,9 @@ public class LeaseContractRepositoryTest {
     System.out.println(actual);
 
     // # assert #
-    assertEquals(actual.getOptionalID(), expected.getOptionalID());
-    assertEquals(actual.getName(), expected.getName());
-    assertEquals(actual.getPricePrMonth(), expected.getPricePrMonth());
+    assertEquals(expected.getLeaseID(), actual.getLeaseID());
+    assertEquals(expected.getStartDate(), actual.getStartDate());
+    assertEquals(expected.getMonthlyPrice(), actual.getMonthlyPrice());
   }
 
   @Test
@@ -90,4 +96,4 @@ public class LeaseContractRepositoryTest {
   }
 
 }
-*/
+

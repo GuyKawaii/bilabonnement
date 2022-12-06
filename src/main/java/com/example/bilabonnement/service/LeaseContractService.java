@@ -1,6 +1,7 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.LeaseContract;
+import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.repository.LeaseContractRepository;
 
 import java.sql.Date;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class LeaseContractService {
 
-    LeaseContractRepository leaseContractRepo = new LeaseContractRepository();
+    LeaseContractRepository leaseContractRepo = new LeaseContractRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(LeaseContract leaseContract) {
             leaseContractRepo.create(leaseContract);
