@@ -2,6 +2,7 @@ package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.DamageReport;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -74,8 +75,8 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
             while (resultSet.next()) {
                 damageReport = new DamageReport(
                         resultSet.getInt("damageReportID"),
-                        resultSet.getInt("vehicleID"),
                         resultSet.getInt("employeeID"),
+                        resultSet.getInt("vehicleID"),
                         resultSet.getTimestamp("timestamp"));
             }
 
@@ -88,11 +89,11 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
     @Override
     public void update(DamageReport damageReport) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.damagereport SET vehicleID = ?, damageReportID = ?, employeeID = ?, timestamp = ? WHERE damageReportID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.damagereport SET vehicleID = ?, employeeID = ?, timestamp = ? WHERE damageReportID = ?");
             psts.setInt(1, damageReport.getVehicleID());
-            psts.setInt(2, damageReport.getDamageReportID());
-            psts.setInt(4, damageReport.getEmployeeID());
+            psts.setInt(2, damageReport.getEmployeeID());
             psts.setTimestamp(3, damageReport.getTimestamp());
+            psts.setInt(4, damageReport.getDamageReportID());
 
             psts.executeUpdate();
 
@@ -111,5 +112,28 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<DamageReport> readAllFromEmployee(int employeeID) {
+        List<DamageReport> damageReports = new ArrayList<>();
+
+        try {
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.damagereport WHERE employeeID = ?");
+            psts.setInt(1, employeeID);
+            ResultSet resultSet = psts.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                damageReports.add(new DamageReport(
+                        resultSet.getInt("damageReportID"),
+                        resultSet.getInt("employeeID"),
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getTimestamp("timestamp")));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return damageReports;
     }
 }

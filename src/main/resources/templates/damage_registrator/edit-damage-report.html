@@ -13,31 +13,39 @@
 <div id="content">
     <h1>skaderapport</h1>
 
-    <form action="/updateContract" method="post">
+    <form action="/update-damage-report" method="post">
+        <label for="damageReportID">rapport ID:</label><br>
+        <input type="text" name="damageReportID" th:value="${damageReport.damageReportID}" readonly><br>
+        <label for="employeeID">medarbejder ID:</label><br>
+        <input type="text" name="employeeID" th:value="${damageReport.employeeID}" readonly><br>
         <label for="vehicleID">vogn ID:</label><br>
-        <input type="text" name="vehicleID" required><br>
+        <select name="vehicleID"><br>
+            <option th:value="${damageReport.vehicleID}"
+                    th:text="|${damageReport.vehicleID} - nuværende|"
+                    selected="selected">
+            </option>
+            <option th:each="car: ${cars}"
+                    th:value="${car.vehicleID}"
+                    th:text="|${car.vehicleID} - uden aktiv leasing|">
+            </option>
+        </select><br>
         <label for="timestamp">timestamp:</label><br>
-        <input type="datetime-local" name="datetime" th:value="${currentTime}">
-        <button type="update contract">opdater</button>
+        <input type="datetime-local" name="timestamp" th:value="${damageReport.timestamp}">
+        <button type="update">opdater</button>
     </form>
-
 
     <h3>tilføj skade</h3>
 
     <form action="/create-damage-entry" method="post">
         <label for="skade">skade</label><br>
         <input type="text" name="skade" required><br>
-
         <label for="beskrivelse">beskrivelse</label><br>
         <input type="text" name="beskrivelse" required><br>
-
         <label for="pris">pris</label><br>
         <input type="number" name="pris" required><br>
-
         <input type="hidden" name="damage-report-id" th:value="${damageReport.damageReportID}"><br>
         <button type="submit">create</button>
     </form>
-
 
     <h3>damages</h3>
 
@@ -48,7 +56,7 @@
             <th>skade</th>
             <th>beskrivelse</th>
             <th>pris</th>
-            <th>slet</th>
+            <th>fjern</th>
         </tr>
         </thead>
         <tbody>
@@ -58,18 +66,9 @@
             <td th:text="${entry.damageDescription}"></td>
             <td th:text="${entry.damagePrice}"></td>
             <td>
-                <form action="/delete-entry" method="post" id>
-                    <button type="submit">delete</button>
-                    <input type="hidden" name="reportID" th:value="${damageReport.damageReportID}"><br>
-                    <input type="hidden" name="entryID" th:value="${entry.damageEntryID}"><br>
-                </form>
-            </td>
-            <td>
-                <form action="/delete-entry" method="post" id>
-                    <button type="submit">delete</button>
-                    <input type="hidden" name="reportID" th:value="${damageReport.damageReportID}"><br>
-                    <input type="hidden" name="entryID" th:value="${entry.damageEntryID}"><br>
-                </form>
+                <a th:href="@{'/delete-entry?entryID='+${entry.damageEntryID}+'&reportID='+${damageReport.damageReportID}}">
+                    <button class="btn-delete" id="btn-delete">slet</button>
+                </a>
             </td>
         </tr>
         </tbody>

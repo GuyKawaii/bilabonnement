@@ -29,6 +29,10 @@ public class DamageReportService {
         damageRepo.delete(id);
     }
 
+    public List<DamageReport> readAllFromEmployee(int employeeID) {
+        return damageRepo.readAllFromEmployee(employeeID);
+    }
+
     // specific for service
 
 }

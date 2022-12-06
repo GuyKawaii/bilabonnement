@@ -14,69 +14,49 @@
 
     <h1>Lav skaderapport</h1>
 
-    <form action="/create-new-damage-report" method="post" id>
+    <form action="/create-new-damage-report" method="post">
+        <label for="employeeID">medarbejder id:</label><br>
+        <input type="text" name="employeeID" th:value="${employeeID}" readonly><br>
         <label for="vehicleID">vogn id:</label><br>
-        <select name="vehicleID">
-            <option th:each="car: ${cars}" th:value="${car.vehicleID}" th:text="|id: ${car.vehicleID}, ${car.brand}, ${car.model}|"></option>
+        <select name="vehicleID"><br>
+            <option th:each="car: ${cars}" th:value="${car.vehicleID}"
+                    th:text="|id: ${car.vehicleID}, ${car.brand}, ${car.model}|"></option>
         </select><br>
         <label for="timestamp">timestamp:</label><br>
         <input type="datetime-local" name="datetime" th:value="${currentTime}">
         <button type="submit">create</button>
     </form>
 
-    <div id="horizontal_tables">
-        <!--    leaseContracts-->
-<!--        <div>-->
-<!--            <h3>biler</h3>-->
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <th>ID</th>-->
-<!--                    <th>start date</th>-->
-<!--                    <th>end date</th>-->
-<!--                    <th>vehicleID</th>-->
-<!--                </tr>-->
-<!--                <tr th:each="contract : ${leaseContracts}">-->
-<!--                    <td th:text="${contract.leaseID}"></td>-->
-<!--                    <td th:text="${contract.startDate}"></td>-->
-<!--                    <td th:text="${contract.endDate}"></td>-->
-<!--                    <td th:text="${contract.vehicleID}"></td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </div>-->
-
-
-        <!--    damageReports-->
-        <div>
-            <h3>skaderapporter</h3>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>timestamp</th>
-                    <th>vogn id</th>
-                    <th>tilgå</th>
-                    <th>fjern</th>
-                </tr>
-                <tr th:each="report : ${damageReports}">
-                    <td th:text="${report.damageReportID}"></td>
-                    <td th:text="${report.timestamp}"></td>
-                    <td th:text="${report.vehicleID}"></td>
-                    <!--   PathVariables and Autowired til senere brug, hvis nødvendigt form.-->
-                    <td>
-                        <!-- <a th:href="@{'/viewUser/'+${user.usrID}}">-->
-                        <a th:href="@{'/damage-entry?id='+${report.damageReportID}}">
-                            <button class="btn-view" id="btn-view">View report</button>
-                        </a>
-                    </td>
-                    <td>
-                        <a th:href="@{'/delete-damage-report?reportID='+${report.damageReportID}}">
-                            <button class="btn-view" id="btn-view">View report</button>
-                        </a>
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <div>
+        <h3>mine skaderapporter</h3>
+        <table>
+            <tr>
+                <th>rapport ID</th>
+                <th>medarbejder ID</th>
+                <th>timestamp</th>
+                <th>vogn ID</th>
+                <th>tilgå</th>
+                <th>fjern</th>
+            </tr>
+            <tr th:each="report : ${damageReports}">
+                <td th:text="${report.damageReportID}"></td>
+                <td th:text="${report.employeeID}"></td>
+                <td th:text="${report.timestamp}"></td>
+                <td th:text="${report.vehicleID}"></td>
+                <td>
+                    <a th:href="@{'/edit-damage-report?reportID='+${report.damageReportID}}">
+                        <button class="btn-view" id="btn-view">rediger</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{'/delete-damage-report?returnPage=create-damage-report&reportID='+${report.damageReportID}}">
+                        <button class="btn-delete" id="btn-delete">slet</button>
+                    </a>
+                </td>
+            </tr>
         </table>
     </div>
+
 
 </div>
 

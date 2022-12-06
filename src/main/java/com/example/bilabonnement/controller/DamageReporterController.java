@@ -3,6 +3,7 @@ package com.example.bilabonnement.controller;
 import com.example.bilabonnement.model.*;
 import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.service.*;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ public class DamageReporterController {
     public String damageReports(Model model, HttpSession session) {
         // validate employee access
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
-            return "redirect:/logout";
+            return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
@@ -56,20 +57,17 @@ public class DamageReporterController {
     public String createDamageReport(Model model, HttpSession session) {
         // validate employee access
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
-            return "redirect:/logout";
+            return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
-        // visual element for work
-        List<Car> cars = carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now()));
-        List<DamageReport> damageReports = damageReportService.readAll();
-
-
-        // add time
+        // form values and reports for help
         model.addAttribute("currentTime", LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-        model.addAttribute("cars", cars);
-        model.addAttribute("damageReports", damageReports);
+        // todo missing sql to select only for specifik employee
+        model.addAttribute("cars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
+        model.addAttribute("damageReports", damageReportService.readAllFromEmployee((int) session.getAttribute("employeeID")));
 
         return "damage_registrator/create-damage-report";
     }
@@ -92,17 +90,32 @@ public class DamageReporterController {
     public String damageEntry(@RequestParam int reportID, Model model, HttpSession session) { //skal HttpSession være i alle parameterlister?
         // validate employee access
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
-            return "redirect:/logout";
+            return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
 
         // add reference lists
         model.addAttribute("damageReport", damageReportService.read(reportID));
         model.addAttribute("damageEntries", damageEntryService.entriesByReport(reportID));
+        model.addAttribute("cars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
 
         return "damage_registrator/edit-damage-report";
+
+        /*
+
+        virker som om vi skal bruge
+
+        READY_FOR_LEASING
+        RETURNED_FROM_LEASING
+
+        damagereporter sætter bilen READY_FOR_LEASING ved at lave en skaderapport eller toggle billen tjekket
+
+        dataregistrator få liste over bilder der har overstået leasing periode og kan toggle dem til RETURNED_FROM_LEASING
+
+         */
     }
 
     @GetMapping("/delete-damage-report")
@@ -113,28 +126,36 @@ public class DamageReporterController {
     }
 
     @PostMapping("/create-damage-entry")
-    public String createDamageEntry(WebRequest req) {
-
-        // todo add such that it does not work if session is not valid and it cannot find report to add to
-
-
+    public String createDamageEntry(WebRequest req, HttpSession session, Model model) {
         // create entry
         damageEntryService.create(new DamageEntry(req.getParameter("skade"), req.getParameter("beskrivelse"), Double.parseDouble(req.getParameter("pris")), Integer.parseInt(req.getParameter("damage-report-id"))));
 
-        return ("redirect:/damage-entry?id=" + req.getParameter("damage-report-id"));
+        return ("redirect:/edit-damage-report?reportID=" + req.getParameter("damage-report-id"));
     }
 
-    @PostMapping("/delete-entry")
-    public String deleteEntry(WebRequest req) {
-
-        // get parameters
-        int damageReportID = Integer.parseInt(req.getParameter("reportID"));
-        int entryID = Integer.parseInt(req.getParameter("entryID"));
+    @GetMapping("/delete-entry")
+    public String deleteEntry(WebRequest req, HttpSession session) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), new Role[]{DAMAGE_REPORTER, ADMINISTRATION}))
+            return "redirect:/role-redirect";
 
         // update db
-        damageEntryService.delete(entryID);
+        damageEntryService.delete(Integer.parseInt(req.getParameter("entryID")));
 
-        return ("redirect:/damage-entry?id=" + damageReportID);
+        return ("redirect:/edit-damage-report?reportID=" + req.getParameter("reportID"));
+    }
+
+    @PostMapping("/update-damage-report")
+    public String updateDamageReport(Model model, WebRequest req) {
+
+        damageReportService.update(new DamageReport(
+                Integer.parseInt(req.getParameter("damageReportID")),
+                Integer.parseInt(req.getParameter("employeeID")),
+                Integer.parseInt(req.getParameter("vehicleID")),
+                Timestamp.valueOf(LocalDateTime.parse(req.getParameter("timestamp")))
+        ));
+
+        return "redirect:/edit-damage-report?reportID=" + req.getParameter("damageReportID");
     }
 
 }

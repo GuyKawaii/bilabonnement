@@ -250,4 +250,45 @@ public class CarRepository implements IGenericRepository<Car> {
 
         return carList;
     }
+
+    public List<Car> readAllUnleasedOnDateForEmployee(Date date, int employeeID) {
+        List<Car> carList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement(
+                    "SELECT unleased.*\n" +
+                            "FROM car unleased\n" +
+                            "WHERE unleased.vehicleID NOT IN (SELECT leased.vehicleID\n" +
+                            "                                 FROM car leased\n" +
+                            "                                          join leasecontract l on leased.vehicleID = l.vehicleID\n" +
+                            "                                 WHERE startDate <= ?\n" +
+                            "                                   AND ? <= endDate)");
+            pst.setDate(1, date);
+            pst.setDate(2, date);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                carList.add(new Car(
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getString("chassisNumber"),
+                        resultSet.getDouble("steelPrice"),
+                        resultSet.getString("color"),
+                        resultSet.getString("brand"),
+                        resultSet.getString("model"),
+                        resultSet.getInt("co2emission"),
+                        resultSet.getString("geartype"),
+                        resultSet.getInt("kmPerLiter"),
+                        FuelType.valueOf(resultSet.getString("fuelType")),
+                        resultSet.getInt("kmDriven"),
+                        resultSet.getInt("locationID"),
+                        State.valueOf(resultSet.getString("state"))));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return carList;
+    }
 }
