@@ -6,10 +6,10 @@
     <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
     <link rel="stylesheet" th:href="@{/base.css}">
 </head>
-<body>
 
 <header th:replace="fragment/nav-menu.html :: header"></header>
 
+<body>
 <div id="content">
     <!--    create new contract -->
     <h1>Opret lejeaftale</h1>
@@ -110,9 +110,14 @@
             <td th:text="${contract.customerID}"></td>
             <td th:text="${contract.vehicleID}"></td>
             <td th:text="${contract.employeeID}"></td>
-            <td>
-                <a th:href="@{/edit(id=${contract.getLeaseID()})}">
+            <td><!--
+                <a th:href="@{'/edit-leasecontract/'+${user.usrID}}">
                     <button class="btn-edit" id="btn-edit">Edit user</button></a>
+                    -->
+                <form method="get" action="/edit-leasecontract">
+                    <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
+                    <input type="submit" value="Edit">
+                </form>
                 <!--  <form method="POST" action="@{'/edit-leasecontract?id='+${contract.leaseID}}">
                       <input type="submit" value="Edit">
                       <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
@@ -131,8 +136,6 @@
     </table>
 </div>
 
-</div>
-
-
 </body>
+
 </html>
