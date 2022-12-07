@@ -3,9 +3,9 @@
          src="https://res.cloudinary.com/digital-interdan-bilabonnement/image/upload/c_fit,q_80,w_448/v1/Logos/BILABONNEMENT_rgb_mmahqw.png"
          alt="BilabonnementLogo">
 
-<!--    <div th:if="${employeeRole} == 'DATA_REGISTRATION'">-->
-<!--        <h1>hello</h1>-->
-<!--    </div>-->
+    <!--    <div th:if="${employeeRole} == 'DATA_REGISTRATION'">-->
+    <!--        <h1>hello</h1>-->
+    <!--    </div>-->
 
 
     <div class="nav-bar-section">
@@ -32,7 +32,7 @@
         </a>
 
         <a th:href="@{/checkout-cars}">
-            <button>checkout cars</button>
+            <button>check biler</button>
         </a>
     </div>
 
@@ -43,11 +43,14 @@
         <a th:href="@{/view-cars}">
             <button>biler</button>
         </a>
+        <a th:href="@{/customers}">
+            <button>kunder</button>
+        </a>
     </div>
 
     <div th:if="${employeeRole} == 'BUSINESS_DEVELOPER'" class="nav-bar-section">
-        <a th:href="@{/damage-reports}">
-            <button>skade rapporter</button>
+        <a th:href="@{/finance}">
+            <button>finansiering</button>
         </a>
     </div>
 
@@ -56,56 +59,5 @@
             <button class="btn-logout">log ud</button>
         </a>
     </div>
-
-
-    <!--    <div class="row">-->
-    <!--        <a th:href="@{/logout}">-->
-    <!--            <button class="btn-logout">log ud</button>-->
-    <!--        </a>-->
-    <!--    </div>-->
-    <!--    <section class="row" th:case="'DATA_REGISTRATION'">-->
-    <!--        <h2>TEST DATA</h2>-->
-    <!--    </section>-->
-
-    <!--    <div class="menu">-->
-    <!--        <div class="flex-content">-->
-    <!--            <img class="billede-logo"-->
-    <!--                 src="https://res.cloudinary.com/digital-interdan-bilabonnement/image/upload/c_fit,q_80,w_128/v1/Logos/logo_brands_0922_ltj2wu.svg"-->
-    <!--                 alt="Bilabonnement">-->
-
-    <!--            <div class="menu-items">-->
-    <!--                <div class="navigation-item">-->
-    <!--                    <a class="link name-color" target="_self" title="Navn" th:text="${employeeName}">NAVN-->
-    <!--                        Vestergaard</a>-->
-    <!--                    <div>-->
-    <!--                        <div class="menu-items">-->
-    <!--                            <div class="navigation-item">-->
-    <!--                                <a class="link" target="_self" title="Lejekontrakter" href="/se-alle-biler">Lejekontrakter</a>-->
-    <!--                            </div>-->
-    <!--                            <div>-->
-    <!--                            <div class="menu-items">-->
-    <!--                                <div class="navigation-item">-->
-    <!--                                    <a class="link" target="_self" title="Skaderapporter" href="/se-alle-biler">Skaderapporter-->
-    <!--                                    </a>-->
-    <!--                                    <div class="navigation-item">-->
-    <!--                                        <a class="link" target="_self" title="Profil"-->
-    <!--                                           href="/bilabonnement-minileasing">Profil-->
-    <!--                                        </a>-->
-    <!--                                    </div>-->
-    <!--                                    <div class="navigation-item">-->
-    <!--                                        <a class="link" target="_self" title="Log ud" th:href="@{/logout}">Log-->
-    <!--                                            ud-->
-    <!--                                        </a>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--    </div>-->
-
 
 </header>

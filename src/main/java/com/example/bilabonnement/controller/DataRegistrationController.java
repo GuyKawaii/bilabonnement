@@ -5,7 +5,6 @@ import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.model.Optional;
 import com.example.bilabonnement.model.enums.EquipmentLevel;
 import com.example.bilabonnement.model.enums.Role;
-import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +31,7 @@ public class DataRegistrationController {
     OptionalService optionalService = new OptionalService();
 
     // people with access to these pages
+    // people with access to these pages
     Role[] employeeAccess = new Role[]{DATA_REGISTRATION, ADMINISTRATION};
 
 
@@ -51,7 +51,7 @@ public class DataRegistrationController {
         model.addAttribute("employees", employeeService.readAll());
         model.addAttribute("customers", customerService.readAll());
         model.addAttribute("cars", carService.readAll());
-        model.addAttribute("leaseContracts", leaseService.readAll());
+        model.addAttribute("date", LocalDate.now());
 
         return "data-registration";
     }
@@ -61,7 +61,7 @@ public class DataRegistrationController {
 
         // create leaseContract
         int leaseID = leaseService.createAndReturnID(new LeaseContract(
-        Date.valueOf(req.getParameter("startDate")),
+                Date.valueOf(req.getParameter("startDate")),
                 Date.valueOf(req.getParameter("endDate")),
                 Double.parseDouble(req.getParameter("monthlyPrice")),
                 Integer.parseInt(req.getParameter("customerID")),
@@ -76,13 +76,13 @@ public class DataRegistrationController {
                 leaseOptionals.add(optional);
         }
         leaseService.read(leaseID);
-            // add optionals
+        // add optionals
         leaseService.updateOptionals(leaseOptionals, leaseID);
 
         // todo add check for leasing period maybe?
         carService.updateState(Integer.parseInt(req.getParameter("vehicleID")), AT_CUSTOMER);
 
-            return "redirect:/data-registration";
+        return "redirect:/data-registration";
     }
 
     @GetMapping("/edit-leasecontract")
@@ -129,7 +129,7 @@ public class DataRegistrationController {
 
         model.addAttribute("unleasedCars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
         model.addAttribute("leasedCars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
-        model.addAttribute("states", carService.getCarStates());
+        model.addAttribute("states", carService.getEmployeeStateSelect(DATA_REGISTRATION));
 
 
         return "data-registrator/view-cars";
@@ -187,4 +187,6 @@ public class DataRegistrationController {
         leaseService.delete(leaseID);
         return "redirect:/data-registration";
     }
+
+
 }

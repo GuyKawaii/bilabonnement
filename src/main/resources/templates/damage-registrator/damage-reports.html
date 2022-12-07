@@ -22,8 +22,8 @@
             <th>vehicleID</th>
             <th>employeeID</th>
             <th>tidspunkt</th>
-            <th>tilgå</th>
-            <th>fjern</th>
+            <th>rediger</th>
+            <th>slet</th>
         </tr>
         </thead>
         <tbody>
@@ -37,12 +37,12 @@
             <td><span th:text="${damageReport.timestamp}">tidspunkt</span></td>
             <td>
                 <a th:href="@{'/edit-damage-report?reportID='+${damageReport.damageReportID}}">
-                    <button class="btn-view" id="btn-edit">rediger</button>
+                    <button class="btn-view" id="btn-edit">REDIGER</button>
                 </a>
             </td>
             <td>
                 <a th:href="@{'/delete-damage-report?reportID='+${damageReport.damageReportID}+'&returnPage=damage-reports'}">
-                    <button class="btn-view" id="btn-view">slet</button>
+                    <button class="btn-view" id="btn-delete">SLET</button>
                 </a>
             </td>
         </tr>

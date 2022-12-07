@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>kunder</title>
+
+    <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
+    <link rel="stylesheet" th:href="@{/base.css}">
+</head>
+<body>
+
+<header th:replace="fragment/nav-menu.html :: header"></header>
+
+<div class="column-div">
+
+    <div>
+        <h2>opret kunde</h2>
+        <form action="/create-customer" method="post">
+            <label for="firstName">fornavn:</label><br>
+            <input type="text" name="firstName" required><br>
+            <label for="lastName">efternavn:</label><br>
+            <input type="text" name="lastName" required><br>
+            <label for="email">email:</label><br>
+            <input type="text" name="email" required><br>
+            <label for="address">city:</label><br>
+            <input type="text" name="address" required><br>
+            <label for="city">postnr:</label><br>
+            <input type="text" name="city" required><br>
+            <label for="postalCode">postnr:</label><br>
+            <input type="number" name="postalCode" required><br>
+            <label for="mobile">mobil:</label><br>
+            <input type="text" name="mobile" required><br>
+            <label for="cprNumber" required>CPR:</label><br>
+            <input type="text" name="cprNumber" maxlength="10" required><br>
+            <!--            todo change cpr length to correct length-->
+            <button type="update">opret</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>kunder</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>kunde ID</th>
+                <th>fornavn</th>
+                <th>efternavn</th>
+                <th>email</th>
+                <th>address</th>
+                <th>city</th>
+                <th>postnr</th>
+                <th>mobil</th>
+                <th>CPR</th>
+                <th th:if="${employeeRole == 'DATA_REGISTRATION'}">rediger</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(customers)}"> <!-- no items listed -->
+                <td>IGEN KUNDER</td>
+            </tr>
+            <tr th:each="customer : ${customers}">
+                <td><span th:text="${customer.customerID}">kunde ID</span></td>
+                <td><span th:text="${customer.firstName}">fornavn</span></td>
+                <td><span th:text="${customer.lastName}">efternavn</span></td>
+                <td><span th:text="${customer.email}">email</span></td>
+                <td><span th:text="${customer.address}">address</span></td>
+                <td><span th:text="${customer.city}">city</span></td>
+                <td><span th:text="${customer.postalCode}">postnr</span></td>
+                <td><span th:text="${customer.mobile}">mobil</span></td>
+                <td><span th:text="${customer.cprNumber}">CPR</span></td>
+                <td th:if="${employeeRole == 'DATA_REGISTRATION'}">
+                    <a th:href="@{'/edit-customer?customerID='+${customer.customerID}}">
+                        <button class="btn-view">REDIGER</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>

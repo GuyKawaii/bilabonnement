@@ -53,7 +53,7 @@ public class DamageReporterController {
         List<DamageReport> damageReports = damageReportService.readAll();
 
         model.addAttribute("listOfDamageReports", damageReports);
-        return "damage_registrator/damage-reports";
+        return "damage-registrator/damage-reports";
     }
 
 
@@ -73,7 +73,7 @@ public class DamageReporterController {
         model.addAttribute("cars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
         model.addAttribute("damageReports", damageReportService.readAllFromEmployee((int) session.getAttribute("employeeID")));
 
-        return "damage_registrator/create-damage-report";
+        return "damage-registrator/create-damage-report";
     }
 
     @PostMapping("/create-new-damage-report")
@@ -109,7 +109,7 @@ public class DamageReporterController {
         model.addAttribute("damageEntries", damageEntryService.entriesByReport(reportID));
         model.addAttribute("cars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
 
-        return "damage_registrator/edit-damage-report";
+        return "damage-registrator/edit-damage-report";
 
         /*
 
@@ -170,14 +170,20 @@ public class DamageReporterController {
     }
 
     @GetMapping("checkout-cars")
-    public String checkOutCars(Model model) {
+    public String checkOutCars(Model model, HttpSession session) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
+            return "redirect:/role-redirect";
+        // session navbar
+        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
         // todo fix readAllLeasedOnDateWithState
         model.addAttribute("unleasedCars", carService.readAllLeasedOnDateWithState());
-        model.addAttribute("states", carService.getCarStates());
+        model.addAttribute("states", carService.getEmployeeStateSelect(DAMAGE_REPORTER));
 
-
-        return "/damage_registrator/checkout-cars";
+        return "/damage-registrator/checkout-cars";
     }
 
 

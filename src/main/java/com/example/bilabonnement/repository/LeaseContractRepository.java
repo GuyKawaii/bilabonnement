@@ -14,8 +14,6 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.example.bilabonnement.model.enums.DB_CONNECTION.*;
-
 public class LeaseContractRepository implements IGenericRepository<LeaseContract> {
 
     Connection conn;
@@ -39,6 +37,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                 psts.setInt(4, leaseContract.getCustomerID());
                 psts.setInt(5, leaseContract.getVehicleID());
                 psts.setInt(6, leaseContract.getEmployeeID());
+
             } else {
                 psts = conn.prepareStatement(
                         "INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID) VALUES (?,?,?,?,?,?,?)");
@@ -66,9 +65,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
 
         // no preset id
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT MAX(leaseID) AS maxID FROM leasecontract");
+            PreparedStatement psts = conn.prepareStatement("SELECT MAX(leaseID) FROM leasecontract");
             ResultSet resultSet = psts.executeQuery();
-            return resultSet.getInt("maxID");
+            resultSet.next();
+            return resultSet.getInt(1);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -220,24 +220,130 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             PreparedStatement pst = conn.prepareStatement("DELETE FROM leaseoptional WHERE leaseID = ?");
             pst.setInt(1, leaseID);
             pst.executeUpdate();
-            pst.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        // add new optionals
-        for (Optional optional : optionals) {
+        // add new
+        for (Optional optional: optionals) {
             try {
                 PreparedStatement pst = conn.prepareStatement("INSERT INTO leaseoptional (optionalID, leaseID) VALUES (?,?)");
                 pst.setInt(1, optional.getOptionalID());
-                pst.setInt(1, leaseID);
+                pst.setInt(2, leaseID);
                 pst.executeUpdate();
-                pst.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
     }
+
+    public List<LeaseContract> readActiveLeaseContractsByVehicleID(int vehicleID, Date date) {
+        List<LeaseContract> contractList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT l.*
+                    FROM leasecontract l
+                             JOIN car c on c.vehicleID = l.vehicleID
+                    WHERE l.vehicleID = ?
+                      AND startDate <= ?
+                      AND              ? <= endDate
+                    ORDER BY startDate
+                    """);
+            pst.setInt(1, vehicleID);
+            pst.setDate(2, date);
+            pst.setDate(3, date);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                contractList.add(new LeaseContract(
+                        resultSet.getInt("leaseID"),
+                        resultSet.getDate("startDate"),
+                        resultSet.getDate("endDate"),
+                        resultSet.getDouble("monthlyPrice"),
+                        resultSet.getInt("customerID"),
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getInt("employeeID")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contractList;
+    }
+
+    public List<LeaseContract> readPassedLeaseContractsByVehicleID(int vehicleID, Date date) {
+        List<LeaseContract> contractList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT l.*
+                    FROM leasecontract l
+                             JOIN car c on c.vehicleID = l.vehicleID
+                    WHERE l.vehicleID = ?
+                      AND l.endDate < ?
+                    ORDER BY startDate
+                    """);
+            pst.setInt(1, vehicleID);
+            pst.setDate(2, date);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                contractList.add(new LeaseContract(
+                        resultSet.getInt("leaseID"),
+                        resultSet.getDate("startDate"),
+                        resultSet.getDate("endDate"),
+                        resultSet.getDouble("monthlyPrice"),
+                        resultSet.getInt("customerID"),
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getInt("employeeID")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contractList;
+    }
+
+    public List<LeaseContract> readUpcomingLeaseContractsByVehicleID(int vehicleID, Date date) {
+        List<LeaseContract> contractList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT l.*
+                    FROM leasecontract l
+                             JOIN car c on c.vehicleID = l.vehicleID
+                    WHERE l.vehicleID = ?
+                      AND ? < l.startDate
+                    ORDER BY startDate
+                    """);
+            pst.setInt(1, vehicleID);
+            pst.setDate(2, date);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                contractList.add(new LeaseContract(
+                        resultSet.getInt("leaseID"),
+                        resultSet.getDate("startDate"),
+                        resultSet.getDate("endDate"),
+                        resultSet.getDouble("monthlyPrice"),
+                        resultSet.getInt("customerID"),
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getInt("employeeID")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contractList;
+    }
+
 
 }
 

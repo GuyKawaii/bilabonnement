@@ -1,13 +1,15 @@
 # DDL is Data Definition Language which is used to define data structures.
 # nuke option
-DROP DATABASE IF EXISTS bilabonnement;
+
+# test
 # DROP DATABASE  IF EXISTS testbilabonnement;
-
-CREATE DATABASE bilabonnement;
 # CREATE DATABASE testbilabonnement;
-
-USE bilabonnement;
 # USE testbilabonnement;
+
+# release
+DROP DATABASE IF EXISTS bilabonnement;
+CREATE DATABASE bilabonnement;
+USE bilabonnement;
 
 ####  reset tables ###
 
@@ -100,8 +102,10 @@ CREATE TABLE IF NOT EXISTS leaseOptional
 
     # key setup
     PRIMARY KEY (optionalID, leaseID),
-    CONSTRAINT optionalID FOREIGN KEY (optionalID) REFERENCES optional (optionalID),
-    CONSTRAINT leaseID FOREIGN KEY (leaseID) REFERENCES leasecontract (leaseID)
+    CONSTRAINT optionalID FOREIGN KEY (optionalID)
+        REFERENCES optional (optionalID) ON DELETE CASCADE,
+    CONSTRAINT leaseID FOREIGN KEY (leaseID)
+        REFERENCES leasecontract (leaseID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS damageReport

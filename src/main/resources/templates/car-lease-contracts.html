@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>leases for bil</title>
+
+    <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
+    <link rel="stylesheet" th:href="@{/base.css}">
+</head>
+<body>
+
+<header th:replace="fragment/nav-menu.html :: header"></header>
+
+<div id="content">
+    <h1>leasing kontraktor</h1>
+
+    <div class="table-div">
+        <table>
+            <tr>
+                <th colspan="9">
+                    kommende
+                </th>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Monthly price</th>
+                <th>Customer ID</th>
+                <th>Vehicle ID</th>
+                <th>Employee ID</th>
+            </tr>
+            <tr th:each="contract : ${activeContracts}">
+                <td th:text="${contract.leaseID}"></td>
+                <td th:text="${contract.startDate}"></td>
+                <td th:text="${contract.endDate}"></td>
+                <td th:text="${contract.monthlyPrice}"></td>
+                <td th:text="${contract.customerID}"></td>
+                <td th:text="${contract.vehicleID}"></td>
+                <td th:text="${contract.employeeID}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="table-div">
+        <table>
+            <tr>
+                <th colspan="9">
+                    aktive
+                </th>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Monthly price</th>
+                <th>Customer ID</th>
+                <th>Vehicle ID</th>
+                <th>Employee ID</th>
+            </tr>
+            <tr th:each="contract : ${activeContracts}">
+                <td th:text="${contract.leaseID}"></td>
+                <td th:text="${contract.startDate}"></td>
+                <td th:text="${contract.endDate}"></td>
+                <td th:text="${contract.monthlyPrice}"></td>
+                <td th:text="${contract.customerID}"></td>
+                <td th:text="${contract.vehicleID}"></td>
+                <td th:text="${contract.employeeID}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="table-div">
+        <table>
+            <tr>
+                <th colspan="9">
+                    passerede
+                </th>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Monthly price</th>
+                <th>Customer ID</th>
+                <th>Vehicle ID</th>
+                <th>Employee ID</th>
+            </tr>
+            <tr th:each="contract : ${passedContracts}">
+                <td th:text="${contract.leaseID}"></td>
+                <td th:text="${contract.startDate}"></td>
+                <td th:text="${contract.endDate}"></td>
+                <td th:text="${contract.monthlyPrice}"></td>
+                <td th:text="${contract.customerID}"></td>
+                <td th:text="${contract.vehicleID}"></td>
+                <td th:text="${contract.employeeID}"></td>
+            </tr>
+        </table>
+    </div>
+
+
+</body>
+</html>

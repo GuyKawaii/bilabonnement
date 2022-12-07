@@ -50,4 +50,16 @@ public class LeaseContractService {
     public int createAndReturnID(LeaseContract leaseContract){
         return leaseContractRepo.createAndReturnID(leaseContract);
     }
+
+    public List<LeaseContract> readActiveLeaseContracts(int vehicleID, Date valueOf) {
+        return leaseContractRepo.readActiveLeaseContractsByVehicleID(vehicleID, valueOf);
+    }
+
+    public List<LeaseContract> readUpcomingLeaseContractsByVehicleID(int vehicleID, Date valueOf) {
+        return leaseContractRepo.readUpcomingLeaseContractsByVehicleID(vehicleID, valueOf);
+    }
+
+    public List<LeaseContract> readPassedLeaseContractsByVehicleID(int vehicleID, Date valueOf) {
+        return leaseContractRepo.readPassedLeaseContractsByVehicleID(vehicleID, valueOf);
+    }
 }

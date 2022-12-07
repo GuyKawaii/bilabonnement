@@ -35,8 +35,8 @@
                 <th>medarbejder ID</th>
                 <th>timestamp</th>
                 <th>vogn ID</th>
-                <th>tilgå</th>
-                <th>fjern</th>
+                <th>rediger</th>
+                <th>slet</th>
             </tr>
             <tr th:each="report : ${damageReports}">
                 <td th:text="${report.damageReportID}"></td>
@@ -45,12 +45,12 @@
                 <td th:text="${report.vehicleID}"></td>
                 <td>
                     <a th:href="@{'/edit-damage-report?reportID='+${report.damageReportID}}">
-                        <button class="btn-view" id="btn-view">rediger</button>
+                        <button class="btn-view" id="btn-view">REDIGER</button>
                     </a>
                 </td>
                 <td>
                     <a th:href="@{'/delete-damage-report?returnPage=create-damage-report&reportID='+${report.damageReportID}}">
-                        <button class="btn-delete" id="btn-delete">slet</button>
+                        <button class="btn-delete" id="btn-delete">SLET</button>
                     </a>
                 </td>
             </tr>

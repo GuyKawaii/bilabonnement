@@ -19,9 +19,9 @@
     <div id="formdiv">
         <form action="/makeContract" method="post">
             <label for="startDate">Startdato:</label><br>
-            <input type="date" name="startDate" required><br>
+            <input type="date" name="startDate" th:value="${date}" required><br>
             <label for="endDate">Slutdato:</label><br>
-            <input type="date" name="endDate" required><br>
+            <input type="date" name="endDate" th:value="${date}" required><br>
             <label for="monthlyPrice">Monthly price:</label><br>
             <input type="text" name="monthlyPrice" required><br>
             <label for="customerID">customer ID:</label><br>
@@ -43,7 +43,7 @@
             <br>
             <div th:each="option : ${optionals}">
                 <div>
-                    <input th:name="${option.optionalID}" type="checkbox" th:value="${option.optionalID}"  />
+                    <input th:name="${option.optionalID}" type="checkbox" th:value="${option.optionalID}"/>
                     <label th:for="${option.optionalID}" th:text="${option.name}"></label>
                 </div>
             </div>
@@ -142,7 +142,6 @@
                       <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
                   </form>-->
             </td>
-
 
 
             <td>

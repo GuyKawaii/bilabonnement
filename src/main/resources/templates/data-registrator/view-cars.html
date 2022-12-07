@@ -30,9 +30,9 @@
                     <th>udstyrsniveau</th>
                     <th>reg. Afgift</th>
                     <th>CO2-udledning</th>
-                    <th>lokation</th>
                     <th>status</th>
-                    <th>tilgå</th>
+                    <th>rediger</th>
+                    <th>rapporter</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -65,7 +65,12 @@
                     </td>
                     <td>
                         <a th:href="@{'/edit-car?vehicleID='+${unleasedCar.vehicleID}}">
-                            <button class="btn-view">rediger</button>
+                            <button class="btn-view">REDIGER</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/car-lease-contracts?vehicleID='+${unleasedCar.vehicleID}}">
+                            <button class="btn-view">SEE</button>
                         </a>
                     </td>
                 </tr>
@@ -88,7 +93,8 @@
                     <th>reg. Afgift</th>
                     <th>CO2-udledning</th>
                     <th>status</th>
-                    <th>tilgå</th>
+                    <th>rediger</th>
+                    <th>rapporter</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -121,7 +127,12 @@
                     </td>
                     <td>
                         <a th:href="@{'/edit-car?vehicleID='+${leasedCar.vehicleID}}">
-                            <button class="btn-view" id="btn-view">rediger</button>
+                            <button class="btn-view" id="btn-view">REDIGER</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/car-lease-contracts?vehicleID='+${leasedCar.vehicleID}}">
+                            <button class="btn-view">SEE</button>
                         </a>
                     </td>
                 </tr>

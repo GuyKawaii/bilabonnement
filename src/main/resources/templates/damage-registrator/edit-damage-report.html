@@ -56,10 +56,11 @@
             <th>skade</th>
             <th>beskrivelse</th>
             <th>pris</th>
-            <th>fjern</th>
+            <th>slet</th>
         </tr>
         </thead>
         <tbody>
+
         <tr th:each="entry : ${damageEntries}">
             <td th:text="${entry.damageEntryID}"></td>
             <td th:text="${entry.damageTitle}"></td>
@@ -67,12 +68,15 @@
             <td th:text="${entry.damagePrice}"></td>
             <td>
                 <a th:href="@{'/delete-entry?entryID='+${entry.damageEntryID}+'&reportID='+${damageReport.damageReportID}}">
-                    <button class="btn-delete" id="btn-delete">slet</button>
+                    <button class="btn-delete" id="btn-delete">SLET</button>
                 </a>
             </td>
         </tr>
         </tbody>
     </table>
+    <span th:if="${#lists.isEmpty(damageEntries)}">
+        <td>IGEN SKADE TILFØJET</td>
+    </span>
 
 </div>
 

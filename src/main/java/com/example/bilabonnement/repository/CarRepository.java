@@ -1,10 +1,7 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.model.enums.EquipmentLevel;
-import com.example.bilabonnement.model.enums.DB_CONNECTION;
-import com.example.bilabonnement.model.enums.FuelType;
-import com.example.bilabonnement.model.enums.State;
+import com.example.bilabonnement.model.enums.*;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
 
 import java.sql.*;
@@ -149,12 +146,15 @@ public class CarRepository implements IGenericRepository<Car> {
         List<Car> carList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement(
-                    "SELECT car.*\n" +
-                            "FROM car\n" +
-                            "         JOIN leasecontract l on car.vehicleID = l.vehicleID\n" +
-                            "WHERE startDate <= ?\n" +
-                            "  AND ? <= endDate");
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT c.*
+                    FROM car c
+                             JOIN leasecontract l on c.vehicleID = l.vehicleID
+                    WHERE startDate <= ?
+                      AND              ? <= endDate
+                    GROUP BY c.vehicleID
+                    ORDER BY c.vehicleID
+                    """);
             pst.setDate(1, date);
             pst.setDate(2, date);
             ResultSet resultSet = pst.executeQuery();
@@ -184,14 +184,15 @@ public class CarRepository implements IGenericRepository<Car> {
         List<Car> carList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement(
-                    "SELECT unleased.*\n" +
-                            "FROM car unleased\n" +
-                            "WHERE unleased.vehicleID NOT IN (SELECT leased.vehicleID\n" +
-                            "                                 FROM car leased\n" +
-                            "                                          join leasecontract l on leased.vehicleID = l.vehicleID\n" +
-                            "                                 WHERE startDate <= ?\n" +
-                            "                                   AND ? <= endDate)");
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT unleased.*
+                    FROM car unleased
+                    WHERE unleased.vehicleID NOT IN (SELECT leased.vehicleID
+                                                     FROM car leased
+                                                              join leasecontract l on leased.vehicleID = l.vehicleID
+                                                     WHERE startDate <= ?
+                                                       AND              ? <= endDate)
+                    """);
             pst.setDate(1, date);
             pst.setDate(2, date);
             ResultSet resultSet = pst.executeQuery();
@@ -217,18 +218,20 @@ public class CarRepository implements IGenericRepository<Car> {
         return carList;
     }
 
-    public List<Car> readAllUnleasedOnDateForEmployee(Date date, int employeeID) {
+    public List<Car> readAllUnleasedOnDateForRole(Date date, ArrayList<Role> roles) {
         List<Car> carList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement(
-                    "SELECT unleased.*\n" +
-                            "FROM car unleased\n" +
-                            "WHERE unleased.vehicleID NOT IN (SELECT leased.vehicleID\n" +
-                            "                                 FROM car leased\n" +
-                            "                                          join leasecontract l on leased.vehicleID = l.vehicleID\n" +
-                            "                                 WHERE startDate <= ?\n" +
-                            "                                   AND ? <= endDate)");
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT unleased.*
+                    FROM car unleased
+                    WHERE (unleased.state = 'RETURNED')
+                      AND unleased.vehicleID NOT IN (SELECT leased.vehicleID
+                                                     FROM car leased
+                                                              join leasecontract l on leased.vehicleID = l.vehicleID
+                                                     WHERE startDate <= ?
+                                                       AND              ? <= endDate)
+                    """);
             pst.setDate(1, date);
             pst.setDate(2, date);
             ResultSet resultSet = pst.executeQuery();

@@ -3,24 +3,27 @@ package com.example.bilabonnement.service;
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.model.enums.EquipmentLevel;
+import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.repository.CarRepository;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
+import static com.example.bilabonnement.model.enums.State.*;
 import static com.example.bilabonnement.model.enums.State.AT_CUSTOMER;
 
 public class CarService {
-    private  CarRepository carRepository = new CarRepository(DB_CONNECTION.RELEASE_DB);
+    private CarRepository carRepository = new CarRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(Car car) {
         carRepository.create(car);
     }
 
-    public List<Car> readAll(){
+    public List<Car> readAll() {
         return carRepository.readAll();
     }
 
@@ -29,7 +32,7 @@ public class CarService {
         List<Car> fullCarList = carRepository.readAll();
         int numOfleasedCars = 0;
 
-        for (Car c:fullCarList
+        for (Car c : fullCarList
         ) {
             if (c.getState().equals(AT_CUSTOMER)) {
                 numOfleasedCars++;
@@ -38,15 +41,15 @@ public class CarService {
         return numOfleasedCars;
     }
 
-    public Car read(int id){
+    public Car read(int id) {
         return carRepository.read(id);
     }
 
-    public void update(Car car){
+    public void update(Car car) {
         carRepository.update(car);
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         carRepository.delete(id);
     }
 
@@ -78,5 +81,19 @@ public class CarService {
 
     public List<Car> readAllLeasedOnDateWithState() {
         return carRepository.readAll();
+    }
+
+    public List<State> getEmployeeStateSelect(Role role) {
+        switch (role) {
+            case DATA_REGISTRATION -> {
+                return new ArrayList<State>(Arrays.asList(RETURNED, AT_CUSTOMER));
+            }
+            case DAMAGE_REPORTER -> {
+                return new ArrayList<State>(Arrays.asList(READY));
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 }

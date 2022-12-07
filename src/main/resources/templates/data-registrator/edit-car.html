@@ -41,13 +41,6 @@
         <input type="number" name="registrationFee" th:value="${car.registrationFee}"><br>
         <label for="co2emission">CO2-udledning:</label><br>
         <input type="number" name="co2emission" th:value="${car.co2emission}"><br>
-        <label for="locationID">lokation:</label><br>
-        <select name="locationID"><br>
-            <option th:value="${car.locationID}"
-                    th:text="|${car.locationID} - nuværende|"
-                    selected="selected">
-            </option>
-        </select><br>
         <label for="state">status:</label><br>
         <select name="state"><br>
             <option th:value="${car.state}"

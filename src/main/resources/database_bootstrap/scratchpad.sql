@@ -27,7 +27,8 @@ WHERE startDate <= '2022-11-11'
 # unleased cars todo we can select different period in menu to show what cars where leased
 SELECT unleased.*
 FROM car unleased
-WHERE unleased.vehicleID NOT IN (SELECT leased.vehicleID
+WHERE (unleased.state = 'RETURNED')
+  AND unleased.vehicleID NOT IN (SELECT leased.vehicleID
                                  FROM car leased
                                           join leasecontract l on leased.vehicleID = l.vehicleID
                                  WHERE startDate <= '2022-11-11'
@@ -130,9 +131,43 @@ VALUES (603, '2013-03-14', '2013-03-28', 3000, 202, 503, 101);
 INSERT INTO leasecontract (startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
 VALUES ('2014-01-01', '2014-01-31', 3000, 203, 504, 101);
 
-SELECT MAX(leaseID) FROM leasecontract;
+SELECT MAX(leaseID)
+FROM leasecontract;
 
 
 
 INSERT INTO leaseoptional (optionalID, leaseID)
 VALUES (?, ?)
+
+
+SELECT `AUTO_INCREMENT`
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'DatabaseName'
+  AND TABLE_NAME = 'leaseoptional'
+
+SELECT unleased.*
+FROM car unleased
+WHERE unleased.vehicleID NOT IN (SELECT leased.vehicleID
+                                 FROM car leased
+                                          join leasecontract l on leased.vehicleID = l.vehicleID
+                                 WHERE startDate <= NOW()
+                                   AND NOW() <= endDate);
+
+SELECT c.*
+FROM car c
+         JOIN leasecontract l on c.vehicleID = l.vehicleID
+WHERE startDate <= NOW()
+  AND NOW() <= endDate
+GROUP BY c.vehicleID
+ORDER BY c.vehicleID;
+
+INSERT INTO leaseoptional (optionalID, leaseID)
+VALUES (?, ?);
+
+
+SELECT l.*
+FROM leasecontract l
+         JOIN car c on c.vehicleID = l.vehicleID
+WHERE l.vehicleID = ?
+  AND NOW() < endDate
+ORDER BY endDate

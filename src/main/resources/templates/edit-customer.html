@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rediger kunde</title>
+
+    <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
+    <link rel="stylesheet" th:href="@{/base.css}">
+</head>
+<body>
+
+<header th:replace="fragment/nav-menu.html :: header"></header>
+
+<div class="column-div">
+    <div>
+        <h2>kunder</h2>
+
+        <form action="/update-customer" method="post">
+            <label for="customerID">kunde ID:</label><br>
+            <input type="number" name="customerID" th:value="${customer.customerID}" readonly><br>
+            <label for="firstName">fornavn:</label><br>
+            <input type="text" name="firstName" th:value="${customer.firstName}"><br>
+            <label for="lastName">efternavn:</label><br>
+            <input type="text" name="lastName" th:value="${customer.lastName}"><br>
+            <label for="email">email:</label><br>
+            <input type="text" name="email" th:value="${customer.email}"><br>
+            <label for="address">city:</label><br>
+            <input type="text" name="address" th:value="${customer.address}"><br>
+            <label for="city">postnr:</label><br>
+            <input type="text" name="city" th:value="${customer.city}"><br>
+            <label for="postalCode">postnr:</label><br>
+            <input type="number" name="postalCode" th:value="${customer.postalCode}"><br>
+            <label for="mobile">mobil:</label><br>
+            <input type="text" name="mobile" th:value="${customer.mobile}"><br>
+            <label for="cprNumber">CPR:</label><br>
+            <input type="text" name="cprNumber" th:value="${customer.cprNumber}" maxlength="10"><br>
+<!--            todo change cpr length to correct length-->
+            <button type="update">opdater</button>
+        </form>
+</div>
+
+</body>
+</html>
