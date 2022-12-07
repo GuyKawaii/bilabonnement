@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>opret lejeaftale</title>
     <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
     <link rel="stylesheet" th:href="@{/base.css}">
 </head>
@@ -29,8 +29,16 @@
             <label for="vehicleID">Vognnummer:</label><br>
             <input type="text" name="vehicleID" required><br>
             <label for="employeeId">employee ID:</label><br>
-            <input type="text" name="employeeID" required><br><br>
+            <input type="text" name="employeeID" th:value="${employeeID}" readonly><br><br>
             <br>
+            <div th:each="option : ${optionals}">
+                <div>
+                    <input th:name="${option.optionalID}" type="checkbox" th:value="${option.optionalID}"  />
+                    <label th:for="${option.optionalID}" th:text="${option.name}"></label>
+                </div>
+            </div>
+
+
             <div id="optionaldiv">
                 <table>
                     <tr>

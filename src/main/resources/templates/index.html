@@ -49,6 +49,7 @@
               <a class="glemt-password-link" href="/u/reset-password/request/Username-Password-Authentication?state=hKFo2SBoRGNfT243ODgwb2xPZU0taG83ZUlxU2JsUWVUMUdWU6Fur3VuaXZlcnNhbC1sb2dpbqN0aWTZIE11U1JoWG9mVi1fWml5clUyNEV2UzJxempGUFJocmtuo2NpZNkgbmFBYzVuWEx1SEllVXdNdmFkdXh6RnRocmNySmV1U0Q">Har du glemt din adgangskode?
               </a>
             </p>
+            <span th:if="${invalidCredentials} == true">will be rendered</span>
             <div>
               <button type="submit" name="action" value="default" class="button button-color">Fortsæt</button>
             </div>

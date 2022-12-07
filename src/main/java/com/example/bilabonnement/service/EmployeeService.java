@@ -1,9 +1,11 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Employee;
+import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.repository.EmployeeRepository;
+import com.example.bilabonnement.repository.IGenericRepository;
 
 import java.util.List;
 

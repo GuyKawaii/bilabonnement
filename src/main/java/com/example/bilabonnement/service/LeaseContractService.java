@@ -1,6 +1,7 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.LeaseContract;
+import com.example.bilabonnement.model.Optional;
 import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.repository.LeaseContractRepository;
 
@@ -13,7 +14,7 @@ public class LeaseContractService {
     LeaseContractRepository leaseContractRepo = new LeaseContractRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(LeaseContract leaseContract) {
-            leaseContractRepo.create(leaseContract);
+        leaseContractRepo.create(leaseContract);
     }
 
     public List<LeaseContract> readAll() {
@@ -32,12 +33,20 @@ public class LeaseContractService {
         leaseContractRepo.delete(id);
     }
 
-    public  double getCurrentIncome() {
+    public double getCurrentIncome() {
         return leaseContractRepo.getCurrentIncome(Date.valueOf(LocalDate.now()));
     }
 
-    public  double getCurrentIncomeByDate(Date date) {
+    public double getCurrentIncomeByDate(Date date) {
         return leaseContractRepo.getCurrentIncome(date);
     }
 
+    public void updateOptionals(List<Optional> optionals) {
+        leaseContractRepo.updateOptionals(optionals);
+    }
+
+    // extra
+    public int createAndReturnID(LeaseContract leaseContract) {
+        return leaseContractRepo.createAndReturnID(leaseContract);
+    }
 }

@@ -77,17 +77,6 @@ CREATE TABLE IF NOT EXISTS car
 
 # tables with foreign key constraints #
 
-CREATE TABLE IF NOT EXISTS leaseOptional
-(
-    optionalID int,
-    vehicleID  int,
-
-    # key setup
-    PRIMARY KEY (optionalID, vehicleID),
-    CONSTRAINT optionalID FOREIGN KEY (optionalID) REFERENCES optional (optionalID),
-    CONSTRAINT vehicleID FOREIGN KEY (vehicleID) REFERENCES car (vehicleID)
-);
-
 CREATE TABLE IF NOT EXISTS leaseContract
 (
     leaseID      int AUTO_INCREMENT,
@@ -110,6 +99,17 @@ CREATE TABLE IF NOT EXISTS leaseContract
     FOREIGN KEY (employeeID)
         REFERENCES employee (employeeID)
         ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS leaseOptional
+(
+    optionalID int,
+    leaseID  int,
+
+    # key setup
+    PRIMARY KEY (optionalID, leaseID),
+    CONSTRAINT optionalID FOREIGN KEY (optionalID) REFERENCES optional (optionalID),
+    CONSTRAINT leaseID FOREIGN KEY (leaseID) REFERENCES leasecontract (leaseID)
 );
 
 CREATE TABLE IF NOT EXISTS damageReport

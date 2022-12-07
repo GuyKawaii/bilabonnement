@@ -1,26 +1,23 @@
 package com.example.bilabonnement.controller;
 
 import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.model.Customer;
 import com.example.bilabonnement.model.LeaseContract;
+import com.example.bilabonnement.model.Optional;
 import com.example.bilabonnement.model.enums.EquipmentLevel;
 import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.model.enums.State;
-import com.example.bilabonnement.service.CustomerService;
-import com.example.bilabonnement.service.EmployeeService;
-import com.example.bilabonnement.service.CarService;
-import com.example.bilabonnement.service.LeaseContractService;
+import com.example.bilabonnement.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
-import java.net.http.HttpRequest;
 import java.sql.Date;
 
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.bilabonnement.model.enums.Role.ADMINISTRATION;
 import static com.example.bilabonnement.model.enums.Role.DATA_REGISTRATION;
@@ -31,8 +28,9 @@ public class DataRegistrationController {
     CarService carService = new CarService();
     CustomerService customerService = new CustomerService();
     EmployeeService employeeService = new EmployeeService();
+    OptionalService optionalService = new OptionalService();
 
-    // people with access to this website
+    // people with access to these pages
     Role[] employeeAccess = new Role[]{DATA_REGISTRATION, ADMINISTRATION};
 
 
@@ -47,34 +45,60 @@ public class DataRegistrationController {
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
 
+        model.addAttribute("optionals", optionalService.readAll());
         model.addAttribute("leaseContracts", leaseService.readAll());
+        model.addAttribute("employeeID", employeeService.readAll());
+        model.addAttribute("leaseContracts", leaseService.readAll());
+
         return "data-registration";
     }
 
     @PostMapping("/makeContract")
     public String makeContract(HttpSession session, WebRequest req, Model model) {
-        double price = Double.parseDouble(req.getParameter("monthlyPrice"));
-        int customerID = Integer.parseInt(req.getParameter("customerID"));//midlertidig variabel fordi den skal laves til int, ellers er det Integer?
-        int vehicleID = Integer.parseInt(req.getParameter("vehicleID"));
-        int employeeID = Integer.parseInt(req.getParameter("employeeID"));
+//        int leaseID = Integer.parseInt(req.getParameter("leaseID"));
 
-
-        if (customerService.read(customerID) == null || carService.read(vehicleID) == null || employeeService.read(employeeID) == null) {
-            return "redirect:/data-registration";
-        } else {
-
-            LeaseContract ls = new LeaseContract(
-                    Date.valueOf(req.getParameter("startDate")),
-                    Date.valueOf(req.getParameter("endDate")),
-                    price,
-                    customerID,
-                    vehicleID,
-                    employeeID
-            );
-            leaseService.create(ls);
-            carService.updateState(vehicleID);
-            return "redirect:/data-registration";
+        // get dynamic all optionals
+        List<Optional> leaseOptionals = new ArrayList<>();
+        for (Optional optional : optionalService.readAll()) {
+            // check which optionals was added
+            if (req.getParameter(optional.getOptionalID().toString()) != null)
+                leaseOptionals.add(optional);
         }
+
+
+
+        int leaseID = leaseService.createAndReturnID(new LeaseContract(
+                Date.valueOf(req.getParameter("startDate")),
+                Date.valueOf(req.getParameter("endDate")),
+                Double.parseDouble(req.getParameter("monthlyPrice")),
+                Integer.parseInt(req.getParameter("customerID")),
+                Integer.parseInt(req.getParameter("vehicleID")),
+                Integer.parseInt(req.getParameter("employeeID"))
+        ));
+
+        // add optionals
+        leaseService.updateOptionals(leaseOptionals);
+
+
+//        leaseService.setOptionals(optionals, );
+
+
+//        if (customerService.read(customerID) == null || carService.read(vehicleID) == null || employeeService.read(employeeID) == null) {
+//            return "redirect:/data-registration";
+//        } else {
+//
+//            LeaseContract ls = new LeaseContract(
+//                    Date.valueOf(req.getParameter("startDate")),
+//                    Date.valueOf(req.getParameter("endDate")),
+//                    price,
+//                    customerID,
+//                    vehicleID,
+//                    employeeID
+//            );
+//            leaseService.create(ls);
+//            carService.updateState(vehicleID);
+            return "redirect:/data-registration";
+//        }
     }
 
     @GetMapping("/edit-leasecontract")

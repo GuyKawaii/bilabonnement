@@ -2,6 +2,7 @@ package com.example.bilabonnement.controller;
 
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.service.CarService;
 import com.example.bilabonnement.model.Employee;
 import com.example.bilabonnement.model.LeaseContract;;
@@ -15,10 +16,15 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.example.bilabonnement.model.enums.Role.*;
+
 @Controller
 public class BusinessDeveloperController {
     CarService carService = new CarService();
     LeaseContractService leaseContractService = new LeaseContractService();
+
+    // people with access to these pages
+    Role[] employeeAccess = new Role[]{BUSINESS_DEVELOPER, ADMINISTRATION};
 
     @GetMapping("finance")
     public String getCarsLeased(HttpSession session, Model model) {

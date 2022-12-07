@@ -26,7 +26,7 @@ public class DamageReporterController {
     LeaseContractService leaseContractService = new LeaseContractService();
     CarService carService = new CarService();
 
-    // people with access to this website
+    // people with access to these pages
     Role[] employeeAccess = new Role[]{DAMAGE_REPORTER, ADMINISTRATION};
 
 
