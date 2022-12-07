@@ -14,12 +14,14 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.example.bilabonnement.model.enums.DB_CONNECTION.*;
+
 public class LeaseContractRepository implements IGenericRepository<LeaseContract> {
 
     Connection conn;
 
     public LeaseContractRepository(DB_CONNECTION db_connection) {
-        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+        conn = DatabaseConnectionManager.getConnection(RELEASE_DB);
     }
 
 
@@ -144,7 +146,6 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             psts.setInt(4, leaseContract.getCustomerID());
             psts.setInt(5, leaseContract.getVehicleID());
             psts.setInt(6, leaseContract.getEmployeeID());
-            System.out.println(leaseContract.getLeaseID());
             psts.setInt(7, leaseContract.getLeaseID());
             psts.executeUpdate();
 
@@ -187,6 +188,32 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
         return income;
     }
+
+    public double getCurrentIncome2(Date date) {
+        double income = 0;
+        try {
+            PreparedStatement pst = conn.prepareStatement("SELECT l.monthlyPrice + SUM(o.pricePrMonth) as total\n" +
+                    "FROM leaseContract l\n" +
+                    "         LEFT JOIN leaseoptional lo on lo.leaseID = l.leaseID\n" +
+                    "         JOIN optional o on lo.optionalID = o.optionalID\n" +
+                    "WHERE l.startDate < ?\n" +
+                    "  AND ? < l.endDate\n" +
+                    "GROUP BY l.monthlyPrice;");
+
+            pst.setDate(1, date);
+            pst.setDate(2, date);
+            ResultSet resultSet = pst.executeQuery();
+
+            while (resultSet.next()) {
+                income += resultSet.getDouble("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return income;
+    }
+
+
 
     public void updateOptionals(List<Optional> optionals, int leaseID) {
         // remove previous optionals

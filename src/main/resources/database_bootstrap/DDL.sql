@@ -30,9 +30,9 @@ CREATE TABLE IF NOT EXISTS customer
     firstName  varchar(50)        NOT NULL,
     lastName   varchar(50)        NULL,
     email      varchar(50) UNIQUE NOT NULL,
-    address    varchar(100)        NOT NULL,
+    address    varchar(100)       NOT NULL,
     city       varchar(50)        NOT NULL,
-    postalCode int                 NOT NULL,
+    postalCode int                NOT NULL,
     mobile     varchar(50)        NOT NULL,
     cprNumber  varchar(50)        NOT NULL,
 
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS leaseContract
 CREATE TABLE IF NOT EXISTS leaseOptional
 (
     optionalID int,
-    leaseID  int,
+    leaseID    int,
 
     # key setup
     PRIMARY KEY (optionalID, leaseID),

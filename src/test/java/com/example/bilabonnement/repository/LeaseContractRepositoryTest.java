@@ -4,6 +4,8 @@ package com.example.bilabonnement.repository;
 import com.example.bilabonnement.model.*;
 import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.model.enums.Role;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
@@ -25,7 +27,16 @@ public class LeaseContractRepositoryTest {
     OptionalRepository optionalRepository = new OptionalRepository(TEST_DB);
     EmployeeRepository employeeRepository = new EmployeeRepository(TEST_DB);
     java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-    Customer testCustomer = new Customer("Test", "TEST", "test@mail.com", "testaddress", "testcity", 2500, "2234", "2234");
+
+
+
+
+    @BeforeAll
+    static void setupOther() {
+
+    }
+
+
 
     @Test
     void create() {
@@ -52,14 +63,30 @@ public class LeaseContractRepositoryTest {
     }
 
     @Test
-    void update() {
+    void update() { // todo clean up
         // # arrange #
         int leaseID = 1;
         leaseRepo.delete(leaseID);
-        // delete previous
-        LeaseContract expected = new LeaseContract(Date.valueOf("2020-01-1"), Date.valueOf("2020-04-01"), 666, 201, 501, 101);
 
-        // LeaseContract actual = new LeaseContract(leaseID, Date.valueOf("2019-01-1"), Date.valueOf("2020-04-01"), 666, 201, 501, 101);
+
+        customerRepository.delete(1);
+        employeeRepository.delete(1);
+        carRepository.delete(1);
+
+        customerRepository.create(new Customer(1, "Test", "TEST", "test@mail.com", "testaddress", "testcity", 2500, "2234", "2234"));
+        carRepository.create(new Car(1,"Test", 90, "brand", "model", MEDIUM, 100, 200, AT_CUSTOMER));
+        employeeRepository.create(new Employee(1, "email", "name", "password", DATA_REGISTRATION));
+
+        // delete previous
+
+
+
+        LeaseContract expected = new LeaseContract(leaseID, Date.valueOf("2020-01-1"), Date.valueOf("2020-04-01"), 666, 1, 1, 1);
+
+        LeaseContract before = new LeaseContract(leaseID, Date.valueOf("2021-01-1"), Date.valueOf("2021-04-01"), 777, 1, 1, 1);
+        // create
+        leaseRepo.create(before);
+
 
         // # act #
         leaseRepo.update(expected);
@@ -172,7 +199,7 @@ public class LeaseContractRepositoryTest {
         leaseRepo.create(leaseOutsideTimeWindow);
 
         // # act #
-        double actual = leaseRepo.getCurrentIncome(checkdate);
+        double actual = leaseRepo.getCurrentIncome2(checkdate);
 
         // # assert #
         assertEquals(expected, actual);

@@ -65,25 +65,33 @@ WHERE state = 'IS_LEASED'
 ORDER BY startDate;
 
 SELECT SUM()
-FROM leasecontract, leaseoptional
-WHERE (startDate < '07/12/2022' AND endDate > '07/12/2022') AND leaseoptional.leaseID = leasecontract.leaseID
+FROM leasecontract,
+     leaseoptional
+WHERE (startDate < '07/12/2022' AND endDate > '07/12/2022')
+  AND leaseoptional.leaseID = leasecontract.leaseID
 group by leasecontract.leaseID;
 
 select leasecontract.leaseID, leaseOptional.optionalID
-    from leasecontract, leaseoptional
-    where leasecontract.leaseID = leaseoptional.leaseID
+from leasecontract,
+     leaseoptional
+where leasecontract.leaseID = leaseoptional.leaseID
 group by leasecontract.leaseID;
 
 SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_income
-FROM leasecontract, optional, leaseoptional
-WHERE leasecontract.leaseID = leaseoptional.leaseID AND leaseoptional.optionalID = optional.optionalID
+FROM leasecontract,
+     optional,
+     leaseoptional
+WHERE leasecontract.leaseID = leaseoptional.leaseID
+  AND leaseoptional.optionalID = optional.optionalID
 GROUP BY leasecontract.leaseID;
 
 SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_Current_income
-FROM leasecontract, optional, leaseoptional
+FROM leasecontract,
+     optional,
+     leaseoptional
 WHERE leasecontract.leaseID = leaseoptional.leaseID
-AND leaseoptional.optionalID = optional.optionalID
-AND (startDate < ? AND endDate > ?)
+  AND leaseoptional.optionalID = optional.optionalID
+  AND (startDate < ? AND endDate > ?)
 GROUP BY leasecontract.leaseID;
 
 # base price
@@ -93,12 +101,13 @@ WHERE startDate < ?
   AND ? < endDate;
 
 # with optionals
-SELECT SUM(o.pricePrMonth)
+SELECT l.monthlyPrice + SUM(o.pricePrMonth) as total
 FROM leaseContract l
          LEFT JOIN leaseoptional lo on lo.leaseID = l.leaseID
          JOIN optional o on lo.optionalID = o.optionalID
 WHERE l.startDate < '2011-1-15'
-  AND '2011-1-15' < l.endDate;
+  AND '2011-1-15' < l.endDate
+GROUP BY l.monthlyPrice;
 
 SELECT leasecontract.monthlyPrice, leaseID
 FROM leaseContract

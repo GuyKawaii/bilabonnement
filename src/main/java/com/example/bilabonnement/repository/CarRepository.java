@@ -23,7 +23,7 @@ public class CarRepository implements IGenericRepository<Car> {
         try {
             PreparedStatement psts;
             if (car.getVehicleID() == null) {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.car (chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission, state) VALUES (?,?,?,?,?,?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO car (chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission, state) VALUES (?,?,?,?,?,?,?,?)");
                 psts.setString(1, car.getChassisNumber());
                 psts.setDouble(2, car.getSteelPrice());
                 psts.setString(3, car.getBrand());
@@ -33,7 +33,7 @@ public class CarRepository implements IGenericRepository<Car> {
                 psts.setDouble(7, car.getCo2emission());
                 psts.setString(8, car.getState().toString());
             } else {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission, state) VALUES (?,?,?,?,?,?,?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission, state) VALUES (?,?,?,?,?,?,?,?,?)");
                 psts.setInt(1, car.getVehicleID());
                 psts.setString(2, car.getChassisNumber());
                 psts.setDouble(3, car.getSteelPrice());
@@ -114,7 +114,7 @@ public class CarRepository implements IGenericRepository<Car> {
     @Override
     public void update(Car car) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET chassisNumber = ? , steelPrice = ? , brand = ? , model = ? , equipmentLevel = ? , registrationFee = ? , co2emission = ?, state = ? WHERE vehicleID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE car SET chassisNumber = ? , steelPrice = ? , brand = ? , model = ? , equipmentLevel = ? , registrationFee = ? , co2emission = ?, state = ? WHERE vehicleID = ?");
             psts.setString(1, car.getChassisNumber());
             psts.setDouble(2, car.getSteelPrice());
             psts.setString(3, car.getBrand());
@@ -256,7 +256,7 @@ public class CarRepository implements IGenericRepository<Car> {
 
     public void updateState(int vehicleID, State state) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET state = ? WHERE vehicleID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE car SET state = ? WHERE vehicleID = ?");
             psts.setString(1, state.toString());
             psts.setInt(2, vehicleID);
             //ResultSet resultSet =

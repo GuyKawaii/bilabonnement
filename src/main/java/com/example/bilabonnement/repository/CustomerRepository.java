@@ -25,7 +25,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
             PreparedStatement psts;
             if (customer.getCustomerID() == null) {
                 psts = conn.prepareStatement(
-                        "INSERT INTO bilabonnement.customer (firstName, lastName, email, address, city, postalCode, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?)");
+                        "INSERT INTO customer (firstName, lastName, email, address, city, postalCode, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?)");
                 psts.setString(1, customer.getFirstName());
                 psts.setString(2, customer.getLastName());
                 psts.setString(3, customer.getEmail());
@@ -36,7 +36,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
                 psts.setString(8, customer.getCprNumber());
             } else {
                 psts = conn.prepareStatement(
-                        "INSERT INTO bilabonnement.customer (customerID, firstName, lastName, email, address, city, postalCode, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?,?)");
+                        "INSERT INTO customer (customerID, firstName, lastName, email, address, city, postalCode, mobile, cprNumber) VALUES (?,?,?,?,?,?,?,?,?)");
                 psts.setInt(1, customer.getCustomerID());
                 psts.setString(2, customer.getFirstName());
                 psts.setString(3, customer.getLastName());
@@ -61,7 +61,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
         List<Customer> customerList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.customer");
+            PreparedStatement pst = conn.prepareStatement("select * from customer");
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities
@@ -90,7 +90,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
         Customer customer = null;
 
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.customer WHERE customerID = ?");
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM customer WHERE customerID = ?");
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
@@ -119,7 +119,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
     public void update(Customer customer) {
         try {
             PreparedStatement psts = conn.prepareStatement(
-                    "UPDATE bilabonnement.customer SET firstName = ?, lastName = ?, email = ?, address = ?, city = ?, postalCode = ?, mobile = ?, cprNumber = ? WHERE customerID = ?");
+                    "UPDATE customer SET firstName = ?, lastName = ?, email = ?, address = ?, city = ?, postalCode = ?, mobile = ?, cprNumber = ? WHERE customerID = ?");
             psts.setString(1, customer.getFirstName());
             psts.setString(2, customer.getLastName());
             psts.setString(3, customer.getEmail());
@@ -141,7 +141,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
 
         // TODO is it possible to make a delete on a table-row that has a foreign key?
         try {
-            PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.customer WHERE customerID = ?");
+            PreparedStatement psts = conn.prepareStatement("DELETE FROM customer WHERE customerID = ?");
             psts.setInt(1, customerID);
             psts.executeUpdate();
 

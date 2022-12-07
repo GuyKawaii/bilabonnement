@@ -26,13 +26,13 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
             // with or without predefined ID;
             PreparedStatement psts;
             if (damageEntry.getDamageEntryID() == null) {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.damageentry (damageTitle, damageDescription, damagePrice, damageReportID) VALUES (?,?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO damageentry (damageTitle, damageDescription, damagePrice, damageReportID) VALUES (?,?,?,?)");
                 psts.setString(1, damageEntry.getDamageTitle());
                 psts.setString(2, damageEntry.getDamageDescription());
                 psts.setDouble(3, damageEntry.getDamagePrice());
                 psts.setInt(4, damageEntry.getDamageReportID());
             } else {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.damageentry (damageEntryID, damageTitle, damageDescription, damagePrice, damageReportID) VALUES (?,?,?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO damageentry (damageEntryID, damageTitle, damageDescription, damagePrice, damageReportID) VALUES (?,?,?,?,?)");
                 psts.setInt(1, damageEntry.getDamageEntryID());
                 psts.setString(2, damageEntry.getDamageTitle());
                 psts.setString(3, damageEntry.getDamageDescription());
@@ -52,7 +52,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         List<DamageEntry> damageList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.damageentry");
+            PreparedStatement pst = conn.prepareStatement("select * from damageentry");
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities
@@ -77,7 +77,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         DamageEntry damageEntry = null;
 
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT * FROM bilabonnement.damageentry WHERE damageReportID = ?");
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM damageentry WHERE damageReportID = ?");
             psts.setInt(1, id);
             ResultSet resultSet = psts.executeQuery();
 
@@ -101,7 +101,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
     @Override
     public void update(DamageEntry damageEntry) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.damageentry SET damageTitle = ?, damageDescription = ?, damagePrice = ? WHERE damageEntryID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE damageentry SET damageTitle = ?, damageDescription = ?, damagePrice = ? WHERE damageEntryID = ?");
             psts.setString(1, damageEntry.getDamageTitle());
             psts.setString(2, damageEntry.getDamageDescription());
             psts.setDouble(3, damageEntry.getDamagePrice());
@@ -116,7 +116,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
     @Override
     public void delete(int id) {
         try {
-            PreparedStatement psts = conn.prepareStatement("DELETE FROM bilabonnement.damageentry WHERE damageEntryID=?");
+            PreparedStatement psts = conn.prepareStatement("DELETE FROM damageentry WHERE damageEntryID=?");
             psts.setInt(1, id);
             psts.executeUpdate();
 
@@ -129,7 +129,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         List<DamageEntry> damageList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from bilabonnement.damageentry WHERE damageReportID = ?");
+            PreparedStatement pst = conn.prepareStatement("select * from damageentry WHERE damageReportID = ?");
             pst.setInt(1, ids);
             ResultSet resultSet = pst.executeQuery();
 
