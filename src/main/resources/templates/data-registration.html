@@ -25,9 +25,19 @@
             <label for="monthlyPrice">Monthly price:</label><br>
             <input type="text" name="monthlyPrice" required><br>
             <label for="customerID">customer ID:</label><br>
-            <input type="text" name="customerID" required><br>
+            <select name="customerID"><br>
+                <option th:each="customer: ${customers}"
+                        th:value="${customer.customerID}"
+                        th:text="|${customer.customerID}|">
+                </option>
+            </select><br>
             <label for="vehicleID">Vognnummer:</label><br>
-            <input type="text" name="vehicleID" required><br>
+            <select name="vehicleID"><br>
+                <option th:each="car: ${cars}"
+                        th:value="${car.vehicleID}"
+                        th:text="|${car.vehicleID}|">
+                </option>
+            </select><br>
             <label for="employeeId">employee ID:</label><br>
             <input type="text" name="employeeID" th:value="${employeeID}" readonly><br><br>
             <br>

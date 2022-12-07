@@ -14,7 +14,7 @@ import java.util.List;
 public class CarRepository implements IGenericRepository<Car> {
     Connection conn;
 
-    public CarRepository(DB_CONNECTION db_connection){
+    public CarRepository(DB_CONNECTION db_connection) {
         conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
     }
 
@@ -61,19 +61,19 @@ public class CarRepository implements IGenericRepository<Car> {
             PreparedStatement pst = conn.prepareStatement("select * from car");
             ResultSet resultSet = pst.executeQuery();
 
-            carList.add(new Car(
-                    resultSet.getInt("vehicleID"),
-                    resultSet.getString("chassisNumber"),
-                    resultSet.getDouble("steelPrice"),
-                    resultSet.getString("brand"),
-                    resultSet.getString("model"),
-                    EquipmentLevel.valueOf(resultSet.getString("equipmentLevel")),
-                    resultSet.getDouble("registrationFee"),
-                    resultSet.getDouble("co2emission"),
-                    resultSet.getInt("locationID"),
-                    State.valueOf(resultSet.getString("state"))));
             // list of entities
             while (resultSet.next()) {
+                carList.add(new Car(
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getString("chassisNumber"),
+                        resultSet.getDouble("steelPrice"),
+                        resultSet.getString("brand"),
+                        resultSet.getString("model"),
+                        EquipmentLevel.valueOf(resultSet.getString("equipmentLevel")),
+                        resultSet.getDouble("registrationFee"),
+                        resultSet.getDouble("co2emission"),
+                        resultSet.getInt("locationID"),
+                        State.valueOf(resultSet.getString("state"))));
             }
 
         } catch (SQLException e) {
@@ -153,7 +153,7 @@ public class CarRepository implements IGenericRepository<Car> {
     public void updateState(int id) {
         try {
             PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET state = ? WHERE vehicleID = ?");
-            psts.setString(1, State.IS_LEASED.toString());
+            psts.setString(1, State.AT_CUSTOMER.toString());
             psts.setInt(2, id);
             //ResultSet resultSet =
             psts.executeUpdate();

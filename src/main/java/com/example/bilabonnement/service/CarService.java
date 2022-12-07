@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static com.example.bilabonnement.model.enums.State.IS_LEASED;
+import static com.example.bilabonnement.model.enums.State.AT_CUSTOMER;
+import static com.example.bilabonnement.model.enums.State.AT_CUSTOMER;
 
 public class CarService {
     CarRepository carRepository = new CarRepository(DB_CONNECTION.RELEASE_DB);
@@ -32,7 +33,7 @@ public class CarService {
 
         for (Car c:fullCarList
         ) {
-            if (c.getState().equals(IS_LEASED)) {
+            if (c.getState().equals(AT_CUSTOMER)) {
                 numOfleasedCars++;
             }
         }
@@ -79,5 +80,9 @@ public class CarService {
 
     public List<EquipmentLevel> getEquipmentLevels() {
         return new ArrayList<>(EnumSet.allOf(EquipmentLevel.class));
+    }
+
+    public List<Car> readAllLeasedOnDateWithState() {
+        return carRepository.readAll();
     }
 }

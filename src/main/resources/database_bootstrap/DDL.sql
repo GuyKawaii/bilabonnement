@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS car
     registrationFee double,
     co2emission     double,
     locationID      int,
-    state           ENUM ('READY', 'IS_LEASED', 'UNDER_REPAIR', 'DAMAGED'),
+    state           ENUM ('READY', 'RETURNED', 'AT_CUSTOMER'),
 
     # key setup
     PRIMARY KEY (vehicleID),
@@ -143,24 +143,6 @@ CREATE TABLE IF NOT EXISTS damageEntry
         REFERENCES damageReport (damageReportID)
         ON DELETE CASCADE
 );
-
-### reserve unitTest ID's ###
-ALTER TABLE employee
-    AUTO_INCREMENT = 1001;
-ALTER TABLE customer
-    AUTO_INCREMENT = 1001;
-ALTER TABLE location
-    AUTO_INCREMENT = 1001;
-ALTER TABLE optional
-    AUTO_INCREMENT = 1001;
-ALTER TABLE car
-    AUTO_INCREMENT = 1001;
-ALTER TABLE damageEntry
-    AUTO_INCREMENT = 1001;
-ALTER TABLE damageReport
-    AUTO_INCREMENT = 1001;
-ALTER TABLE leaseContract
-    AUTO_INCREMENT = 1001;
 
 
 

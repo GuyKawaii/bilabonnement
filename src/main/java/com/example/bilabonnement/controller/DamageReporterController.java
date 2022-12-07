@@ -2,6 +2,7 @@ package com.example.bilabonnement.controller;
 
 import com.example.bilabonnement.model.*;
 import com.example.bilabonnement.model.enums.Role;
+import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.service.*;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.example.bilabonnement.model.enums.Role.*;
+import static com.example.bilabonnement.model.enums.State.*;
 
 @Controller
 public class DamageReporterController {
@@ -76,14 +78,17 @@ public class DamageReporterController {
 
     @PostMapping("/create-new-damage-report")
     public String createDamageReport(HttpSession session, WebRequest req, Model model) {
+
         // damage report to create
         damageReportService.create(new DamageReport(
-                // session parameter
-                (int) session.getAttribute("employeeID"),
-                // form parameters
+                (int) (session.getAttribute("employeeID")),
                 Integer.parseInt(req.getParameter("vehicleID")),
-                // todo change to localDate later
                 Timestamp.valueOf(LocalDateTime.parse(req.getParameter("datetime")))));
+
+        // update car state
+        carService.updateState(
+                Integer.parseInt(req.getParameter("vehicleID")),
+                READY);
 
         return "redirect:/create-damage-report";
     }
@@ -162,6 +167,16 @@ public class DamageReporterController {
         ));
 
         return "redirect:/edit-damage-report?reportID=" + req.getParameter("damageReportID");
+    }
+
+    @GetMapping("checkout-cars")
+    public String checkOutCars(Model model) {
+
+        // todo fix readAllLeasedOnDateWithState
+        model.addAttribute("cars", carService.readAllLeasedOnDateWithState());
+
+
+        return "/checkout-cars";
     }
 
 }

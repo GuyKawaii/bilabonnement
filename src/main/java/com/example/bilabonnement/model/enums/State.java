@@ -2,10 +2,9 @@ package com.example.bilabonnement.model.enums;
 
 public enum State {
     // actual enums
-    READY("klar"),
-    IS_LEASED("leased"),
-    UNDER_REPAIR("reperation"),
-    DAMAGED("skadet");
+    RETURNED("returneret"),
+    AT_CUSTOMER("hos kunde"),
+    READY("klar");
 
     // Storing name
     private String string;

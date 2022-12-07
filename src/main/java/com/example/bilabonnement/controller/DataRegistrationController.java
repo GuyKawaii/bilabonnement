@@ -47,7 +47,9 @@ public class DataRegistrationController {
 
         model.addAttribute("optionals", optionalService.readAll());
         model.addAttribute("leaseContracts", leaseService.readAll());
-        model.addAttribute("employeeID", employeeService.readAll());
+        model.addAttribute("employees", employeeService.readAll());
+        model.addAttribute("customers", customerService.readAll());
+        model.addAttribute("cars", carService.readAll());
         model.addAttribute("leaseContracts", leaseService.readAll());
 
         return "data-registration";
@@ -55,8 +57,6 @@ public class DataRegistrationController {
 
     @PostMapping("/makeContract")
     public String makeContract(HttpSession session, WebRequest req, Model model) {
-//        int leaseID = Integer.parseInt(req.getParameter("leaseID"));
-
         // get dynamic all optionals
         List<Optional> leaseOptionals = new ArrayList<>();
         for (Optional optional : optionalService.readAll()) {
@@ -65,8 +65,7 @@ public class DataRegistrationController {
                 leaseOptionals.add(optional);
         }
 
-
-
+        // create leaseContract
         int leaseID = leaseService.createAndReturnID(new LeaseContract(
                 Date.valueOf(req.getParameter("startDate")),
                 Date.valueOf(req.getParameter("endDate")),

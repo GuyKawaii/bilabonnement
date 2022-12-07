@@ -41,31 +41,31 @@ VALUES (403, 'optional 3', 30);
 INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
                  locationID, state)
 VALUES (501, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
-        'IS_LEASED');
+        'READY');
 INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
                  locationID, state)
 VALUES (502, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
-        'IS_LEASED');
+        'READY');
 INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
                  locationID, state)
 VALUES (503, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
-        'IS_LEASED');
+        'READY');
 INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
                  locationID, state)
 VALUES (504, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
-        'IS_LEASED');
+        'RETURNED');
 INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
                  locationID, state)
 VALUES (505, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
-        'IS_LEASED');
+        'RETURNED');
 INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
                  locationID, state)
 VALUES (506, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
-        'IS_LEASED');
+        'AT_CUSTOMER');
 INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
                  locationID, state)
 VALUES (507, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
-        'IS_LEASED');
+        'AT_CUSTOMER');
 
 
 
