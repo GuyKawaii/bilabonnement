@@ -47,7 +47,7 @@ public class LeaseContractService {
     }
 
     // extra
-    public int createAndReturnID(LeaseContract leaseContract) {
+    public int createAndReturnID(LeaseContract leaseContract){
         return leaseContractRepo.createAndReturnID(leaseContract);
     }
 }

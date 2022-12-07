@@ -16,7 +16,7 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
     Connection conn;
 
     public EmployeeRepository(DB_CONNECTION db_connection) {
-        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+        conn = DatabaseConnectionManager.getConnection(db_connection);
     }
     @Override
     public void create(Employee employee) {

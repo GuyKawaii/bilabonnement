@@ -21,7 +21,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
     Connection conn;
 
     public LeaseContractRepository(DB_CONNECTION db_connection) {
-        conn = DatabaseConnectionManager.getConnection(RELEASE_DB);
+        conn = DatabaseConnectionManager.getConnection(db_connection);
     }
 
 
@@ -39,7 +39,6 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                 psts.setInt(4, leaseContract.getCustomerID());
                 psts.setInt(5, leaseContract.getVehicleID());
                 psts.setInt(6, leaseContract.getEmployeeID());
-
             } else {
                 psts = conn.prepareStatement(
                         "INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID) VALUES (?,?,?,?,?,?,?)");
@@ -67,9 +66,9 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
 
         // no preset id
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT MAX(leaseID) FROM leasecontract");
+            PreparedStatement psts = conn.prepareStatement("SELECT MAX(leaseID) AS maxID FROM leasecontract");
             ResultSet resultSet = psts.executeQuery();
-            return resultSet.getInt(1);
+            return resultSet.getInt("maxID");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -221,8 +220,22 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             PreparedStatement pst = conn.prepareStatement("DELETE FROM leaseoptional WHERE leaseID = ?");
             pst.setInt(1, leaseID);
             pst.executeUpdate();
+            pst.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+
+        // add new optionals
+        for (Optional optional : optionals) {
+            try {
+                PreparedStatement pst = conn.prepareStatement("INSERT INTO leaseoptional (optionalID, leaseID) VALUES (?,?)");
+                pst.setInt(1, optional.getOptionalID());
+                pst.setInt(1, leaseID);
+                pst.executeUpdate();
+                pst.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

@@ -15,7 +15,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
     Connection conn;
 
     public CustomerRepository(DB_CONNECTION db_connection) {
-        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+        conn = DatabaseConnectionManager.getConnection(db_connection);
     }
 
     @Override

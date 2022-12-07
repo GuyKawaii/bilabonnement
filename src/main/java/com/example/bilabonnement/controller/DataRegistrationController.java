@@ -58,25 +58,25 @@ public class DataRegistrationController {
 
     @PostMapping("/makeContract")
     public String makeContract(HttpSession session, WebRequest req, Model model) {
-        // get dynamic all optionals
-        List<Optional> leaseOptionals = new ArrayList<>();
-        for (Optional optional : optionalService.readAll()) {
-            // check which optionals was added
-            if (req.getParameter(optional.getOptionalID().toString()) != null)
-                leaseOptionals.add(optional);
-        }
 
         // create leaseContract
         int leaseID = leaseService.createAndReturnID(new LeaseContract(
-                Date.valueOf(req.getParameter("startDate")),
+        Date.valueOf(req.getParameter("startDate")),
                 Date.valueOf(req.getParameter("endDate")),
                 Double.parseDouble(req.getParameter("monthlyPrice")),
                 Integer.parseInt(req.getParameter("customerID")),
                 Integer.parseInt(req.getParameter("vehicleID")),
                 Integer.parseInt(req.getParameter("employeeID"))
         ));
-
-        // add optionals
+        // get dynamic all optionals
+        List<Optional> leaseOptionals = new ArrayList<>();
+        for (Optional optional : optionalService.readAll()) {
+            // check which optionals were added
+            if (req.getParameter(optional.getOptionalID().toString()) != null)
+                leaseOptionals.add(optional);
+        }
+        leaseService.read(leaseID);
+            // add optionals
         leaseService.updateOptionals(leaseOptionals, leaseID);
 
         // todo add check for leasing period maybe?

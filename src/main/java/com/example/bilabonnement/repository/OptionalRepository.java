@@ -15,7 +15,7 @@ public class OptionalRepository implements IGenericRepository<Optional> {
     Connection conn;
 
     public OptionalRepository(DB_CONNECTION db_connection) {
-        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+        conn = DatabaseConnectionManager.getConnection(db_connection);
     }
     @Override
     public void create(Optional optional) {
@@ -35,7 +35,7 @@ public class OptionalRepository implements IGenericRepository<Optional> {
 
             }
             psts.executeUpdate();
-
+            psts.close();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -57,7 +57,7 @@ public class OptionalRepository implements IGenericRepository<Optional> {
                         resultSet.getString("name"),
                         resultSet.getDouble("pricePrMonth")));
             }
-
+            pst.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

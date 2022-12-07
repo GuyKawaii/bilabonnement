@@ -130,8 +130,7 @@ VALUES (603, '2013-03-14', '2013-03-28', 3000, 202, 503, 101);
 INSERT INTO leasecontract (startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
 VALUES ('2014-01-01', '2014-01-31', 3000, 203, 504, 101);
 
-SELECT MAX(leaseID)
-FROM leasecontract;
+SELECT MAX(leaseID) FROM leasecontract;
 
 
 

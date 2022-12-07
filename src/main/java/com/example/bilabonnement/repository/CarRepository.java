@@ -15,7 +15,7 @@ public class CarRepository implements IGenericRepository<Car> {
     Connection conn;
 
     public CarRepository(DB_CONNECTION db_connection) {
-        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+        conn = DatabaseConnectionManager.getConnection(db_connection);
     }
 
     @Override

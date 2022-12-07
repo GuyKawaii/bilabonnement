@@ -17,7 +17,7 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
     Connection conn;
 
     public DamageEntryRepository(DB_CONNECTION db_connection) {
-        conn = DatabaseConnectionManager.getConnection(DB_CONNECTION.RELEASE_DB);
+        conn = DatabaseConnectionManager.getConnection(db_connection);
     }
 
     @Override
