@@ -1,7 +1,7 @@
 # DML is Data Manipulation Language which is used to manipulate data itself.
 
 # stored procedures maybe necessary to remember how to do
-
+use bilabonnement;
 # employee #
 INSERT INTO employee (employeeID, email, name, password, role)
 VALUES (101, '1', 'DATA_REGISTRATION user', '123', 'DATA_REGISTRATION');
@@ -46,14 +46,28 @@ INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLe
                  locationID, state)
 VALUES (502, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
         'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
+                 locationID, state)
+VALUES (503, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
+        'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
+                 locationID, state)
+VALUES (504, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
+        'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
+                 locationID, state)
+VALUES (505, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
+        'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
+                 locationID, state)
+VALUES (506, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
+        'IS_LEASED');
+INSERT INTO car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission,
+                 locationID, state)
+VALUES (507, 'chassisNumber', 100, 'brand', 'model', 'MEDIUM', 100, 100, 301,
+        'IS_LEASED');
 
-# leaseOptional #
-INSERT INTO leaseoptional (optionalID, vehicleID)
-VALUES (401, 501);
-INSERT INTO leaseoptional (optionalID, vehicleID)
-VALUES (402, 501);
-INSERT INTO leaseoptional (optionalID, vehicleID)
-VALUES (403, 501);
+
 
 # leaseContract #
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
@@ -69,7 +83,15 @@ VALUES (606, '2022-06-21', '2023-02-21', 3000, 203, 505, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
 VALUES (607, '2022-09-01', '2023-05-01', 3000, 203, 506, 101);
 INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID)
-VALUES (608, '2016-03-01', '2016-05-31', 3000, 203, 506, 101);
+VALUES (608, '2016-03-01', '2016-05-31', 3000, 203, 507, 101);
+
+# leaseOptional #
+INSERT INTO leaseoptional (optionalID, leaseID)
+VALUES (401, 601);
+INSERT INTO leaseoptional (optionalID, leaseID)
+VALUES (402, 601);
+INSERT INTO leaseoptional (optionalID, leaseID)
+VALUES (403, 601);
 
 # damageReport #
 INSERT INTO damagereport (damagereport.damageReportID, damagereport.vehicleID, damagereport.employeeID,
