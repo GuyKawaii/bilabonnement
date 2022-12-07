@@ -77,7 +77,7 @@ public class DataRegistrationController {
         ));
 
         // add optionals
-        leaseService.updateOptionals(leaseOptionals);
+        leaseService.updateOptionals(leaseOptionals, leaseID);
 
 
 //        leaseService.setOptionals(optionals, );

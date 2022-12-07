@@ -199,6 +199,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         for (Optional optional : optionals) {
             try {
                 PreparedStatement pst = conn.prepareStatement("INSERT INTO leaseoptional (optionalID, leaseID) VALUES (?,?)");
+                pst.setInt(1, optional.getOptionalID());
                 pst.setInt(1, leaseID);
                 pst.executeUpdate();
             } catch (SQLException e) {

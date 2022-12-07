@@ -41,8 +41,8 @@ public class LeaseContractService {
         return leaseContractRepo.getCurrentIncome(date);
     }
 
-    public void updateOptionals(List<Optional> optionals) {
-        leaseContractRepo.updateOptionals(optionals);
+    public void updateOptionals(List<Optional> optionals, int leaseID) {
+        leaseContractRepo.updateOptionals(optionals, leaseID);
     }
 
     // extra
