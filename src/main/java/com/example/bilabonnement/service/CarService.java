@@ -16,7 +16,7 @@ import static com.example.bilabonnement.model.enums.State.AT_CUSTOMER;
 import static com.example.bilabonnement.model.enums.State.AT_CUSTOMER;
 
 public class CarService {
-    CarRepository carRepository = new CarRepository(DB_CONNECTION.RELEASE_DB);
+    private  CarRepository carRepository = new CarRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(Car car) {
         carRepository.create(car);

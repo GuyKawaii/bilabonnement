@@ -8,7 +8,7 @@ import com.example.bilabonnement.repository.*;
 import java.util.List;
 
 public class CustomerService {
-    CustomerRepository customerRepo = new CustomerRepository(DB_CONNECTION.RELEASE_DB);
+    private CustomerRepository customerRepo = new CustomerRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(Customer customer) {
         customerRepo.create(customer);

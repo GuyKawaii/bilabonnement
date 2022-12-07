@@ -7,7 +7,7 @@ import com.example.bilabonnement.repository.DamageEntryRepository;
 import java.util.List;
 
 public class DamageEntryService {
-    DamageEntryRepository damageEntryRepo = new DamageEntryRepository(DB_CONNECTION.RELEASE_DB);
+    private DamageEntryRepository damageEntryRepo = new DamageEntryRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(DamageEntry damageEntry) {
         damageEntryRepo.create(damageEntry);

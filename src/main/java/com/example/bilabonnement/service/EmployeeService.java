@@ -10,7 +10,7 @@ import com.example.bilabonnement.repository.IGenericRepository;
 import java.util.List;
 
 public class EmployeeService {
-    EmployeeRepository employeeRepo = new EmployeeRepository(DB_CONNECTION.RELEASE_DB);
+    private EmployeeRepository employeeRepo = new EmployeeRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(Employee employee) {
         employeeRepo.create(employee);

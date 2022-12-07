@@ -64,10 +64,28 @@ WHERE state = 'IS_LEASED'
   AND endDate < ?
 ORDER BY startDate;
 
-SELECT leasecontract.monthlyPrice
-FROM leaseContract
-WHERE startDate < ?
-  AND endDate > ?;
+SELECT SUM()
+FROM leasecontract, leaseoptional
+WHERE (startDate < '07/12/2022' AND endDate > '07/12/2022') AND leaseoptional.leaseID = leasecontract.leaseID
+group by leasecontract.leaseID;
+
+select leasecontract.leaseID, leaseOptional.optionalID
+    from leasecontract, leaseoptional
+    where leasecontract.leaseID = leaseoptional.leaseID
+group by leasecontract.leaseID;
+
+SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_income
+FROM leasecontract, optional, leaseoptional
+WHERE leasecontract.leaseID = leaseoptional.leaseID AND leaseoptional.optionalID = optional.optionalID
+GROUP BY leasecontract.leaseID;
+
+SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_Current_income
+FROM leasecontract, optional, leaseoptional
+WHERE leasecontract.leaseID = leaseoptional.leaseID
+AND leaseoptional.optionalID = optional.optionalID
+AND (startDate < ? AND endDate > ?)
+GROUP BY leasecontract.leaseID;
+
 
 # aliasing mellem state IS_LEASED og leaseContract der har en given periode mellem startDate og endDate. tænker man ud fra dem ville kunne deeducerer hvilke der er leased maybe?
 # Alså hive alle kontrakter ud og sorter efter startdato for nuværende måned i service?

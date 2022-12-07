@@ -11,7 +11,7 @@ import java.util.List;
 
 public class LeaseContractService {
 
-    LeaseContractRepository leaseContractRepo = new LeaseContractRepository(DB_CONNECTION.RELEASE_DB);
+    private LeaseContractRepository leaseContractRepo = new LeaseContractRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(LeaseContract leaseContract) {
         leaseContractRepo.create(leaseContract);
@@ -35,6 +35,7 @@ public class LeaseContractService {
 
     public double getCurrentIncome() {
         return leaseContractRepo.getCurrentIncome(Date.valueOf(LocalDate.now()));
+        // test-commit
     }
 
     public double getCurrentIncomeByDate(Date date) {

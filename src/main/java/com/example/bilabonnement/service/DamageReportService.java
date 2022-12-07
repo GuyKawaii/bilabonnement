@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DamageReportService {
 
-    DamageReportRepository damageRepo = new DamageReportRepository(DB_CONNECTION.RELEASE_DB);
+    private DamageReportRepository damageRepo = new DamageReportRepository(DB_CONNECTION.RELEASE_DB);
 
     public void create(DamageReport damageReport){
         damageRepo.create(damageReport);
