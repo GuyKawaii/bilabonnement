@@ -23,7 +23,7 @@ public class CarRepository implements IGenericRepository<Car> {
         try {
             PreparedStatement psts;
             if (car.getVehicleID() == null) {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.car (chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission, locationID, state) VALUES (?,?,?,?,?,?,?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO bilabonnement.car (chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission, state) VALUES (?,?,?,?,?,?,?,?)");
                 psts.setString(1, car.getChassisNumber());
                 psts.setDouble(2, car.getSteelPrice());
                 psts.setString(3, car.getBrand());
@@ -31,10 +31,9 @@ public class CarRepository implements IGenericRepository<Car> {
                 psts.setString(5, car.getEquipmentLevel().toString());
                 psts.setDouble(6, car.getRegistrationFee());
                 psts.setDouble(7, car.getCo2emission());
-                psts.setInt(8, car.getLocationID());
-                psts.setString(9, car.getState().toString());
+                psts.setString(8, car.getState().toString());
             } else {
-                psts = conn.prepareStatement("INSERT INTO bilabonnement.car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission, locationID, state) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                psts = conn.prepareStatement("INSERT INTO bilabonnement.car (vehicleID, chassisNumber, steelPrice, brand, model, equipmentLevel, registrationFee, co2emission, state) VALUES (?,?,?,?,?,?,?,?,?)");
                 psts.setInt(1, car.getVehicleID());
                 psts.setString(2, car.getChassisNumber());
                 psts.setDouble(3, car.getSteelPrice());
@@ -43,8 +42,7 @@ public class CarRepository implements IGenericRepository<Car> {
                 psts.setString(6, car.getEquipmentLevel().toString());
                 psts.setDouble(7, car.getRegistrationFee());
                 psts.setDouble(8, car.getCo2emission());
-                psts.setInt(9, car.getLocationID());
-                psts.setString(10, car.getState().toString());
+                psts.setString(9, car.getState().toString());
             }
             psts.executeUpdate();
 
@@ -72,7 +70,6 @@ public class CarRepository implements IGenericRepository<Car> {
                         EquipmentLevel.valueOf(resultSet.getString("equipmentLevel")),
                         resultSet.getDouble("registrationFee"),
                         resultSet.getDouble("co2emission"),
-                        resultSet.getInt("locationID"),
                         State.valueOf(resultSet.getString("state"))));
             }
 
@@ -104,7 +101,6 @@ public class CarRepository implements IGenericRepository<Car> {
                         EquipmentLevel.valueOf(resultSet.getString("equipmentLevel")),
                         resultSet.getDouble("registrationFee"),
                         resultSet.getDouble("co2emission"),
-                        resultSet.getInt("locationID"),
                         State.valueOf(resultSet.getString("state")));
             }
 
@@ -118,7 +114,7 @@ public class CarRepository implements IGenericRepository<Car> {
     @Override
     public void update(Car car) {
         try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET chassisNumber = ? , steelPrice = ? , brand = ? , model = ? , equipmentLevel = ? , registrationFee = ? , co2emission = ? , locationID = ? , state = ? WHERE vehicleID = ?");
+            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET chassisNumber = ? , steelPrice = ? , brand = ? , model = ? , equipmentLevel = ? , registrationFee = ? , co2emission = ?, state = ? WHERE vehicleID = ?");
             psts.setString(1, car.getChassisNumber());
             psts.setDouble(2, car.getSteelPrice());
             psts.setString(3, car.getBrand());
@@ -126,9 +122,8 @@ public class CarRepository implements IGenericRepository<Car> {
             psts.setString(5, car.getEquipmentLevel().toString());
             psts.setDouble(6, car.getRegistrationFee());
             psts.setDouble(7, car.getCo2emission());
-            psts.setInt(8, car.getLocationID());
-            psts.setString(9, car.getState().toString());
-            psts.setInt(10, car.getVehicleID());
+            psts.setString(8, car.getState().toString());
+            psts.setInt(9, car.getVehicleID());
             psts.executeUpdate();
 
         } catch (SQLException e) {
@@ -149,19 +144,6 @@ public class CarRepository implements IGenericRepository<Car> {
     }
 
     // extra for this repository
-
-    public void updateState(int id) {
-        try {
-            PreparedStatement psts = conn.prepareStatement("UPDATE bilabonnement.car SET state = ? WHERE vehicleID = ?");
-            psts.setString(1, State.AT_CUSTOMER.toString());
-            psts.setInt(2, id);
-            //ResultSet resultSet =
-            psts.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public List<Car> readAllLeasedOnDate(Date date) {
         List<Car> carList = new ArrayList<>();
@@ -188,7 +170,6 @@ public class CarRepository implements IGenericRepository<Car> {
                         EquipmentLevel.valueOf(resultSet.getString("equipmentLevel")),
                         resultSet.getDouble("registrationFee"),
                         resultSet.getDouble("co2emission"),
-                        resultSet.getInt("locationID"),
                         State.valueOf(resultSet.getString("state"))));
             }
 
@@ -226,7 +207,6 @@ public class CarRepository implements IGenericRepository<Car> {
                         EquipmentLevel.valueOf(resultSet.getString("equipmentLevel")),
                         resultSet.getDouble("registrationFee"),
                         resultSet.getDouble("co2emission"),
-                        resultSet.getInt("locationID"),
                         State.valueOf(resultSet.getString("state"))));
             }
 
@@ -264,7 +244,6 @@ public class CarRepository implements IGenericRepository<Car> {
                         EquipmentLevel.valueOf(resultSet.getString("equipmentLevel")),
                         resultSet.getDouble("registrationFee"),
                         resultSet.getDouble("co2emission"),
-                        resultSet.getInt("locationID"),
                         State.valueOf(resultSet.getString("state"))));
             }
 

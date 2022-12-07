@@ -11,11 +11,10 @@ public class Car {
     private double steelPrice;
     private double registrationFee;
     private double co2emission;
-    private int locationID;
     private State state;
 
     // with vehicleID
-    public Car(Integer vehicleID, String chassisNumber, double steelPrice, String brand, String model, EquipmentLevel equipmentLevel, double registrationFee, double co2emission, int locationID, State state) {
+    public Car(Integer vehicleID, String chassisNumber, double steelPrice, String brand, String model, EquipmentLevel equipmentLevel, double registrationFee, double co2emission, State state) {
         this.vehicleID = vehicleID;
         this.chassisNumber = chassisNumber;
         this.brand = brand;
@@ -24,12 +23,11 @@ public class Car {
         this.steelPrice = steelPrice;
         this.registrationFee = registrationFee;
         this.co2emission = co2emission;
-        this.locationID = locationID;
         this.state = state;
     }
 
     // without vehicleID
-    public Car(String chassisNumber, double steelPrice,String brand, String model, EquipmentLevel equipmentLevel,  double registrationFee, double co2emission, int locationID, State state) {
+    public Car(String chassisNumber, double steelPrice,String brand, String model, EquipmentLevel equipmentLevel,  double registrationFee, double co2emission, State state) {
         this.vehicleID = null;
         this.chassisNumber = chassisNumber;
         this.brand = brand;
@@ -38,7 +36,6 @@ public class Car {
         this.steelPrice = steelPrice;
         this.registrationFee = registrationFee;
         this.co2emission = co2emission;
-        this.locationID = locationID;
         this.state = state;
     }
 
@@ -104,14 +101,6 @@ public class Car {
 
     public void setCo2emission(double co2emission) {
         this.co2emission = co2emission;
-    }
-
-    public int getLocationID() {
-        return locationID;
-    }
-
-    public void setLocationID(int locationID) {
-        this.locationID = locationID;
     }
 
     public State getState() {

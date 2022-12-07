@@ -48,7 +48,6 @@
                     <td><span th:text="${unleasedCar.equipmentLevel}">udstyrsniveau</span></td>
                     <td><span th:text="${unleasedCar.registrationFee}">reg. Afgift</span></td>
                     <td><span th:text="${unleasedCar.co2emission}">CO2-udledning</span></td>
-                    <td><span th:text="${unleasedCar.locationID}">lokation</span></td>
                     <td>
                         <form action="#" th:action="@{/update-car-state}" method="post">
                             <select name="state" onchange="this.form.submit()"><br>
@@ -88,7 +87,6 @@
                     <th>udstyrsniveau</th>
                     <th>reg. Afgift</th>
                     <th>CO2-udledning</th>
-                    <th>lokation</th>
                     <th>status</th>
                     <th>tilgå</th>
                 </tr>
@@ -106,7 +104,6 @@
                     <td><span th:text="${leasedCar.equipmentLevel}">udstyrsniveau</span></td>
                     <td><span th:text="${leasedCar.registrationFee}">reg. Afgift</span></td>
                     <td><span th:text="${leasedCar.co2emission}">CO2-udledning</span></td>
-                    <td><span th:text="${leasedCar.locationID}">lokation</span></td>
                     <td>
                         <form action="#" th:action="@{/update-car-state}" method="post">
                             <select name="state" onchange="this.form.submit()"><br>

@@ -21,6 +21,7 @@ import java.util.List;
 
 import static com.example.bilabonnement.model.enums.Role.ADMINISTRATION;
 import static com.example.bilabonnement.model.enums.Role.DATA_REGISTRATION;
+import static com.example.bilabonnement.model.enums.State.*;
 
 @Controller
 public class DataRegistrationController {
@@ -78,26 +79,10 @@ public class DataRegistrationController {
         // add optionals
         leaseService.updateOptionals(leaseOptionals, leaseID);
 
+        // todo add check for leasing period maybe?
+        carService.updateState(Integer.parseInt(req.getParameter("vehicleID")), AT_CUSTOMER);
 
-//        leaseService.setOptionals(optionals, );
-
-
-//        if (customerService.read(customerID) == null || carService.read(vehicleID) == null || employeeService.read(employeeID) == null) {
-//            return "redirect:/data-registration";
-//        } else {
-//
-//            LeaseContract ls = new LeaseContract(
-//                    Date.valueOf(req.getParameter("startDate")),
-//                    Date.valueOf(req.getParameter("endDate")),
-//                    price,
-//                    customerID,
-//                    vehicleID,
-//                    employeeID
-//            );
-//            leaseService.create(ls);
-//            carService.updateState(vehicleID);
             return "redirect:/data-registration";
-//        }
     }
 
     @GetMapping("/edit-leasecontract")
@@ -151,7 +136,10 @@ public class DataRegistrationController {
     }
 
     @GetMapping("/edit-car")
-    public String editCar(@RequestParam int vehicleID, Model model) {
+    public String editCar(@RequestParam int vehicleID, Model model, HttpSession session) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
+            return "redirect:/role-redirect";
 
         model.addAttribute("car", carService.read(vehicleID));
         model.addAttribute("states", carService.getCarStates());
@@ -166,7 +154,7 @@ public class DataRegistrationController {
 
         carService.updateState(
                 Integer.parseInt(req.getParameter("vehicleID")),
-                State.valueOf(req.getParameter("state")));
+                valueOf(req.getParameter("state")));
 
         return "redirect:/view-cars";
     }
@@ -186,8 +174,7 @@ public class DataRegistrationController {
                 EquipmentLevel.valueOf(req.getParameter("equipmentLevel")),
                 Double.parseDouble(req.getParameter("registrationFee")),
                 Double.parseDouble(req.getParameter("co2emission")),
-                Integer.parseInt(req.getParameter("locationID")),
-                State.valueOf(req.getParameter("state"))
+                valueOf(req.getParameter("state"))
         ));
 
         return "redirect:/view-cars";

@@ -173,10 +173,23 @@ public class DamageReporterController {
     public String checkOutCars(Model model) {
 
         // todo fix readAllLeasedOnDateWithState
-        model.addAttribute("cars", carService.readAllLeasedOnDateWithState());
+        model.addAttribute("unleasedCars", carService.readAllLeasedOnDateWithState());
+        model.addAttribute("states", carService.getCarStates());
 
 
-        return "/checkout-cars";
+        return "/damage_registrator/checkout-cars";
     }
+
+
+    @PostMapping("/update-damage-state")
+    public String updateCarState(WebRequest req) {
+
+        carService.updateState(
+                Integer.parseInt(req.getParameter("vehicleID")),
+                State.valueOf(req.getParameter("state")));
+
+        return "redirect:/checkout-cars";
+    }
+
 
 }

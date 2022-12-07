@@ -165,30 +165,39 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
     }
 
-  public double getCurrentIncome(Date date) {
-    double income = 0;
-    try {
-      PreparedStatement pst = conn.prepareStatement("SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as totalCurrentIncomePrContract\n" +
-              "FROM leasecontract, optional, leaseoptional\n" +
-              "WHERE leasecontract.leaseID = leaseoptional.leaseID\n" +
-              "AND leaseoptional.optionalID = optional.optionalID\n" +
-              "AND (startDate < ? AND endDate > ?)\n" +
-              "GROUP BY leasecontract.leaseID;");
+    public double getCurrentIncome(Date date) {
+        double income = 0;
+        try {
+            PreparedStatement pst = conn.prepareStatement("SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as totalCurrentIncomePrContract\n" +
+                    "FROM leasecontract, optional, leaseoptional\n" +
+                    "WHERE leasecontract.leaseID = leaseoptional.leaseID\n" +
+                    "AND leaseoptional.optionalID = optional.optionalID\n" +
+                    "AND (startDate < ? AND endDate > ?)\n" +
+                    "GROUP BY leasecontract.leaseID;");
 
             pst.setDate(1, date);
             pst.setDate(2, date);
             ResultSet resultSet = pst.executeQuery();
 
-      while (resultSet.next()) {
-        income += resultSet.getDouble("totalCurrentIncomePrContract");
-      }
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
+            while (resultSet.next()) {
+                income += resultSet.getDouble("totalCurrentIncomePrContract");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return income;
     }
-    return income;
-  }
 
-
-
+    public void updateOptionals(List<Optional> optionals, int leaseID) {
+        // remove previous optionals
+        try {
+            PreparedStatement pst = conn.prepareStatement("DELETE FROM leaseoptional WHERE leaseID = ?");
+            pst.setInt(1, leaseID);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+}
 

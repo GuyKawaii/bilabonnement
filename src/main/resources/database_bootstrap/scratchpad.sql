@@ -86,6 +86,25 @@ AND leaseoptional.optionalID = optional.optionalID
 AND (startDate < ? AND endDate > ?)
 GROUP BY leasecontract.leaseID;
 
+# base price
+SELECT leasecontract.monthlyPrice
+FROM leaseContract
+WHERE startDate < ?
+  AND ? < endDate;
+
+# with optionals
+SELECT SUM(o.pricePrMonth)
+FROM leaseContract l
+         LEFT JOIN leaseoptional lo on lo.leaseID = l.leaseID
+         JOIN optional o on lo.optionalID = o.optionalID
+WHERE l.startDate < '2011-1-15'
+  AND '2011-1-15' < l.endDate;
+
+SELECT leasecontract.monthlyPrice, leaseID
+FROM leaseContract
+WHERE startDate < '2011-01-15'
+  AND '2011-01-15' < endDate;
+
 
 # aliasing mellem state IS_LEASED og leaseContract der har en given periode mellem startDate og endDate. tænker man ud fra dem ville kunne deeducerer hvilke der er leased maybe?
 # Alså hive alle kontrakter ud og sorter efter startdato for nuværende måned i service?
@@ -107,4 +126,5 @@ FROM leasecontract;
 
 
 
-INSERT INTO leaseoptional (optionalID, leaseID) VALUES (?,?)
+INSERT INTO leaseoptional (optionalID, leaseID)
+VALUES (?, ?)

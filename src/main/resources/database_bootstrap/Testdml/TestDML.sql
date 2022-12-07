@@ -20,12 +20,6 @@ VALUES (202, 'firstName', 'lastName', 'email_2', 'address', 'city', 2900, 'mobil
 INSERT INTO customer (customerID, firstName, lastName, email, address, city, postalCode, mobile, cprNumber)
 VALUES (203, 'firstName', 'lastName', 'email_3', 'address', 'city', 2900, 'mobile', 'cprNumber');
 
-# location #
-INSERT INTO location (locationID, name)
-VALUES (301, 'main');
-INSERT INTO location (locationID, name)
-VALUES (302, 'backup');
-
 # optional #
 INSERT INTO optional (optionalID, name, pricePrMonth)
 VALUES (401, 'optional 1', 10);

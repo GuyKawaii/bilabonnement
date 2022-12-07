@@ -1,10 +1,13 @@
 # DDL is Data Definition Language which is used to define data structures.
 # nuke option
 DROP DATABASE IF EXISTS bilabonnement;
+# DROP DATABASE  IF EXISTS testbilabonnement;
 
 CREATE DATABASE bilabonnement;
+# CREATE DATABASE testbilabonnement;
 
 USE bilabonnement;
+# USE testbilabonnement;
 
 ####  reset tables ###
 
@@ -37,15 +40,6 @@ CREATE TABLE IF NOT EXISTS customer
     primary key (customerID)
 );
 
-CREATE TABLE IF NOT EXISTS location
-(
-    locationID int AUTO_INCREMENT,
-    name       varchar(50),
-
-    # key setup
-    PRIMARY KEY (locationID)
-);
-
 CREATE TABLE IF NOT EXISTS optional
 (
     optionalID   int AUTO_INCREMENT,
@@ -66,12 +60,10 @@ CREATE TABLE IF NOT EXISTS car
     equipmentLevel  ENUM ('BASE', 'MEDIUM', 'LARGE'),
     registrationFee double,
     co2emission     double,
-    locationID      int,
     state           ENUM ('READY', 'RETURNED', 'AT_CUSTOMER'),
 
     # key setup
-    PRIMARY KEY (vehicleID),
-    FOREIGN KEY (locationID) REFERENCES location (locationID)
+    PRIMARY KEY (vehicleID)
 );
 
 

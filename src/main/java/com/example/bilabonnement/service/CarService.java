@@ -7,12 +7,10 @@ import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.repository.CarRepository;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static com.example.bilabonnement.model.enums.State.AT_CUSTOMER;
 import static com.example.bilabonnement.model.enums.State.AT_CUSTOMER;
 
 public class CarService {
@@ -46,10 +44,6 @@ public class CarService {
 
     public void update(Car car){
         carRepository.update(car);
-    }
-
-    public void updateState(int id){
-        carRepository.updateState(id);
     }
 
     public void delete(int id){
