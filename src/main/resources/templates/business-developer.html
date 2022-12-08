@@ -65,7 +65,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:if="${#lists.is_empty(unleased_cars)}"> <!-- no items listed -->
+                <tr th:if="${#lists.isEmpty(unleased_cars)}"> <!-- no items listed -->
                     <td>IGEN BILER</td>
                 </tr>
                 <tr th:each="unleased_car : ${unleased_cars}">
@@ -107,7 +107,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:if="${#lists.is_empty(leased_cars)}"> <!-- no items listed -->
+                <tr th:if="${#lists.isEmpty(leased_cars)}"> <!-- no items listed -->
                     <td>IGEN BILER</td>
                 </tr>
                 <tr th:each="leased_car : ${leased_cars}">

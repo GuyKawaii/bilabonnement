@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/base.css}">
+
+</head>
+<body>
+
+<div id="content">
+
+    <!--    create new contract -->
+
+    <h1> ændre lejeaftale</h1>
+    <hr>
+    <br>
+
+    <div id="formdiv">
+        <form action="/edit" method="post">
+
+            <input type="hidden" id="leaseID" name="leaseID" th:value="${contract.leaseID}"><br><br>
+            <br>
+            <label for="startDate">ny Startdato:</label><br>
+            <input type="date" id="startDate" name="startDate" th:value="${contract.startDate}"><br>
+            <label for="endDate">ny Slutdato:</label><br>
+            <input type="date" id="endDate" name="endDate" th:value="${contract.endDate}"><br>
+            <label for="monthlyPrice"> ny pris per måned:</label><br>
+            <input type="text" id="monthlyPrice" name="monthlyPrice" th:value="${contract.monthlyPrice}"><br>
+            <label for="customerID"> Kunde ID:</label><br>
+            <input type="text" id="customerID" name="customerID" th:value="${contract.customerID}"><br>
+            <label for="vehicleID">Vognnummer:</label><br>
+            <input type="text" id="vehicleID" name="vehicleID" th:value="${contract.vehicleID}"><br>
+            <label for="employeeID">Medarbejder ID:</label><br>
+            <input type="text" id="employeeID" name="employeeID" th:value="${contract.employeeID}"><br><br>
+            <br>
+            <div id="optionaldiv">
+                <table>
+                    <tr>
+                        <th colspan="4">
+                            Ekstra udstyr til bilen
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>tilføj udstyr</th>
+                        <th>Ekstra udstyr</th>
+                        <th>pris per måned</th>
+                    </tr>
+                    <tr th:each="leaseOptional : ${leaseOptionals}">
+                        <td>
+                            <input th:name="${leaseOptional.optionalID}" type="checkbox" checked
+                                   th:value="${leaseOptional.optionalID}"/>
+                        </td>
+                        <td th:text="${leaseOptional.name}"></td>
+                        <td th:text="${leaseOptional.pricePrMonth}"></td>
+                    </tr>
+                    <tr th:each="leaseNonOptional : ${leaseNonOptionals}">
+                        <td>
+                            <input th:name="${leaseNonOptional.optionalID}" type="checkbox"
+                                   th:value="${leaseNonOptional.optionalID}"/>
+                        </td>
+                        <td th:text="${leaseNonOptional.name}"></td>
+                        <td th:text="${leaseNonOptional.pricePrMonth}"></td>
+                    </tr>
+                </table>
+            </div>
+            <input type="submit" value="Save changes">
+        </form>
+
+
+    </div>
+</div>
+
+</body>
+</html>
