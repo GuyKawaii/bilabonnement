@@ -132,12 +132,19 @@ from fullLeaseInfo;
 SELECT * FROM fullLeaseInfo;
 
 SELECT * FROM fullLeaseInfo
-WHERE (startDate <= '2000-01-01') AND
-    ('2030-01-01' <= endDate);
+WHERE (startDate <= '2022-12-08') AND
+    ('2022-12-08' <= endDate);
 
-SELECT SUM(monthlyPrice) + IFNULL(SUM(pricePrMonth),0) AS currentIncome FROM fullLeaseInfo
-WHERE (startDate <= '2000-01-01') AND
-                   ('2030-01-01' <= endDate);
+# Used in lease contract with ? instead of dates
+SELECT SUM(monthlyPrice) + IFNULL(SUM(pricePrMonth),0) AS currentIncome
+FROM fullLeaseInfo
+WHERE (startDate <= '2022-12-08') AND
+                   ('2022-12-08' <= endDate);
+
+SELECT COUNT(*) AS activeContractCount
+FROM fullLeaseInfo
+WHERE (startDate <= ?) AND
+    (? <= endDate);
 
 SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_income
 FROM leasecontract,

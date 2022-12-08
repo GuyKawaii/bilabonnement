@@ -168,9 +168,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
     public double getCurrentIncome(Date date) {
         double income = 0;
         try {
-            PreparedStatement pst = conn.prepareStatement("SELECT SUM(monthlyPrice) + SUM(pricePrMonth) AS currentIncome\n" +
-                    "from fullLeaseInfo\n" +
-                    "where startDate <= ? and endDate >= ?;");
+            PreparedStatement pst = conn.prepareStatement("SELECT SUM(monthlyPrice) + IFNULL(SUM(pricePrMonth),0) AS currentIncome\n" +
+                    "FROM fullLeaseInfo\n" +
+                    "WHERE (startDate <= ?) AND\n" +
+                    "                   (? <= endDate);");
 
             pst.setDate(1, date);
             pst.setDate(2, date);
@@ -339,6 +340,27 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             e.printStackTrace();
         }
         return contractList;
+    }
+
+    public double activeLeaseContractCountByDate(Date date) {
+        double count = 0;
+        try {
+            PreparedStatement pst = conn.prepareStatement("SELECT COUNT(*) AS activeContractCount\n" +
+                    "FROM fullLeaseInfo\n" +
+                    "WHERE (startDate <= ?) AND\n" +
+                    "    (? <= endDate);");
+
+            pst.setDate(1, date);
+            pst.setDate(2, date);
+            ResultSet resultSet = pst.executeQuery();
+
+            while (resultSet.next()) {
+                count = resultSet.getDouble("activeContractCount");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return count;
     }
 
 
