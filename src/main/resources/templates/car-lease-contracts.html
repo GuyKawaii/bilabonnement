@@ -30,7 +30,7 @@
                 <th>Vehicle ID</th>
                 <th>Employee ID</th>
             </tr>
-            <tr th:each="contract : ${activeContracts}">
+            <tr th:each="contract : ${upcomingContracts}">
                 <td th:text="${contract.leaseID}"></td>
                 <td th:text="${contract.startDate}"></td>
                 <td th:text="${contract.endDate}"></td>

@@ -248,7 +248,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                     WHERE l.vehicleID = ?
                       AND startDate <= ?
                       AND              ? <= endDate
-                    ORDER BY startDate
+                    ORDER BY startDate DESC
                     """);
             pst.setInt(1, vehicleID);
             pst.setDate(2, date);
@@ -284,7 +284,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                              JOIN car c on c.vehicleID = l.vehicleID
                     WHERE l.vehicleID = ?
                       AND l.endDate < ?
-                    ORDER BY startDate
+                    ORDER BY startDate DESC
                     """);
             pst.setInt(1, vehicleID);
             pst.setDate(2, date);
@@ -319,7 +319,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                              JOIN car c on c.vehicleID = l.vehicleID
                     WHERE l.vehicleID = ?
                       AND ? < l.startDate
-                    ORDER BY startDate
+                    ORDER BY startDate DESC
                     """);
             pst.setInt(1, vehicleID);
             pst.setDate(2, date);
