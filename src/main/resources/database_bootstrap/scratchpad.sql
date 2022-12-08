@@ -78,6 +78,90 @@ from leasecontract,
 where leasecontract.leaseID = leaseoptional.leaseID
 group by leasecontract.leaseID;
 
+
+# Returns sum of optionals pr leasecontract that has optionals
+SELECT leasecontract.leaseID, SUM(optional.pricePrMonth) as Total_income
+FROM leasecontract,
+     optional,
+     leaseoptional
+WHERE leasecontract.leaseID = leaseoptional.leaseID
+  AND leaseoptional.optionalID = optional.optionalID
+GROUP BY leasecontract.leaseID;
+
+# Returns monthlyincome + Sum (as we want)... but only for cars that have optionals.
+# Do we join this table?
+SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_income
+FROM leasecontract,
+    optional,
+    leaseoptional
+WHERE leasecontract.leaseID = leaseoptional.leaseID
+  AND leaseoptional.optionalID = optional.optionalID
+GROUP BY leasecontract.leaseID;
+
+
+
+SELECT leasecontract.*, optional.*
+FROM leasecontract LEFT JOIN leaseoptional
+    ON leasecontract.leaseID = leaseoptional.leaseID
+LEFT JOIN optional
+    ON leaseoptional.optionalID = optional.optionalID;
+
+use bilabonnement;
+
+create view fullLeaseInfo AS
+SELECT leasecontract.*, optional.*
+FROM leasecontract LEFT JOIN leaseoptional
+ON leasecontract.leaseID = leaseoptional.leaseID
+LEFT JOIN optional
+ON leaseoptional.optionalID = optional.optionalID;
+
+SELECT monthlyPrice, sum(pricePrMonth) as fullIncome
+FROM fullLeaseInfo
+group by leaseID;
+
+SELECT SUM(monthlyPrice) + SUM(pricePrMonth) AS currentIncome
+from fullLeaseInfo
+where startDate <= ? and endDate >= ?;
+
+SELECT SUM(monthlyPrice) + SUM(pricePrMonth) AS currentIncome
+from fullLeaseInfo;
+
+SELECT SUM(monthlyPrice)
+from fullLeaseInfo;
+
+SELECT * FROM fullLeaseInfo;
+
+SELECT * FROM fullLeaseInfo
+WHERE (startDate <= '2000-01-01') AND
+    ('2030-01-01' <= endDate);
+
+SELECT SUM(monthlyPrice) + IFNULL(SUM(pricePrMonth),0) AS currentIncome FROM fullLeaseInfo
+WHERE (startDate <= '2000-01-01') AND
+                   ('2030-01-01' <= endDate);
+
+SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_income
+FROM leasecontract,
+     optional,
+     leaseoptional
+WHERE leasecontract.leaseID = leaseoptional.leaseID
+  AND leaseoptional.optionalID = optional.optionalID
+GROUP BY leasecontract.leaseID;
+
+
+SELECT l.leaseID, SUM(o.pricePrMonth) as Total_income
+FROM leasecontract,
+     optional,
+     leaseoptional
+left join leasecontract l
+    on leaseoptional.leaseID = l.leaseID
+INNER JOIN optional o
+    on leaseoptional.optionalID = o.optionalID
+GROUP BY l.leaseID;
+
+SELECT
+
+AND (leasecontract.startDate <= ? AND leasecontract.endDate >= ?)
+
 SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_income
 FROM leasecontract,
      optional,
@@ -95,6 +179,9 @@ WHERE leasecontract.leaseID = leaseoptional.leaseID
   AND (startDate < ? AND endDate > ?)
 GROUP BY leasecontract.leaseID;
 
+SELECT  leasecontract.leaseID, optional.pricePrmonth
+FROM leaseoptional
+JOIN lease
 # base price
 SELECT leasecontract.monthlyPrice
 FROM leaseContract
@@ -137,7 +224,7 @@ FROM leasecontract;
 
 
 INSERT INTO leaseoptional (optionalID, leaseID)
-VALUES (?, ?)
+VALUES (?, ?);
 
 
 SELECT `AUTO_INCREMENT`
