@@ -172,7 +172,7 @@ footer{
     padding: 3px;
 }
 
-.column-div {
+.columns {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

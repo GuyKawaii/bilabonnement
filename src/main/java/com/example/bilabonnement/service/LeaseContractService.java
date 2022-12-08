@@ -4,9 +4,11 @@ import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.model.Optional;
 import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.repository.LeaseContractRepository;
+import org.springframework.web.context.request.WebRequest;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LeaseContractService {
@@ -41,6 +43,7 @@ public class LeaseContractService {
     public double activeLeaseContractsByDate(Date date) {
         return leaseContractRepo.activeLeaseContractCountByDate(date);
     }
+
     public double getCurrentIncomeByDate(Date date) {
         return leaseContractRepo.getCurrentIncome(date);
     }
@@ -50,7 +53,7 @@ public class LeaseContractService {
     }
 
     // extra
-    public int createAndReturnID(LeaseContract leaseContract){
+    public int createAndReturnID(LeaseContract leaseContract) {
         return leaseContractRepo.createAndReturnID(leaseContract);
     }
 
@@ -64,5 +67,16 @@ public class LeaseContractService {
 
     public List<LeaseContract> readPassedLeaseContractsByVehicleID(int vehicleID, Date valueOf) {
         return leaseContractRepo.readPassedLeaseContractsByVehicleID(vehicleID, valueOf);
+    }
+
+    public List<Optional> getRequestLeaseOptionals(WebRequest req, List<Optional> allOptionals) {
+        List<Optional> leaseOptionals = new ArrayList<>();
+
+        for (Optional optional : allOptionals) {
+            if (req.getParameter(optional.getOptionalID().toString()) != null)
+                leaseOptionals.add(optional);
+        }
+
+        return leaseOptionals;
     }
 }

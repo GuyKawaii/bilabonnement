@@ -81,7 +81,7 @@ public class HomeController {
         // role redirect
         switch (role) {
             case DATA_REGISTRATION -> {
-                return "redirect:/data-registration";
+                return "redirect:/create-lease-contract";
             }
             case DAMAGE_REPORTER -> {
                 return "redirect:/create-damage-report";
@@ -108,6 +108,7 @@ public class HomeController {
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employee", (Employee) session.getAttribute("employee"));
 
         model.addAttribute("customers", customerService.readAll());
 
@@ -131,6 +132,7 @@ public class HomeController {
     @PostMapping("update-customer")
     public String updateCustomer(WebRequest req) {
 
+        System.out.println(req.getParameter("cprNumber") + "<-----------");
         customerService.update(new Customer(
                 Integer.parseInt(req.getParameter("customerID")),
                 req.getParameter("firstName"),
@@ -148,6 +150,9 @@ public class HomeController {
 
     @PostMapping("/create-customer")
     public String createCustomer(WebRequest req) {
+
+        // todo email overlap crashes site
+
 
         customerService.create(new Customer(
                 req.getParameter("firstName"),

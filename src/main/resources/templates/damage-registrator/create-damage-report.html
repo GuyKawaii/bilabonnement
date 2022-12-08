@@ -16,14 +16,14 @@
 
     <form action="/create-new-damage-report" method="post">
         <label for="employeeID">medarbejder id:</label><br>
-        <input type="text" name="employeeID" th:value="${employeeID}" readonly><br>
+        <input type="text" id="employeeID" name="employeeID" th:value="${employeeID}" readonly><br>
         <label for="vehicleID">vogn id:</label><br>
-        <select name="vehicleID"><br>
+        <select name="vehicleID" id="vehicleID"><br>
             <option th:each="car: ${cars}" th:value="${car.vehicleID}"
                     th:text="|id: ${car.vehicleID}, ${car.brand}, ${car.model}|"></option>
         </select><br>
         <label for="timestamp">timestamp:</label><br>
-        <input type="datetime-local" name="datetime" th:value="${currentTime}">
+        <input type="datetime-local" id="timestamp" name="datetime" th:value="${currentTime}">
         <button type="submit">create</button>
     </form>
 

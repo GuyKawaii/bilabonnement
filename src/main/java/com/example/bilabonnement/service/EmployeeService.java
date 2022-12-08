@@ -4,10 +4,15 @@ import com.example.bilabonnement.model.Employee;
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.model.enums.Role;
+import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.repository.EmployeeRepository;
 import com.example.bilabonnement.repository.IGenericRepository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static com.example.bilabonnement.model.enums.State.*;
 
 public class EmployeeService {
     private EmployeeRepository employeeRepo = new EmployeeRepository(DB_CONNECTION.RELEASE_DB);
@@ -44,9 +49,10 @@ public class EmployeeService {
         Employee employee = getEmployeeByEmail(email);
 
         // check presence and password
-        if (employee != null && password.equals(employee.getPassword()))
+        if (employee != null && password.equals(employee.getPassword())) {
+            employee.setPassword(null);
             return employee;
-        else
+        } else
             return null;
     }
 
@@ -58,4 +64,17 @@ public class EmployeeService {
         return false;
     }
 
+    public List<State> getEmployeeStateSelect(Role role) {
+        switch (role) {
+            case DATA_REGISTRATION -> {
+                return new ArrayList<State>(Arrays.asList(RETURNED, AT_CUSTOMER));
+            }
+            case DAMAGE_REPORTER -> {
+                return new ArrayList<State>(Arrays.asList(READY));
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
 }

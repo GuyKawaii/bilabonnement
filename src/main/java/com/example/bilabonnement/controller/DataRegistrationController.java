@@ -35,7 +35,7 @@ public class DataRegistrationController {
     Role[] employeeAccess = new Role[]{DATA_REGISTRATION, ADMINISTRATION};
 
 
-    @GetMapping("/data-registration")
+    @GetMapping("/create-lease-contract")
     public String registrationPage(HttpSession session, Model model) {
         // validate employee access
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
@@ -45,7 +45,6 @@ public class DataRegistrationController {
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
-
         model.addAttribute("optionals", optionalService.readAll());
         model.addAttribute("leaseContracts", leaseService.readAll());
         model.addAttribute("employees", employeeService.readAll());
@@ -54,46 +53,47 @@ public class DataRegistrationController {
         model.addAttribute("date", LocalDate.now());
         model.addAttribute("leaseOptionalAmounts", optionalService.readLeaseOptionalAmounts());
 
-        System.out.println(optionalService.readLeaseOptionalAmounts().size());
-        System.out.println(leaseService.readAll().size());
-        return "data-registration";
+        return "data-registrator/create-lease-contract";
     }
 
     @PostMapping("/make_contract")
     public String makeContract(HttpSession session, WebRequest req, Model model) {
+        Date startDate = Date.valueOf(req.getParameter("startDate"));
+        Date endDate = Date.valueOf(req.getParameter("endDate"));
+
+        // todo return to create-damage-report if date dates are inverse or period overlaps with other contracts
+        // todo add env variable so people know
+        if (startDate.after(endDate) || startDate.after(endDate)) {
+
+        }
 
         // create leaseContract
         int leaseID = leaseService.createAndReturnID(new LeaseContract(
-                Date.valueOf(req.getParameter("startDate")),
-                Date.valueOf(req.getParameter("endDate")),
-                Double.parseDouble(req.getParameter("monthlyPrice")),
+                startDate,
+                endDate,
+                Double.parseDouble(req.getParameter("monthlyPrice").replace(',', '.')),
                 Integer.parseInt(req.getParameter("customerID")),
                 Integer.parseInt(req.getParameter("vehicleID")),
                 Integer.parseInt(req.getParameter("employeeID"))
         ));
-        // get dynamic all optionals
-        List<Optional> leaseOptionals = new ArrayList<>();
-        for (Optional optional : optionalService.readAll()) {
-            // check which optionals were added
-            if (req.getParameter(optional.getOptionalID().toString()) != null)
-                leaseOptionals.add(optional);
-        }
-        leaseService.read(leaseID);
-        // add optionals
+
+        // get leaseOptionals
+        List<Optional> leaseOptionals = leaseService.getRequestLeaseOptionals(req, optionalService.readAll());
+        // update leaseOptionals
         leaseService.updateOptionals(leaseOptionals, leaseID);
 
+        // change state if active contract
+        if (startDate.after(Date.valueOf(LocalDate.now())) & endDate.before(Date.valueOf(LocalDate.now()))) {
+            carService.updateState(Integer.parseInt(req.getParameter("vehicleID")), AT_CUSTOMER);
+        }
 
-
-        // todo add check for leasing period maybe?
-        carService.updateState(Integer.parseInt(req.getParameter("vehicleID")), AT_CUSTOMER);
-
-
-        return "redirect:/data-registration";
+        return "redirect:/create-lease-contract";
     }
 
     @GetMapping("/edit-lease-contract")
     public String updateLeaseContract(WebRequest req, Model model) { //@RequestParam int id
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
+
         model.addAttribute("contract", leaseService.read(leaseID));
         model.addAttribute("leaseNonOptionals", optionalService.readNonLeaseOptionals(leaseID));
         model.addAttribute("leaseOptionals", optionalService.readLeaseOptionals(leaseID));
@@ -104,7 +104,7 @@ public class DataRegistrationController {
         return "edit-lease-contract";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/update-lease-contract")
     public String updateLease(WebRequest req, Model model) {
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
 
@@ -119,15 +119,12 @@ public class DataRegistrationController {
                 Integer.parseInt(req.getParameter("employeeID")))
         );
 
-        // get dynamic all optionals
-        List<Optional> leaseOptionals = new ArrayList<>();
-        for (Optional optional : optionalService.readAll()) {
-            // check which optionals were added
-            if (req.getParameter(optional.getOptionalID().toString()) != null) leaseOptionals.add(optional);
-        }
+        // get optionals selected
+        List<Optional> leaseOptionals = leaseService.getRequestLeaseOptionals(req, optionalService.readAll());
+        // update references
         leaseService.updateOptionals(leaseOptionals, leaseID);
 
-        return "redirect:/data-registration";
+        return "redirect:/create-lease-contract";
     }
 
     @GetMapping("/view-cars")
@@ -141,7 +138,7 @@ public class DataRegistrationController {
 
         model.addAttribute("unleasedCars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
         model.addAttribute("leasedCars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
-        model.addAttribute("states", carService.getEmployeeStateSelect(DATA_REGISTRATION));
+        model.addAttribute("states", employeeService.getEmployeeStateSelect(DATA_REGISTRATION));
 
 
         return "data-registrator/view-cars";
@@ -197,7 +194,7 @@ public class DataRegistrationController {
     public String deleteDamageReport(WebRequest req) {
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
         leaseService.delete(leaseID);
-        return "redirect:/data-registration";
+        return "redirect:/create-lease-contract";
     }
 
 

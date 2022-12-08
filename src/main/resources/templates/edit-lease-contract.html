@@ -17,7 +17,7 @@
     <br>
 
     <div id="formdiv">
-        <form action="/edit" method="post">
+        <form action="/update-lease-contract" method="post">
 
             <input type="hidden" id="leaseID" name="leaseID" th:value="${contract.leaseID}"><br><br>
             <br>
@@ -28,7 +28,7 @@
             <label for="monthlyPrice"> ny pris per måned:</label><br>
             <input type="text" id="monthlyPrice" name="monthlyPrice" th:value="${contract.monthlyPrice}"><br>
             <label for="customerID"> Kunde ID:</label><br>
-            <select name="customerID"><br>
+            <select name="customerID" id="customerID"><br>
                 <option th:value="${contract.customerID}"
                         th:text="|${contract.customerID} - nuværende|"
                         selected="selected">
@@ -39,9 +39,8 @@
                 </option>
             </select><br>
 
-
             <label for="vehicleID">Vognnummer:</label><br>
-            <select name="vehicleID"><br>
+            <select name="vehicleID" id="vehicleID"><br>
                 <option th:value="${contract.vehicleID}"
                         th:text="|${contract.vehicleID} - nuværende|"
                         selected="selected">
@@ -51,10 +50,8 @@
                         th:text="|${car.vehicleID}|">
                 </option>
             </select><br>
-
-
             <label for="employeeID">Medarbejder ID:</label><br>
-            <input type="text" id="employeeID" name="employeeID" th:value="${contract.employeeID}"><br><br>
+            <input type="text" id="employeeID" name="employeeID" th:value="${contract.employeeID}" readonly><br><br>
             <br>
             <div id="optionaldiv">
                 <table>
