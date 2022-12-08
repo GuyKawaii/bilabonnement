@@ -82,8 +82,11 @@ public class DataRegistrationController {
         // add optionals
         leaseService.updateOptionals(leaseOptionals, leaseID);
 
+
+
         // todo add check for leasing period maybe?
         carService.updateState(Integer.parseInt(req.getParameter("vehicleID")), AT_CUSTOMER);
+
 
         return "redirect:/data-registration";
     }
@@ -91,34 +94,37 @@ public class DataRegistrationController {
     @GetMapping("/edit-leasecontract")
     public String updateLeaseContract(WebRequest req, Model model) { //@RequestParam int id
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
-        System.out.println(leaseID);
-        LeaseContract ls = leaseService.read(leaseID);
-        model.addAttribute("contract", ls);
+        model.addAttribute("contract", leaseService.read(leaseID));
+        model.addAttribute("leaseNonOptionals", optionalService.readNonLeaseOptionals(leaseID));
+        model.addAttribute("leaseOptionals", optionalService.readLeaseOptionals(leaseID));
+
         return "edit-leasecontract";
     }
 
     @PostMapping("/edit")
     public String updateLease(WebRequest req, Model model) {
+        int leaseID = Integer.parseInt(req.getParameter("leaseID"));
 
-        System.out.println(req.getParameter("leaseID"));
+        // update contract
+        leaseService.update(new LeaseContract(
+                leaseID,
+                Date.valueOf(req.getParameter("startDate")),
+                Date.valueOf(req.getParameter("endDate")),
+                Double.parseDouble(req.getParameter("monthlyPrice")),
+                Integer.parseInt(req.getParameter("customerID")),
+                Integer.parseInt(req.getParameter("vehicleID")),
+                Integer.parseInt(req.getParameter("employeeID")))
+        );
 
-        java.sql.Date startDate = Date.valueOf(req.getParameter("startDate"));
-        java.sql.Date endDate = Date.valueOf(req.getParameter("endDate"));
-
-        int id = Integer.parseInt(req.getParameter("leaseID"));
-        double price = Double.parseDouble(req.getParameter("monthlyPrice"));
-        int customerID = Integer.parseInt(req.getParameter("customerID"));//midlertidig variabel fordi den skal laves til int, ellers er det Integer?
-        int vehicleID = Integer.parseInt(req.getParameter("vehicleID"));
-        int employeeID = Integer.parseInt(req.getParameter("employeeID"));
-
-        LeaseContract ls = new LeaseContract(id, startDate, endDate, price, customerID, vehicleID, employeeID);
-
-        if (customerService.read(customerID) == null || carService.read(vehicleID) == null || employeeService.read(employeeID) == null) {
-            return "redirect:/data-registration";
-        } else {
-            leaseService.update(ls);
-            return "redirect:/data-registration";
+        // get dynamic all optionals
+        List<Optional> leaseOptionals = new ArrayList<>();
+        for (Optional optional : optionalService.readAll()) {
+            // check which optionals were added
+            if (req.getParameter(optional.getOptionalID().toString()) != null) leaseOptionals.add(optional);
         }
+        leaseService.updateOptionals(leaseOptionals, leaseID);
+
+        return "redirect:/data-registration";
     }
 
     @GetMapping("/view-cars")

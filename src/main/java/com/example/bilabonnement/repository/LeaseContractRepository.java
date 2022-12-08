@@ -81,7 +81,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         List<LeaseContract> contractList = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from leasecontract");
+            PreparedStatement pst = conn.prepareStatement("select * from leasecontract ORDER BY leaseID DESC");
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities
@@ -210,7 +210,6 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
     }
 
 
-
     public void updateOptionals(List<Optional> optionals, int leaseID) {
         // remove previous optionals
         try {
@@ -222,7 +221,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
 
         // add new
-        for (Optional optional: optionals) {
+        for (Optional optional : optionals) {
             try {
                 PreparedStatement pst = conn.prepareStatement("INSERT INTO leaseoptional (optionalID, leaseID) VALUES (?,?)");
                 pst.setInt(1, optional.getOptionalID());
@@ -340,7 +339,5 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
         return contractList;
     }
-
-
 }
 

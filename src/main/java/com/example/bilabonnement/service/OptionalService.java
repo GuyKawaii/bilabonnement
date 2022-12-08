@@ -30,4 +30,15 @@ public class OptionalService implements IGenericRepository<Optional> {
     public void delete(int optionalID) {
         optionalRepository.delete(optionalID);
     }
+
+    public List<Optional> readLeaseOptionals(int leaseID) {
+        return optionalRepository.readLeaseOptionals(leaseID);
+    }
+
+    public List<Optional>  readNonLeaseOptionals(int leaseID) {
+        return optionalRepository.readNonLeaseOptionals(leaseID);
+    }
+    public List<Double[]> readLeaseOptionalAmounts() {
+        return optionalRepository.readLeaseOptionalAmounts();
+    }
 }

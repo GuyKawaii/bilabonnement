@@ -60,50 +60,22 @@
                         <th>Tryk for at tilføje udstyr</th>
                         <th>Ekstra udstyr</th>
                         <th>pris per måned</th>
-                        <th><input type="checkbox" name="optional all" value="Optional all"><br><br>
-                        </th>
                     </tr>
-                    <tr>
+                    <tr th:each="optionals : ${optionals}">
+                        <td>
+                            <input th:name="${optionals.optional_id}" type="checkbox"
+                                   th:value="${optionals.optional_id}"/>
+                        </td>
+                        <td th:text="${optionals.name}"></td>
+                        <td th:text="${optionals.price_pr_month}"></td>
                     </tr>
                 </table>
             </div>
             <button style="float: right" type="submit">send</button>
             <br>
         </form>
-
     </div>
-    <!--   <br>
-   <div id="optionaldiv">
-       <table>
-           <tr><th colspan="3">
-               Ekstra udstyr til bilen </th></tr>
-           <tr>
-               <th>Tryk for at tilføje udstyr</th>
-               <th>Ekstra udstyr</th>
-               <th>pris per måned</th>
-           </tr>-->
-    <!--        <tr th:each="contract : ${leaseContracts}">
-                <td th:text="${contract.leaseID}"></td>
-                <td th:text="${contract.startDate}"></td>
-                <td th:text="${contract.endDate}"></td>
-                <td th:text="${contract.vehicleID}"></td>
-                <td th:text="${contract.customerID}"></td>
-                <td th:text="${contract.monthlyPrice}"></td>
 
-                         <form>
-                         <label for="optional1"> optional1</label>
-                            <input type="checkbox" id="optional1" name="optional1" value="optional1">
-                            <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
-                        </form>
-
-            </tr>-->
-    </table>
-</div>
-<br><br><br>
-<hr>
-<br><br><br>
-<div id="tablediv">
-    <!--    leaseContracts-->
     <table>
         <tr>
             <th colspan="9">
@@ -123,29 +95,22 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <tr th:each="contract : ${leaseContracts}">
-            <td th:text="${contract.leaseID}"></td>
-            <td th:text="${contract.startDate}"></td>
-            <td th:text="${contract.endDate}"></td>
-            <td th:text="${contract.monthlyPrice}"></td>
-            <td th:text="${contract.customerID}"></td>
-            <td th:text="${contract.vehicleID}"></td>
-            <td th:text="${contract.employeeID}"></td>
-            <td><!--
-                <a th:href="@{'/edit-leasecontract/'+${user.usrID}}">
-                    <button class="btn-edit" id="btn-edit">Edit user</button></a>
-                    -->
-                <form method="get" action="/edit-leasecontract">
-                    <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
-                    <input type="submit" value="Edit">
+        <tr th:each="contract, iter_stat : ${lease_contracts}">
+            <td th:text="${contract.lease_id}"></td>
+            <td th:text="${contract.start_date}"></td>
+            <td th:text="${contract.end_date}"></td>
+            <td th:text="${contract.monthly_price}"></td>
+            <td th:text="${contract.customer_id}"></td>
+            <td th:text="${contract.vehicle_id}"></td>
+            <td th:text="${contract.employee_id}"></td>
+            <td th:text="${lease_optional_amounts[iter_stat.index][0]}"></td>
+            <td th:text="${lease_optional_amounts[iter_stat.index][1]}"></td>
+            <td>
+                <form method="get" action="/edit-lease-contract">
+                    <input type="hidden" name="lease_id" th:value="${contract.lease_id}">
+                    <input type="submit" value="edit">
                 </form>
-                <!--  <form method="POST" action="@{'/edit-leasecontract?id='+${contract.leaseID}}">
-                      <input type="submit" value="Edit">
-                      <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
-                  </form>-->
             </td>
-
-
             <td>
                 <form method="post" action="/delete-lease_contract">
                     <input type="submit" value="delete">
