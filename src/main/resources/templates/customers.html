@@ -16,22 +16,22 @@
     <div>
         <h2>opret kunde</h2>
         <form action="/create-customer" method="post">
-            <label for="firstName">fornavn:</label><br>
-            <input type="text" name="firstName" required><br>
-            <label for="lastName">efternavn:</label><br>
-            <input type="text" name="lastName" required><br>
+            <label for="first_name">Fornavn:</label><br>
+            <input type="text" name="first_name" required><br>
+            <label for="last_name">Efternavn:</label><br>
+            <input type="text" name="last_name" required><br>
             <label for="email">email:</label><br>
             <input type="text" name="email" required><br>
             <label for="address">city:</label><br>
             <input type="text" name="address" required><br>
-            <label for="city">postnr:</label><br>
+            <label for="city">Postnr:</label><br>
             <input type="text" name="city" required><br>
-            <label for="postalCode">postnr:</label><br>
-            <input type="number" name="postalCode" required><br>
+            <label for="postal_code">Postnr:</label><br>
+            <input type="number" name="postal_code" required><br>
             <label for="mobile">mobil:</label><br>
             <input type="text" name="mobile" required><br>
-            <label for="cprNumber" required>CPR:</label><br>
-            <input type="text" name="cprNumber" maxlength="10" required><br>
+            <label for="cpr_number" required>CPR:</label><br>
+            <input type="text" name="cpr_number" maxlength="10" required><br>
             <!--            todo change cpr length to correct length-->
             <button type="update">opret</button>
         </form>
@@ -56,21 +56,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${#lists.isEmpty(customers)}"> <!-- no items listed -->
+            <tr th:if="${#lists.is_empty(customers)}"> <!-- no items listed -->
                 <td>IGEN KUNDER</td>
             </tr>
             <tr th:each="customer : ${customers}">
-                <td><span th:text="${customer.customerID}">kunde ID</span></td>
-                <td><span th:text="${customer.firstName}">fornavn</span></td>
-                <td><span th:text="${customer.lastName}">efternavn</span></td>
+                <td><span th:text="${customer.customer_id}">kunde ID</span></td>
+                <td><span th:text="${customer.first_name}">fornavn</span></td>
+                <td><span th:text="${customer.last_name}">efternavn</span></td>
                 <td><span th:text="${customer.email}">email</span></td>
                 <td><span th:text="${customer.address}">address</span></td>
                 <td><span th:text="${customer.city}">city</span></td>
-                <td><span th:text="${customer.postalCode}">postnr</span></td>
+                <td><span th:text="${customer.postal_code}">postnr</span></td>
                 <td><span th:text="${customer.mobile}">mobil</span></td>
-                <td><span th:text="${customer.cprNumber}">CPR</span></td>
+                <td><span th:text="${customer.cpr_number}">CPR</span></td>
                 <td th:if="${employeeRole == 'DATA_REGISTRATION'}">
-                    <a th:href="@{'/edit-customer?customerID='+${customer.customerID}}">
+                    <a th:href="@{'/edit-customer?customerID='+${customer.customer_id}}">
                         <button class="btn-view">REDIGER</button>
                     </a>
                 </td>

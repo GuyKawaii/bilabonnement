@@ -48,7 +48,7 @@ public class DamageReporterController {
             return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
-        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employee_name", session.getAttribute("employee_name"));
 
         List<DamageReport> damageReports = damageReportService.readAll();
 

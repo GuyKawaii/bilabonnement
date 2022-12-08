@@ -16,28 +16,28 @@
         <h2>kunder</h2>
 
         <form action="/update-customer" method="post">
-            <label for="customerID">kunde ID:</label><br>
-            <input type="number" name="customerID" th:value="${customer.customerID}" readonly><br>
-            <label for="firstName">fornavn:</label><br>
-            <input type="text" name="firstName" th:value="${customer.firstName}"><br>
-            <label for="lastName">efternavn:</label><br>
-            <input type="text" name="lastName" th:value="${customer.lastName}"><br>
+            <label for="customer_id">kunde ID:</label><br>
+            <input type="number" name="customer_id" th:value="${customer.customer_id}" readonly><br>
+            <label for="first_name">fornavn:</label><br>
+            <input type="text" name="first_name" th:value="${customer.first_name}"><br>
+            <label for="last_name">efternavn:</label><br>
+            <input type="text" name="last_name" th:value="${customer.last_name}"><br>
             <label for="email">email:</label><br>
             <input type="text" name="email" th:value="${customer.email}"><br>
             <label for="address">city:</label><br>
             <input type="text" name="address" th:value="${customer.address}"><br>
-            <label for="city">postnr:</label><br>
+            <label for="city">Postnummer:</label><br>
             <input type="text" name="city" th:value="${customer.city}"><br>
-            <label for="postalCode">postnr:</label><br>
-            <input type="number" name="postalCode" th:value="${customer.postalCode}"><br>
+            <label for="postal_code">postnr:</label><br>
+            <input type="number" name="postal_code" th:value="${customer.postal_code}"><br>
             <label for="mobile">mobil:</label><br>
             <input type="text" name="mobile" th:value="${customer.mobile}"><br>
-            <label for="cprNumber">CPR:</label><br>
-            <input type="text" name="cprNumber" th:value="${customer.cprNumber}" maxlength="10"><br>
+            <label for="cpr_number">CPR:</label><br>
+            <input type="text" name="cpr_number" th:value="${customer.cpr_number}" maxlength="10"><br>
 <!--            todo change cpr length to correct length-->
-            <button type="update">opdater</button>
+            <button type="update">Opdater</button>
         </form>
 </div>
-
+</div>
 </body>
 </html>
