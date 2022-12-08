@@ -52,7 +52,10 @@ public class DataRegistrationController {
         model.addAttribute("customers", customerService.readAll());
         model.addAttribute("cars", carService.readAll());
         model.addAttribute("date", LocalDate.now());
+        model.addAttribute("leaseOptionalAmounts", optionalService.readLeaseOptionalAmounts());
 
+        System.out.println(optionalService.readLeaseOptionalAmounts().size());
+        System.out.println(leaseService.readAll().size());
         return "data-registration";
     }
 

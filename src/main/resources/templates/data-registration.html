@@ -17,29 +17,29 @@
     <hr>
     <br>
     <div id="formdiv">
-        <form action="/makeContract" method="post">
-            <label for="startDate">Startdato:</label><br>
-            <input type="date" name="startDate" th:value="${date}" required><br>
-            <label for="endDate">Slutdato:</label><br>
-            <input type="date" name="endDate" th:value="${date}" required><br>
-            <label for="monthlyPrice">Monthly price:</label><br>
-            <input type="text" name="monthlyPrice" required><br>
-            <label for="customerID">customer ID:</label><br>
-            <select name="customerID"><br>
+        <form action="/make_contract" method="post">
+            <label for="start_date">Startdato:</label><br>
+            <input type="date" name="start_date" th:value="${date}" required><br>
+            <label for="end_date">Slutdato:</label><br>
+            <input type="date" name="end_date" th:value="${date}" required><br>
+            <label for="monthly_price">Månedlig Pris:</label><br>
+            <input type="text" name="monthly_price" required><br>
+            <label for="customer_id">Kunde ID:</label><br>
+            <select name="customer_id"><br>
                 <option th:each="customer: ${customers}"
-                        th:value="${customer.customerID}"
-                        th:text="|${customer.customerID}|">
+                        th:value="${customer.customer_id}"
+                        th:text="|${customer.customer_id}|">
                 </option>
             </select><br>
-            <label for="vehicleID">Vognnummer:</label><br>
-            <select name="vehicleID"><br>
+            <label for="vehicle_id">Vognnummer:</label><br>
+            <select name="vehicle_id"><br>
                 <option th:each="car: ${cars}"
-                        th:value="${car.vehicleID}"
-                        th:text="|${car.vehicleID}|">
+                        th:value="${car.vehicle_id}"
+                        th:text="|${car.vehicle_id}|">
                 </option>
             </select><br>
-            <label for="employeeId">employee ID:</label><br>
-            <input type="text" name="employeeID" th:value="${employeeID}" readonly><br><br>
+            <label for="employee_id">Medarbejder ID:</label><br>
+            <input type="text" name="employee_id" th:value="${employee_id}" readonly><br><br>
             <br>
             <div th:each="option : ${optionals}">
                 <div>
@@ -111,13 +111,15 @@
             </th>
         </tr>
         <tr>
-            <th>ID</th>
-            <th>Start date</th>
-            <th>End date</th>
-            <th>Monthly price</th>
-            <th>Customer ID</th>
-            <th>Vehicle ID</th>
-            <th>Employee ID</th>
+            <th>Lease ID</th>
+            <th>Startdato</th>
+            <th>Slutdato</th>
+            <th>Månedlig Pris</th>
+            <th>Kunde ID</th>
+            <th>Vognnummer</th>
+            <th>Medarbejder ID</th>
+            <th>Optionals antal </th>
+            <th>Optionals Sum</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -145,9 +147,9 @@
 
 
             <td>
-                <form method="POST" action="/delete-leasecontract">
-                    <input type="submit" value="Delete">
-                    <input type="hidden" name="leaseID" th:value="${contract.leaseID}">
+                <form method="post" action="/delete-lease_contract">
+                    <input type="submit" value="delete">
+                    <input type="hidden" name="lease_id" th:value="${contract.lease_id}">
                 </form>
             </td>
         </tr>
