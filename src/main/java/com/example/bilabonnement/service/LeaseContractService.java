@@ -38,6 +38,9 @@ public class LeaseContractService {
         // test-commit
     }
 
+    public double activeLeaseContractsByDate(Date date) {
+        return leaseContractRepo.activeLeaseContractCountByDate(date);
+    }
     public double getCurrentIncomeByDate(Date date) {
         return leaseContractRepo.getCurrentIncome(date);
     }

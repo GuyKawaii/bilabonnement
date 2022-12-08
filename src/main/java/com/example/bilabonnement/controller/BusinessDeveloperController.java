@@ -46,6 +46,7 @@ public class BusinessDeveloperController {
         List<Car> leasedCars = carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now()));
         System.out.println(Date.valueOf(LocalDate.now()));
         int numOfLeasedCars = carService.getLeasedCarsAmountOnDate(Date.valueOf(LocalDate.now()));
+        int activeLeaseContractCountByDate = (int) leaseContractService.activeLeaseContractsByDate(Date.valueOf(LocalDate.now()));
 
         // TODO Fix this after asking for definitive session/cookie usage help
         // Blocked 'cause of the undefined
@@ -55,6 +56,7 @@ public class BusinessDeveloperController {
         model.addAttribute("emailOfUser", email);
         model.addAttribute("leasedCars", leasedCars);
         model.addAttribute("numberOfLeasedCars", numOfLeasedCars);
+        model.addAttribute("activeContractsCount", activeLeaseContractCountByDate);
         model.addAttribute("currentIncome", currentIncome);
         model.addAttribute("unleasedCars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
         model.addAttribute("leasedCars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
