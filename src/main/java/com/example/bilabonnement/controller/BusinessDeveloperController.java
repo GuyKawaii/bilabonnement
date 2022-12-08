@@ -58,8 +58,8 @@ public class BusinessDeveloperController {
         model.addAttribute("numberOfLeasedCars", numOfLeasedCars);
         model.addAttribute("activeContractsCount", activeLeaseContractCountByDate);
         model.addAttribute("currentIncome", currentIncome);
-        model.addAttribute("unleasedCars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
-        model.addAttribute("leasedCars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
+        model.addAttribute("unleased_cars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
+        model.addAttribute("leased_cars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
 
         return "business-developer";
     }

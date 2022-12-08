@@ -109,4 +109,89 @@ public class OptionalRepository implements IGenericRepository<Optional> {
             throw new RuntimeException(e);
         }
     }
+
+    // extra
+
+    public List<Optional> readLeaseOptionals(int leaseID) {
+        List<Optional> optionalList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT o.*
+                    FROM optional o
+                             JOIN leaseoptional l on o.optionalID = l.optionalID
+                    WHERE l.leaseID = ?
+                    """);
+            pst.setInt(1, leaseID);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                optionalList.add(new Optional(
+                        resultSet.getInt("optionalID"),
+                        resultSet.getString("name"),
+                        resultSet.getDouble("pricePrMonth")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return optionalList;
+    }
+
+    public List<Optional> readNonLeaseOptionals(int leaseID) {
+        List<Optional> optionalList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT remaining.*
+                    FROM optional remaining
+                    WHERE remaining.optionalID NOT IN (SELECT leaseOptional.optionalID
+                                                      FROM optional leaseOptional
+                                                               JOIN leaseoptional l on leaseOptional.optionalID = l.optionalID
+                                                      WHERE l.leaseID = ?)
+                    """);
+            pst.setInt(1, leaseID);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                optionalList.add(new Optional(
+                        resultSet.getInt("optionalID"),
+                        resultSet.getString("name"),
+                        resultSet.getDouble("pricePrMonth")));
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return optionalList;
+    }
+
+    public List<Double[]> readLeaseOptionalAmounts() {
+        List<Double[]> optionalAmounts = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT COUNT(lo.leaseID) as count, SUM(o.pricePrMonth) as sum
+                    FROM leasecontract l
+                             LEFT JOIN leaseoptional lo on l.leaseID = lo.leaseID
+                             LEFT JOIN optional o on o.optionalID = lo.optionalID
+                    GROUP BY l.leaseID
+                    ORDER BY l.leaseID DESC
+                    """);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                optionalAmounts.add(new Double[]{
+                        resultSet.getDouble("count"),
+                        resultSet.getDouble("sum")});
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return optionalAmounts;
+    }
 }

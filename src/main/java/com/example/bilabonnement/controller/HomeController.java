@@ -132,6 +132,7 @@ public class HomeController {
     public String updateCustomer(WebRequest req) {
 
         customerService.update(new Customer(
+                Integer.parseInt(req.getParameter("customerID")),
                 req.getParameter("firstName"),
                 req.getParameter("lastName"),
                 req.getParameter("email"),
@@ -172,9 +173,9 @@ public class HomeController {
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
 
 
-        model.addAttribute("upcomingContracts", leaseService.readUpcomingLeaseContractsByVehicleID(vehicleID, Date.valueOf(LocalDate.now())));
-        model.addAttribute("activeContracts", leaseService.readActiveLeaseContracts(vehicleID, Date.valueOf(LocalDate.now())));
-        model.addAttribute("passedContracts", leaseService.readPassedLeaseContractsByVehicleID(vehicleID, Date.valueOf(LocalDate.now())));
+        model.addAttribute("upcoming_contracts", leaseService.readUpcomingLeaseContractsByVehicleID(vehicleID, Date.valueOf(LocalDate.now())));
+        model.addAttribute("active_contracts", leaseService.readActiveLeaseContracts(vehicleID, Date.valueOf(LocalDate.now())));
+        model.addAttribute("passed_contracts", leaseService.readPassedLeaseContractsByVehicleID(vehicleID, Date.valueOf(LocalDate.now())));
 
         return "car-lease-contracts";
     }

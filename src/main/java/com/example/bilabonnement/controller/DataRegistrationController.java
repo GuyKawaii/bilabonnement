@@ -59,7 +59,7 @@ public class DataRegistrationController {
         return "data-registration";
     }
 
-    @PostMapping("/makeContract")
+    @PostMapping("/make_contract")
     public String makeContract(HttpSession session, WebRequest req, Model model) {
 
         // create leaseContract
@@ -91,14 +91,14 @@ public class DataRegistrationController {
         return "redirect:/data-registration";
     }
 
-    @GetMapping("/edit-leasecontract")
+    @GetMapping("/edit-lease-contract")
     public String updateLeaseContract(WebRequest req, Model model) { //@RequestParam int id
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
         model.addAttribute("contract", leaseService.read(leaseID));
         model.addAttribute("leaseNonOptionals", optionalService.readNonLeaseOptionals(leaseID));
         model.addAttribute("leaseOptionals", optionalService.readLeaseOptionals(leaseID));
 
-        return "edit-leasecontract";
+        return "edit-lease-contract";
     }
 
     @PostMapping("/edit")
@@ -190,7 +190,7 @@ public class DataRegistrationController {
     }
 
 
-    @PostMapping("/delete-leasecontract")
+    @PostMapping("/delete-lease-contract")
     public String deleteDamageReport(WebRequest req) {
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
         leaseService.delete(leaseID);
