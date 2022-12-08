@@ -97,6 +97,9 @@ public class DataRegistrationController {
         model.addAttribute("contract", leaseService.read(leaseID));
         model.addAttribute("leaseNonOptionals", optionalService.readNonLeaseOptionals(leaseID));
         model.addAttribute("leaseOptionals", optionalService.readLeaseOptionals(leaseID));
+        model.addAttribute("cars", carService.readAll());
+        model.addAttribute("vehicleID", carService.readAll());
+        model.addAttribute("customers", customerService.readAll());
 
         return "edit-lease-contract";
     }

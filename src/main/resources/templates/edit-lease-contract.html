@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ændre lejeaftale</title>
     <link rel="stylesheet" th:href="@{/base.css}">
 
 </head>
@@ -28,9 +28,31 @@
             <label for="monthlyPrice"> ny pris per måned:</label><br>
             <input type="text" id="monthlyPrice" name="monthlyPrice" th:value="${contract.monthlyPrice}"><br>
             <label for="customerID"> Kunde ID:</label><br>
-            <input type="text" id="customerID" name="customerID" th:value="${contract.customerID}"><br>
+            <select name="customerID"><br>
+                <option th:value="${contract.customerID}"
+                        th:text="|${contract.customerID} - nuværende|"
+                        selected="selected">
+                </option>
+                <option th:each="customer: ${customers}"
+                        th:value="${customer.customerID}"
+                        th:text="|${customer.customerID}|">
+                </option>
+            </select><br>
+
+
             <label for="vehicleID">Vognnummer:</label><br>
-            <input type="text" id="vehicleID" name="vehicleID" th:value="${contract.vehicleID}"><br>
+            <select name="vehicleID"><br>
+                <option th:value="${contract.vehicleID}"
+                        th:text="|${contract.vehicleID} - nuværende|"
+                        selected="selected">
+                </option>
+                <option th:each="car: ${cars}"
+                        th:value="${car.vehicleID}"
+                        th:text="|${car.vehicleID}|">
+                </option>
+            </select><br>
+
+
             <label for="employeeID">Medarbejder ID:</label><br>
             <input type="text" id="employeeID" name="employeeID" th:value="${contract.employeeID}"><br><br>
             <br>
