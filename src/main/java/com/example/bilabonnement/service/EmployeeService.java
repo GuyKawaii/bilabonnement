@@ -77,4 +77,8 @@ public class EmployeeService {
             }
         }
     }
+
+    public List<Employee> readAllWithRole(Role role) {
+        return employeeRepo.readAllWithRole(role);
+    }
 }

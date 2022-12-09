@@ -33,14 +33,23 @@
                     </option>
                 </select><br>
                 <label for="vehicleID">Vognnummer:</label><br>
-                <select name="vehicleID" id="vehicleID"><br>
-                    <option th:each="car: ${cars}"
+                <select name="vehicleID" id="vehicleID" required><br>
+                    <option th:each="car: ${UnleasedReadyCars}"
                             th:value="${car.vehicleID}"
-                            th:text="|${car.vehicleID}|">
+                            th:text="|${car.vehicleID} klar uden aktiv leasing|">
                     </option>
                 </select><br>
                 <label for="employeeID">Medarbejder ID:</label><br>
-                <input type="text" name="employeeID" id="employeeID" th:value="${employeeID}" readonly><br><br>
+                <select name="vehicleID" id="employeeID" required><br>
+                    <option th:value="${employeeID}"
+                            th:text="|${employeeID} - ${employeeName} - standard|"
+                            selected="selected">
+                    </option>
+                    <option th:each="employee: ${employees}"
+                            th:value="${employee.employeeID}"
+                            th:text="|${employee.employeeID} - ${employee.name}|">
+                    </option>
+                </select><br><br>
                 <br>
                 <table>
                     <tr>

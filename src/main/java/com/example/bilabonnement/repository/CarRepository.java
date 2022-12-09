@@ -270,7 +270,7 @@ public class CarRepository implements IGenericRepository<Car> {
         }
     }
 
-    public List<Car> readAllLeasedOnDateWithState(Date date, State state) {
+    public List<Car> readAllUnleasedOnDateWithState(Date date, State state) {
         List<Car> carList = new ArrayList<>();
 
         try {

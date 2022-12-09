@@ -145,5 +145,29 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
         return employee;
     }
 
+    public List<Employee> readAllWithRole(Role role) {
+        List<Employee> employeeList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("select * from employee WHERE role = ?");
+            pst.setString(1,role.toString());
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                employeeList.add(new Employee(
+                        resultSet.getInt("employeeID"),
+                        resultSet.getString("email"),
+                        resultSet.getString("name"),
+                        resultSet.getString("password"),
+                        Role.valueOf(resultSet.getString("role"))));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return employeeList;
+    }
 }
 

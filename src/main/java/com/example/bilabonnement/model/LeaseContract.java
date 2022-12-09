@@ -3,6 +3,8 @@ package com.example.bilabonnement.model;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class LeaseContract {
@@ -13,6 +15,7 @@ public class LeaseContract {
     private int customerID;
     private int vehicleID;
     private int employeeID;
+    private List<Optional> leaseOptionals;
 
 
     public LeaseContract(Integer leaseID, Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID) {

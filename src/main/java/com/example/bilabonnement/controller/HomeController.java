@@ -6,8 +6,6 @@ import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.service.CustomerService;
 import com.example.bilabonnement.service.EmployeeService;
 import com.example.bilabonnement.service.LeaseContractService;
-import org.springframework.boot.web.servlet.server.Session;
-import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +45,7 @@ public class HomeController {
     public String login(WebRequest request, HttpSession session, Model model) {
 
         // check login credentials
-        Employee employee = employeeService.login(request.getParameter("username"), request.getParameter("password"));
+        Employee employee = employeeService.login(request.getParameter("email"), request.getParameter("password"));
 
         // invalid password or employee
         if (employee == null) {
@@ -106,33 +104,20 @@ public class HomeController {
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employee", (Employee) session.getAttribute("employee"));
 
         model.addAttribute("customers", customerService.readAll());
 
-        return "/customers";
+        return "/data-registrator/customers";
     }
 
-    @GetMapping("/edit-customer")
-    public String editCustomer(Model model, @RequestParam int customerID, HttpSession session) {
-        // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
-            return "redirect:/role-redirect";
-        // session navbar
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
-        model.addAttribute("employeeName", session.getAttribute("employeeName"));
 
-        model.addAttribute("customer", customerService.read(customerID));
-
-        return "edit-customer";
-    }
 
     @PostMapping("update-customer")
     public String updateCustomer(WebRequest req) {
 
-        System.out.println(req.getParameter("cprNumber") + "<-----------");
         customerService.update(new Customer(
                 Integer.parseInt(req.getParameter("customerID")),
                 req.getParameter("firstName"),
@@ -174,7 +159,7 @@ public class HomeController {
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
 
 

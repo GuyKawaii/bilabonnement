@@ -6,7 +6,7 @@ public enum Role {
     ADMINISTRATION("Administrator"),
     DAMAGE_REPORTER("Skaderapportør"),
     DATA_REGISTRATION("Data registerer"),
-    BUSINESS_DEVELOPER("Forretningsudviklere");
+    BUSINESS_DEVELOPER("Forretningsudvikler");
 
     // Storing name
     private String string;

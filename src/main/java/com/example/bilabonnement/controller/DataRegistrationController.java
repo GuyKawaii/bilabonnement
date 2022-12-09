@@ -41,17 +41,19 @@ public class DataRegistrationController {
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
         model.addAttribute("optionals", optionalService.readAll());
         model.addAttribute("leaseContracts", leaseService.readAll());
-        model.addAttribute("employees", employeeService.readAll());
+        model.addAttribute("employees", employeeService.readAllWithRole(DATA_REGISTRATION));
         model.addAttribute("customers", customerService.readAll());
-        model.addAttribute("cars", carService.readAll());
+        model.addAttribute("UnleasedReadyCars", carService.readAllUnleasedOnDateWithState(Date.valueOf(LocalDate.now()), READY));
         model.addAttribute("date", LocalDate.now());
         model.addAttribute("leaseOptionalAmounts", optionalService.readLeaseOptionalAmounts());
+
+        System.out.println(employeeService.readAllWithRole(DATA_REGISTRATION).size());
 
         return "data-registrator/create-lease-contract";
     }
@@ -62,7 +64,6 @@ public class DataRegistrationController {
         Date endDate = Date.valueOf(req.getParameter("endDate"));
 
         // todo return to create-damage-report if date dates are inverse or period overlaps with other contracts
-        // todo add env variable so people know
         if (startDate.after(endDate) || startDate.after(endDate)) {
 
         }
@@ -133,7 +134,7 @@ public class DataRegistrationController {
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
 
         model.addAttribute("unleasedCars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
@@ -149,7 +150,7 @@ public class DataRegistrationController {
         // validate employee access
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
@@ -199,6 +200,20 @@ public class DataRegistrationController {
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
         leaseService.delete(leaseID);
         return "redirect:/create-lease-contract";
+    }
+
+    @GetMapping("/edit-customer")
+    public String editCustomer(Model model, @RequestParam int customerID, HttpSession session) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
+            return "redirect:/role-redirect";
+        // session navbar
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+
+        model.addAttribute("customer", customerService.read(customerID));
+
+        return "edit-customer";
     }
 
 

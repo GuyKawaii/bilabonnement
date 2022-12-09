@@ -1,29 +1,20 @@
-<header class="nav-bar" th:fragment="header">
+<header class="nav-bar" th:fragment="header" th:switch="${employeeRole}">
     <img class="logo"
          src="https://res.cloudinary.com/digital-interdan-bilabonnement/image/upload/c_fit,q_80,w_448/v1/Logos/BILABONNEMENT_rgb_mmahqw.png"
          alt="BilabonnementLogo">
 
-    <!--    <div th:if="${employeeRole} == 'DATA_REGISTRATION'">-->
-    <!--        <h1>hello</h1>-->
-    <!--    </div>-->
-
-
     <div class="nav-bar-section">
-        <h3 th:text="${employeeName}">NAVN</h3>
-        <h3 th:if="${employeeRole} == 'ADMINISTRATION'">[Administrator]</h3>
-        <h3 th:if="${employeeRole} == 'DAMAGE_REPORTER'">[Skaderapportør]</h3>
-        <h3 th:if="${employeeRole} == 'DATA_REGISTRATION'">[Data registerer]</h3>
-        <h3 th:if="${employeeRole} == 'BUSINESS_DEVELOPER'">[Forretningsudviklere]</h3>
+        <h3 th:text="|${employeeName} - ${employeeID} ID - ${employeeRole.danish}|"></h3>
     </div>
 
 
-    <div th:if="${employeeRole} == 'ADMINISTRATION'" class="nav-bar-section">
+    <div th:case="ADMINISTRATION" class="nav-bar-section">
         <a th:href="@{/damage-reports}">
             <button>skade rapporter</button>
         </a>
     </div>
 
-    <div th:if="${employeeRole} == 'DAMAGE_REPORTER'" class="nav-bar-section">
+    <div th:case="DAMAGE_REPORTER" class="nav-bar-section">
         <a th:href="@{/damage-reports}">
             <button>skade rapporter</button>
         </a>
@@ -36,7 +27,7 @@
         </a>
     </div>
 
-    <div th:if="${employeeRole} == 'DATA_REGISTRATION'" class="nav-bar-section">
+    <div th:case="DATA_REGISTRATION" class="nav-bar-section">
         <a th:href="@{/damage-reports}">
             <button>opret leasingkontrakt</button>
         </a>
@@ -48,7 +39,7 @@
         </a>
     </div>
 
-    <div th:if="${employeeRole} == 'BUSINESS_DEVELOPER'" class="nav-bar-section">
+    <div th:case="BUSINESS_DEVELOPER" class="nav-bar-section">
         <a th:href="@{/finance}">
             <button>finansiering</button>
         </a>

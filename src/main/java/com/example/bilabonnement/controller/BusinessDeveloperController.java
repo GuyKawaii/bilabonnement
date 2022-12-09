@@ -33,7 +33,7 @@ public class BusinessDeveloperController {
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
 

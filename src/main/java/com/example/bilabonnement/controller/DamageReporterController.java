@@ -31,23 +31,13 @@ public class DamageReporterController {
     // people with access to these pages
     Role[] employeeAccess = new Role[]{DAMAGE_REPORTER, ADMINISTRATION};
 
-
-    //skal HttpSession være i alle parameterlister?
-    /* ^ I de sider hvor user er logget ind ja. User-login er gemt i en cookie
-    som tilgås via session for validering af info. (Ifølge hvad vi gennemgik i klassen?) */
-
-// Autowired Pathvariables til senerebrug (hvis nødvendigt eller sjovt)
-//    @GetMapping("/damage-report/{id}")
-//    public String damageReport(@PathVariable("id") int id, Model model) {
-    //model.addAttribute("damage-report", damageReportService.read(id));
-
     @GetMapping("/damage-reports")
     public String damageReports(Model model, HttpSession session) {
         // validate employee access
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
 
         List<DamageReport> damageReports = damageReportService.readAll();
@@ -63,13 +53,13 @@ public class DamageReporterController {
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
         // form values and reports for help
         model.addAttribute("currentTime", LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-        // todo missing sql to select only for specifik employee
+        model.addAttribute("employees", employeeService.readAllWithRole(DAMAGE_REPORTER));
         model.addAttribute("cars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
         model.addAttribute("damageReports", damageReportService.readAllFromEmployee((int) session.getAttribute("employeeID")));
 
@@ -99,7 +89,7 @@ public class DamageReporterController {
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
@@ -110,19 +100,6 @@ public class DamageReporterController {
         model.addAttribute("cars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
 
         return "damage-registrator/edit-damage-report";
-
-        /*
-
-        virker som om vi skal bruge
-
-        READY_FOR_LEASING
-        RETURNED_FROM_LEASING
-
-        damagereporter sætter bilen READY_FOR_LEASING ved at lave en skaderapport eller toggle billen tjekket
-
-        dataregistrator få liste over bilder der har overstået leasing periode og kan toggle dem til RETURNED_FROM_LEASING
-
-         */
     }
 
     @GetMapping("/delete-damage-report")
@@ -175,11 +152,11 @@ public class DamageReporterController {
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
         // session navbar
-        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
-        model.addAttribute("unleasedReturnedCars", carService.readAllLeasedOnDateWithState(Date.valueOf(LocalDate.now()), RETURNED));
+        model.addAttribute("unleasedReturnedCars", carService.readAllUnleasedOnDateWithState(Date.valueOf(LocalDate.now()), RETURNED));
         model.addAttribute("states", employeeService.getEmployeeStateSelect(DAMAGE_REPORTER));
         model.addAttribute("date", LocalDate.now());
 

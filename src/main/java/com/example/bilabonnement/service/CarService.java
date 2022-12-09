@@ -1,6 +1,7 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.Employee;
 import com.example.bilabonnement.model.enums.DB_CONNECTION;
 import com.example.bilabonnement.model.enums.EquipmentLevel;
 import com.example.bilabonnement.model.enums.Role;
@@ -9,11 +10,9 @@ import com.example.bilabonnement.repository.CarRepository;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import static com.example.bilabonnement.model.enums.State.*;
 import static com.example.bilabonnement.model.enums.State.AT_CUSTOMER;
 
 public class CarService {
@@ -79,7 +78,9 @@ public class CarService {
         return new ArrayList<>(EnumSet.allOf(EquipmentLevel.class));
     }
 
-    public List<Car> readAllLeasedOnDateWithState(Date date, State state) {
-        return carRepository.readAllLeasedOnDateWithState(date, state);
+    public List<Car> readAllUnleasedOnDateWithState(Date date, State state) {
+        return carRepository.readAllUnleasedOnDateWithState(date, state);
     }
+
+
 }
