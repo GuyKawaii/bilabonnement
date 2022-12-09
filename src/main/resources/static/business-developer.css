@@ -2,10 +2,10 @@ body {
     margin: 0;
     background-color: #f2f2f2;
 }
-.main_body {
+.finance-info {
     display: flex;
     flex-direction: column;
-    max-width: 1200px;
+    max-width: 40%;
     margin: auto;
 }
 
