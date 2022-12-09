@@ -138,8 +138,8 @@ WHERE (startDate <= '2022-12-08') AND
 # Used in lease contract with ? instead of dates
 SELECT SUM(monthlyPrice) + IFNULL(SUM(pricePrMonth),0) AS currentIncome
 FROM fullLeaseInfo
-WHERE (startDate <= '2022-12-08') AND
-                   ('2022-12-08' <= endDate);
+WHERE (startDate <= '2022-12-09') AND
+                   ('2022-12-09' <= endDate);
 
 SELECT COUNT(*) AS activeContractCount
 FROM fullLeaseInfo

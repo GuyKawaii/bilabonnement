@@ -122,3 +122,7 @@ label {
     margin-bottom: 9px;
     margin-left: 4px;
 }
+
+.error-message-red {
+    color: red;
+}
