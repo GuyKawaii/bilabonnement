@@ -4,7 +4,6 @@ import com.example.bilabonnement.model.*;
 import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.model.enums.State;
 import com.example.bilabonnement.service.*;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +26,7 @@ public class DamageReporterController {
     DamageEntryService damageEntryService = new DamageEntryService();
     LeaseContractService leaseContractService = new LeaseContractService();
     CarService carService = new CarService();
+    EmployeeService employeeService = new EmployeeService();
 
     // people with access to these pages
     Role[] employeeAccess = new Role[]{DAMAGE_REPORTER, ADMINISTRATION};
@@ -138,7 +138,7 @@ public class DamageReporterController {
         damageEntryService.create(new DamageEntry(
                 req.getParameter("skade"),
                 req.getParameter("beskrivelse"),
-                Double.parseDouble(req.getParameter("pris")),
+                Double.parseDouble(req.getParameter("pris").replace(',', '.')),
                 Integer.parseInt(req.getParameter("damage-report-id"))));
 
         return ("redirect:/edit-damage-report?reportID=" + req.getParameter("damage-report-id"));
@@ -179,13 +179,12 @@ public class DamageReporterController {
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
-        // todo fix readAllLeasedOnDateWithState
-        model.addAttribute("unleasedCars", carService.readAllLeasedOnDateWithState());
-        model.addAttribute("states", carService.getEmployeeStateSelect(DAMAGE_REPORTER));
+        model.addAttribute("unleasedReturnedCars", carService.readAllLeasedOnDateWithState(Date.valueOf(LocalDate.now()), RETURNED));
+        model.addAttribute("states", employeeService.getEmployeeStateSelect(DAMAGE_REPORTER));
+        model.addAttribute("date", LocalDate.now());
 
         return "/damage-registrator/checkout-cars";
     }
-
 
     @PostMapping("/update-damage-state")
     public String updateCarState(WebRequest req) {
@@ -196,6 +195,5 @@ public class DamageReporterController {
 
         return "redirect:/checkout-cars";
     }
-
 
 }

@@ -269,4 +269,44 @@ public class CarRepository implements IGenericRepository<Car> {
             throw new RuntimeException(e);
         }
     }
+
+    public List<Car> readAllLeasedOnDateWithState(Date date, State state) {
+        List<Car> carList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT unleased.*
+                    FROM car unleased
+                    WHERE (unleased.state = ?)
+                      AND unleased.vehicleID NOT IN (SELECT leased.vehicleID
+                                                     FROM car leased
+                                                              join leasecontract l on leased.vehicleID = l.vehicleID
+                                                     WHERE startDate <= ?
+                                                       AND              ? <= endDate)
+                    """);
+            pst.setString(1, state.toString());
+            pst.setDate(2, date);
+            pst.setDate(3, date);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                carList.add(new Car(
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getString("chassisNumber"),
+                        resultSet.getDouble("steelPrice"),
+                        resultSet.getString("brand"),
+                        resultSet.getString("model"),
+                        EquipmentLevel.valueOf(resultSet.getString("equipmentLevel")),
+                        resultSet.getDouble("registrationFee"),
+                        resultSet.getDouble("co2emission"),
+                        State.valueOf(resultSet.getString("state"))));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return carList;
+    }
 }

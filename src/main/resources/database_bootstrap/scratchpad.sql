@@ -264,4 +264,24 @@ FROM leasecontract l
          JOIN car c on c.vehicleID = l.vehicleID
 WHERE l.vehicleID = ?
   AND NOW() < endDate
-ORDER BY endDate
+ORDER BY endDate;
+
+SELECT o.*
+FROM optional o
+         JOIN leaseoptional l on o.optionalID = l.optionalID
+WHERE l.leaseID = 602;
+
+SELECT remaining.*
+FROM optional remaining
+WHERE remaining.optionalID NOT IN (SELECT leaseOptional.optionalID
+                                   FROM optional leaseOptional
+                                            JOIN leaseoptional l on leaseOptional.optionalID = l.optionalID
+                                   WHERE l.leaseID = 602);
+
+
+SELECT SUM(o.pricePrMonth) as sum, COUNT(lo.leaseID) as count
+FROM leasecontract l
+         LEFT JOIN leaseoptional lo on l.leaseID = lo.leaseID
+         LEFT JOIN optional o on o.optionalID = lo.optionalID
+GROUP BY l.leaseID
+ORDER BY l.leaseID ASC;

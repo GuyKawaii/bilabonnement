@@ -20,6 +20,12 @@ body {
     flex: auto;
 }
 
+.content {
+    margin: 0 auto;
+    width: 80%;
+    flex: auto;
+}
+
 table{
     margin: auto;
     border-collapse: collapse;
@@ -101,6 +107,8 @@ h1 {
     align-items: baseline;
 }
 
+.div-w-form
+
 
 
 table-div{
@@ -172,7 +180,7 @@ footer{
     padding: 3px;
 }
 
-.column-div {
+.columns {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

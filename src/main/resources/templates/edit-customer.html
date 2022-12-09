@@ -11,33 +11,33 @@
 
 <header th:replace="fragment/nav-menu.html :: header"></header>
 
-<div class="column-div">
+<div class="columns">
     <div>
         <h2>kunder</h2>
 
         <form action="/update-customer" method="post">
             <label for="customerID">kunde ID:</label><br>
-            <input type="number" name="customerID" th:value="${customer.customerID}" readonly><br>
+            <input type="number" id="customerID" name="customerID" th:value="${customer.customerID}" readonly><br>
             <label for="firstName">fornavn:</label><br>
-            <input type="text" name="firstName" th:value="${customer.firstName}"><br>
+            <input type="text" id="firstName" name="firstName" th:value="${customer.firstName}" required><br>
             <label for="lastName">efternavn:</label><br>
-            <input type="text" name="lastName" th:value="${customer.lastName}"><br>
+            <input type="text" id="lastName" name="lastName" th:value="${customer.lastName}" required><br>
             <label for="email">email:</label><br>
-            <input type="text" name="email" th:value="${customer.email}"><br>
-            <label for="address">city:</label><br>
-            <input type="text" name="address" th:value="${customer.address}"><br>
-            <label for="city">postnr:</label><br>
-            <input type="text" name="city" th:value="${customer.city}"><br>
+            <input type="text" id="email" name="email" th:value="${customer.email}" required><br>
+            <label for="address">adresse:</label><br>
+            <input type="text" id="address" name="address" th:value="${customer.city}" required><br>
+            <label for="city">by:</label><br>
+            <input type="text" id="city" name="city" th:value="${customer.address}" required><br>
             <label for="postalCode">postnr:</label><br>
-            <input type="number" name="postalCode" th:value="${customer.postalCode}"><br>
+            <input type="number" id="postalCode" name="postalCode" th:value="${customer.postalCode}" required><br>
             <label for="mobile">mobil:</label><br>
-            <input type="text" name="mobile" th:value="${customer.mobile}"><br>
+            <input type="text" id="mobile" name="mobile" th:value="${customer.mobile}" required><br>
             <label for="cprNumber">CPR:</label><br>
-            <input type="text" name="cprNumber" th:value="${customer.cprNumber}" maxlength="10"><br>
-<!--            todo change cpr length to correct length-->
-            <button type="update">opdater</button>
+            <input type="text" id="cprNumber" name="cprNumber" th:value="${customer.cprNumber}" maxlength="10" required><br>
+            <!--            todo change cpr length to correct length-->
+            <button type="update">Opdater</button>
         </form>
+    </div>
 </div>
-
 </body>
 </html>

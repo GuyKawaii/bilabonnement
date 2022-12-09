@@ -79,21 +79,7 @@ public class CarService {
         return new ArrayList<>(EnumSet.allOf(EquipmentLevel.class));
     }
 
-    public List<Car> readAllLeasedOnDateWithState() {
-        return carRepository.readAll();
-    }
-
-    public List<State> getEmployeeStateSelect(Role role) {
-        switch (role) {
-            case DATA_REGISTRATION -> {
-                return new ArrayList<State>(Arrays.asList(RETURNED, AT_CUSTOMER));
-            }
-            case DAMAGE_REPORTER -> {
-                return new ArrayList<State>(Arrays.asList(READY));
-            }
-            default -> {
-                return null;
-            }
-        }
+    public List<Car> readAllLeasedOnDateWithState(Date date, State state) {
+        return carRepository.readAllLeasedOnDateWithState(date, state);
     }
 }

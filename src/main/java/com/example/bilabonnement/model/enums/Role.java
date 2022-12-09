@@ -2,8 +2,21 @@ package com.example.bilabonnement.model.enums;
 
 // used for website access
 public enum Role {
-    ADMINISTRATION,
-    DAMAGE_REPORTER,
-    DATA_REGISTRATION,
-    BUSINESS_DEVELOPER
+    // Storing name
+    ADMINISTRATION("Administrator"),
+    DAMAGE_REPORTER("Skaderapportør"),
+    DATA_REGISTRATION("Data registerer"),
+    BUSINESS_DEVELOPER("Forretningsudviklere");
+
+    // Storing name
+    private String string;
+
+    // constructor to set the string
+    Role(String name) {
+        string = name;
+    }
+
+    public String danish() {
+        return string;
+    }
 }

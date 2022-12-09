@@ -22,15 +22,15 @@
                 </th>
             </tr>
             <tr>
-                <th>ID</th>
-                <th>Start date</th>
-                <th>End date</th>
-                <th>Monthly price</th>
-                <th>Customer ID</th>
-                <th>Vehicle ID</th>
-                <th>Employee ID</th>
+                <th>Lease ID</th>
+                <th>Start Dato</th>
+                <th>Slut Dato</th>
+                <th>Månedlig Pris</th>
+                <th>Kunde ID</th>
+                <th>Vognnummer ID</th>
+                <th>Medarbejder ID</th>
             </tr>
-            <tr th:each="contract : ${upcomingContracts}">
+            <tr th:each="contract : ${upcoming_contracts}">
                 <td th:text="${contract.leaseID}"></td>
                 <td th:text="${contract.startDate}"></td>
                 <td th:text="${contract.endDate}"></td>
@@ -50,15 +50,15 @@
                 </th>
             </tr>
             <tr>
-                <th>ID</th>
-                <th>Start date</th>
-                <th>End date</th>
-                <th>Monthly price</th>
-                <th>Customer ID</th>
-                <th>Vehicle ID</th>
-                <th>Employee ID</th>
+                <th>Lease ID</th>
+                <th>Start Dato</th>
+                <th>Slut Dato</th>
+                <th>Månedlig Pris</th>
+                <th>Kunde ID</th>
+                <th>Vognnummer ID</th>
+                <th>Medarbejder ID</th>
             </tr>
-            <tr th:each="contract : ${activeContracts}">
+            <tr th:each="contract : ${active_contracts}">
                 <td th:text="${contract.leaseID}"></td>
                 <td th:text="${contract.startDate}"></td>
                 <td th:text="${contract.endDate}"></td>
@@ -78,15 +78,15 @@
                 </th>
             </tr>
             <tr>
-                <th>ID</th>
-                <th>Start date</th>
-                <th>End date</th>
-                <th>Monthly price</th>
-                <th>Customer ID</th>
-                <th>Vehicle ID</th>
-                <th>Employee ID</th>
+                <th>Lease ID</th>
+                <th>Start Dato</th>
+                <th>Slut Dato</th>
+                <th>Månedlig Pris</th>
+                <th>Kunde ID</th>
+                <th>Vognnummer ID</th>
+                <th>Medarbejder ID</th>
             </tr>
-            <tr th:each="contract : ${passedContracts}">
+            <tr th:each="contract : ${passed_contracts}">
                 <td th:text="${contract.leaseID}"></td>
                 <td th:text="${contract.startDate}"></td>
                 <td th:text="${contract.endDate}"></td>
@@ -97,7 +97,7 @@
             </tr>
         </table>
     </div>
-
+</div>
 
 </body>
 </html>

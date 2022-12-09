@@ -11,27 +11,27 @@
 
 <header th:replace="fragment/nav-menu.html :: header"></header>
 
-<div class="column-div">
+<div class="columns">
 
     <div>
         <h2>opret kunde</h2>
         <form action="/create-customer" method="post">
-            <label for="firstName">fornavn:</label><br>
-            <input type="text" name="firstName" required><br>
-            <label for="lastName">efternavn:</label><br>
-            <input type="text" name="lastName" required><br>
+            <label for="firstName">Fornavn:</label><br>
+            <input type="text" id="firstName" name="firstName" required><br>
+            <label for="lastName">Efternavn:</label><br>
+            <input type="text" id="lastName" name="lastName" required><br>
             <label for="email">email:</label><br>
-            <input type="text" name="email" required><br>
-            <label for="address">city:</label><br>
-            <input type="text" name="address" required><br>
-            <label for="city">postnr:</label><br>
-            <input type="text" name="city" required><br>
-            <label for="postalCode">postnr:</label><br>
-            <input type="number" name="postalCode" required><br>
+            <input type="text" id="email" name="email" required><br>
+            <label for="address">adresse:</label><br>
+            <input type="text" id="address" name="address" required><br>
+            <label for="city">by:</label><br>
+            <input type="text" id="city" name="city" required><br>
+            <label for="postalCode">Postnr:</label><br>
+            <input type="number" id="postalCode" name="postalCode" required><br>
             <label for="mobile">mobil:</label><br>
-            <input type="text" name="mobile" required><br>
-            <label for="cprNumber" required>CPR:</label><br>
-            <input type="text" name="cprNumber" maxlength="10" required><br>
+            <input type="text" id="mobile" name="mobile" required><br>
+            <label for="cprNumber">CPR:</label><br>
+            <input type="text" id="cprNumber" name="cprNumber" maxlength="10" required><br>
             <!--            todo change cpr length to correct length-->
             <button type="update">opret</button>
         </form>

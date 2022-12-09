@@ -130,7 +130,7 @@ public class CustomerRepository implements IGenericRepository<Customer> {
             psts.setString(8, customer.getCprNumber());
             psts.setInt(9, customer.getCustomerID());
             psts.executeUpdate();
-
+            psts.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

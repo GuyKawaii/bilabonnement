@@ -10,73 +10,76 @@
 
 <header th:replace="fragment/nav-menu.html :: header"></header>
 
-<div id="content">
-    <h1>skaderapport</h1>
+<h1>skaderapport</h1>
 
-    <form action="/update-damage-report" method="post">
-        <label for="damageReportID">rapport ID:</label><br>
-        <input type="text" name="damageReportID" th:value="${damageReport.damageReportID}" readonly><br>
-        <label for="employeeID">medarbejder ID:</label><br>
-        <input type="text" name="employeeID" th:value="${damageReport.employeeID}" readonly><br>
-        <label for="vehicleID">vogn ID:</label><br>
-        <select name="vehicleID"><br>
-            <option th:value="${damageReport.vehicleID}"
-                    th:text="|${damageReport.vehicleID} - nuværende|"
-                    selected="selected">
-            </option>
-            <option th:each="car: ${cars}"
-                    th:value="${car.vehicleID}"
-                    th:text="|${car.vehicleID} - uden aktiv leasing|">
-            </option>
-        </select><br>
-        <label for="timestamp">timestamp:</label><br>
-        <input type="datetime-local" name="timestamp" th:value="${damageReport.timestamp}">
-        <button type="update">opdater</button>
-    </form>
+<div class="columns">
 
-    <h3>tilføj skade</h3>
+    <div class="column">
+        <form action="/update-damage-report" method="post">
+            <label for="damageReportID">rapport ID:</label><br>
+            <input type="text" name="damageReportID" id="damageReportID" th:value="${damageReport.damageReportID}" readonly><br>
+            <label for="employeeID">medarbejder ID:</label><br>
+            <input type="text" name="employeeID" id="employeeID" th:value="${damageReport.employeeID}" readonly><br>
+            <label for="vehicleID">vogn ID:</label><br>
+            <select name="vehicleID" id="vehicleID"><br>
+                <option th:value="${damageReport.vehicleID}"
+                        th:text="|${damageReport.vehicleID} - nuværende|"
+                        selected="selected">
+                </option>
+                <option th:each="car: ${cars}"
+                        th:value="${car.vehicleID}"
+                        th:text="|${car.vehicleID} - uden aktiv leasing|">
+                </option>
+            </select><br>
+            <label for="timestamp">timestamp:</label><br>
+            <input type="datetime-local" id="timestamp" name="timestamp" th:value="${damageReport.timestamp}">
+            <button type="update">opdater</button>
+        </form>
 
-    <form action="/create-damage-entry" method="post">
-        <label for="skade">skade</label><br>
-        <input type="text" name="skade" required><br>
-        <label for="beskrivelse">beskrivelse</label><br>
-        <input type="text" name="beskrivelse" required><br>
-        <label for="pris">pris</label><br>
-        <input type="number" name="pris" required><br>
-        <input type="hidden" name="damage-report-id" th:value="${damageReport.damageReportID}"><br>
-        <button type="submit">create</button>
-    </form>
+        <h3>tilføj skade</h3>
 
-    <h3>damages</h3>
+        <form action="/create-damage-entry" method="post">
+            <label for="skade">skade</label><br>
+            <input type="text" name="skade" id="skade" required><br>
+            <label for="beskrivelse">beskrivelse</label><br>
+            <input type="text" name="beskrivelse" id="beskrivelse" required><br>
+            <label for="pris">pris</label><br>
+            <input type="price" name="pris" id="pris" placeholder="0.00" required><br>
+            <input type="hidden" name="damage-report-id" th:value="${damageReport.damageReportID}"><br>
+            <button type="submit">create</button>
+        </form>
+    </div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>skade</th>
-            <th>beskrivelse</th>
-            <th>pris</th>
-            <th>slet</th>
-        </tr>
-        </thead>
-        <tbody>
+    <div class="column">
+        <h3>damages</h3>
 
-        <tr th:each="entry : ${damageEntries}">
-            <td th:text="${entry.damageEntryID}"></td>
-            <td th:text="${entry.damageTitle}"></td>
-            <td th:text="${entry.damageDescription}"></td>
-            <td th:text="${entry.damagePrice}"></td>
-            <td>
-                <a th:href="@{'/delete-entry?entryID='+${entry.damageEntryID}+'&reportID='+${damageReport.damageReportID}}">
-                    <button class="btn-delete" id="btn-delete">SLET</button>
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <span th:if="${#lists.isEmpty(damageEntries)}">
-        <td>IGEN SKADE TILFØJET</td>
-    </span>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>skade</th>
+                <th>beskrivelse</th>
+                <th>pris</th>
+                <th>slet</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="entry : ${damageEntries}">
+                <td th:text="${entry.damageEntryID}"></td>
+                <td th:text="${entry.damageTitle}"></td>
+                <td th:text="${entry.damageDescription}"></td>
+                <td th:text="${entry.damagePrice}"></td>
+                <td>
+                    <a th:href="@{'/delete-entry?entryID='+${entry.damageEntryID}+'&reportID='+${damageReport.damageReportID}}">
+                        <button class="btn-delete" id="btn-delete">SLET</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <span th:if="${#lists.isEmpty(damageEntries)}">IGEN SKADE TILFØJET</span>
+    </div>
 
 </div>
 
