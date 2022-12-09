@@ -149,6 +149,10 @@ public class DataRegistrationController {
         // validate employee access
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
+        model.addAttribute("employeeRole", ((Role) session.getAttribute("employeeRole")).toString());
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
+
 
         model.addAttribute("car", carService.read(vehicleID));
         model.addAttribute("states", carService.getCarStates());
