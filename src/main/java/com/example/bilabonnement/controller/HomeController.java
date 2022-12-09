@@ -51,8 +51,8 @@ public class HomeController {
 
         // invalid password or employee
         if (employee == null) {
-            model.addAttribute("invalidCredentials", "true"); // todo does not work when using th:if?
-            return "redirect:/";
+            model.addAttribute("invalidCredentials", true);
+            return "index";
 
         } else {
             // add session keys
