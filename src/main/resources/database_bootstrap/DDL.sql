@@ -71,6 +71,8 @@ CREATE TABLE IF NOT EXISTS car
 
 # tables with foreign key constraints #
 
+
+
 CREATE TABLE IF NOT EXISTS leaseContract
 (
     leaseID      int AUTO_INCREMENT,
@@ -140,6 +142,15 @@ CREATE TABLE IF NOT EXISTS damageEntry
         ON DELETE CASCADE
 );
 
+### make View  ###
+
+use bilabonnement
+create view fullLeaseInfo AS
+SELECT leasecontract.*, optional.*
+FROM leasecontract LEFT JOIN leaseoptional
+                             ON leasecontract.leaseID = leaseoptional.leaseID
+                   LEFT JOIN optional
+                             ON leaseoptional.optionalID = optional.optionalID;
 
 
 
