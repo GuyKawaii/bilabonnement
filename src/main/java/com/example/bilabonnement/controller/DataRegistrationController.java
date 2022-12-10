@@ -63,8 +63,13 @@ public class DataRegistrationController {
 
         // todo return to create-damage-report if date dates are inverse or period overlaps with other contracts
         // todo add env variable so people know
-        if (startDate.after(endDate) || startDate.after(endDate)) {
 
+        // add a check method in service layer that returns a boolean on startdate/enddate validity.
+        // and then proceeds to redirect if that's the case`?
+        // ...nvm
+
+        if (startDate.after(endDate) || startDate.before(endDate)) {
+            return "redirect:/create-lease-contract";
         }
 
         // create leaseContract
