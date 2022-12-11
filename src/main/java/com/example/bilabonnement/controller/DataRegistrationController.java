@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
@@ -17,6 +18,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.bilabonnement.model.enums.Role.ADMINISTRATION;
 import static com.example.bilabonnement.model.enums.Role.DATA_REGISTRATION;
@@ -36,7 +38,21 @@ public class DataRegistrationController {
 
 
     @GetMapping("/create-lease-contract")
-    public String registrationPage(HttpSession session, Model model) {
+    public String registrationPage(@RequestParam(required = false) String error, HttpSession session, Model model) {
+        // check if redirected from /make_contract because of invalid date
+        if (Objects.equals(error, "dateError")) {
+            model.addAttribute("postDateCheck", true);
+        } else {
+            model.addAttribute("postDateCheck", false);
+        }
+
+        if (Objects.equals(error, "activeContractError")) {
+            model.addAttribute("postOverlapCheck", true);
+        } else {
+            model.addAttribute("postOverlapCheck", false);
+        }
+
+
         // validate employee access
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
@@ -57,19 +73,19 @@ public class DataRegistrationController {
     }
 
     @PostMapping("/make_contract")
-    public String makeContract(HttpSession session, WebRequest req, Model model) {
+    public String makeContract(HttpSession session, WebRequest req, RedirectAttributes redirectAttributes) {
         Date startDate = Date.valueOf(req.getParameter("startDate"));
         Date endDate = Date.valueOf(req.getParameter("endDate"));
 
-        // todo return to create-damage-report if date dates are inverse or period overlaps with other contracts
-        // todo add env variable so people know
-
-        // add a check method in service layer that returns a boolean on startdate/enddate validity.
-        // and then proceeds to redirect if that's the case`?
-        // ...nvm
-
-        if (startDate.after(endDate) || startDate.before(endDate)) {
-            return "redirect:/create-lease-contract";
+        // Date validation
+        if (startDate.after(endDate) || endDate.before(startDate))
+            return ("redirect:/create-lease-contract" + "?error=dateError");
+        // Contract overlap validation
+        if (leaseService.hasContractOverlapForPeriod(
+                Integer.parseInt(req.getParameter("vehicleID")),
+                startDate,
+                endDate)) {
+            return ("redirect:/create-lease-contract" + "?error=activeContractError");
         }
 
         // create leaseContract

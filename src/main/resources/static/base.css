@@ -187,3 +187,7 @@ footer{
     justify-content: space-evenly;
     align-items: baseline;
 }
+
+.red-error-color {
+    color: red;
+}
