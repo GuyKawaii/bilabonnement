@@ -79,4 +79,8 @@ public class LeaseContractService {
 
         return leaseOptionals;
     }
+
+    public boolean hasContractOverlapForPeriod(int vehicleID, Date startDate, Date endDate) {
+        return leaseContractRepo.hasContractOverlapForPeriod( vehicleID,  startDate,  endDate);
+    }
 }

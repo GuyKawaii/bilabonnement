@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS leaseContract
     FOREIGN KEY (employeeID)
         REFERENCES employee (employeeID)
         ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS leaseOptional
