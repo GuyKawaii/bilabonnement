@@ -1,7 +1,7 @@
 *, html {
     box-sizing: border-box;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
 
 /* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
@@ -10,24 +10,21 @@ html {
     -webkit-text-size-adjust: 100%
 }
 
+/* website background */
 body {
     margin: 0px;
     background-color: #f2f2f2;
 }
 
+/* to center content on website */
 #content {
     margin: 0 auto;
     width: 80%;
     flex: auto;
 }
 
-.content {
-    margin: 0 auto;
-    width: 80%;
-    flex: auto;
-}
-
-table{
+/*  */
+table {
     margin: auto;
     border-collapse: collapse;
     border-spacing: 30px;
@@ -36,7 +33,7 @@ table{
 }
 
 /*styles for table header (colours picked from their primary website)*/
-th{
+th {
     border: 1px solid black;
     text-align: center;
     font-family: "sans-serif Bold";
@@ -45,33 +42,19 @@ th{
     padding: 2px;
 }
 
-td{
+td {
     border: 1px solid black;
     text-align: center;
     padding: 2px;
 }
 
-.tdsize {
-    padding: 4px;
-}
-
-/*style for table row (with every 2nd being coloured)*/
-tr:nth-child(even){
+/* style for table row (with every 2nd being coloured) */
+tr:nth-child(even) {
     background-color: #cccccc;
-
 }
-
-ul {
-     list-style-type: none;
-     margin: 0 5% 0 5%;
-     padding: 0;
-     overflow: hidden;
-     background-size: cover;
-     background: #1892c3;
- }
 
 li {
-    float:left;
+    float: left;
     background: #1892c3;
 }
 
@@ -95,12 +78,7 @@ h1 {
     text-align: center;
 }
 
-/* TODO: MÅSKE FJERNES!!!-*/
-.big-div {
-    margin: 0 5% 0 5%;
-}
-
-#formdiv{
+#formdiv {
     padding: 5px;
     display: flex;
     flex-direction: row;
@@ -109,10 +87,12 @@ h1 {
 }
 
 .div-w-form
+body {
+    margin: 0;
+    background-color: #f2f2f2;
+}
 
-
-
-table-div{
+table-div {
     padding: 15px;
     display: flex;
     flex-direction: row;
@@ -120,7 +100,8 @@ table-div{
     align-items: baseline;
 
 }
-#optionalsdiv{
+
+#optionalsdiv {
     padding: 15px;
     display: flex;
     flex-direction: column;
@@ -154,34 +135,7 @@ button {
     padding: 3px 14px;
 }
 
-/* TODO: MÅSKE FJERNES!!!-*/
-.bluebackground {
-    background: rgba(24, 146, 195, 0.3);
-}
-
-
-/* TODO: MÅSKE FJERNES!!!-*/
-footer{
-    bottom: 0;
-    background-color: rgba(255,2555,255,0.3);
-    left: 0;
-    height: 100px;
-    overflow: auto;
-    margin: 0 5% 0 5%;
-}
-
-/* TODO: MÅSKE FJERNES!!!-*/
-.footer-text{
-    text-align: center;
-    height: auto;
-    padding: 10px;
-    margin: 2px;
-}
-
-.deletesize {
-    padding: 3px;
-}
-
+/* to create columns */
 .columns {
     display: flex;
     flex-direction: row;
@@ -193,3 +147,5 @@ footer{
 .red-error-color {
     color: red;
 }
+
+/* specific for finance page */

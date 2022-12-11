@@ -1,5 +1,5 @@
 
-
+/* */
 .finance-info {
     display: flex;
     flex-direction: column;
@@ -23,6 +23,7 @@ header h1 {
     font-family: monospace;
 }
 
+/* Minipadding for finance-info spacing */
 .mini-padding {
     padding: 5px;
 }

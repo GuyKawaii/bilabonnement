@@ -113,8 +113,6 @@ public class HomeController {
         return "/data-registrator/customers";
     }
 
-
-
     @PostMapping("update-customer")
     public String updateCustomer(WebRequest req) {
 
@@ -161,7 +159,6 @@ public class HomeController {
         // session navbar
         model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
-
 
         model.addAttribute("upcoming_contracts", leaseService.readUpcomingLeaseContractsByVehicleID(vehicleID, Date.valueOf(LocalDate.now())));
         model.addAttribute("active_contracts", leaseService.readActiveLeaseContracts(vehicleID, Date.valueOf(LocalDate.now())));
