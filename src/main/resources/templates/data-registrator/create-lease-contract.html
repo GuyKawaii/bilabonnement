@@ -89,6 +89,8 @@
             </tr>
             <tr>
                 <th>Lease ID</th>
+                <th>Medarbejder ID</th>
+                <th>Kunde ID</th>
                 <th>Startdato</th>
                 <th>Slutdato</th>
                 <th>Vognnummer</th>
@@ -101,6 +103,8 @@
             </tr>
             <tr th:each="contract, iter_stat : ${leaseContracts}">
                 <td th:text="${contract.leaseID}"></td>
+                <td th:text="${contract.employeeID}"></td>
+                <td th:text="${contract.customerID}"></td>
                 <td th:text="${contract.startDate}"></td>
                 <td th:text="${contract.endDate}"></td>
                 <td th:text="${contract.vehicleID}"></td>
