@@ -362,6 +362,45 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         return count;
     }
 
+    public boolean hasContractOverlapForPeriod(int vehicleID, Date startDate, Date endDate) {
+        List<LeaseContract> contractList = new ArrayList<>();
+
+        try {
+            // get contracts that have an active overlap with the given period
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT l.*
+                    FROM leasecontract l
+                             JOIN car c on c.vehicleID = l.vehicleID
+                    WHERE l.vehicleID = ?
+                      AND (
+                            (? < l.endDate
+                              OR l.startDAte < ?))
+                    """);
+
+            pst.setInt(1, vehicleID);
+            pst.setDate(2, startDate);
+            pst.setDate(3, endDate);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                contractList.add(new LeaseContract(
+                        resultSet.getInt("leaseID"),
+                        resultSet.getDate("startDate"),
+                        resultSet.getDate("endDate"),
+                        resultSet.getDouble("monthlyPrice"),
+                        resultSet.getInt("customerID"),
+                        resultSet.getInt("vehicleID"),
+                        resultSet.getInt("employeeID")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return (0 < contractList.size());
+    }
 
 }
 

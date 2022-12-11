@@ -33,7 +33,6 @@ public class DataRegistrationController {
     OptionalService optionalService = new OptionalService();
 
     // people with access to these pages
-    // people with access to these pages
     Role[] employeeAccess = new Role[]{DATA_REGISTRATION, ADMINISTRATION};
 
 

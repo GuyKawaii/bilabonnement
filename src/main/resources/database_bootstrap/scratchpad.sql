@@ -92,8 +92,8 @@ GROUP BY leasecontract.leaseID;
 # Do we join this table?
 SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_income
 FROM leasecontract,
-    optional,
-    leaseoptional
+     optional,
+     leaseoptional
 WHERE leasecontract.leaseID = leaseoptional.leaseID
   AND leaseoptional.optionalID = optional.optionalID
 GROUP BY leasecontract.leaseID;
@@ -101,19 +101,21 @@ GROUP BY leasecontract.leaseID;
 
 
 SELECT leasecontract.*, optional.*
-FROM leasecontract LEFT JOIN leaseoptional
-    ON leasecontract.leaseID = leaseoptional.leaseID
-LEFT JOIN optional
-    ON leaseoptional.optionalID = optional.optionalID;
+FROM leasecontract
+         LEFT JOIN leaseoptional
+                   ON leasecontract.leaseID = leaseoptional.leaseID
+         LEFT JOIN optional
+                   ON leaseoptional.optionalID = optional.optionalID;
 
 use bilabonnement;
 
 create view fullLeaseInfo AS
 SELECT leasecontract.*, optional.*
-FROM leasecontract LEFT JOIN leaseoptional
-ON leasecontract.leaseID = leaseoptional.leaseID
-LEFT JOIN optional
-ON leaseoptional.optionalID = optional.optionalID;
+FROM leasecontract
+         LEFT JOIN leaseoptional
+                   ON leasecontract.leaseID = leaseoptional.leaseID
+         LEFT JOIN optional
+                   ON leaseoptional.optionalID = optional.optionalID;
 
 SELECT monthlyPrice, sum(pricePrMonth) as fullIncome
 FROM fullLeaseInfo
@@ -121,7 +123,8 @@ group by leaseID;
 
 SELECT SUM(monthlyPrice) + SUM(pricePrMonth) AS currentIncome
 from fullLeaseInfo
-where startDate <= ? and endDate >= ?;
+where startDate <= ?
+  and endDate >= ?;
 
 SELECT SUM(monthlyPrice) + SUM(pricePrMonth) AS currentIncome
 from fullLeaseInfo;
@@ -129,22 +132,24 @@ from fullLeaseInfo;
 SELECT SUM(monthlyPrice)
 from fullLeaseInfo;
 
-SELECT * FROM fullLeaseInfo;
+SELECT *
+FROM fullLeaseInfo;
 
-SELECT * FROM fullLeaseInfo
-WHERE (startDate <= '2022-12-08') AND
-    ('2022-12-08' <= endDate);
+SELECT *
+FROM fullLeaseInfo
+WHERE (startDate <= '2022-12-08')
+  AND ('2022-12-08' <= endDate);
 
 # Used in lease contract with ? instead of dates
-SELECT SUM(monthlyPrice) + IFNULL(SUM(pricePrMonth),0) AS currentIncome
+SELECT SUM(monthlyPrice) + IFNULL(SUM(pricePrMonth), 0) AS currentIncome
 FROM fullLeaseInfo
-WHERE (startDate <= '2022-12-09') AND
-                   ('2022-12-09' <= endDate);
+WHERE (startDate <= '2022-12-09')
+  AND ('2022-12-09' <= endDate);
 
 SELECT COUNT(*) AS activeContractCount
 FROM fullLeaseInfo
-WHERE (startDate <= ?) AND
-    (? <= endDate);
+WHERE (startDate <= ?)
+  AND (? <= endDate);
 
 SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_income
 FROM leasecontract,
@@ -159,15 +164,15 @@ SELECT l.leaseID, SUM(o.pricePrMonth) as Total_income
 FROM leasecontract,
      optional,
      leaseoptional
-left join leasecontract l
-    on leaseoptional.leaseID = l.leaseID
-INNER JOIN optional o
-    on leaseoptional.optionalID = o.optionalID
+         left join leasecontract l
+                   on leaseoptional.leaseID = l.leaseID
+         INNER JOIN optional o
+                    on leaseoptional.optionalID = o.optionalID
 GROUP BY l.leaseID;
 
 SELECT
-
-AND (leasecontract.startDate <= ? AND leasecontract.endDate >= ?)
+    AND
+    (leasecontract.startDate <= ? AND leasecontract.endDate >= ?)
 
 SELECT leasecontract.monthlyPrice + SUM(optional.pricePrMonth) as Total_income
 FROM leasecontract,
@@ -186,9 +191,9 @@ WHERE leasecontract.leaseID = leaseoptional.leaseID
   AND (startDate < ? AND endDate > ?)
 GROUP BY leasecontract.leaseID;
 
-SELECT  leasecontract.leaseID, optional.pricePrmonth
+SELECT leasecontract.leaseID, optional.pricePrmonth
 FROM leaseoptional
-JOIN lease
+         JOIN lease
 # base price
 SELECT leasecontract.monthlyPrice
 FROM leaseContract
@@ -285,3 +290,14 @@ FROM leasecontract l
          LEFT JOIN optional o on o.optionalID = lo.optionalID
 GROUP BY l.leaseID
 ORDER BY l.leaseID ASC;
+
+
+SELECT l.*
+FROM leasecontract l
+         JOIN car c on c.vehicleID = l.vehicleID
+WHERE l.vehicleID = ?
+  AND (
+    (? < l.endDate
+        OR l.startDAte < ?))
+
+ORDER BY startDate DESC
