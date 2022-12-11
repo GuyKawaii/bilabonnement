@@ -91,12 +91,11 @@
                 <th>Lease ID</th>
                 <th>Startdato</th>
                 <th>Slutdato</th>
-                <th>Månedlig Pris</th>
-                <th>Kunde ID</th>
                 <th>Vognnummer</th>
-                <th>Medarbejder ID</th>
+                <th>Leasing pris</th>
+                <th>Tilvalg pris</th>
                 <th>Tilvalg antal</th>
-                <th>Tilvalg Sum</th>
+                <th>Samlet månedlig Pris</th>
                 <th>Rediger</th>
                 <th>Delete</th>
             </tr>
@@ -104,12 +103,11 @@
                 <td th:text="${contract.leaseID}"></td>
                 <td th:text="${contract.startDate}"></td>
                 <td th:text="${contract.endDate}"></td>
-                <td th:text="${contract.monthlyPrice}"></td>
-                <td th:text="${contract.customerID}"></td>
                 <td th:text="${contract.vehicleID}"></td>
-                <td th:text="${contract.employeeID}"></td>
-                <td th:text="${leaseOptionalAmounts[iter_stat.index][0]}"></td>
-                <td th:text="${leaseOptionalAmounts[iter_stat.index][1]}"></td>
+                <td th:text="${contract.monthlyPrice}"></td>
+                <td th:text="${contract.optionalsPrice}"></td>
+                <td th:text="${contract.getOptionalsAmount}"></td>
+                <td th:text="${contract.totalMonthlyPrice}"></td>
                 <td>
                     <form method="get" action="/edit-lease-contract">
                         <input type="hidden" name="leaseID" th:value="${contract.leaseID}">

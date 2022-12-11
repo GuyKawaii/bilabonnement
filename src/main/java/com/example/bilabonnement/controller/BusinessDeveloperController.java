@@ -4,7 +4,6 @@ package com.example.bilabonnement.controller;
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.enums.Role;
 import com.example.bilabonnement.service.CarService;
-import com.example.bilabonnement.model.Employee;
 import com.example.bilabonnement.model.LeaseContract;;
 import com.example.bilabonnement.service.EmployeeService;
 import com.example.bilabonnement.service.LeaseContractService;
@@ -24,7 +23,7 @@ public class BusinessDeveloperController {
     CarService carService = new CarService();
     LeaseContractService leaseContractService = new LeaseContractService();
 
-    // people with access to these pages
+    // people with access to these pages todo change to only use one Role for check
     Role[] employeeAccess = new Role[]{BUSINESS_DEVELOPER, ADMINISTRATION};
 
     @GetMapping("/finance")
@@ -37,31 +36,15 @@ public class BusinessDeveloperController {
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
-        List<LeaseContract> leaseContracts = leaseContractService.readAll();
-        String name = (String) session.getAttribute("employeeName");
-        int id = (int) session.getAttribute("employeeID");
-        String email = (String) session.getAttribute("employeeEmail");
-        double currentIncome = leaseContractService.getCurrentIncome();
-
-        List<Car> leasedCars = carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now()));
-        System.out.println(Date.valueOf(LocalDate.now()));
-        int numOfLeasedCars = carService.getLeasedCarsAmountOnDate(Date.valueOf(LocalDate.now()));
-        int activeLeaseContractCountByDate = (int) leaseContractService.activeLeaseContractsByDate(Date.valueOf(LocalDate.now()));
-
-        // TODO Fix this after asking for definitive session/cookie usage help
-        // Blocked 'cause of the undefined
-
-        model.addAttribute("nameOfUser", name);
-        model.addAttribute("idOfUser", id);
-        model.addAttribute("emailOfUser", email);
-        model.addAttribute("leasedCars", leasedCars);
-        model.addAttribute("numberOfLeasedCars", numOfLeasedCars);
-        model.addAttribute("activeContractsCount", activeLeaseContractCountByDate);
-        model.addAttribute("currentIncome", currentIncome);
+        // other attributes
+        model.addAttribute("leasedCars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
+        model.addAttribute("numberOfLeasedCars", carService.getLeasedCarsAmountOnDate(Date.valueOf(LocalDate.now())));
+        model.addAttribute("activeContractsCount", (int) leaseContractService.activeLeaseContractsByDate(Date.valueOf(LocalDate.now())));
+        model.addAttribute("currentIncome", leaseContractService.getCurrentIncome());
         model.addAttribute("unleased_cars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
         model.addAttribute("leased_cars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
 
-        return "business-developer";
+        return "buisness-developer/business-developer";
     }
 
 }

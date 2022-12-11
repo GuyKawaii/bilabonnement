@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class LeaseContract {
@@ -18,7 +17,7 @@ public class LeaseContract {
     private List<Optional> leaseOptionals;
 
 
-    public LeaseContract(Integer leaseID, Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID) {
+    public LeaseContract(Integer leaseID, Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID, List<Optional> leaseOptionals) {
         this.leaseID = leaseID;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -26,15 +25,17 @@ public class LeaseContract {
         this.customerID = customerID;
         this.vehicleID = vehicleID;
         this.employeeID = employeeID;
+        this.leaseOptionals = leaseOptionals;
     }
 
-    public LeaseContract(Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID) {
+    public LeaseContract(Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID, List<Optional> leaseOptionals) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.monthlyPrice = monthlyPrice;
         this.customerID = customerID;
         this.vehicleID = vehicleID;
         this.employeeID = employeeID;
+        this.leaseOptionals = leaseOptionals;
     }
 
     public int getMonths() {
@@ -96,6 +97,31 @@ public class LeaseContract {
 
     public void setEmployeeID(int employeeID) {
         this.employeeID = employeeID;
+    }
+
+    public List<Optional> getLeaseOptionals() {
+        return leaseOptionals;
+    }
+
+    public void setLeaseOptionals(List<Optional> leaseOptionals) {
+        this.leaseOptionals = leaseOptionals;
+    }
+
+    public double totalMonthlyPrice() {
+        return  monthlyPrice + optionalsPrice();
+    }
+
+    public double optionalsPrice() {
+        double optionalPrice = 0;
+
+        // add optional price
+        for (Optional optional: leaseOptionals) optionalPrice += optional.getPricePrMonth();
+
+        return optionalPrice;
+    }
+
+    public int getOptionalsAmount() {
+        return leaseOptionals.size();
     }
 
     @Override

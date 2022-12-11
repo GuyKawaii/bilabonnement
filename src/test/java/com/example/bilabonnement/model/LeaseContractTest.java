@@ -12,9 +12,9 @@ class LeaseContractTest {
     @Test
     void testGetMonths() {
         // arrange
-        LeaseContract dayAbove = new LeaseContract(1, Date.valueOf("2020-01-1"), Date.valueOf("2020-04-01"), 1, 1, 1, 1);
-        LeaseContract threeMonths = new LeaseContract(1, Date.valueOf("2020-01-1"), Date.valueOf("2020-03-31"), 1, 1, 1, 1);
-        LeaseContract dayBelow = new LeaseContract(1, Date.valueOf("2020-01-1"), Date.valueOf("2020-03-30"), 1, 1, 1, 1);
+        LeaseContract dayAbove = new LeaseContract(1, Date.valueOf("2020-01-1"), Date.valueOf("2020-04-01"), 1, 1, 1, 1,  null);
+        LeaseContract threeMonths = new LeaseContract(1, Date.valueOf("2020-01-1"), Date.valueOf("2020-03-31"), 1, 1, 1, 1, null);
+        LeaseContract dayBelow = new LeaseContract(1, Date.valueOf("2020-01-1"), Date.valueOf("2020-03-30"), 1, 1, 1, 1, null);
         int expected = 3;
 
         // act

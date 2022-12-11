@@ -22,13 +22,15 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         conn = DatabaseConnectionManager.getConnection(db_connection);
     }
 
-
     @Override
     public void create(LeaseContract leaseContract) {
+        int leaseID;
+
         // with or without predefined ID;
         try {
             PreparedStatement psts;
             if (leaseContract.getLeaseID() == null) {
+                // update leasecontract table
                 psts = conn.prepareStatement(
                         "INSERT INTO leasecontract (startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID) VALUES (?,?,?,?,?,?)");
                 psts.setDate(1, leaseContract.getStartDate());
@@ -37,8 +39,16 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                 psts.setInt(4, leaseContract.getCustomerID());
                 psts.setInt(5, leaseContract.getVehicleID());
                 psts.setInt(6, leaseContract.getEmployeeID());
+                psts.executeUpdate();
+
+                // leaseID
+                PreparedStatement psts2 = conn.prepareStatement("SELECT MAX(leaseID) FROM leasecontract");
+                ResultSet resultSet = psts2.executeQuery();
+                resultSet.next();
+                leaseID = resultSet.getInt(1);
 
             } else {
+                // update leasecontract table
                 psts = conn.prepareStatement(
                         "INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID) VALUES (?,?,?,?,?,?,?)");
                 psts.setInt(1, leaseContract.getLeaseID());
@@ -48,11 +58,18 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                 psts.setInt(5, leaseContract.getCustomerID());
                 psts.setInt(6, leaseContract.getVehicleID());
                 psts.setInt(7, leaseContract.getEmployeeID());
+                psts.executeUpdate();
+
+                // leaseID
+                leaseID = leaseContract.getLeaseID();
             }
-            psts.executeUpdate();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        // update leaseOptionals table
+        updateOptionals(leaseContract.getLeaseOptionals(), leaseID);
     }
 
     public int createAndReturnID(LeaseContract leaseContract) {
@@ -93,7 +110,8 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getDouble("monthlyPrice"),
                         resultSet.getInt("customerID"),
                         resultSet.getInt("vehicleID"),
-                        resultSet.getInt("employeeID")
+                        resultSet.getInt("employeeID"),
+                        readLeaseOptionals(resultSet.getInt("leaseID"))
                 ));
             }
 
@@ -121,7 +139,9 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getDouble("monthlyPrice"),
                         resultSet.getInt("customerID"),
                         resultSet.getInt("vehicleID"),
-                        resultSet.getInt("employeeID"));
+                        resultSet.getInt("employeeID"),
+                        readLeaseOptionals(resultSet.getInt("leaseID"))
+                );
             }
 
         } catch (SQLException e) {
@@ -210,6 +230,33 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         return income;
     }
 
+    public List<Optional> readLeaseOptionals(int leaseID) {
+        List<Optional> optionalList = new ArrayList<>();
+
+        try {
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT o.*
+                    FROM optional o
+                             JOIN leaseoptional l on o.optionalID = l.optionalID
+                    WHERE l.leaseID = ?
+                    """);
+            pst.setInt(1, leaseID);
+            ResultSet resultSet = pst.executeQuery();
+
+            // list of entities
+            while (resultSet.next()) {
+                optionalList.add(new Optional(
+                        resultSet.getInt("optionalID"),
+                        resultSet.getString("name"),
+                        resultSet.getDouble("pricePrMonth")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return optionalList;
+    }
+
 
     public void updateOptionals(List<Optional> optionals, int leaseID) {
         // remove previous optionals
@@ -261,7 +308,8 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getDouble("monthlyPrice"),
                         resultSet.getInt("customerID"),
                         resultSet.getInt("vehicleID"),
-                        resultSet.getInt("employeeID")
+                        resultSet.getInt("employeeID"),
+                        readLeaseOptionals(resultSet.getInt("leaseID"))
                 ));
             }
 
@@ -296,7 +344,8 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getDouble("monthlyPrice"),
                         resultSet.getInt("customerID"),
                         resultSet.getInt("vehicleID"),
-                        resultSet.getInt("employeeID")
+                        resultSet.getInt("employeeID"),
+                        readLeaseOptionals(resultSet.getInt("leaseID"))
                 ));
             }
 
@@ -331,7 +380,8 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getDouble("monthlyPrice"),
                         resultSet.getInt("customerID"),
                         resultSet.getInt("vehicleID"),
-                        resultSet.getInt("employeeID")
+                        resultSet.getInt("employeeID"),
+                        readLeaseOptionals(resultSet.getInt("leaseID"))
                 ));
             }
 
@@ -391,7 +441,8 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                         resultSet.getDouble("monthlyPrice"),
                         resultSet.getInt("customerID"),
                         resultSet.getInt("vehicleID"),
-                        resultSet.getInt("employeeID")
+                        resultSet.getInt("employeeID"),
+                        readLeaseOptionals(resultSet.getInt("vehicleID"))
                 ));
             }
 

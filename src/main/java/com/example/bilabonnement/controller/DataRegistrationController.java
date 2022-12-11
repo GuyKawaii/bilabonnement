@@ -66,7 +66,6 @@ public class DataRegistrationController {
         model.addAttribute("customers", customerService.readAll());
         model.addAttribute("UnleasedReadyCars", carService.readAllUnleasedOnDateWithState(Date.valueOf(LocalDate.now()), READY));
         model.addAttribute("date", LocalDate.now());
-        model.addAttribute("leaseOptionalAmounts", optionalService.readLeaseOptionalAmounts());
 
         return "data-registrator/create-lease-contract";
     }
@@ -87,20 +86,19 @@ public class DataRegistrationController {
             return ("redirect:/create-lease-contract" + "?error=activeContractError");
         }
 
+        // get leaseOptionals
+        List<Optional> leaseOptionals = leaseService.getRequestLeaseOptionals(req, optionalService.readAll());
+
         // create leaseContract
-        int leaseID = leaseService.createAndReturnID(new LeaseContract(
+        leaseService.create(new LeaseContract(
                 startDate,
                 endDate,
                 Double.parseDouble(req.getParameter("monthlyPrice").replace(',', '.')),
                 Integer.parseInt(req.getParameter("customerID")),
                 Integer.parseInt(req.getParameter("vehicleID")),
-                Integer.parseInt(req.getParameter("employeeID"))
+                Integer.parseInt(req.getParameter("employeeID")),
+                leaseOptionals
         ));
-
-        // get leaseOptionals
-        List<Optional> leaseOptionals = leaseService.getRequestLeaseOptionals(req, optionalService.readAll());
-        // update leaseOptionals
-        leaseService.updateOptionals(leaseOptionals, leaseID);
 
         // change state if active contract
         if (startDate.after(Date.valueOf(LocalDate.now())) & endDate.before(Date.valueOf(LocalDate.now()))) {
@@ -128,6 +126,11 @@ public class DataRegistrationController {
     public String updateLease(WebRequest req, Model model) {
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
 
+        // get optionals selected
+        List<Optional> leaseOptionals = leaseService.getRequestLeaseOptionals(req, optionalService.readAll());
+        // update references
+        leaseService.updateOptionals(leaseOptionals, leaseID);
+
         // update contract
         leaseService.update(new LeaseContract(
                 leaseID,
@@ -136,13 +139,9 @@ public class DataRegistrationController {
                 Double.parseDouble(req.getParameter("monthlyPrice")),
                 Integer.parseInt(req.getParameter("customerID")),
                 Integer.parseInt(req.getParameter("vehicleID")),
-                Integer.parseInt(req.getParameter("employeeID")))
+                Integer.parseInt(req.getParameter("employeeID")),
+                leaseOptionals)
         );
-
-        // get optionals selected
-        List<Optional> leaseOptionals = leaseService.getRequestLeaseOptionals(req, optionalService.readAll());
-        // update references
-        leaseService.updateOptionals(leaseOptionals, leaseID);
 
         return "redirect:/create-lease-contract";
     }
