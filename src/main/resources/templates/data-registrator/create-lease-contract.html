@@ -18,7 +18,7 @@
         <hr>
         <br>
         <div id="formdiv">
-            <form action="/make_contract" method="post">
+            <form action="/make_contract" method="post" th:switch="${error}">
                 <label for="startDate">Startdato:</label><br>
                 <input type="date" name="startDate" id="startDate" th:value="${date}" required><br>
                 <label for="endDate">Slutdato:</label><br>
@@ -42,7 +42,7 @@
                     </option>
                 </select><br>
                 <label for="employeeID">Medarbejder ID:</label><br>
-                <select name="vehicleID" id="employeeID" required><br>
+                <select name="employeeID" id="employeeID" required><br>
                     <option th:value="${employeeID}"
                             th:text="|${employeeID} - ${employeeName} - standard|"
                             selected="selected">

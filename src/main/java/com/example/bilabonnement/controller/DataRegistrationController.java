@@ -38,20 +38,6 @@ public class DataRegistrationController {
 
     @GetMapping("/create-lease-contract")
     public String registrationPage(@RequestParam(required = false) String error, HttpSession session, Model model) {
-        // check if redirected from /make_contract because of invalid date
-        if (Objects.equals(error, "dateError")) {
-            model.addAttribute("postDateCheck", true);
-        } else {
-            model.addAttribute("postDateCheck", false);
-        }
-
-        if (Objects.equals(error, "activeContractError")) {
-            model.addAttribute("postOverlapCheck", true);
-        } else {
-            model.addAttribute("postOverlapCheck", false);
-        }
-
-
         // validate employee access
         if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
             return "redirect:/role-redirect";
@@ -59,6 +45,11 @@ public class DataRegistrationController {
         model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
         model.addAttribute("employeeID", session.getAttribute("employeeID"));
+
+        // check if redirected from /make_contract because of invalid date
+        if (error != null) model.addAttribute("error", error);
+        else model.addAttribute("error", "na");
+
 
         model.addAttribute("optionals", optionalService.readAll());
         model.addAttribute("leaseContracts", leaseService.readAll());
