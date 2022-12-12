@@ -59,7 +59,7 @@ public class LeaseContractRepositoryTest {
         //act
         optionalRepository.create(optional);
         optionalRepository.create(optional2);
-        LeaseContract expected = new LeaseContract(leaseID, Date.valueOf("2019-01-1"), Date.valueOf("2020-04-01"), 666, 201, 501, 101, optionalList);
+        LeaseContract expected = new LeaseContract(leaseID, Date.valueOf("2019-01-1"), Date.valueOf("2020-04-01"), 666, 1, 2, 1, optionalList);
         leaseRepo.create(expected);
 
         LeaseContract actual = leaseRepo.read(leaseID);
@@ -138,7 +138,7 @@ public class LeaseContractRepositoryTest {
         optionalList.add(optional2);
 
 
-        LeaseContract expected = new LeaseContract(leaseID, Date.valueOf("2019-01-1"), Date.valueOf("2020-04-01"), 666, 1, 1, 1, optionalList);
+        LeaseContract expected = new LeaseContract(leaseID, Date.valueOf("2019-01-1"), Date.valueOf("2020-04-01"), 666, 1, 2, 1, optionalList);
 
         // # Delete previous optionals
         optionalRepository.delete(optional.getOptionalID());
