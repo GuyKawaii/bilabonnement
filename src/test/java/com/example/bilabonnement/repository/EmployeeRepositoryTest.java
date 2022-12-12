@@ -19,7 +19,7 @@ class EmployeeRepositoryTest {
         // # arrange #
         int employeeID = 1;
 
-        // delete previous
+        // # delete previous #
         employeeRepository.delete(employeeID);
 
         Employee expected = new Employee(employeeID, "email", "name", "password123", ADMINISTRATION);
