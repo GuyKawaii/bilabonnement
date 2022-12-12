@@ -300,4 +300,13 @@ WHERE l.vehicleID = ?
     (? < l.endDate
         OR l.startDAte < ?))
 
-ORDER BY startDate DESC
+ORDER BY startDate DESC;
+
+
+SELECT l.*
+FROM leasecontract l
+         JOIN car c on c.vehicleID = l.vehicleID
+WHERE l.vehicleID = ?
+  AND (
+    (? < l.endDate
+        OR l.startDAte < ?));

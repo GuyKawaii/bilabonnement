@@ -423,13 +423,15 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                              JOIN car c on c.vehicleID = l.vehicleID
                     WHERE l.vehicleID = ?
                       AND (
-                            (? < l.endDate
-                              OR l.startDAte < ?))
+                            (l.startDate <= ? AND ? <= l.endDate
+                          OR l.startDate <= ? AND ? <= l.endDate ))
                     """);
 
             pst.setInt(1, vehicleID);
             pst.setDate(2, startDate);
-            pst.setDate(3, endDate);
+            pst.setDate(3, startDate);
+            pst.setDate(4, endDate);
+            pst.setDate(5, endDate);
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities

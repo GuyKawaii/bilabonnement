@@ -35,9 +35,6 @@ public class DatabaseConnectionManager {
         }
         // localhost connect
 
-
-        // TBA
-
         try {
             conn = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
