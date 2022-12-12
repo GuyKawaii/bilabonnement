@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarRepository implements IGenericRepository<Car> {
-    Connection conn;
 
+    //Connection fortæller om der skal bruges release Database eller
+    Connection conn;
     public CarRepository(DB_CONNECTION db_connection) {
         conn = DatabaseConnectionManager.getConnection(db_connection);
     }

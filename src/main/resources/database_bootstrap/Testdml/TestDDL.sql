@@ -6,9 +6,6 @@ CREATE DATABASE testbilabonnement;
 
 USE testbilabonnement;
 
-####  reset tables ###
-
-###  create tables ###
 CREATE TABLE IF NOT EXISTS employee
 (
     employeeID int AUTO_INCREMENT,
@@ -24,14 +21,14 @@ CREATE TABLE IF NOT EXISTS employee
 CREATE TABLE IF NOT EXISTS customer
 (
     customerID int AUTO_INCREMENT,
-    firstName  varchar(255)        NOT NULL,
-    lastName   varchar(255)        NULL,
-    email      varchar(255) UNIQUE NOT NULL,
-    address    varchar(255)        NOT NULL,
-    city       varchar(255)        NOT NULL,
-    postalCode int                 NOT NULL,
-    mobile     varchar(255)        NOT NULL,
-    cprNumber  varchar(255)        NOT NULL,
+    firstName  varchar(50)        NOT NULL,
+    lastName   varchar(50)        NULL,
+    email      varchar(50) UNIQUE NOT NULL,
+    address    varchar(100)       NOT NULL,
+    city       varchar(50)        NOT NULL,
+    postalCode int                NOT NULL,
+    mobile     varchar(50)        NOT NULL,
+    cprNumber  varchar(50)        NOT NULL,
 
     # key setup
     primary key (customerID)
@@ -49,35 +46,24 @@ CREATE TABLE IF NOT EXISTS optional
 
 CREATE TABLE IF NOT EXISTS car
 (
-    vehicleID     int AUTO_INCREMENT,
-    chassisNumber varchar(17),
-    steelPrice    double,
-    color         varchar(30),
-    brand         varchar(30),
-    model         varchar(30),
-    co2emission   int,
-    geartype      varchar(20),
-    kmPerLiter    int,
-    fuelType      ENUM ('HYDROGEN', 'GASOLINE', 'DIESEL', 'ELECTRIC'),
-    kmDriven      int,
-    state         ENUM ('READY', 'IS_LEASED', 'UNDER_REPAIR', 'DAMAGED'),
+    vehicleID       int AUTO_INCREMENT,
+    chassisNumber   varchar(17),
+    steelPrice      double,
+    brand           varchar(30),
+    model           varchar(30),
+    equipmentLevel  ENUM ('BASE', 'MEDIUM', 'LARGE'),
+    registrationFee double,
+    co2emission     double,
+    state           ENUM ('READY', 'RETURNED', 'AT_CUSTOMER'),
 
     # key setup
-    PRIMARY KEY (vehicleID),
+    PRIMARY KEY (vehicleID)
 );
+
 
 # tables with foreign key constraints #
 
-CREATE TABLE IF NOT EXISTS leaseOptional
-(
-    optionalID int,
-    vehicleID  int,
 
-    # key setup
-    PRIMARY KEY (optionalID, vehicleID),
-    CONSTRAINT optionalID FOREIGN KEY (optionalID) REFERENCES optional (optionalID),
-    CONSTRAINT vehicleID FOREIGN KEY (vehicleID) REFERENCES car (vehicleID)
-);
 
 CREATE TABLE IF NOT EXISTS leaseContract
 (
@@ -101,6 +87,19 @@ CREATE TABLE IF NOT EXISTS leaseContract
     FOREIGN KEY (employeeID)
         REFERENCES employee (employeeID)
         ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS leaseOptional
+(
+    optionalID int,
+    leaseID    int,
+
+    # key setup
+    PRIMARY KEY (optionalID, leaseID),
+    CONSTRAINT optionalID FOREIGN KEY (optionalID)
+        REFERENCES optional (optionalID) ON DELETE CASCADE,
+    CONSTRAINT leaseID FOREIGN KEY (leaseID)
+        REFERENCES leasecontract (leaseID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS damageReport
@@ -135,6 +134,15 @@ CREATE TABLE IF NOT EXISTS damageEntry
         ON DELETE CASCADE
 );
 
+### make View  ###
+
+use testbilabonnement;
+create view fullLeaseInfo AS
+SELECT leasecontract.*, optional.*
+FROM leasecontract LEFT JOIN leaseoptional
+                             ON leasecontract.leaseID = leaseoptional.leaseID
+                   LEFT JOIN optional
+                             ON leaseoptional.optionalID = optional.optionalID;
 
 
 

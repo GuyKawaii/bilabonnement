@@ -188,17 +188,21 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
     public double getCurrentIncome(Date date) {
         double income = 0;
         try {
-            PreparedStatement pst = conn.prepareStatement("SELECT SUM(monthlyPrice) + IFNULL(SUM(pricePrMonth),0) AS currentIncome\n" +
-                    "FROM fullLeaseInfo\n" +
-                    "WHERE (startDate <= ?) AND\n" +
-                    "                   (? <= endDate);");
+            PreparedStatement pst = conn.prepareStatement("""
+                    SELECT SUM(currentIncomeTable) as currentIncomeSum
+                    FROM (SELECT monthlyPrice + IFNULL(SUM(pricePrMonth), 0) AS currentIncomeTable
+                          FROM fullLeaseInfo
+                          WHERE (startDate <= ?)
+                            AND (? <= endDate)
+                          GROUP BY leaseID) as currentIncomeTable
+                    """);
 
             pst.setDate(1, date);
             pst.setDate(2, date);
             ResultSet resultSet = pst.executeQuery();
 
             while (resultSet.next()) {
-                income += resultSet.getDouble("currentIncome");
+                income += resultSet.getDouble("currentIncomeSum");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
