@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.bilabonnement.model.enums.Role.ADMINISTRATION;
 import static com.example.bilabonnement.model.enums.Role.DAMAGE_REPORTER;
+import static com.example.bilabonnement.model.enums.Role.DATA_REGISTRATION;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeRepositoryTest {
@@ -48,7 +48,7 @@ class EmployeeRepositoryTest {
 
         List<Employee> expectedList = new ArrayList<>();
         expectedList.add(new Employee(1, "email1", "name1", "password1", DAMAGE_REPORTER));
-        expectedList.add(new Employee(2, "email2", "name2", "password2", ADMINISTRATION));
+        expectedList.add(new Employee(2, "email2", "name2", "password2", DATA_REGISTRATION));
         employeeRepository.create(expectedList.get(0));
         employeeRepository.create(expectedList.get(1));
 

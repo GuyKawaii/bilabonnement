@@ -13,21 +13,21 @@
 
 <div id="content">
 
-    <h1>rediger bil </h1>
+    <h1>Rediger bil</h1>
 
     <div id="formdiv">
         <form action="/update-car" method="post">
-            <label for="vehicleID">vogn ID:</label><br>
+            <label for="vehicleID">Vogn ID:</label><br>
             <input type="number" id="vehicleID" name="vehicleID" th:value="${car.vehicleID}" readonly><br>
-            <label for="chassisNumber">stelnummer:</label><br>
+            <label for="chassisNumber">Stelnummer:</label><br>
             <input type="text" id="chassisNumber" name="chassisNumber" th:value="${car.chassisNumber}"><br>
-            <label for="steelPrice">stålpris:</label><br>
+            <label for="steelPrice">Stålpris:</label><br>
             <input type="price" id="steelPrice" name="steelPrice" th:value="${car.steelPrice}"><br>
-            <label for="brand">mærke:</label><br>
+            <label for="brand">Mærke:</label><br>
             <input type="text" id="brand" name="brand" th:value="${car.brand}"><br>
-            <label for="model">model:</label><br>
+            <label for="model">Model:</label><br>
             <input type="text" id="model" name="model" th:value="${car.model}"><br>
-            <label for="equipmentLevel">udstyrsniveau:</label><br>
+            <label for="equipmentLevel">Udstyrsniveau:</label><br>
             <select name="equipmentLevel" id="equipmentLevel"><br>
                 <option th:value="${car.equipmentLevel}"
                         th:text="|${car.equipmentLevel.danish} - nuværende|"
@@ -38,11 +38,11 @@
                         th:text="|${equipmentLevel.danish}|">
                 </option>
             </select><br>
-            <label for="registrationFee">reg. Afgift:</label><br>
+            <label for="registrationFee">Reg. Afgift:</label><br>
             <input type="number" id="registrationFee" name="registrationFee" th:value="${car.registrationFee}"><br>
             <label for="co2emission">CO2-udledning:</label><br>
             <input type="number" id="co2emission" name="co2emission" th:value="${car.co2emission}"><br>
-            <label for="state">status:</label><br>
+            <label for="state">Status:</label><br>
             <select name="state" id="state"><br>
                 <option th:value="${car.state}"
                         th:text="|${car.state.danish} - nuværende|"
@@ -53,7 +53,7 @@
                         th:text="|${state.danish}|">
                 </option>
             </select><br><br>
-            <button type="update">opdater</button>
+            <button type="update">Opdater</button>
         </form>
     </div>
 

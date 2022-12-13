@@ -13,35 +13,35 @@
 
 <div id="content">
 
-    <h1>skaderapporter</h1>
+    <h1>Skaderapporter</h1>
     <table>
         <thead>
         <tr>
-            <th>damageReportID</th>
-            <th>vehicleID</th>
-            <th>employeeID</th>
-            <th>tidspunkt</th>
-            <th>rediger</th>
-            <th>slet</th>
+            <th>Skadesrapport ID</th>
+            <th>Vognnummer</th>
+            <th>Medarbejder ID</th>
+            <th>Tidspunkt</th>
+            <th>Rediger</th>
+            <th>Slet</th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(listOfDamageReports)}"> <!-- no items listed -->
-            <td>IGEN SKADERAPPORTER</td>
+            <td>INGEN SKADESRAPPORTER</td>
         </tr>
         <tr th:each="damageReport : ${listOfDamageReports}">
-            <td><span th:text="${damageReport.damageReportID}">rapport id</span></td>
-            <td><span th:text="${damageReport.vehicleID}"> bil id</span></td>
-            <td><span th:text="${damageReport.employeeID}">medarbejder id</span></td>
-            <td><span th:text="${damageReport.timestamp}">tidspunkt</span></td>
+            <td><span th:text="${damageReport.damageReportID}">Skadesrapport ID</span></td>
+            <td><span th:text="${damageReport.vehicleID}"> Vognnummer</span></td>
+            <td><span th:text="${damageReport.employeeID}">Medarbejder ID</span></td>
+            <td><span th:text="${damageReport.timestamp}">Tidspunkt</span></td>
             <td>
                 <a th:href="@{'/edit-damage-report?reportID='+${damageReport.damageReportID}}">
-                    <button class="btn-view" id="btn-edit">REDIGER</button>
+                    <button class="btn-view" id="btn-edit">Rediger</button>
                 </a>
             </td>
             <td>
                 <a th:href="@{'/delete-damage-report?reportID='+${damageReport.damageReportID}+'&returnPage=damage-reports'}">
-                    <button class="btn-view" id="btn-delete">SLET</button>
+                    <button class="btn-view" id="btn-delete">Slet</button>
                 </a>
             </td>
         </tr>

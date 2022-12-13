@@ -12,13 +12,13 @@
 <header th:replace="fragment/nav-menu.html :: header"></header>
 
 <div id="content">
-    <h1>lejeaftaler</h1>
+    <h1>Lejeaftaler</h1>
 
     <div class="table-div">
         <table>
             <tr>
                 <th colspan="9">
-                    kommende
+                    Kommende
                 </th>
             </tr>
             <tr>
@@ -27,7 +27,7 @@
                 <th>Slut Dato</th>
                 <th>Månedlig Pris</th>
                 <th>Kunde ID</th>
-                <th>Vognnummer ID</th>
+                <th>Vognnummer</th>
                 <th>Medarbejder ID</th>
             </tr>
             <tr th:each="contract : ${upcoming_contracts}">
@@ -46,7 +46,7 @@
         <table>
             <tr>
                 <th colspan="9">
-                    aktive
+                    Aktive
                 </th>
             </tr>
             <tr>
@@ -55,7 +55,7 @@
                 <th>Slut Dato</th>
                 <th>Månedlig Pris</th>
                 <th>Kunde ID</th>
-                <th>Vognnummer ID</th>
+                <th>Vognnummer</th>
                 <th>Medarbejder ID</th>
             </tr>
             <tr th:each="contract : ${active_contracts}">
@@ -74,7 +74,7 @@
         <table>
             <tr>
                 <th colspan="9">
-                    passerede
+                    Passerede
                 </th>
             </tr>
             <tr>
@@ -83,7 +83,7 @@
                 <th>Slut Dato</th>
                 <th>Månedlig Pris</th>
                 <th>Kunde ID</th>
-                <th>Vognnummer ID</th>
+                <th>Vognnummer</th>
                 <th>Medarbejder ID</th>
             </tr>
             <tr th:each="contract : ${passed_contracts}">

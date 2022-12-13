@@ -20,44 +20,43 @@
             <input type="text" id="firstName" name="firstName" required><br>
             <label for="lastName">Efternavn:</label><br>
             <input type="text" id="lastName" name="lastName" required><br>
-            <label for="email">email:</label><br>
+            <label for="email">Email:</label><br>
             <input type="text" id="email" name="email" required><br>
-            <label for="address">adresse:</label><br>
+            <label for="address">Adresse:</label><br>
             <input type="text" id="address" name="address" required><br>
-            <label for="city">by:</label><br>
+            <label for="city">By:</label><br>
             <input type="text" id="city" name="city" required><br>
             <label for="postalCode">Postnr:</label><br>
             <input type="number" id="postalCode" name="postalCode" required><br>
-            <label for="mobile">mobil:</label><br>
+            <label for="mobile">Mobil:</label><br>
             <input type="text" id="mobile" name="mobile" required><br>
-            <label for="cprNumber">CPR:</label><br>
-            <input type="text" id="cprNumber" name="cprNumber" maxlength="10" required><br>
-            <!--            todo change cpr length to correct length-->
-            <button type="update">opret</button>
+            <label for="cprNumber">CPR nummer:</label><br>
+            <input type="text" id="cprNumber" name="cprNumber" maxlength="12" required><br>
+            <button type="update">Opret</button>
         </form>
     </div>
 
     <div>
-        <h2>kunder</h2>
+        <h2>Kunder</h2>
 
         <table>
             <thead>
             <tr>
-                <th>kunde ID</th>
-                <th>fornavn</th>
-                <th>efternavn</th>
-                <th>email</th>
-                <th>address</th>
+                <th>Kunde ID</th>
+                <th>Fornavn</th>
+                <th>Efternavn</th>
+                <th>Email</th>
+                <th>Adresse</th>
                 <th>city</th>
-                <th>postnr</th>
-                <th>mobil</th>
-                <th>CPR</th>
-                <th th:if="${employeeRole == 'DATA_REGISTRATION'}">rediger</th>
+                <th>Postnr</th>
+                <th>Mobil</th>
+                <th>CPR nummer</th>
+                <th th:if="${employeeRole == 'DATA_REGISTRATION'}">Rediger</th>
             </tr>
             </thead>
             <tbody>
             <tr th:if="${#lists.isEmpty(customers)}"> <!-- no items listed -->
-                <td>IGEN KUNDER</td>
+                <td>INGEN KUNDER</td>
             </tr>
             <tr th:each="customer : ${customers}">
                 <td><span th:text="${customer.customerID}">kunde ID</span></td>
@@ -71,7 +70,7 @@
                 <td><span th:text="${customer.cprNumber}">CPR</span></td>
                 <td th:if="${employeeRole == 'DATA_REGISTRATION'}">
                     <a th:href="@{'/edit-customer?customerID='+${customer.customerID}}">
-                        <button class="btn-view">REDIGER</button>
+                        <button class="btn-view">Rediger</button>
                     </a>
                 </td>
             </tr>

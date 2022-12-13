@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>bil gennemgang</title>
+    <title>Bil gennemgang</title>
 
     <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
     <link rel="stylesheet" th:href="@{/base.css}">
@@ -11,7 +11,7 @@
 
 <header th:replace="fragment/nav-menu.html :: header"></header>
 
-<h1>bil gennemgang</h1>
+<h1>Bil gennemgang</h1>
 
 <div class="columns">
     <div>
@@ -21,15 +21,15 @@
                 <th colspan="11" th:text="|returnerede biler uden aktiv leasing for ${date}|"></th>
             </tr>
             <tr>
-                <th>vogn ID</th>
-                <th>stelnummer</th>
-                <th>stålpris</th>
-                <th>mærke</th>
-                <th>model</th>
-                <th>udstyrsniveau</th>
-                <th>reg. Afgift</th>
+                <th>Vogn ID</th>
+                <th>Stelnummer</th>
+                <th>Stålpris</th>
+                <th>Mærke</th>
+                <th>Model</th>
+                <th>Udstyrsniveau</th>
+                <th>Reg. Afgift</th>
                 <th>CO2-udledning</th>
-                <th>status</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody>
@@ -61,7 +61,7 @@
             </tbody>
         </table>
         <span th:if="${#lists.isEmpty(unleasedReturnedCars)}"> <!-- no items listed -->
-            IGEN BILER
+            INGEN BILER
         </span>
     </div>
 </div>

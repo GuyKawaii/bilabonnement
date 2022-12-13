@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>damage report</title>
+    <title>Damage report</title>
     <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
     <link rel="stylesheet" th:href="@{/base.css}">
 </head>
@@ -15,28 +15,28 @@
     <h1>Lav skaderapport</h1>
 
     <form action="/create-new-damage-report" method="post">
-        <label for="employeeID">medarbejder id:</label><br>
+        <label for="employeeID">Medarbejder id:</label><br>
         <input type="text" id="employeeID" name="employeeID" th:value="${employeeID}" readonly><br>
-        <label for="vehicleID">vogn id:</label><br>
+        <label for="vehicleID">Vogn id:</label><br>
         <select name="vehicleID" id="vehicleID"><br>
             <option th:each="car: ${cars}" th:value="${car.vehicleID}"
                     th:text="|id: ${car.vehicleID}, ${car.brand}, ${car.model}|"></option>
         </select><br>
-        <label for="timestamp">timestamp:</label><br>
+        <label for="timestamp">Timestamp:</label><br>
         <input type="datetime-local" id="timestamp" name="datetime" th:value="${currentTime}">
-        <button type="submit">opret</button>
+        <button type="submit">Opret</button>
     </form>
 
     <div>
-        <h3>mine skaderapporter</h3>
+        <h3>Mine skaderapporter</h3>
         <table>
             <tr>
-                <th>rapport ID</th>
-                <th>medarbejder ID</th>
-                <th>timestamp</th>
-                <th>vogn ID</th>
-                <th>rediger</th>
-                <th>slet</th>
+                <th>Rapport ID</th>
+                <th>Medarbejder ID</th>
+                <th>Timestamp</th>
+                <th>Vogn ID</th>
+                <th>Rediger</th>
+                <th>Slet</th>
             </tr>
             <tr th:each="report : ${damageReports}">
                 <td th:text="${report.damageReportID}"></td>
@@ -45,12 +45,12 @@
                 <td th:text="${report.vehicleID}"></td>
                 <td>
                     <a th:href="@{'/edit-damage-report?reportID='+${report.damageReportID}}">
-                        <button class="btn-view" id="btn-view">REDIGER</button>
+                        <button class="btn-view" id="btn-view">Rediger</button>
                     </a>
                 </td>
                 <td>
                     <a th:href="@{'/delete-damage-report?returnPage=create-damage-report&reportID='+${report.damageReportID}}">
-                        <button class="btn-delete" id="btn-delete">SLET</button>
+                        <button class="btn-delete" id="btn-delete">Slet</button>
                     </a>
                 </td>
             </tr>

@@ -22,22 +22,22 @@
             <table>
                 <thead>
                 <tr>
-                    <th>vogn ID</th>
-                    <th>stelnummer</th>
-                    <th>stålpris</th>
-                    <th>mærke</th>
-                    <th>model</th>
-                    <th>udstyrsniveau</th>
-                    <th>reg. Afgift</th>
+                    <th>Vogn ID</th>
+                    <th>Stelnummer</th>
+                    <th>Stålpris</th>
+                    <th>Mærke</th>
+                    <th>Model</th>
+                    <th>Udstyrsniveau</th>
+                    <th>Reg. Afgift</th>
                     <th>CO2-udledning</th>
-                    <th>status</th>
-                    <th>rediger</th>
-                    <th>rapporter</th>
+                    <th>Status</th>
+                    <th>Rediger</th>
+                    <th>Rapporter</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:if="${#lists.isEmpty(unleasedCars)}"> <!-- no items listed -->
-                    <td>IGEN BILER</td>
+                    <td>INGEN BILER</td>
                 </tr>
                 <tr th:each="unleasedCar : ${unleasedCars}">
                     <td><span th:text="${unleasedCar.vehicleID}">vogn ID</span></td>
@@ -65,12 +65,12 @@
                     </td>
                     <td>
                         <a th:href="@{'/edit-car?vehicleID='+${unleasedCar.vehicleID}}">
-                            <button class="btn-view">REDIGER</button>
+                            <button class="btn-view">Rediger</button>
                         </a>
                     </td>
                     <td>
                         <a th:href="@{'/car-lease-contracts?vehicleID='+${unleasedCar.vehicleID}}">
-                            <button class="btn-view">SE</button>
+                            <button class="btn-view">Se</button>
                         </a>
                     </td>
                 </tr>
@@ -79,27 +79,27 @@
         </div>
 
         <div>
-            <h2>aktiv leasing</h2>
+            <h2>Aktiv leasing</h2>
 
             <table>
                 <thead>
                 <tr>
-                    <th>vogn ID</th>
-                    <th>stelnummer</th>
-                    <th>stålpris</th>
-                    <th>mærke</th>
-                    <th>model</th>
-                    <th>udstyrsniveau</th>
-                    <th>reg. Afgift</th>
+                    <th>Vogn ID</th>
+                    <th>Stelnummer</th>
+                    <th>Stålpris</th>
+                    <th>Mærke</th>
+                    <th>Model</th>
+                    <th>Udstyrsniveau</th>
+                    <th>Reg. Afgift</th>
                     <th>CO2-udledning</th>
-                    <th>status</th>
-                    <th>rediger</th>
-                    <th>rapporter</th>
+                    <th>Status</th>
+                    <th>Rediger</th>
+                    <th>Rapporter</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:if="${#lists.isEmpty(unleasedCars)}"> <!-- no items listed -->
-                    <td>IGEN BILER</td>
+                    <td>INGEN BILER</td>
                 </tr>
                 <tr th:each="leasedCar : ${leasedCars}">
                     <td><span th:text="${leasedCar.vehicleID}">vogn ID</span></td>
@@ -127,12 +127,12 @@
                     </td>
                     <td>
                         <a th:href="@{'/edit-car?vehicleID='+${leasedCar.vehicleID}}">
-                            <button class="btn-view" id="btn-view">REDIGER</button>
+                            <button class="btn-view" id="btn-view">Rediger</button>
                         </a>
                     </td>
                     <td>
                         <a th:href="@{'/car-lease-contracts?vehicleID='+${leasedCar.vehicleID}}">
-                            <button class="btn-view">SE</button>
+                            <button class="btn-view">Se</button>
                         </a>
                     </td>
                 </tr>

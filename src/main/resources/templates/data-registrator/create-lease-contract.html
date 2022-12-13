@@ -23,8 +23,8 @@
                 <input type="date" name="startDate" id="startDate" th:value="${date}" required><br>
                 <label for="endDate">Slutdato:</label><br>
                 <input type="date" name="endDate" id="endDate" th:value="${date}" required><br>
-                <div class="red-error-color" th:case="dateError">Invalid dates!</div>
-                <div class="red-error-color" th:case="activeContractError">Period overlap with other contract(s)</div>
+                <div class="red-error-color" th:case="dateError">Invalid dato!</div>
+                <div class="red-error-color" th:case="activeContractError">Overlap med andre kontrakter(er)!</div>
                 <label for="monthlyPrice">Månedlig Pris:</label><br>
                 <input type="price" name="monthlyPrice" id="monthlyPrice" placeholder="0.00" required><br>
                 <label for="customerID">Kunde ID:</label><br>
@@ -83,7 +83,7 @@
     <div class="column">
         <table>
             <tr>
-                <th colspan="11">
+                <th colspan="12">
                     Leasingaftaler
                 </th>
             </tr>

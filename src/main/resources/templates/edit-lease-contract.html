@@ -20,11 +20,11 @@
 
             <input type="hidden" id="leaseID" name="leaseID" th:value="${contract.leaseID}"><br><br>
             <br>
-            <label for="startDate">ny Startdato:</label><br>
+            <label for="startDate">Ny Startdato:</label><br>
             <input type="date" id="startDate" name="startDate" th:value="${contract.startDate}"><br>
-            <label for="endDate">ny Slutdato:</label><br>
+            <label for="endDate">Ny Slutdato:</label><br>
             <input type="date" id="endDate" name="endDate" th:value="${contract.endDate}"><br>
-            <label for="monthlyPrice"> ny pris per måned:</label><br>
+            <label for="monthlyPrice"> Ny pris per måned:</label><br>
             <input type="text" id="monthlyPrice" name="monthlyPrice" th:value="${contract.monthlyPrice}"><br>
             <label for="customerID"> Kunde ID:</label><br>
             <select name="customerID" id="customerID"><br>
@@ -60,9 +60,9 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>tilføj udstyr</th>
+                        <th>Tilføj udstyr</th>
                         <th>Ekstra udstyr</th>
-                        <th>pris per måned</th>
+                        <th>Pris per måned</th>
                     </tr>
                     <tr th:each="leaseOptional : ${leaseOptionals}">
                         <td>
