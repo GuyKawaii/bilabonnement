@@ -28,7 +28,7 @@ public class HomeController {
     LeaseContractService leaseService = new LeaseContractService();
 
     // people with access to these pages
-    Role[] employeeAccess = new Role[]{DATA_REGISTRATION, DAMAGE_REPORTER, BUSINESS_DEVELOPER, ADMINISTRATION};
+    Role[] employeeAccess = new Role[]{DATA_REGISTRATION, DAMAGE_REPORTER, BUSINESS_DEVELOPER};
 
     // login page
     @GetMapping("/")
@@ -86,9 +86,6 @@ public class HomeController {
             }
             case BUSINESS_DEVELOPER -> {
                 return "redirect:/finance";
-            }
-            case ADMINISTRATION -> {
-                return "redirect:/admin";
             }
             default -> {
                 throw new RuntimeException("cannot switch on null");

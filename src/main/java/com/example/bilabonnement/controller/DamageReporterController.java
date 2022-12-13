@@ -29,7 +29,7 @@ public class DamageReporterController {
     EmployeeService employeeService = new EmployeeService();
 
     // people with access to these pages
-    Role[] employeeAccess = new Role[]{DAMAGE_REPORTER, ADMINISTRATION};
+    Role[] employeeAccess = new Role[]{DAMAGE_REPORTER};
 
     @GetMapping("/damage-reports")
     public String damageReports(Model model, HttpSession session) {

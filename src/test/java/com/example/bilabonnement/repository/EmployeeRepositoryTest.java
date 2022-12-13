@@ -22,7 +22,7 @@ class EmployeeRepositoryTest {
         // # delete previous #
         employeeRepository.delete(employeeID);
 
-        Employee expected = new Employee(employeeID, "email", "name", "password123", ADMINISTRATION);
+        Employee expected = new Employee(employeeID, "email", "name", "password123", DAMAGE_REPORTER);
 
         // # act #
         employeeRepository.create(expected);

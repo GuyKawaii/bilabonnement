@@ -24,7 +24,7 @@ public class BusinessDeveloperController {
     LeaseContractService leaseContractService = new LeaseContractService();
 
     // people with access to these pages todo change to only use one Role for check
-    Role[] employeeAccess = new Role[]{BUSINESS_DEVELOPER, ADMINISTRATION};
+    Role[] employeeAccess = new Role[]{BUSINESS_DEVELOPER};
 
     @GetMapping("/finance")
     public String getCarsLeased(HttpSession session, Model model) {

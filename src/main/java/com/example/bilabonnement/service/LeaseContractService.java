@@ -87,4 +87,8 @@ public class LeaseContractService {
     public List<Optional> readLeaseOptionals(int leaseID) {
         return leaseContractRepo.readLeaseOptionals(leaseID);
     }
+
+    public boolean invalidStartAndEndDAte(Date startDate, Date endDate) {
+        return startDate.after(endDate) || endDate.before(startDate);
+    }
 }

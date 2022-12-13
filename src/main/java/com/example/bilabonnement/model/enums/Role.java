@@ -3,7 +3,6 @@ package com.example.bilabonnement.model.enums;
 // used for website access
 public enum Role {
     // Storing name
-    ADMINISTRATION("Administrator"),
     DAMAGE_REPORTER("Skaderapportør"),
     DATA_REGISTRATION("Data registerer"),
     BUSINESS_DEVELOPER("Forretningsudvikler");

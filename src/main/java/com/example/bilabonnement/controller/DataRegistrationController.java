@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.example.bilabonnement.model.enums.Role.ADMINISTRATION;
 import static com.example.bilabonnement.model.enums.Role.DATA_REGISTRATION;
 import static com.example.bilabonnement.model.enums.State.*;
 
@@ -33,7 +32,7 @@ public class DataRegistrationController {
     OptionalService optionalService = new OptionalService();
 
     // people with access to these pages
-    Role[] employeeAccess = new Role[]{DATA_REGISTRATION, ADMINISTRATION};
+    Role[] employeeAccess = new Role[]{DATA_REGISTRATION};
 
 
     @GetMapping("/create-lease-contract")
@@ -61,13 +60,14 @@ public class DataRegistrationController {
         return "data-registrator/create-lease-contract";
     }
 
+
     @PostMapping("/make_contract")
     public String makeContract(HttpSession session, WebRequest req, RedirectAttributes redirectAttributes) {
         Date startDate = Date.valueOf(req.getParameter("startDate"));
         Date endDate = Date.valueOf(req.getParameter("endDate"));
 
         // Date validation
-        if (startDate.after(endDate) || endDate.before(startDate))
+        if (leaseService.invalidStartAndEndDAte(startDate, endDate))
             return ("redirect:/create-lease-contract" + "?error=dateError");
         // Contract overlap validation
         if (leaseService.hasContractOverlapForPeriod(

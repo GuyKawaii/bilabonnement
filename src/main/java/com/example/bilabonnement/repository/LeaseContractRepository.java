@@ -30,7 +30,6 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         try {
             PreparedStatement psts;
             if (leaseContract.getLeaseID() == null) {
-                // update leasecontract table
                 psts = conn.prepareStatement(
                         "INSERT INTO leasecontract (startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID) VALUES (?,?,?,?,?,?)");
                 psts.setDate(1, leaseContract.getStartDate());
@@ -48,7 +47,6 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
                 leaseID = resultSet.getInt(1);
 
             } else {
-                // update leasecontract table
                 psts = conn.prepareStatement(
                         "INSERT INTO leasecontract (leaseID, startDate, endDate, monthlyPrice, customerID, vehicleID, employeeID) VALUES (?,?,?,?,?,?,?)");
                 psts.setInt(1, leaseContract.getLeaseID());
@@ -422,13 +420,12 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         try {
             // get contracts that have an active overlap with the given period
             PreparedStatement pst = conn.prepareStatement("""
-                    SELECT l.*
-                    FROM leasecontract l
-                             JOIN car c on c.vehicleID = l.vehicleID
-                    WHERE l.vehicleID = ?
+                    SELECT leasecontract.*
+                    FROM leasecontract
+                    WHERE vehicleID = ?
                       AND (
-                            (l.startDate <= ? AND ? <= l.endDate
-                          OR l.startDate <= ? AND ? <= l.endDate ))
+                            (startDate <= ? AND ? <= endDate
+                          OR startDate <= ? AND ? <= endDate ))
                     """);
 
             pst.setInt(1, vehicleID);

@@ -310,3 +310,7 @@ WHERE l.vehicleID = ?
   AND (
     (? < l.endDate
         OR l.startDAte < ?));
+
+DELETE
+FROM employee
+where employeeID = 104;

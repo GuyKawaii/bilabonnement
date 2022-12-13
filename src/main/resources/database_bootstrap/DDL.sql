@@ -17,10 +17,10 @@ USE bilabonnement;
 CREATE TABLE IF NOT EXISTS employee
 (
     employeeID int AUTO_INCREMENT,
-    email      varchar(255) UNIQUE NOT NULL,
-    name       varchar(255)        NOT NULL,
-    password   varchar(255)        NOT NULL,
-    role       ENUM ('ADMINISTRATION', 'DAMAGE_REPORTER', 'DATA_REGISTRATION', 'BUSINESS_DEVELOPER'),
+    email      varchar(128) UNIQUE NOT NULL,
+    name       varchar(128)        NOT NULL,
+    password   varchar(128)        NOT NULL,
+    role       ENUM ('DAMAGE_REPORTER', 'DATA_REGISTRATION', 'BUSINESS_DEVELOPER'),
 
     # key setup
     primary key (employeeID)
@@ -29,14 +29,14 @@ CREATE TABLE IF NOT EXISTS employee
 CREATE TABLE IF NOT EXISTS customer
 (
     customerID int AUTO_INCREMENT,
-    firstName  varchar(50)        NOT NULL,
-    lastName   varchar(50)        NULL,
-    email      varchar(50) UNIQUE NOT NULL,
-    address    varchar(100)       NOT NULL,
-    city       varchar(50)        NOT NULL,
+    firstName  varchar(64)        NOT NULL,
+    lastName   varchar(64)        NULL,
+    email      varchar(128) UNIQUE NOT NULL,
+    address    varchar(128)       NOT NULL,
+    city       varchar(64)        NOT NULL,
     postalCode int                NOT NULL,
-    mobile     varchar(50)        NOT NULL,
-    cprNumber  varchar(50)        NOT NULL,
+    mobile     varchar(64)        NOT NULL,
+    cprNumber  varchar(12)        NOT NULL,
 
     # key setup
     primary key (customerID)
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS customer
 CREATE TABLE IF NOT EXISTS optional
 (
     optionalID   int AUTO_INCREMENT,
-    name         varchar(50),
+    name         varchar(64),
     pricePrMonth double,
 
     # key setup
@@ -57,8 +57,8 @@ CREATE TABLE IF NOT EXISTS car
     vehicleID       int AUTO_INCREMENT,
     chassisNumber   varchar(17),
     steelPrice      double,
-    brand           varchar(30),
-    model           varchar(30),
+    brand           varchar(64),
+    model           varchar(128),
     equipmentLevel  ENUM ('BASE', 'MEDIUM', 'LARGE'),
     registrationFee double,
     co2emission     double,

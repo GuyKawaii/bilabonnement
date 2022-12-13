@@ -10,15 +10,11 @@ VALUES (102, '2', 'DAMAGE_REPORTER user', '123', 'DAMAGE_REPORTER');
 INSERT INTO employee (employeeID, email, name, password, role)
 VALUES (103, '3', 'BUSINESS_DEVELOPER user', '123', 'BUSINESS_DEVELOPER');
 INSERT INTO employee (employeeID, email, name, password, role)
-VALUES (104, '4', 'ADMINISTRATION 2', '123', 'ADMINISTRATION');
-INSERT INTO employee (employeeID, email, name, password, role)
 VALUES (105, '5', 'DATA_REGISTRATION 2', '123', 'DATA_REGISTRATION');
 INSERT INTO employee (employeeID, email, name, password, role)
 VALUES (106, '6', 'DAMAGE_REPORTER 2', '123', 'DAMAGE_REPORTER');
 INSERT INTO employee (employeeID, email, name, password, role)
 VALUES (107, '7', 'BUSINESS_DEVELOPER 2', '123', 'BUSINESS_DEVELOPER');
-INSERT INTO employee (employeeID, email, name, password, role)
-VALUES (108, '8', 'ADMINISTRATION 2', '123', 'ADMINISTRATION');
 
 # customer #
 INSERT INTO customer (customerID, firstName, lastName, email, address, city, postalCode, mobile, cprNumber)
