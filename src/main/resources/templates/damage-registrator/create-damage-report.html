@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="da" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Damage report</title>
+    <title>Skaderapportering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author"content="I. Justino, D. Dam, M. Baiocchi, V. Bistrup Frydkjær">
+    <meta http-equiv="refresh" content="1200">
     <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
     <link rel="stylesheet" th:href="@{/base.css}">
 </head>
@@ -13,11 +16,11 @@
 <div id="content">
 
     <h1>Lav skaderapport</h1>
-
+    <hr>
     <form action="/create-new-damage-report" method="post">
         <label for="employeeID">Medarbejder id:</label><br>
         <input type="text" id="employeeID" name="employeeID" th:value="${employeeID}" readonly><br>
-        <label for="vehicleID">Vogn id:</label><br>
+        <label for="vehicleID">Vognnummer:</label><br>
         <select name="vehicleID" id="vehicleID"><br>
             <option th:each="car: ${cars}" th:value="${car.vehicleID}"
                     th:text="|id: ${car.vehicleID}, ${car.brand}, ${car.model}|"></option>
@@ -28,13 +31,14 @@
     </form>
 
     <div>
-        <h3>Mine skaderapporter</h3>
+
         <table>
+            <th colspan="6">Mine Skadesrapporter</th>
             <tr>
                 <th>Rapport ID</th>
                 <th>Medarbejder ID</th>
                 <th>Timestamp</th>
-                <th>Vogn ID</th>
+                <th>Vognnummer</th>
                 <th>Rediger</th>
                 <th>Slet</th>
             </tr>

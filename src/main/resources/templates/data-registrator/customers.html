@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da" xmlns:th="http://www.w3.org/1999/xhtml">>
 <head>
     <meta charset="UTF-8">
-    <title>kunder</title>
-
+    <title>Kundekartotek</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author"content="I. Justino, D. Dam, M. Baiocchi, V. Bistrup Frydkjær">
+    <meta http-equiv="refresh" content="1200">
     <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
     <link rel="stylesheet" th:href="@{/base.css}">
 </head>
@@ -59,15 +61,15 @@
                 <td>INGEN KUNDER</td>
             </tr>
             <tr th:each="customer : ${customers}">
-                <td><span th:text="${customer.customerID}">kunde ID</span></td>
-                <td><span th:text="${customer.firstName}">fornavn</span></td>
-                <td><span th:text="${customer.lastName}">efternavn</span></td>
-                <td><span th:text="${customer.email}">email</span></td>
-                <td><span th:text="${customer.address}">address</span></td>
-                <td><span th:text="${customer.city}">city</span></td>
-                <td><span th:text="${customer.postalCode}">postnr</span></td>
-                <td><span th:text="${customer.mobile}">mobil</span></td>
-                <td><span th:text="${customer.cprNumber}">CPR</span></td>
+                <td><span th:text="${customer.customerID}">Kunde ID</span></td>
+                <td><span th:text="${customer.firstName}">Fornavn</span></td>
+                <td><span th:text="${customer.lastName}">Efternavn</span></td>
+                <td><span th:text="${customer.email}">Email</span></td>
+                <td><span th:text="${customer.address}">Adresse</span></td>
+                <td><span th:text="${customer.city}">City</span></td>
+                <td><span th:text="${customer.postalCode}">Postnr</span></td>
+                <td><span th:text="${customer.mobile}">Mobil</span></td>
+                <td><span th:text="${customer.cprNumber}">CPR Nummer</span></td>
                 <td th:if="${employeeRole == 'DATA_REGISTRATION'}">
                     <a th:href="@{'/edit-customer?customerID='+${customer.customerID}}">
                         <button class="btn-view">Rediger</button>

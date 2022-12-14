@@ -303,6 +303,20 @@ WHERE l.vehicleID = ?
 ORDER BY startDate DESC;
 
 
+SELECT leasecontract.*, optional.*
+FROM leasecontract
+         inner JOIN leaseoptional
+                   ON leasecontract.leaseID = leaseoptional.leaseID
+         inner JOIN optional
+                   ON leaseoptional.optionalID = optional.optionalID;
+
+SELECT leasecontract.*, optional.*
+FROM leasecontract
+         LEFT JOIN leaseoptional
+                   ON leasecontract.leaseID = leaseoptional.leaseID
+         LEFT JOIN optional
+                   ON leaseoptional.optionalID = optional.optionalID;
+
 SELECT l.*
 FROM leasecontract l
          JOIN car c on c.vehicleID = l.vehicleID

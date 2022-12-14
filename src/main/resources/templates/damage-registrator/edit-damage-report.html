@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="da" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>damage report</title>
+    <title>Ændre skadesrapport</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author"content="I. Justino, D. Dam, M. Baiocchi, V. Bistrup Frydkjær">
+    <meta http-equiv="refresh" content="1200">
     <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
     <link rel="stylesheet" th:href="@{/base.css}">
 </head>
@@ -20,7 +23,7 @@
             <input type="text" name="damageReportID" id="damageReportID" th:value="${damageReport.damageReportID}" readonly><br>
             <label for="employeeID">Medarbejder ID:</label><br>
             <input type="text" name="employeeID" id="employeeID" th:value="${damageReport.employeeID}" readonly><br>
-            <label for="vehicleID">Vogn ID:</label><br>
+            <label for="vehicleID">Vognnummer:</label><br>
             <select name="vehicleID" id="vehicleID"><br>
                 <option th:value="${damageReport.vehicleID}"
                         th:text="|${damageReport.vehicleID} - nuværende|"
@@ -46,7 +49,7 @@
             <label for="pris">Pris</label><br>
             <input type="price" name="pris" id="pris" placeholder="0.00" required><br>
             <input type="hidden" name="damage-report-id" th:value="${damageReport.damageReportID}"><br>
-            <button type="submit">Create</button>
+            <button type="submit">Opret</button>
         </form>
     </div>
 

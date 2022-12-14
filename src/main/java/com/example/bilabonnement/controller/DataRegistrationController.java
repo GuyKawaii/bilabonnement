@@ -113,8 +113,14 @@ public class DataRegistrationController {
      * @author Veronica(Rhod1um)
      */
     @GetMapping("/edit-lease-contract")
-    public String updateLeaseContract(WebRequest req, Model model) { //@RequestParam int id
+    public String updateLeaseContract(WebRequest req, Model model, HttpSession session) { //@RequestParam int id
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
+
+        // session navbar
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
+
 
         model.addAttribute("contract", leaseService.read(leaseID));
         model.addAttribute("leaseNonOptionals", optionalService.readNonLeaseOptionals(leaseID));
@@ -150,7 +156,6 @@ public class DataRegistrationController {
                 Integer.parseInt(req.getParameter("employeeID")),
                 leaseOptionals)
         );
-
         return "redirect:/create-lease-contract";
     }
 
@@ -169,8 +174,6 @@ public class DataRegistrationController {
         model.addAttribute("unleasedCars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
         model.addAttribute("leasedCars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
         model.addAttribute("states", employeeService.getEmployeeStateSelect(DATA_REGISTRATION));
-
-
         return "data-registrator/view-cars";
     }
 

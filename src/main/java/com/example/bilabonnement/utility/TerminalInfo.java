@@ -1,5 +1,6 @@
 package com.example.bilabonnement.utility;
 
+
 public class TerminalInfo {
   /**
    * @author Ian(DatJustino)
@@ -13,4 +14,5 @@ public static void printToConsole(){
           "Business: http://localhost:8080/business-developer\n\n\n";
   System.out.println(terminal);
 }
+
 }

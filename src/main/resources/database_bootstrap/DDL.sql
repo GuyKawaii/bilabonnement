@@ -153,6 +153,7 @@ CREATE TABLE IF NOT EXISTS damageEntry
  * @author Mikas(CodeClod)
  */
 use bilabonnement;
+
 create view fullLeaseInfo AS
 SELECT leasecontract.*, optional.*
 FROM leasecontract
