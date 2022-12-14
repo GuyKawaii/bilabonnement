@@ -27,16 +27,6 @@ public class LeaseContractRepositoryTest {
     CustomerRepository customerRepository = new CustomerRepository(TEST_DB);
     OptionalRepository optionalRepository = new OptionalRepository(TEST_DB);
     EmployeeRepository employeeRepository = new EmployeeRepository(TEST_DB);
-    java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-
-
-
-
-    @BeforeAll
-    static void setupOther() {
-
-    }
-
 
 
     @Test

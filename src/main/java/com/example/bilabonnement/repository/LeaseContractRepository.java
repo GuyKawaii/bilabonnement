@@ -321,6 +321,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         return contractList;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     public List<LeaseContract> readPassedLeaseContractsByVehicleID(int vehicleID, Date date) {
         List<LeaseContract> contractList = new ArrayList<>();
 
@@ -357,6 +361,9 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         return contractList;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<LeaseContract> readUpcomingLeaseContractsByVehicleID(int vehicleID, Date date) {
         List<LeaseContract> contractList = new ArrayList<>();
 
@@ -414,6 +421,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         return count;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     public boolean hasContractOverlapForPeriod(int vehicleID, Date startDate, Date endDate) {
         List<LeaseContract> contractList = new ArrayList<>();
 

@@ -65,10 +65,14 @@ public class LeaseContractService {
         return leaseContractRepo.readUpcomingLeaseContractsByVehicleID(vehicleID, valueOf);
     }
 
+
     public List<LeaseContract> readPassedLeaseContractsByVehicleID(int vehicleID, Date valueOf) {
         return leaseContractRepo.readPassedLeaseContractsByVehicleID(vehicleID, valueOf);
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<Optional> getRequestLeaseOptionals(WebRequest req, List<Optional> allOptionals) {
         List<Optional> leaseOptionals = new ArrayList<>();
 
@@ -84,10 +88,9 @@ public class LeaseContractService {
         return leaseContractRepo.hasContractOverlapForPeriod( vehicleID,  startDate,  endDate);
     }
 
-    public List<Optional> readLeaseOptionals(int leaseID) {
-        return leaseContractRepo.readLeaseOptionals(leaseID);
-    }
-
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public boolean invalidStartAndEndDAte(Date startDate, Date endDate) {
         return startDate.after(endDate) || endDate.before(startDate);
     }

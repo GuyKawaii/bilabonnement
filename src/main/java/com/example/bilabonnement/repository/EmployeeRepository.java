@@ -44,6 +44,9 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
         }
     }
 
+    /**
+     * @author Ian(DatJustino)
+     */
     @Override
     public List<Employee> readAll() {
         List<Employee> employeeList = new ArrayList<>();
@@ -93,6 +96,9 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
         }
     }
 
+    /**
+     * @author Ian(DatJustino)
+     */
     @Override
     public void update(Employee employee) {
         try {
@@ -109,6 +115,9 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
         }
     }
 
+    /**
+     * @author Ian(DatJustino)
+     */
     @Override
     public void delete(int employeeID) {
         try {
@@ -145,6 +154,9 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
         return employee;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<Employee> readAllWithRole(Role role) {
         List<Employee> employeeList = new ArrayList<>();
 

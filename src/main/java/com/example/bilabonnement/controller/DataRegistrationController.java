@@ -34,7 +34,11 @@ public class DataRegistrationController {
     // people with access to these pages
     Role[] employeeAccess = new Role[]{DATA_REGISTRATION};
 
-
+    /**
+     * @author Ian(DatJustino)
+     * @author Veronica(Rhod1um)
+     */
+    // Create LeaseContract
     @GetMapping("/create-lease-contract")
     public String registrationPage(@RequestParam(required = false) String error, HttpSession session, Model model) {
         // validate employee access
@@ -137,6 +141,9 @@ public class DataRegistrationController {
         return "redirect:/create-lease-contract";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @GetMapping("/view-cars")
     public String viewCars(Model model, HttpSession session) {
         // validate employee access
@@ -154,6 +161,9 @@ public class DataRegistrationController {
         return "data-registrator/view-cars";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @GetMapping("/edit-car")
     public String editCar(@RequestParam int vehicleID, Model model, HttpSession session) {
         // validate employee access
@@ -172,6 +182,9 @@ public class DataRegistrationController {
         return "data-registrator/edit-car";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @PostMapping("/update-car-state")
     public String updateCarState(WebRequest req) {
 
@@ -182,6 +195,9 @@ public class DataRegistrationController {
         return "redirect:/view-cars";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @PostMapping("update-car")
     public String updateCar(WebRequest req) {
 
@@ -211,6 +227,9 @@ public class DataRegistrationController {
         return "redirect:/create-lease-contract";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @GetMapping("/edit-customer")
     public String editCustomer(Model model, @RequestParam int customerID, HttpSession session) {
         // validate employee access

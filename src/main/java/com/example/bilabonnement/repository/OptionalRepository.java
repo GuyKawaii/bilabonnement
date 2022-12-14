@@ -18,6 +18,9 @@ public class OptionalRepository implements IGenericRepository<Optional> {
         conn = DatabaseConnectionManager.getConnection(db_connection);
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @Override
     public void create(Optional optional) {
         try {
@@ -43,6 +46,9 @@ public class OptionalRepository implements IGenericRepository<Optional> {
         }
     }
 
+    /**
+     * @author Veronica(Rhod1um)
+     */
     @Override
     public List<Optional> readAll() {
         List<Optional> optionalList = new ArrayList<>();
@@ -63,6 +69,9 @@ public class OptionalRepository implements IGenericRepository<Optional> {
         return optionalList;
     }
 
+    /**
+     * @author Veronica(Rhod1um)
+     */
     @Override
     public Optional read(int id) {
         Optional optional = null;
@@ -84,6 +93,9 @@ public class OptionalRepository implements IGenericRepository<Optional> {
         return optional;
     }
 
+    /**
+     * @author Veronica(Rhod1um)
+     */
     @Override
     public void update(Optional optional) {
         try {
@@ -112,6 +124,9 @@ public class OptionalRepository implements IGenericRepository<Optional> {
 
     // extra
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<Optional> readLeaseOptionals(int leaseID) {
         List<Optional> optionalList = new ArrayList<>();
 
@@ -139,6 +154,9 @@ public class OptionalRepository implements IGenericRepository<Optional> {
         return optionalList;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<Optional> readNonLeaseOptionals(int leaseID) {
         List<Optional> optionalList = new ArrayList<>();
 
@@ -169,6 +187,9 @@ public class OptionalRepository implements IGenericRepository<Optional> {
         return optionalList;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<Double[]> readLeaseOptionalAmounts() {
         List<Double[]> optionalAmounts = new ArrayList<>();
 

@@ -20,6 +20,9 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         conn = DatabaseConnectionManager.getConnection(db_connection);
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @Override
     public void create(DamageEntry damageEntry) {
         try {
@@ -47,6 +50,10 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         }
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Ian(DatJustino)
+     */
     @Override
     public List<DamageEntry> readAll() {
         List<DamageEntry> damageList = new ArrayList<>();
@@ -72,6 +79,9 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         return damageList;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @Override
     public DamageEntry read(int id) {
         DamageEntry damageEntry = null;
@@ -98,6 +108,9 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         return damageEntry;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @Override
     public void update(DamageEntry damageEntry) {
         try {
@@ -113,6 +126,10 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         }
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Ian(DatJustino)
+     */
     @Override
     public void delete(int id) {
         try {
@@ -125,6 +142,10 @@ public class DamageEntryRepository implements IGenericRepository<DamageEntry> {
         }
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Ian(DatJustino)
+     */
     public List<DamageEntry> entriesByReport(int ids) {
         List<DamageEntry> damageList = new ArrayList<>();
 

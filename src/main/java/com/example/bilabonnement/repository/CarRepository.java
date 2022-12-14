@@ -219,6 +219,9 @@ public class CarRepository implements IGenericRepository<Car> {
         return carList;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<Car> readAllUnleasedOnDateForRole(Date date, ArrayList<Role> roles) {
         List<Car> carList = new ArrayList<>();
 

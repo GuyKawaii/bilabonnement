@@ -26,7 +26,9 @@ public class CarService {
         return carRepository.readAll();
     }
 
-
+    /**
+     * @author Mikas(CodeClod)
+     */
     public int getLeasedCarsAmount() {
         List<Car> fullCarList = carRepository.readAll();
         int numOfleasedCars = 0;

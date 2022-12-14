@@ -1,5 +1,9 @@
 # DDL is Data Definition Language which is used to define data structures.
-# nuke option
+
+/**
+* @author daniel(GuyKawaii)
+* @author Ian(DatJustino)
+*/
 
 # test
 # DROP DATABASE  IF EXISTS testbilabonnement;
@@ -17,9 +21,9 @@ USE bilabonnement;
 CREATE TABLE IF NOT EXISTS employee
 (
     employeeID int AUTO_INCREMENT,
-    email      varchar(128) UNIQUE NOT NULL,
-    name       varchar(128)        NOT NULL,
-    password   varchar(128)        NOT NULL,
+    email      varchar(100) UNIQUE NOT NULL,
+    name       varchar(100)        NOT NULL,
+    password   varchar(100)        NOT NULL,
     role       ENUM ('DAMAGE_REPORTER', 'DATA_REGISTRATION', 'BUSINESS_DEVELOPER'),
 
     # key setup
@@ -29,13 +33,13 @@ CREATE TABLE IF NOT EXISTS employee
 CREATE TABLE IF NOT EXISTS customer
 (
     customerID int AUTO_INCREMENT,
-    firstName  varchar(64)        NOT NULL,
-    lastName   varchar(64)        NULL,
-    email      varchar(128) UNIQUE NOT NULL,
-    address    varchar(128)       NOT NULL,
-    city       varchar(64)        NOT NULL,
+    firstName  varchar(100)        NOT NULL,
+    lastName   varchar(100)        NULL,
+    email      varchar(100) UNIQUE NOT NULL,
+    address    varchar(100)       NOT NULL,
+    city       varchar(50)        NOT NULL,
     postalCode int                NOT NULL,
-    mobile     varchar(64)        NOT NULL,
+    mobile     varchar(50)        NOT NULL,
     cprNumber  varchar(12)        NOT NULL,
 
     # key setup
@@ -45,7 +49,7 @@ CREATE TABLE IF NOT EXISTS customer
 CREATE TABLE IF NOT EXISTS optional
 (
     optionalID   int AUTO_INCREMENT,
-    name         varchar(64),
+    name         varchar(50),
     pricePrMonth double,
 
     # key setup
@@ -57,8 +61,8 @@ CREATE TABLE IF NOT EXISTS car
     vehicleID       int AUTO_INCREMENT,
     chassisNumber   varchar(17),
     steelPrice      double,
-    brand           varchar(64),
-    model           varchar(128),
+    brand           varchar(50),
+    model           varchar(100),
     equipmentLevel  ENUM ('BASE', 'MEDIUM', 'LARGE'),
     registrationFee double,
     co2emission     double,
@@ -132,7 +136,7 @@ CREATE TABLE IF NOT EXISTS damageReport
 CREATE TABLE IF NOT EXISTS damageEntry
 (
     damageEntryID     int AUTO_INCREMENT,
-    damageTitle       varchar(255) NOT NULL,
+    damageTitle       varchar(50) NOT NULL,
     damageDescription varchar(255) NOT NULL,
     damagePrice       double       not null,
     damageReportID    int,
@@ -145,7 +149,9 @@ CREATE TABLE IF NOT EXISTS damageEntry
 );
 
 ### make View  ###
-
+/**
+ * @author Mikas(CodeClod)
+ */
 use bilabonnement;
 create view fullLeaseInfo AS
 SELECT leasecontract.*, optional.*

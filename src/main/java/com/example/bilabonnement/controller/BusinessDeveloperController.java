@@ -26,6 +26,10 @@ public class BusinessDeveloperController {
     // people with access to these pages todo change to only use one Role for check
     Role[] employeeAccess = new Role[]{BUSINESS_DEVELOPER};
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     @GetMapping("/finance")
     public String getCarsLeased(HttpSession session, Model model) {
         // validate employee access

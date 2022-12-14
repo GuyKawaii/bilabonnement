@@ -31,6 +31,9 @@ public class DamageReporterController {
     // people with access to these pages
     Role[] employeeAccess = new Role[]{DAMAGE_REPORTER};
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @GetMapping("/damage-reports")
     public String damageReports(Model model, HttpSession session) {
         // validate employee access
@@ -47,6 +50,9 @@ public class DamageReporterController {
     }
 
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @GetMapping("/create-damage-report")
     public String createDamageReport(Model model, HttpSession session) {
         // validate employee access
@@ -66,6 +72,9 @@ public class DamageReporterController {
         return "damage-registrator/create-damage-report";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @PostMapping("/create-new-damage-report")
     public String createDamageReport(HttpSession session, WebRequest req, Model model) {
 
@@ -83,6 +92,9 @@ public class DamageReporterController {
         return "redirect:/create-damage-report";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @GetMapping("/edit-damage-report")
     public String damageEntry(@RequestParam int reportID, Model model, HttpSession session) { //skal HttpSession være i alle parameterlister?
         // validate employee access
@@ -109,6 +121,9 @@ public class DamageReporterController {
         return "redirect:/" + returnPage;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @PostMapping("/create-damage-entry")
     public String createDamageEntry(WebRequest req, HttpSession session, Model model) {
         // create entry
@@ -121,6 +136,9 @@ public class DamageReporterController {
         return ("redirect:/edit-damage-report?reportID=" + req.getParameter("damage-report-id"));
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @GetMapping("/delete-entry")
     public String deleteEntry(WebRequest req, HttpSession session) {
         // validate employee access
@@ -133,6 +151,9 @@ public class DamageReporterController {
         return ("redirect:/edit-damage-report?reportID=" + req.getParameter("reportID"));
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @PostMapping("/update-damage-report")
     public String updateDamageReport(Model model, WebRequest req) {
 
@@ -146,6 +167,9 @@ public class DamageReporterController {
         return "redirect:/edit-damage-report?reportID=" + req.getParameter("damageReportID");
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @GetMapping("checkout-cars")
     public String checkOutCars(Model model, HttpSession session) {
         // validate employee access
@@ -163,6 +187,9 @@ public class DamageReporterController {
         return "/damage-registrator/checkout-cars";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @PostMapping("/update-damage-state")
     public String updateCarState(WebRequest req) {
 

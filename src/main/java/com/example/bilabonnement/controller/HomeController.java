@@ -30,6 +30,9 @@ public class HomeController {
     // people with access to these pages
     Role[] employeeAccess = new Role[]{DATA_REGISTRATION, DAMAGE_REPORTER, BUSINESS_DEVELOPER};
 
+    /**
+     * @author Veronica(Rhod1um)
+     */
     // login page
     @GetMapping("/")
     public String index(HttpSession session) {
@@ -41,6 +44,10 @@ public class HomeController {
         return "redirect:/role-redirect";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author mikas(CodeClod)
+     */
     @PostMapping("/login")
     public String login(WebRequest request, HttpSession session, Model model) {
 
@@ -63,12 +70,18 @@ public class HomeController {
         }
     }
 
+    /**
+     * @author Veronica(Rhod1um)
+     */
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @GetMapping("/role-redirect")
     public String roleRedirect(HttpSession session) {
         Role role = (Role) session.getAttribute("employeeRole");
@@ -94,7 +107,28 @@ public class HomeController {
     }
 
     // mappings used for multiple employees
+    /**
+     * @author daniel(GuyKawaii)
+     */
+    @GetMapping("/car-lease-contracts")
+    public String carContracts(@RequestParam int vehicleID, Model model, HttpSession session) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
+            return "redirect:/role-redirect";
+        // session navbar
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
 
+        model.addAttribute("upcoming_contracts", leaseService.readUpcomingLeaseContractsByVehicleID(vehicleID, Date.valueOf(LocalDate.now())));
+        model.addAttribute("active_contracts", leaseService.readActiveLeaseContracts(vehicleID, Date.valueOf(LocalDate.now())));
+        model.addAttribute("passed_contracts", leaseService.readPassedLeaseContractsByVehicleID(vehicleID, Date.valueOf(LocalDate.now())));
+
+        return "car-lease-contracts";
+    }
+
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @GetMapping("/customers")
     public String Customers(Model model, HttpSession session) {
         // validate employee access
@@ -110,6 +144,9 @@ public class HomeController {
         return "/data-registrator/customers";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @PostMapping("update-customer")
     public String updateCustomer(WebRequest req) {
 
@@ -128,11 +165,11 @@ public class HomeController {
         return "redirect:/customers";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     @PostMapping("/create-customer")
     public String createCustomer(WebRequest req) {
-
-        // todo email overlap crashes site
-
 
         customerService.create(new Customer(
                 req.getParameter("firstName"),
@@ -147,21 +184,4 @@ public class HomeController {
 
         return "redirect:/customers";
     }
-
-    @GetMapping("/car-lease-contracts")
-    public String carContracts(@RequestParam int vehicleID, Model model, HttpSession session) {
-        // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
-            return "redirect:/role-redirect";
-        // session navbar
-        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
-        model.addAttribute("employeeName", session.getAttribute("employeeName"));
-
-        model.addAttribute("upcoming_contracts", leaseService.readUpcomingLeaseContractsByVehicleID(vehicleID, Date.valueOf(LocalDate.now())));
-        model.addAttribute("active_contracts", leaseService.readActiveLeaseContracts(vehicleID, Date.valueOf(LocalDate.now())));
-        model.addAttribute("passed_contracts", leaseService.readPassedLeaseContractsByVehicleID(vehicleID, Date.valueOf(LocalDate.now())));
-
-        return "car-lease-contracts";
-    }
-
 }
