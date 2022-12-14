@@ -43,6 +43,9 @@ public class EmployeeService {
         return employeeRepo.readByEmail(email);
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public Employee login(String email, String password) {
 
         // read from DB
@@ -56,7 +59,9 @@ public class EmployeeService {
             return null;
     }
 
-
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public static boolean validEmployeeRole(Role role, Role[] roles) {
         for (Role r : roles)
             if (r == role) return true;
@@ -64,6 +69,9 @@ public class EmployeeService {
         return false;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<State> getEmployeeStateSelect(Role role) {
         switch (role) {
             case DATA_REGISTRATION -> {

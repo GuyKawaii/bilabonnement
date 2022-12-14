@@ -65,6 +65,10 @@ public class DataRegistrationController {
     }
 
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     @PostMapping("/make_contract")
     public String makeContract(HttpSession session, WebRequest req, RedirectAttributes redirectAttributes) {
         Date startDate = Date.valueOf(req.getParameter("startDate"));
@@ -103,6 +107,11 @@ public class DataRegistrationController {
         return "redirect:/create-lease-contract";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Ian(DatJustino)
+     * @author Veronica(Rhod1um)
+     */
     @GetMapping("/edit-lease-contract")
     public String updateLeaseContract(WebRequest req, Model model) { //@RequestParam int id
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));

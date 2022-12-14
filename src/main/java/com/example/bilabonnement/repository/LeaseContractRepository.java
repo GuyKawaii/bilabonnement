@@ -283,6 +283,9 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<LeaseContract> readActiveLeaseContractsByVehicleID(int vehicleID, Date date) {
         List<LeaseContract> contractList = new ArrayList<>();
 
@@ -399,7 +402,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
         return contractList;
     }
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     public double activeLeaseContractCountByDate(Date date) {
         double count = 0;
         try {

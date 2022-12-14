@@ -72,6 +72,10 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
         return employeeList;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     @Override
     public Employee read(int id) {
         Employee employee = null;

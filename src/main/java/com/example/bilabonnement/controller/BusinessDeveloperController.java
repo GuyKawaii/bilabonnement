@@ -50,5 +50,4 @@ public class BusinessDeveloperController {
 
         return "buisness-developer/business-developer";
     }
-
 }
