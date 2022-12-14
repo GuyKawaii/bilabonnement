@@ -18,6 +18,11 @@ public class EmployeeRepository implements IGenericRepository<Employee> {
     public EmployeeRepository(DB_CONNECTION db_connection) {
         conn = DatabaseConnectionManager.getConnection(db_connection);
     }
+
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Ian(DatJustino)
+     */
     @Override
     public void create(Employee employee) {
         try {

@@ -1,5 +1,8 @@
 package com.example.bilabonnement.repository;
-
+/**
+ * @author daniel(GuyKawaii)
+ * @author Mikas(CodeClod)
+ */
 import com.example.bilabonnement.model.DamageEntry;
 import com.example.bilabonnement.model.Employee;
 import com.example.bilabonnement.model.enums.DB_CONNECTION;

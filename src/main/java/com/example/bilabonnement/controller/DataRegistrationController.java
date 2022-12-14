@@ -126,6 +126,10 @@ public class DataRegistrationController {
         return "edit-lease-contract";
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Veronica(Rhod1um)
+     */
     @PostMapping("/update-lease-contract")
     public String updateLease(WebRequest req, Model model) {
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));
@@ -228,7 +232,10 @@ public class DataRegistrationController {
         return "redirect:/view-cars";
     }
 
-
+    /**
+     * @author Ian(DatJustino)
+     * @author Veronica(Rhod1um)
+     */
     @PostMapping("/delete-lease-contract")
     public String deleteDamageReport(WebRequest req) {
         int leaseID = Integer.parseInt(req.getParameter("leaseID"));

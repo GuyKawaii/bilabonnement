@@ -1,5 +1,10 @@
 package com.example.bilabonnement.model;
-
+/**
+ * @author daniel(GuyKawaii)
+ * @author Mikas(CodeClod)
+ * @author Ian(DatJustino)
+ * @author Veronica(Rhod1um)
+ */
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;

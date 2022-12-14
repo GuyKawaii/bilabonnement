@@ -1,5 +1,9 @@
 package com.example.bilabonnement.repository;
-
+/**
+ * @author daniel(GuyKawaii)
+ * @author Mikas(CodeClod)
+ * @author Ian(DatJustino)
+ */
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.enums.*;
 import com.example.bilabonnement.utility.DatabaseConnectionManager;
@@ -16,6 +20,11 @@ public class CarRepository implements IGenericRepository<Car> {
         conn = DatabaseConnectionManager.getConnection(db_connection);
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     */
     @Override
     public void create(Car car) {
         try {
@@ -48,7 +57,11 @@ public class CarRepository implements IGenericRepository<Car> {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     */
     @Override
     public List<Car> readAll() {
         List<Car> carList = new ArrayList<>();
@@ -78,6 +91,11 @@ public class CarRepository implements IGenericRepository<Car> {
         return carList;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     */
     @Override
     public Car read(int id) {
         Car car = null;
@@ -109,6 +127,11 @@ public class CarRepository implements IGenericRepository<Car> {
         return car;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     */
     @Override
     public void update(Car car) {
         try {
@@ -129,6 +152,11 @@ public class CarRepository implements IGenericRepository<Car> {
         }
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     */
     @Override
     public void delete(int id) {
         try {
@@ -143,6 +171,11 @@ public class CarRepository implements IGenericRepository<Car> {
 
     // extra for this repository
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     */
     public List<Car> readAllLeasedOnDate(Date date) {
         List<Car> carList = new ArrayList<>();
 
@@ -181,6 +214,9 @@ public class CarRepository implements IGenericRepository<Car> {
         return carList;
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<Car> readAllUnleasedOnDate(Date date) {
         List<Car> carList = new ArrayList<>();
 
@@ -260,7 +296,9 @@ public class CarRepository implements IGenericRepository<Car> {
 
         return carList;
     }
-
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public void updateState(int vehicleID, State state) {
         try {
             PreparedStatement psts = conn.prepareStatement("UPDATE car SET state = ? WHERE vehicleID = ?");
@@ -273,7 +311,9 @@ public class CarRepository implements IGenericRepository<Car> {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * @author daniel(GuyKawaii)
+     */
     public List<Car> readAllUnleasedOnDateWithState(Date date, State state) {
         List<Car> carList = new ArrayList<>();
 

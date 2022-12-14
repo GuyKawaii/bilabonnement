@@ -28,7 +28,10 @@ public class LeaseContractRepositoryTest {
     OptionalRepository optionalRepository = new OptionalRepository(TEST_DB);
     EmployeeRepository employeeRepository = new EmployeeRepository(TEST_DB);
 
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Ian(DatJustino)
+     */
     @Test
     void create() {
         // arrange
@@ -65,6 +68,11 @@ public class LeaseContractRepositoryTest {
         assertEquals(expected.getOptionalsAmount(), actual.getOptionalsAmount());
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Ian(DatJustino)
+     * @author Veronica(Rhod1um)
+     */
     @Test
     void update() { // todo clean up
         // # arrange #
@@ -112,7 +120,10 @@ public class LeaseContractRepositoryTest {
         assertEquals(expected.getStartDate(), actual.getStartDate());
         assertEquals(expected.getMonthlyPrice(), actual.getMonthlyPrice());
     }
-
+    /**
+     * @author Ian(DatJustino)
+     * @author Veronica(Rhod1um)
+     */
     @Test
     void delete() {
         int leaseID = 1;
@@ -160,6 +171,11 @@ public class LeaseContractRepositoryTest {
         assertNull(actualNull);
     }
 
+
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Ian(DatJustino)
+     */
     @Test
     void getCurrentIncome() {
         int baseID = 1;

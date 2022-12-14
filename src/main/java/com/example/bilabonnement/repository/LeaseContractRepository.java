@@ -1,5 +1,10 @@
 package com.example.bilabonnement.repository;
-
+/**
+ * @author daniel(GuyKawaii)
+ * @author Mikas(CodeClod)
+ * @author Ian(DatJustino)
+ * @author Veronica(Rhod1um)
+ */
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.model.Optional;
 import com.example.bilabonnement.model.enums.DB_CONNECTION;
@@ -22,6 +27,12 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         conn = DatabaseConnectionManager.getConnection(db_connection);
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     * @author Veronica(Rhod1um)
+     */
     @Override
     public void create(LeaseContract leaseContract) {
         int leaseID;
@@ -70,6 +81,11 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         updateOptionals(leaseContract.getLeaseOptionals(), leaseID);
     }
 
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     */
     public int createAndReturnID(LeaseContract leaseContract) {
         // call base method
         create(leaseContract);
@@ -90,7 +106,12 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
     }
 
-    // TODO
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     * @author Veronica(Rhod1um)
+     */
     @Override
     public List<LeaseContract> readAll() {
         List<LeaseContract> contractList = new ArrayList<>();
@@ -118,7 +139,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
         return contractList;
     }
-
+    /**
+     * @author Ian(DatJustino)
+     * @author Veronica(Rhod1um)
+     */
     @Override
     public LeaseContract read(int id) {
         LeaseContract leaseContract = null;
@@ -148,7 +172,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
 
         return leaseContract;
     }
-
+    /**
+     * @author Ian(DatJustino)
+     * @author Veronica(Rhod1um)
+     */
     @Override
     public void update(LeaseContract leaseContract) {
         long millis = System.currentTimeMillis();
@@ -171,7 +198,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         }
     }
 
-
+    /**
+     * @author Ian(DatJustino)
+     * @author Veronica(Rhod1um)
+     */
     @Override
     public void delete(int id) {
         try {
@@ -182,7 +212,10 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     public double getCurrentIncome(Date date) {
         double income = 0;
         try {
@@ -208,30 +241,11 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         return income;
     }
 
-    public double getCurrentIncome2(Date date) {
-        double income = 0;
-        try {
-            PreparedStatement pst = conn.prepareStatement("SELECT l.monthlyPrice + SUM(o.pricePrMonth) as total\n" +
-                    "FROM leaseContract l\n" +
-                    "         LEFT JOIN leaseoptional lo on lo.leaseID = l.leaseID\n" +
-                    "         JOIN optional o on lo.optionalID = o.optionalID\n" +
-                    "WHERE l.startDate < ?\n" +
-                    "  AND ? < l.endDate\n" +
-                    "GROUP BY l.monthlyPrice;");
-
-            pst.setDate(1, date);
-            pst.setDate(2, date);
-            ResultSet resultSet = pst.executeQuery();
-
-            while (resultSet.next()) {
-                income += resultSet.getDouble("total");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return income;
-    }
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     */
     public List<Optional> readLeaseOptionals(int leaseID) {
         List<Optional> optionalList = new ArrayList<>();
 
@@ -259,7 +273,11 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         return optionalList;
     }
 
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     * @author Ian(DatJustino)
+     */
     public void updateOptionals(List<Optional> optionals, int leaseID) {
         // remove previous optionals
         try {

@@ -1,5 +1,11 @@
 package com.example.bilabonnement.utility;
 
+/**
+ * @author daniel(GuyKawaii)
+ * @author Ian(DatJustino)
+ * @author Veronika(Rhod1um)
+ */
+
 import com.example.bilabonnement.model.enums.DB_CONNECTION;
 
 import java.sql.Connection;

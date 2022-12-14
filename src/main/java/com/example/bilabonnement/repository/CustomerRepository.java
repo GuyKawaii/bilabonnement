@@ -17,7 +17,10 @@ public class CustomerRepository implements IGenericRepository<Customer> {
     public CustomerRepository(DB_CONNECTION db_connection) {
         conn = DatabaseConnectionManager.getConnection(db_connection);
     }
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     @Override
     public void create(Customer customer) {
         try {
@@ -55,7 +58,10 @@ public class CustomerRepository implements IGenericRepository<Customer> {
         }
 
     }
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     @Override
     public List<Customer> readAll() {
         List<Customer> customerList = new ArrayList<>();
@@ -84,7 +90,10 @@ public class CustomerRepository implements IGenericRepository<Customer> {
 
         return customerList;
     }
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     @Override
     public Customer read(int id) {
         Customer customer = null;
@@ -114,7 +123,10 @@ public class CustomerRepository implements IGenericRepository<Customer> {
 
         return customer;
     }
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     @Override
     public void update(Customer customer) {
         try {
@@ -135,7 +147,10 @@ public class CustomerRepository implements IGenericRepository<Customer> {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * @author daniel(GuyKawaii)
+     * @author Mikas(CodeClod)
+     */
     @Override
     public void delete(int customerID) {
 
