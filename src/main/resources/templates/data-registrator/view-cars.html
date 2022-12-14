@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da" xmlns:th="http://www.w3.org/1999/xhtml">>
 <head>
     <meta charset="UTF-8">
-    <title>biler</title>
-
+    <title>Bilkartotek</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author"content="I. Justino, D. Dam, M. Baiocchi, V. Bistrup Frydkjær">
+    <meta http-equiv="refresh" content="1200">
     <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
     <link rel="stylesheet" th:href="@{/base.css}">
 </head>
@@ -40,13 +42,13 @@
                     <td>INGEN BILER</td>
                 </tr>
                 <tr th:each="unleasedCar : ${unleasedCars}">
-                    <td><span th:text="${unleasedCar.vehicleID}">vogn ID</span></td>
-                    <td><span th:text="${unleasedCar.chassisNumber}">stelnummer</span></td>
-                    <td><span th:text="${unleasedCar.steelPrice}">stålpris</span></td>
-                    <td><span th:text="${unleasedCar.brand}">mærke</span></td>
-                    <td><span th:text="${unleasedCar.model}">model</span></td>
-                    <td><span th:text="${unleasedCar.equipmentLevel}">udstyrsniveau</span></td>
-                    <td><span th:text="${unleasedCar.registrationFee}">reg. Afgift</span></td>
+                    <td><span th:text="${unleasedCar.vehicleID}">Vognnummer</span></td>
+                    <td><span th:text="${unleasedCar.chassisNumber}">Stelnummer</span></td>
+                    <td><span th:text="${unleasedCar.steelPrice}">Stålpris</span></td>
+                    <td><span th:text="${unleasedCar.brand}">Mærke</span></td>
+                    <td><span th:text="${unleasedCar.model}">Model</span></td>
+                    <td><span th:text="${unleasedCar.equipmentLevel}">Udstyrsniveau</span></td>
+                    <td><span th:text="${unleasedCar.registrationFee}">Reg. Afgift</span></td>
                     <td><span th:text="${unleasedCar.co2emission}">CO2-udledning</span></td>
                     <td>
                         <form action="#" th:action="@{/update-car-state}" method="post">
@@ -102,13 +104,13 @@
                     <td>INGEN BILER</td>
                 </tr>
                 <tr th:each="leasedCar : ${leasedCars}">
-                    <td><span th:text="${leasedCar.vehicleID}">vogn ID</span></td>
-                    <td><span th:text="${leasedCar.chassisNumber}">stelnummer</span></td>
-                    <td><span th:text="${leasedCar.steelPrice}">stålpris</span></td>
-                    <td><span th:text="${leasedCar.brand}">mærke</span></td>
-                    <td><span th:text="${leasedCar.model}">model</span></td>
-                    <td><span th:text="${leasedCar.equipmentLevel}">udstyrsniveau</span></td>
-                    <td><span th:text="${leasedCar.registrationFee}">reg. Afgift</span></td>
+                    <td><span th:text="${leasedCar.vehicleID}">Vognnummer</span></td>
+                    <td><span th:text="${leasedCar.chassisNumber}">Stelnummer</span></td>
+                    <td><span th:text="${leasedCar.steelPrice}">Stålpris</span></td>
+                    <td><span th:text="${leasedCar.brand}">Mærke</span></td>
+                    <td><span th:text="${leasedCar.model}">Model</span></td>
+                    <td><span th:text="${leasedCar.equipmentLevel}">Udstyrsniveau</span></td>
+                    <td><span th:text="${leasedCar.registrationFee}">Reg. Afgift</span></td>
                     <td><span th:text="${leasedCar.co2emission}">CO2-udledning</span></td>
                     <td>
                         <form action="#" th:action="@{/update-car-state}" method="post">
