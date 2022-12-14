@@ -397,7 +397,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         double count = 0;
         try {
             PreparedStatement pst = conn.prepareStatement("SELECT COUNT(*) AS activeContractCount\n" +
-                    "FROM fullLeaseInfo\n" +
+                    "FROM leasecontract\n" +
                     "WHERE (startDate <= ?) AND\n" +
                     "    (? <= endDate);");
 
