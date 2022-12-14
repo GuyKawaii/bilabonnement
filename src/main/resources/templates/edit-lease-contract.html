@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <title>ændre lejeaftale</title>
     <link rel="stylesheet" th:href="@{/base.css}">
+    <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
 
 </head>
 <body>
+<header th:replace="fragment/nav-menu.html :: header"></header>
 
 <div id="content">
 
     <!--    create new contract -->
-    <h1> ændre lejeaftale</h1>
+    <h1> Ændre lejeaftale</h1>
     <hr>
     <br>
 
@@ -56,12 +58,12 @@
                 <table>
                     <tr>
                         <th colspan="4">
-                            Ekstra udstyr til bilen
+                            Tilføj services
                         </th>
                     </tr>
                     <tr>
-                        <th>Tilføj udstyr</th>
-                        <th>Ekstra udstyr</th>
+                        <th>Tjek</th>
+                        <th>Service</th>
                         <th>Pris per måned</th>
                     </tr>
                     <tr th:each="leaseOptional : ${leaseOptionals}">

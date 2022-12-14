@@ -21,7 +21,7 @@
                 <th colspan="11" th:text="|returnerede biler uden aktiv leasing for ${date}|"></th>
             </tr>
             <tr>
-                <th>Vogn ID</th>
+                <th>Vognnummer</th>
                 <th>Stelnummer</th>
                 <th>Stålpris</th>
                 <th>Mærke</th>
@@ -34,7 +34,7 @@
             </thead>
             <tbody>
             <tr th:each="unleasedReturnedCar : ${unleasedReturnedCars}">
-                <td><span th:text="${unleasedReturnedCar.vehicleID}">vogn ID</span></td>
+                <td><span th:text="${unleasedReturnedCar.vehicleID}">vognnummer</span></td>
                 <td><span th:text="${unleasedReturnedCar.chassisNumber}">stelnummer</span></td>
                 <td><span th:text="${unleasedReturnedCar.steelPrice}">stålpris</span></td>
                 <td><span th:text="${unleasedReturnedCar.brand}">mærke</span></td>

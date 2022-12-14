@@ -59,15 +59,15 @@
                 <td>INGEN KUNDER</td>
             </tr>
             <tr th:each="customer : ${customers}">
-                <td><span th:text="${customer.customerID}">kunde ID</span></td>
-                <td><span th:text="${customer.firstName}">fornavn</span></td>
-                <td><span th:text="${customer.lastName}">efternavn</span></td>
-                <td><span th:text="${customer.email}">email</span></td>
-                <td><span th:text="${customer.address}">address</span></td>
-                <td><span th:text="${customer.city}">city</span></td>
-                <td><span th:text="${customer.postalCode}">postnr</span></td>
-                <td><span th:text="${customer.mobile}">mobil</span></td>
-                <td><span th:text="${customer.cprNumber}">CPR</span></td>
+                <td><span th:text="${customer.customerID}">Kunde ID</span></td>
+                <td><span th:text="${customer.firstName}">Fornavn</span></td>
+                <td><span th:text="${customer.lastName}">Efternavn</span></td>
+                <td><span th:text="${customer.email}">Email</span></td>
+                <td><span th:text="${customer.address}">Adresse</span></td>
+                <td><span th:text="${customer.city}">City</span></td>
+                <td><span th:text="${customer.postalCode}">Postnr</span></td>
+                <td><span th:text="${customer.mobile}">Mobil</span></td>
+                <td><span th:text="${customer.cprNumber}">CPR Nummer</span></td>
                 <td th:if="${employeeRole == 'DATA_REGISTRATION'}">
                     <a th:href="@{'/edit-customer?customerID='+${customer.customerID}}">
                         <button class="btn-view">Rediger</button>

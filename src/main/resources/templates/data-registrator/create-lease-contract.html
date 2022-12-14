@@ -55,13 +55,11 @@
                 <br>
                 <table>
                     <tr>
-                        <th colspan="4">
-                            Ekstra udstyr til bilen
-                        </th>
+                        <th colspan="4">Tilvalg af service</th>
                     </tr>
                     <tr>
-                        <th>Tryk for at tilføje udstyr</th>
-                        <th>Ekstra udstyr</th>
+                        <th>Tjek</th>
+                        <th>Ekstra service</th>
                         <th>pris per måned</th>
                     </tr>
                     <tr th:each="optionals : ${optionals}">
@@ -73,8 +71,8 @@
                         <td th:text="${optionals.pricePrMonth}"></td>
                     </tr>
                 </table>
+                <br>
                 <button style="float: right" type="submit">send</button>
-
                 <br>
             </form>
         </div>
@@ -99,7 +97,7 @@
                 <th>Tilvalg antal</th>
                 <th>Samlet månedlig Pris</th>
                 <th>Rediger</th>
-                <th>Delete</th>
+                <th>Slet</th>
             </tr>
             <tr th:each="contract, iter_stat : ${leaseContracts}">
                 <td th:text="${contract.leaseID}"></td>

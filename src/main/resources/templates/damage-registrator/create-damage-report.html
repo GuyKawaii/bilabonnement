@@ -17,7 +17,7 @@
     <form action="/create-new-damage-report" method="post">
         <label for="employeeID">Medarbejder id:</label><br>
         <input type="text" id="employeeID" name="employeeID" th:value="${employeeID}" readonly><br>
-        <label for="vehicleID">Vogn id:</label><br>
+        <label for="vehicleID">Vognnummer:</label><br>
         <select name="vehicleID" id="vehicleID"><br>
             <option th:each="car: ${cars}" th:value="${car.vehicleID}"
                     th:text="|id: ${car.vehicleID}, ${car.brand}, ${car.model}|"></option>

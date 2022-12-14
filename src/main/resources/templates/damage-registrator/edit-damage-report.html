@@ -20,7 +20,7 @@
             <input type="text" name="damageReportID" id="damageReportID" th:value="${damageReport.damageReportID}" readonly><br>
             <label for="employeeID">Medarbejder ID:</label><br>
             <input type="text" name="employeeID" id="employeeID" th:value="${damageReport.employeeID}" readonly><br>
-            <label for="vehicleID">Vogn ID:</label><br>
+            <label for="vehicleID">Vognnummer:</label><br>
             <select name="vehicleID" id="vehicleID"><br>
                 <option th:value="${damageReport.vehicleID}"
                         th:text="|${damageReport.vehicleID} - nuværende|"
