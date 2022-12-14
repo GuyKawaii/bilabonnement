@@ -10,7 +10,10 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Veronica(Rhod1um)
+ * @author daniel(GuyKawaii)
+ */
 public class LeaseContractService {
 
     private LeaseContractRepository leaseContractRepo = new LeaseContractRepository(DB_CONNECTION.RELEASE_DB);

@@ -487,9 +487,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return (0 < contractList.size());
     }
-
 }
 

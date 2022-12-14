@@ -83,6 +83,4 @@ public class CarService {
     public List<Car> readAllUnleasedOnDateWithState(Date date, State state) {
         return carRepository.readAllUnleasedOnDateWithState(date, state);
     }
-
-
 }

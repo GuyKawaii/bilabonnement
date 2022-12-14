@@ -288,9 +288,7 @@ public class LeaseContractRepositoryTest {
         System.out.println(leaseOutsideTimeWindow.optionalsPrice());
 
 
-
         // # assert #
         assertEquals(expected, actual);
-
     }
 }

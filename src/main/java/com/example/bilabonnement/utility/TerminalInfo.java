@@ -1,6 +1,9 @@
 package com.example.bilabonnement.utility;
 
 public class TerminalInfo {
+  /**
+   * @author Ian(DatJustino)
+   */
 
 public static void printToConsole(){
   String terminal = "\nDevelopers: \nDaniel Dam, \nIan Justino, \nMikas Baiocchi, \nVeronica Frydkjær \n\n" +
