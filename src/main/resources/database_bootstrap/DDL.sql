@@ -5,9 +5,9 @@
 * @author Ian(DatJustino)
 */
 
-# test
+# # test
 # DROP DATABASE  IF EXISTS testbilabonnement;
-# CREATE DATABASE testbilabonnement;
+#  CREATE DATABASE testbilabonnement;
 # USE testbilabonnement;
 
 # release

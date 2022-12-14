@@ -3,6 +3,7 @@ package com.example.bilabonnement.utility;
 
 public class TerminalInfo {
   /**
+   * Fik ideen fra anden klasse studerende!
    * @author Ian(DatJustino)
    */
 
