@@ -47,12 +47,12 @@
                 <label for="employeeID">Medarbejder ID:</label><br>
                 <select name="employeeID" id="employeeID" required><br>
                     <option th:value="${employeeID}"
-                            th:text="|${employeeID} - ${employeeName} - standard|"
+                            th:text="|${employeeID} - ${employeeName} - mig|"
                             selected="selected">
                     </option>
                     <option th:each="employee: ${employees}"
                             th:value="${employee.employeeID}"
-                            th:text="|${employee.employeeID} - ${employee.name}|">
+                            th:text="|${employee.employeeID} - ${employee.name} - ${employee.role.danish}|">
                     </option>
                 </select><br><br>
                 <br>

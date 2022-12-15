@@ -19,7 +19,16 @@
     <hr>
     <form action="/create-new-damage-report" method="post">
         <label for="employeeID">Medarbejder id:</label><br>
-        <input type="text" id="employeeID" name="employeeID" th:value="${employeeID}" readonly><br>
+        <select name="employeeID" id="employeeID" required><br>
+            <option th:value="${employeeID}"
+                    th:text="|${employeeID} - ${employeeName} - mig|"
+                    selected="selected">
+            </option>
+            <option th:each="employee: ${employees}"
+                    th:value="${employee.employeeID}"
+                    th:text="|${employee.employeeID} - ${employee.name} - ${employee.role.danish}|">
+            </option>
+        </select><br><br><
         <label for="vehicleID">Vognnummer:</label><br>
         <select name="vehicleID" id="vehicleID"><br>
             <option th:each="car: ${cars}" th:value="${car.vehicleID}"
