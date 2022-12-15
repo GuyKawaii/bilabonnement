@@ -172,7 +172,7 @@ public class DataRegistrationController {
         // session navbar
         model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
-
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
         model.addAttribute("unleasedCars", carService.readAllUnleasedOnDate(Date.valueOf(LocalDate.now())));
         model.addAttribute("leasedCars", carService.readAllLeasedOnDate(Date.valueOf(LocalDate.now())));
         model.addAttribute("states", employeeService.getEmployeeStateSelect(DATA_REGISTRATION));
@@ -259,6 +259,7 @@ public class DataRegistrationController {
         // session navbar
         model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
         model.addAttribute("customer", customerService.read(customerID));
 
