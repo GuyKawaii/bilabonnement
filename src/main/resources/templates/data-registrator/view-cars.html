@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Bilkartotek</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author"content="I. Justino, D. Dam, M. Baiocchi, V. Bistrup Frydkjær">
+    <meta name="author" content="I. Justino, D. Dam, M. Baiocchi, V. Frydkjær">
     <link rel="stylesheet" th:href="@{/fragment/nav-menu.css}">
     <link rel="stylesheet" th:href="@{/base.css}">
 </head>
@@ -17,6 +17,67 @@
     <h1>Alle biler</h1>
 
     <div class="columns">
+        <div>
+            <h2>Aktiv leasing</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Vognnummer</th>
+                    <th>Stelnummer</th>
+                    <th>Stålpris</th>
+                    <th>Mærke</th>
+                    <th>Model</th>
+                    <th>Udstyrsniveau</th>
+                    <th>Reg. Afgift</th>
+                    <th>CO2-udledning</th>
+                    <th>Status</th>
+                    <th>Rediger</th>
+                    <th>Rapporter</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(unleasedCars)}"> <!-- no items listed -->
+                    <td>INGEN BILER</td>
+                </tr>
+                <tr th:each="leasedCar : ${leasedCars}">
+                    <td><span th:text="${leasedCar.vehicleID}">Vognnummer</span></td>
+                    <td><span th:text="${leasedCar.chassisNumber}">Stelnummer</span></td>
+                    <td><span th:text="${leasedCar.steelPrice}">Stålpris</span></td>
+                    <td><span th:text="${leasedCar.brand}">Mærke</span></td>
+                    <td><span th:text="${leasedCar.model}">Model</span></td>
+                    <td><span th:text="${leasedCar.equipmentLevel.danish}">Udstyrsniveau</span></td>
+                    <td><span th:text="${leasedCar.registrationFee}">Reg. Afgift</span></td>
+                    <td><span th:text="${leasedCar.co2emission}">CO2-udledning</span></td>
+                    <td>
+                        <form action="#" th:action="@{/update-car-state}" method="post">
+                            <select name="state" onchange="this.form.submit()"><br>
+                                <option th:value="${leasedCar.state}"
+                                        th:text="|${leasedCar.state.danish} - nuværende|"
+                                        selected="selected">
+                                </option>
+                                <option th:each="state: ${states}"
+                                        th:value="${state}"
+                                        th:text="|${state.danish}|">
+                                </option>
+                            </select>
+                            <input type="hidden" th:value="${leasedCar.vehicleID}" name="vehicleID">
+                        </form>
+                    </td>
+                    <td>
+                        <a th:href="@{'/edit-car?vehicleID='+${leasedCar.vehicleID}}">
+                            <button class="btn-view" id="btn-view">Rediger</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/car-lease-contracts?vehicleID='+${leasedCar.vehicleID}}">
+                            <button class="btn-view">Se</button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <div>
             <h2>Uden aktiv leasing</h2>
 
@@ -79,67 +140,7 @@
             </table>
         </div>
 
-        <div>
-            <h2>Aktiv leasing</h2>
 
-            <table>
-                <thead>
-                <tr>
-                    <th>Vognnummer</th>
-                    <th>Stelnummer</th>
-                    <th>Stålpris</th>
-                    <th>Mærke</th>
-                    <th>Model</th>
-                    <th>Udstyrsniveau</th>
-                    <th>Reg. Afgift</th>
-                    <th>CO2-udledning</th>
-                    <th>Status</th>
-                    <th>Rediger</th>
-                    <th>Rapporter</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${#lists.isEmpty(unleasedCars)}"> <!-- no items listed -->
-                    <td>INGEN BILER</td>
-                </tr>
-                <tr th:each="leasedCar : ${leasedCars}">
-                    <td><span th:text="${leasedCar.vehicleID}">Vognnummer</span></td>
-                    <td><span th:text="${leasedCar.chassisNumber}">Stelnummer</span></td>
-                    <td><span th:text="${leasedCar.steelPrice}">Stålpris</span></td>
-                    <td><span th:text="${leasedCar.brand}">Mærke</span></td>
-                    <td><span th:text="${leasedCar.model}">Model</span></td>
-                    <td><span th:text="${leasedCar.equipmentLevel.danish}">Udstyrsniveau</span></td>
-                    <td><span th:text="${leasedCar.registrationFee}">Reg. Afgift</span></td>
-                    <td><span th:text="${leasedCar.co2emission}">CO2-udledning</span></td>
-                    <td>
-                        <form action="#" th:action="@{/update-car-state}" method="post">
-                            <select name="state" onchange="this.form.submit()"><br>
-                                <option th:value="${leasedCar.state}"
-                                        th:text="|${leasedCar.state.danish} - nuværende|"
-                                        selected="selected">
-                                </option>
-                                <option th:each="state: ${states}"
-                                        th:value="${state}"
-                                        th:text="|${state.danish}|">
-                                </option>
-                            </select>
-                            <input type="hidden" th:value="${leasedCar.vehicleID}" name="vehicleID">
-                        </form>
-                    </td>
-                    <td>
-                        <a th:href="@{'/edit-car?vehicleID='+${leasedCar.vehicleID}}">
-                            <button class="btn-view" id="btn-view">Rediger</button>
-                        </a>
-                    </td>
-                    <td>
-                        <a th:href="@{'/car-lease-contracts?vehicleID='+${leasedCar.vehicleID}}">
-                            <button class="btn-view">Se</button>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
 
 </div>
