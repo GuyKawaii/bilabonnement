@@ -137,7 +137,9 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
         }
     }
 
+
     public List<DamageReport> readAllFromEmployee(int employeeID) {
+        // Get all damageReports by (logged in) EmployeeID
         List<DamageReport> damageReports = new ArrayList<>();
 
         try {
@@ -160,3 +162,4 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
         return damageReports;
     }
 }
+

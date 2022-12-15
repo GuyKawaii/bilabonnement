@@ -31,23 +31,6 @@ public class DamageReporterController {
     // people with access to these pages
     Role[] employeeAccess = new Role[]{DAMAGE_REPORTER};
 
-    /**
-     * @author daniel(GuyKawaii)
-     */
-    @GetMapping("/damage-reports")
-    public String damageReports(Model model, HttpSession session) {
-        // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
-            return "redirect:/role-redirect";
-        // session navbar
-        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
-        model.addAttribute("employeeName", session.getAttribute("employeeName"));
-
-        List<DamageReport> damageReports = damageReportService.readAll();
-
-        model.addAttribute("listOfDamageReports", damageReports);
-        return "damage-registrator/damage-reports";
-    }
 
 
     /**
@@ -120,6 +103,25 @@ public class DamageReporterController {
 
         return "redirect:/" + returnPage;
     }
+
+    /**
+     * @author daniel(GuyKawaii)
+     */
+    @GetMapping("/damage-reports")
+    public String damageReports(Model model, HttpSession session) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
+            return "redirect:/role-redirect";
+        // session navbar
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+
+        List<DamageReport> damageReports = damageReportService.readAll();
+
+        model.addAttribute("listOfDamageReports", damageReports);
+        return "damage-registrator/damage-reports";
+    }
+
 
     /**
      * @author daniel(GuyKawaii)

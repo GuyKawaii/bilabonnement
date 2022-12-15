@@ -19,7 +19,7 @@ body {
 /* to center content on website */
 #content {
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
     flex: auto;
 }
 
@@ -29,7 +29,6 @@ table {
     border-collapse: collapse;
     border-spacing: 30px;
     width: 580px;
-
 }
 
 /*styles for table header (colours picked from their primary website)*/
@@ -46,6 +45,7 @@ td {
     border: 1px solid black;
     text-align: center;
     padding: 2px;
+    white-space: nowrap;
 }
 
 /* style for table row (with every 2nd being coloured) */
@@ -65,12 +65,6 @@ li a {
     padding: 18px;
     text-decoration: none;
     background-size: cover;
-}
-
-/* TODO: MÅSKE FJERNES!!!
-/* styles for list-link HOVER elements*/
-li a:hover {
-    background-color: rgb(56, 173, 152);
 }
 
 
@@ -108,13 +102,6 @@ table-div {
     justify-content: space-evenly;
 }
 
-/* TODO: MÅSKE FJERNES!!!-*/
-#narrow-div {
-    margin: 0 20% 0 20%;
-    padding: 4%;
-}
-
-
 #login-div {
     text-align: center;
     border: 1px solid black;
@@ -139,7 +126,9 @@ button {
 .columns {
     display: flex;
     flex-direction: row;
+    /*
     flex-wrap: wrap;
+    */
     justify-content: space-evenly;
     align-items: baseline;
 }
@@ -147,5 +136,4 @@ button {
 .red-error-color {
     color: red;
 }
-
 /* specific for finance page */

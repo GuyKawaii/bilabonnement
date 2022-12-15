@@ -21,7 +21,7 @@ public class LeaseContract {
     private int employeeID;
     private List<Optional> leaseOptionals;
 
-
+    //Create med ID
     public LeaseContract(Integer leaseID, Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID, List<Optional> leaseOptionals) {
         this.leaseID = leaseID;
         this.startDate = startDate;
@@ -32,7 +32,7 @@ public class LeaseContract {
         this.employeeID = employeeID;
         this.leaseOptionals = leaseOptionals;
     }
-
+    //Create uden ID
     public LeaseContract(Date startDate, Date endDate, double monthlyPrice, int customerID, int vehicleID, int employeeID, List<Optional> leaseOptionals) {
         this.startDate = startDate;
         this.endDate = endDate;

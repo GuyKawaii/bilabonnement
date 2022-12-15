@@ -38,7 +38,7 @@ public class DataRegistrationController {
      * @author Ian(DatJustino)
      * @author Veronica(Rhod1um)
      */
-    // Create LeaseContract
+    // Get LeaseContract side
     @GetMapping("/create-lease-contract")
     public String registrationPage(@RequestParam(required = false) String error, HttpSession session, Model model) {
         // validate employee access
@@ -53,7 +53,8 @@ public class DataRegistrationController {
         if (error != null) model.addAttribute("error", error);
         else model.addAttribute("error", "na");
 
-
+        // Read all possible selection choices from the database to view in the html, the cars are logically checked if
+        // they are available, and if they are ready at the local datetime
         model.addAttribute("optionals", optionalService.readAll());
         model.addAttribute("leaseContracts", leaseService.readAll());
         model.addAttribute("employees", employeeService.readAllWithRole(DATA_REGISTRATION));
@@ -69,6 +70,7 @@ public class DataRegistrationController {
      * @author daniel(GuyKawaii)
      * @author Mikas(CodeClod)
      */
+    // Make LeaseContract Postmapping
     @PostMapping("/make_contract")
     public String makeContract(WebRequest req) {
         Date startDate = Date.valueOf(req.getParameter("startDate"));

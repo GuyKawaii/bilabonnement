@@ -74,13 +74,94 @@ class CustomerRepositoryTest {
 
     @Test
     void read() {
+
+        // # arrange #
+        int customerID = 1;
+        Customer expected = new Customer(customerID, "firstName", "lastName", "createTestEmail", "address", "city", 2900, "mobile", "cprNumber");
+
+        // delete previous
+        customerRepository.delete(customerID);
+
+        // # act #
+        customerRepository.create(expected);
+
+        Customer actual = customerRepository.read(customerID);
+
+
+        // # assert #
+        assertEquals(actual.getCustomerID(), expected.getCustomerID());
+        assertEquals(actual.getFirstName(), expected.getFirstName());
+        assertEquals(actual.getLastName(), expected.getLastName());
+        assertEquals(actual.getEmail(), expected.getEmail());
+        assertEquals(actual.getAddress()    , expected.getAddress());
+        assertEquals(actual.getCity(), expected.getCity());
+        assertEquals(actual.getPostalCode(), expected.getPostalCode());
+        assertEquals(actual.getMobile(), expected.getMobile());
+        assertEquals(actual.getCprNumber(), expected.getCprNumber());
     }
+
 
     @Test
     void update() {
+        // # arrange #
+        int customerID = 1;
+        Customer before = new Customer(customerID, "firstName", "lastName", "createTestEmail", "address", "city", 2900, "mobile", "cprNumber");
+        Customer expected = new Customer(customerID, "firstName2TestComplete", "lastName2", "createTestEmail", "address", "city", 2900, "mobile", "cprNumber");
+
+        // delete previous
+        customerRepository.delete(customerID);
+
+        // # act #
+        customerRepository.create(before);
+        customerRepository.update(expected);
+
+        Customer actual = customerRepository.read(customerID);
+
+
+        // # assert #
+        assertEquals(actual.getCustomerID(), expected.getCustomerID());
+        assertEquals(actual.getFirstName(), expected.getFirstName());
+        assertEquals(actual.getLastName(), expected.getLastName());
+        assertEquals(actual.getEmail(), expected.getEmail());
+        assertEquals(actual.getAddress()    , expected.getAddress());
+        assertEquals(actual.getCity(), expected.getCity());
+        assertEquals(actual.getPostalCode(), expected.getPostalCode());
+        assertEquals(actual.getMobile(), expected.getMobile());
+        assertEquals(actual.getCprNumber(), expected.getCprNumber());
     }
+
+
+
 
     @Test
     void delete() {
+        // # arrange #
+        int customerID = 1;
+        Customer expected = new Customer(customerID, "firstName", "lastName", "createTestEmail", "address", "city", 2900, "mobile", "cprNumber");
+
+        // delete previous
+        customerRepository.delete(customerID);
+
+        // # act #
+        customerRepository.create(expected);
+
+        Customer actual = customerRepository.read(customerID);
+
+        customerRepository.delete(customerID);
+
+        Customer actualNull = customerRepository.read(customerID);
+        // # assert #
+        assertEquals(actual.getCustomerID(), expected.getCustomerID());
+        assertEquals(actual.getFirstName(), expected.getFirstName());
+        assertEquals(actual.getLastName(), expected.getLastName());
+        assertEquals(actual.getEmail(), expected.getEmail());
+        assertEquals(actual.getAddress()    , expected.getAddress());
+        assertEquals(actual.getCity(), expected.getCity());
+        assertEquals(actual.getPostalCode(), expected.getPostalCode());
+        assertEquals(actual.getMobile(), expected.getMobile());
+        assertEquals(actual.getCprNumber(), expected.getCprNumber());
+        assertNull(actualNull);
     }
-}
+
+
+    }
