@@ -23,7 +23,7 @@ public class BusinessDeveloperController {
     CarService carService = new CarService();
     LeaseContractService leaseContractService = new LeaseContractService();
 
-    // people with access to these pages todo change to only use one Role for check
+    // people with access to these pages
     Role[] employeeAccess = new Role[]{BUSINESS_DEVELOPER};
 
     /**

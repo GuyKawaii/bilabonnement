@@ -38,7 +38,7 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
                 psts.setInt(1, damageReport.getDamageReportID());
                 psts.setInt(2, damageReport.getVehicleID());
                 psts.setInt(3, damageReport.getEmployeeID());
-                psts.setTimestamp(4, damageReport.getTimestamp()); // todo some confusion about this and datetime format in sql and java
+                psts.setTimestamp(4, damageReport.getTimestamp());
             }
             psts.executeUpdate();
 

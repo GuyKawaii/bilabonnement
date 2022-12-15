@@ -153,8 +153,6 @@ public class CustomerRepository implements IGenericRepository<Customer> {
      */
     @Override
     public void delete(int customerID) {
-
-        // TODO is it possible to make a delete on a table-row that has a foreign key?
         try {
             PreparedStatement psts = conn.prepareStatement("DELETE FROM customer WHERE customerID = ?");
             psts.setInt(1, customerID);
