@@ -70,7 +70,7 @@ public class DataRegistrationController {
      * @author Mikas(CodeClod)
      */
     @PostMapping("/make_contract")
-    public String makeContract(HttpSession session, WebRequest req, RedirectAttributes redirectAttributes) {
+    public String makeContract(WebRequest req) {
         Date startDate = Date.valueOf(req.getParameter("startDate"));
         Date endDate = Date.valueOf(req.getParameter("endDate"));
 
@@ -100,7 +100,7 @@ public class DataRegistrationController {
         ));
 
         // change state if active contract
-        if (startDate.after(Date.valueOf(LocalDate.now())) & endDate.before(Date.valueOf(LocalDate.now()))) {
+        if (startDate.before(Date.valueOf(LocalDate.now())) & endDate.after(Date.valueOf(LocalDate.now()))) {
             carService.updateState(Integer.parseInt(req.getParameter("vehicleID")), AT_CUSTOMER);
         }
 
