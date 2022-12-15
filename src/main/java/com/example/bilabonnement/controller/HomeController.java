@@ -136,8 +136,8 @@ public class HomeController {
             return "redirect:/role-redirect";
         // session navbar
         model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
-        model.addAttribute("employee", (Employee) session.getAttribute("employee"));
 
         model.addAttribute("customers", customerService.readAll());
 
