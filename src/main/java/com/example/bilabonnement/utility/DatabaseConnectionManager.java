@@ -39,7 +39,10 @@ public class DatabaseConnectionManager {
             username = System.getenv("azure_username");
             password = System.getenv("azure_password");
         }
-        // localhost connect
+//        // localhost connect
+//        url = "jdbc:mysql://localhost:3306/bilabonnement";
+//        username = "root";
+//        password = "anBguFVWxF#9";
 
         try {
             conn = DriverManager.getConnection(url, username, password);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="da" xmlns:th="http://www.w3.org/1999/xhtml">>
+<html lang="da" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Ændre kunde</title>
@@ -13,9 +13,9 @@
 <header th:replace="fragment/nav-menu.html :: header"></header>
 
 <div class="columns">
+
     <div>
         <h2>Kunder</h2>
-
         <form action="/update-customer" method="post">
             <label for="customerID">Kunde ID:</label><br>
             <input type="number" id="customerID" name="customerID" th:value="${customer.customerID}" readonly><br>

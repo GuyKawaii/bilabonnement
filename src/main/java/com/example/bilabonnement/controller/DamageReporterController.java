@@ -63,7 +63,7 @@ public class DamageReporterController {
 
         // damage report to create
         damageReportService.create(new DamageReport(
-                (int) (session.getAttribute("employeeID")),
+                 Integer.parseInt(req.getParameter("employeeID")),
                 Integer.parseInt(req.getParameter("vehicleID")),
                 Timestamp.valueOf(LocalDateTime.parse(req.getParameter("datetime")))));
 
@@ -115,6 +115,7 @@ public class DamageReporterController {
         // session navbar
         model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
         List<DamageReport> damageReports = damageReportService.readAll();
 

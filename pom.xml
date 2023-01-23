@@ -14,7 +14,7 @@
     <name>bilabonnement</name>
     <description>bilabonnement</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>19</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -59,8 +59,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>19</source>
+                    <target>19</target>
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>

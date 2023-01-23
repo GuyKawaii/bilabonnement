@@ -57,7 +57,7 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
         List<DamageReport> damageReports = new ArrayList<>();
 
         try {
-            PreparedStatement pst = conn.prepareStatement("select * from damagereport");
+            PreparedStatement pst = conn.prepareStatement("select * from damagereport order by timestamp desc");
             ResultSet resultSet = pst.executeQuery();
 
             // list of entities
@@ -143,7 +143,7 @@ public class DamageReportRepository implements IGenericRepository<DamageReport> 
         List<DamageReport> damageReports = new ArrayList<>();
 
         try {
-            PreparedStatement psts = conn.prepareStatement("SELECT * FROM damagereport WHERE employeeID = ?");
+            PreparedStatement psts = conn.prepareStatement("SELECT * FROM damagereport WHERE employeeID = ? order by timestamp desc");
             psts.setInt(1, employeeID);
             ResultSet resultSet = psts.executeQuery();
 

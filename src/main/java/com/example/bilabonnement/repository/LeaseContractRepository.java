@@ -220,7 +220,7 @@ public class LeaseContractRepository implements IGenericRepository<LeaseContract
         double income = 0;
         try {
             PreparedStatement pst = conn.prepareStatement("""
-                    SELECT SUM(currentIncomeTable) as currentIncomeSum
+                    SELECT SUM(ROUND (currentIncomeTable, 3)) as currentIncomeSum
                     FROM (SELECT monthlyPrice + IFNULL(SUM(pricePrMonth), 0) AS currentIncomeTable
                           FROM fullLeaseInfo
                           WHERE (startDate <= ?)

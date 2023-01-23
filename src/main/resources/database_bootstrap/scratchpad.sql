@@ -98,6 +98,12 @@ WHERE leasecontract.leaseID = leaseoptional.leaseID
   AND leaseoptional.optionalID = optional.optionalID
 GROUP BY leasecontract.leaseID;
 
+SELECT SUM(currentIncome)
+FROM (SELECT monthlyPrice + IFNULL(SUM(pricePrMonth), 0) AS currentIncome
+      FROM fullLeaseInfo
+      WHERE (startDate <= ?)
+        AND (? <= endDate)
+      GROUP BY leaseID) as currentIncome;
 
 
 SELECT leasecontract.*, optional.*
@@ -126,6 +132,8 @@ from fullLeaseInfo
 where startDate <= ?
   and endDate >= ?;
 
+
+
 SELECT SUM(monthlyPrice) + SUM(pricePrMonth) AS currentIncome
 from fullLeaseInfo;
 
@@ -143,8 +151,34 @@ WHERE (startDate <= '2022-12-08')
 # Used in lease contract with ? instead of dates
 SELECT SUM(monthlyPrice) + IFNULL(SUM(pricePrMonth), 0) AS currentIncome
 FROM fullLeaseInfo
-WHERE (startDate <= '2022-12-09')
-  AND ('2022-12-09' <= endDate);
+WHERE (startDate <= '2000-01-02')
+  AND ('2000-01-02' <= endDate);
+
+SELECT monthlyPrice + IFNULL(SUM(pricePrMonth), 0) AS currentIncome
+FROM fullLeaseInfo
+WHERE (startDate <= '2000-01-02')
+  AND ('2000-01-02' <= endDate)
+GROUP BY leaseID;
+
+
+
+SELECT SUM(currentIncome)
+FROM (SELECT monthlyPrice + IFNULL(SUM(pricePrMonth), 0) AS currentIncome
+      FROM fullLeaseInfo
+      WHERE (startDate <= '2000-01-02')
+        AND ('2000-01-02' <= endDate)
+      GROUP BY leaseID) as currentIcome;
+
+select *
+from fullLeaseInfo;
+
+create view fullLeaseInfo AS
+SELECT leasecontract.*, optional.*
+FROM leasecontract
+         LEFT JOIN leaseoptional
+                   ON leasecontract.leaseID = leaseoptional.leaseID
+         LEFT JOIN optional
+                   ON leaseoptional.optionalID = optional.optionalID;
 
 SELECT COUNT(*) AS activeContractCount
 FROM fullLeaseInfo
@@ -325,6 +359,14 @@ WHERE l.vehicleID = ?
     (? < l.endDate
         OR l.startDAte < ?));
 
-DELETE
-FROM employee
-where employeeID = 104;
+USE bilabonnement;
+
+SELECT unleased.*
+FROM car unleased
+WHERE unleased.vehicleID NOT IN (SELECT leased.vehicleID
+                                 FROM car leased
+                                          join leasecontract l on leased.vehicleID = l.vehicleID
+                                 WHERE startDate <= ?
+                                   AND              ? <= endDate);
+
+SELECT * FROM bilabonnement.fullleaseinfo;

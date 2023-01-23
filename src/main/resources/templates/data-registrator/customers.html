@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="da" xmlns:th="http://www.w3.org/1999/xhtml">>
+<html lang="da" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Kundekartotek</title>
@@ -15,7 +15,7 @@
 <div class="columns">
 
     <div>
-        <h2>opret kunde</h2>
+        <h2>Opret kunde</h2>
         <form action="/create-customer" method="post">
             <label for="firstName">Fornavn:</label><br>
             <input type="text" id="firstName" name="firstName" required><br>
@@ -52,7 +52,7 @@
                 <th>Postnr</th>
                 <th>Mobil</th>
                 <th>CPR nummer</th>
-                <th th:if="${employeeRole == 'DATA_REGISTRATION'}">Rediger</th>
+                <th>Rediger kunder</th>
             </tr>
             </thead>
             <tbody>
@@ -69,7 +69,7 @@
                 <td><span th:text="${customer.postalCode}">Postnr</span></td>
                 <td><span th:text="${customer.mobile}">Mobil</span></td>
                 <td><span th:text="${customer.cprNumber}">CPR Nummer</span></td>
-                <td th:if="${employeeRole == 'DATA_REGISTRATION'}">
+                <td> <!--th:if="${employeeRole == 'DATA_REGISTRATION'}"-->
                     <a th:href="@{'/edit-customer?customerID='+${customer.customerID}}">
                         <button class="btn-view">Rediger</button>
                     </a>

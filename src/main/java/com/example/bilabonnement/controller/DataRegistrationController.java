@@ -1,6 +1,7 @@
 package com.example.bilabonnement.controller;
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.Customer;
 import com.example.bilabonnement.model.LeaseContract;
 import com.example.bilabonnement.model.Optional;
 import com.example.bilabonnement.model.enums.EquipmentLevel;
@@ -10,15 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static com.example.bilabonnement.model.enums.Role.DATA_REGISTRATION;
 import static com.example.bilabonnement.model.enums.State.*;
@@ -247,6 +245,24 @@ public class DataRegistrationController {
         leaseService.delete(leaseID);
         return "redirect:/create-lease-contract";
     }
+    
+    /**
+     * @author daniel(GuyKawaii)
+     */
+    @GetMapping("/customers")
+    public String Customers(Model model, HttpSession session) {
+        // validate employee access
+        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
+            return "redirect:/role-redirect";
+        // session navbar
+        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
+        model.addAttribute("employeeName", session.getAttribute("employeeName"));
+
+        model.addAttribute("customers", customerService.readAll());
+
+        return "/data-registrator/customers";
+    }
 
     /**
      * @author daniel(GuyKawaii)
@@ -266,5 +282,46 @@ public class DataRegistrationController {
         return "edit-customer";
     }
 
+
+    /**
+     * @author daniel(GuyKawaii)
+     */
+    @PostMapping("update-customer")
+    public String updateCustomer(WebRequest req) {
+
+        customerService.update(new Customer(
+            Integer.parseInt(req.getParameter("customerID")),
+            req.getParameter("firstName"),
+            req.getParameter("lastName"),
+            req.getParameter("email"),
+            req.getParameter("address"),
+            req.getParameter("city"),
+            Integer.parseInt(req.getParameter("postalCode")),
+            req.getParameter("mobile"),
+            req.getParameter("cprNumber")
+        ));
+
+        return "redirect:/customers";
+    }
+
+    /**
+     * @author daniel(GuyKawaii)
+     */
+    @PostMapping("/create-customer")
+    public String createCustomer(WebRequest req) {
+
+        customerService.create(new Customer(
+            req.getParameter("firstName"),
+            req.getParameter("lastName"),
+            req.getParameter("email"),
+            req.getParameter("address"),
+            req.getParameter("city"),
+            Integer.parseInt(req.getParameter("postalCode")),
+            req.getParameter("mobile"),
+            req.getParameter("cprNumber")
+        ));
+
+        return "redirect:/customers";
+    }
 
 }

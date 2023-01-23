@@ -72,14 +72,6 @@ public class CarRepositoryTest {
 
     for (Car car : expected)
       carRepo.delete(car.getVehicleID());
-    carRepo.delete(501);
-    carRepo.delete(502);
-    carRepo.delete(503);
-    carRepo.delete(504);
-    carRepo.delete(505);
-    carRepo.delete(506);
-    carRepo.delete(507);
-
 
     for (Car car : expected)
       carRepo.create(car);
@@ -208,5 +200,4 @@ public class CarRepositoryTest {
 
 
   }
-  }
-
+}

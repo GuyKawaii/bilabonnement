@@ -24,7 +24,6 @@ import static com.example.bilabonnement.model.enums.Role.*;
 public class HomeController {
 
     EmployeeService employeeService = new EmployeeService();
-    CustomerService customerService = new CustomerService();
     LeaseContractService leaseService = new LeaseContractService();
 
     // people with access to these pages
@@ -118,6 +117,7 @@ public class HomeController {
         // session navbar
         model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
         model.addAttribute("employeeName", session.getAttribute("employeeName"));
+        model.addAttribute("employeeID", session.getAttribute("employeeID"));
 
         model.addAttribute("upcoming_contracts", leaseService.readUpcomingLeaseContractsByVehicleID(vehicleID, Date.valueOf(LocalDate.now())));
         model.addAttribute("active_contracts", leaseService.readActiveLeaseContracts(vehicleID, Date.valueOf(LocalDate.now())));
@@ -126,62 +126,5 @@ public class HomeController {
         return "car-lease-contracts";
     }
 
-    /**
-     * @author daniel(GuyKawaii)
-     */
-    @GetMapping("/customers")
-    public String Customers(Model model, HttpSession session) {
-        // validate employee access
-        if (!EmployeeService.validEmployeeRole((Role) session.getAttribute("employeeRole"), employeeAccess))
-            return "redirect:/role-redirect";
-        // session navbar
-        model.addAttribute("employeeRole", session.getAttribute("employeeRole"));
-        model.addAttribute("employeeID", session.getAttribute("employeeID"));
-        model.addAttribute("employeeName", session.getAttribute("employeeName"));
 
-        model.addAttribute("customers", customerService.readAll());
-
-        return "/data-registrator/customers";
-    }
-
-    /**
-     * @author daniel(GuyKawaii)
-     */
-    @PostMapping("update-customer")
-    public String updateCustomer(WebRequest req) {
-
-        customerService.update(new Customer(
-                Integer.parseInt(req.getParameter("customerID")),
-                req.getParameter("firstName"),
-                req.getParameter("lastName"),
-                req.getParameter("email"),
-                req.getParameter("address"),
-                req.getParameter("city"),
-                Integer.parseInt(req.getParameter("postalCode")),
-                req.getParameter("mobile"),
-                req.getParameter("cprNumber")
-        ));
-
-        return "redirect:/customers";
-    }
-
-    /**
-     * @author daniel(GuyKawaii)
-     */
-    @PostMapping("/create-customer")
-    public String createCustomer(WebRequest req) {
-
-        customerService.create(new Customer(
-                req.getParameter("firstName"),
-                req.getParameter("lastName"),
-                req.getParameter("email"),
-                req.getParameter("address"),
-                req.getParameter("city"),
-                Integer.parseInt(req.getParameter("postalCode")),
-                req.getParameter("mobile"),
-                req.getParameter("cprNumber")
-        ));
-
-        return "redirect:/customers";
-    }
-}
+   }

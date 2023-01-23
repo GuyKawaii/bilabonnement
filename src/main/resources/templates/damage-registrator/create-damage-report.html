@@ -27,7 +27,7 @@
                     th:value="${employee.employeeID}"
                     th:text="|${employee.employeeID} - ${employee.name} - ${employee.role.danish}|">
             </option>
-        </select><br><br><
+        </select><br><br>
         <label for="vehicleID">Vognnummer:</label><br>
         <select name="vehicleID" id="vehicleID"><br>
             <option th:each="car: ${cars}" th:value="${car.vehicleID}"

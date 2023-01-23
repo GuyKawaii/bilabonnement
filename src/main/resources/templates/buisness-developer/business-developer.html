@@ -35,48 +35,6 @@
 
 <div class="columns">
     <div class="column">
-        <h2>Uden aktiv leasing</h2>
-
-        <table>
-            <thead>
-            <tr>
-                <th>Vognnummer</th>
-                <th>Stelnummer</th>
-                <th>Stålpris</th>
-                <th>Mærke</th>
-                <th>Model</th>
-                <th>Udstyrsniveau</th>
-                <th>Reg. Afgift</th>
-                <th>CO2-udledning</th>
-                <th>Status</th>
-                <th>Kontrator</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${#lists.isEmpty(unleased_cars)}"> <!-- no items listed -->
-                <td>INGEN BILER</td>
-            </tr>
-            <tr th:each="unleased_car : ${unleased_cars}">
-                <td><span th:text="${unleased_car.vehicleID}">Vognnummer</span></td>
-                <td><span th:text="${unleased_car.chassisNumber}">Stelnummer</span></td>
-                <td><span th:text="${unleased_car.steelPrice}">Stålpris</span></td>
-                <td><span th:text="${unleased_car.brand}">Mærke</span></td>
-                <td><span th:text="${unleased_car.model}">Model</span></td>
-                <td><span th:text="${unleased_car.equipmentLevel.danish}">Udstyrsniveau</span></td>
-                <td><span th:text="${unleased_car.registrationFee}">Reg. Afgift</span></td>
-                <td><span th:text="${unleased_car.co2emission}">CO2-udledning</span></td>
-                <td><span th:text="${unleased_car.state.danish}">Status</span></td>
-                <td>
-                    <a th:href="@{'/car-lease-contracts?vehicleID='+${unleased_car.vehicleID}}">
-                        <button class="btn-view">Se</button>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="column">
         <h2>Aktiv leasing</h2>
 
         <table>
@@ -91,7 +49,7 @@
                 <th>Reg. Afgift</th>
                 <th>CO2-udledning</th>
                 <th>Status</th>
-                <th>Kontrator</th>
+                <th>Leasing kontrakter</th>
             </tr>
             </thead>
             <tbody>
@@ -110,6 +68,47 @@
                 <td><span th:text="${leased_car.state.danish}">Status</span></td>
                 <td>
                     <a th:href="@{'/car-lease-contracts?vehicleID='+${leased_car.vehicleID}}">
+                        <button class="btn-view">Se</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <div class="column">
+        <h2>Uden aktiv leasing</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Vognnummer</th>
+                <th>Stelnummer</th>
+                <th>Stålpris</th>
+                <th>Mærke</th>
+                <th>Model</th>
+                <th>Udstyrsniveau</th>
+                <th>Reg. Afgift</th>
+                <th>CO2-udledning</th>
+                <th>Status</th>
+                <th>Leasing kontrakter</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(unleased_cars)}"> <!-- no items listed -->
+                <td>INGEN BILER</td>
+            </tr>
+            <tr th:each="unleased_car : ${unleased_cars}">
+                <td><span th:text="${unleased_car.vehicleID}">Vognnummer</span></td>
+                <td><span th:text="${unleased_car.chassisNumber}">Stelnummer</span></td>
+                <td><span th:text="${unleased_car.steelPrice}">Stålpris</span></td>
+                <td><span th:text="${unleased_car.brand}">Mærke</span></td>
+                <td><span th:text="${unleased_car.model}">Model</span></td>
+                <td><span th:text="${unleased_car.equipmentLevel.danish}">Udstyrsniveau</span></td>
+                <td><span th:text="${unleased_car.registrationFee}">Reg. Afgift</span></td>
+                <td><span th:text="${unleased_car.co2emission}">CO2-udledning</span></td>
+                <td><span th:text="${unleased_car.state.danish}">Status</span></td>
+                <td>
+                    <a th:href="@{'/car-lease-contracts?vehicleID='+${unleased_car.vehicleID}}">
                         <button class="btn-view">Se</button>
                     </a>
                 </td>
