@@ -13,6 +13,8 @@ public class Car {
     private double co2emission;
     private State state;
 
+    // WITH NEW FORK
+
     // with vehicleID
     public Car(Integer vehicleID, String chassisNumber, double steelPrice, String brand, String model, EquipmentLevel equipmentLevel, double registrationFee, double co2emission, State state) {
         this.vehicleID = vehicleID;
